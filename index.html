@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ScoreUp</title>
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#101a3d"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="ScoreUp">
+<style>
+:root{--bg:#f1f3f6;--cd:#fff;--tx:#14181f;--mu:#5d6675;--ac:#2447c9;--ax:#fff;--ok:#17794a;--ob:#dff3e8;--ko:#b42318;--kb:#fbe3e0;--bd:#d3d9e2;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12151b;--cd:#1b2029;--tx:#eceff4;--mu:#9aa4b5;--ac:#8fa8ff;--ax:#0e1530;--ok:#74d6a0;--ob:#13301f;--ko:#f4a29a;--kb:#3a1d1a;--bd:#323a49;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#12151b;--cd:#1b2029;--tx:#eceff4;--mu:#9aa4b5;--ac:#8fa8ff;--ax:#0e1530;--ok:#74d6a0;--ob:#13301f;--ko:#f4a29a;--kb:#3a1d1a;--bd:#323a49;color-scheme:dark}
+html{background:var(--bg);scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+#app{max-width:640px;margin:0 auto;padding:16px 16px 40px}
+h1{font-size:26px;margin:8px 0 2px}h2{font:600 21px/1.35 Georgia,"Times New Roman",serif;margin:18px 0 14px}h3{margin:20px 0 8px;font-size:17px}
+p{margin:6px 0}.mu{color:var(--mu);font-size:14px}
+.cd{background:var(--cd);border:1px solid var(--bd);border-radius:12px;padding:14px;margin:10px 0}
+.cd.g{border-left:5px solid var(--ok)}.cd.b{border-left:5px solid var(--ko)}
+.btn{display:block;width:100%;box-sizing:border-box;min-height:48px;padding:12px 16px;margin:8px 0;border:0;border-radius:10px;background:var(--ac);color:var(--ax);font:600 16px system-ui,sans-serif;cursor:pointer}
+.btn.s{background:transparent;color:var(--ac);border:1.5px solid var(--ac)}.btn.d{background:transparent;color:var(--ko);border:1.5px solid var(--ko)}
+.row{display:flex;gap:10px}.row .btn{flex:1}
+.opt{display:flex;gap:12px;align-items:flex-start;width:100%;box-sizing:border-box;min-height:52px;text-align:left;padding:12px;margin:8px 0;background:var(--cd);color:var(--tx);border:1.5px solid var(--bd);border-radius:10px;font:16px/1.4 system-ui,sans-serif;cursor:pointer}
+.opt b{flex:none;width:28px;height:28px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:14px}
+.opt.sel{border-color:var(--ac);box-shadow:0 0 0 1px var(--ac)}.opt.ok{border-color:var(--ok);background:var(--ob)}.opt.ko{border-color:var(--ko);background:var(--kb)}
+.top{display:flex;justify-content:space-between;font-size:14px;color:var(--mu)}.bar{height:6px;background:var(--bd);border-radius:3px;margin:6px 0}.bar i{display:block;height:100%;background:var(--ac);border-radius:3px}
+input[type=text],input[type=number],textarea,select{width:100%;box-sizing:border-box;padding:10px;margin:4px 0 10px;border:1.5px solid var(--bd);border-radius:8px;background:var(--cd);color:var(--tx);font:16px system-ui,sans-serif}
+textarea{min-height:190px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px}
+label{display:block;font-weight:600;font-size:15px;margin-top:8px}label.c{display:flex;gap:10px;align-items:center;font-weight:400}label.c input{width:20px;height:20px;margin:0}
+pre{white-space:pre-wrap;word-break:break-word;background:var(--cd);border:1px solid var(--bd);border-radius:8px;padding:12px;font:14px/1.45 ui-monospace,Menlo,Consolas,monospace;margin:8px 0}
+.big{font:700 44px/1.1 Georgia,serif;margin:8px 0}.er{color:var(--ko);font-size:14px;margin:4px 0}.w{background:var(--kb);color:var(--ko);border-radius:8px;padding:10px;font-size:14px}
+.back{background:none;border:0;color:var(--ac);font:600 15px system-ui;padding:8px 0;cursor:pointer}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.chip{border:1.5px solid var(--c,var(--bd));background:var(--cd);color:var(--tx);padding:6px 12px;border-radius:999px;font:600 14px system-ui,sans-serif;cursor:pointer}.chip.on{background:var(--c,var(--ac));color:var(--cx,var(--ax));border-color:var(--c,var(--ac))}
+.bdg{display:inline-block;color:#fff;font:600 12px system-ui,sans-serif;padding:3px 10px;border-radius:999px}.cs{width:auto;max-width:100%;padding:6px;margin:6px 0 0;font-size:14px}.fc{min-height:230px;display:flex;flex-direction:column;justify-content:center;cursor:pointer}
+.wn{font-size:13px;color:var(--ko);background:var(--kb);border-radius:8px;padding:8px 10px;margin:10px 0 4px}.star{background:none;border:0;font-size:26px;line-height:1;color:var(--ac);cursor:pointer;padding:0 6px}
+.thumb .acts{position:sticky;bottom:0;z-index:5;background:var(--bg);margin:0 -16px;padding:8px 16px 4px;border-top:1px solid var(--bd)}
+.tw{overflow-x:auto;margin:8px 0}.tw table{border-collapse:collapse;font:14px/1.4 system-ui,sans-serif;white-space:normal;min-width:60%}.tw th,.tw td{border:1px solid var(--bd);padding:6px 10px;text-align:center}.tw th{background:var(--bg);font-weight:600}
+.reg{display:flex;align-items:flex-end;gap:2px;height:70px;margin:12px 0 6px}.reg i{display:block;flex:1;background:var(--ac);border-radius:2px}.reg i.z{background:var(--bd)}
+.qr{display:block;width:100%;max-width:330px;height:auto;margin:12px auto;border-radius:14px;image-rendering:pixelated}
+.scanbox{position:relative;border-radius:18px;overflow:hidden;background:#000;aspect-ratio:1/1;max-width:360px;margin:12px auto}
+.scanbox video{width:100%;height:100%;object-fit:cover;display:block}
+.scanbox i{position:absolute;inset:14%;border:3px solid rgba(255,255,255,.9);border-radius:18px;box-shadow:0 0 0 999px rgba(0,0,0,.35)}
+.suov{position:fixed;inset:0;z-index:99;background:rgba(0,0,0,.6);display:flex;align-items:flex-end;justify-content:center}
+.suov>div{width:100%;max-width:520px;max-height:92vh;overflow:auto;background:var(--cd);color:var(--tx);border-radius:20px 20px 0 0;padding:16px 16px calc(20px + env(safe-area-inset-bottom,0px))}
+@media(min-width:600px){.suov{align-items:center}.suov>div{border-radius:20px}}
+</style></head><body><div id="app"></div>
+<script>
+var L="ABCDEF",$=function(s){return document.querySelector(s)};
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+var DB={sets:[],hist:[],cats:[],fav:[],seeded:false,days:{}},SESS=null,store=true,view="home",cur=null,tmp={};
+var MN={libre:"QCM libre",exam:"Examen",erreurs:"Erreurs",flash:"Flashcards"};
+var PROMPT="Tu es un professeur d’université expert et rigoureux. À partir du cours ci-dessous, crée 20 QCM.\n\nRègles :\n- Utilise EXCLUSIVEMENT les informations du cours fourni. N’invente rien. Si une information manque dans le cours, ne pose pas la question.\n- Une seule bonne réponse par question, et trois mauvaises réponses plausibles. Répartis la bonne réponse entre A, B, C et D.\n- Avant d’écrire chaque question, vérifie dans le cours que la lettre indiquée après R: est bien la bonne.\n- Respecte exactement ce format, avec une ligne vide entre deux questions :\nQ: la question\nA) premier choix\nB) deuxième choix\nC) troisième choix\nD) quatrième choix\nR: la lettre de la bonne réponse\nE: une courte explication\n\nÉcris tout directement dans ta réponse, pas dans un PDF ni dans un fichier. N’ajoute aucun autre texte : pas d’introduction, pas de conclusion, pas de gras, pas de balises markdown.\n\nVoici le cours :\n";
+var PROMPT2="Tu es un professeur d’université expert et rigoureux. À partir de l’exercice ci-dessous, écris l’exercice et son corrigé détaillé.\n\nRègles :\n- Utilise uniquement les données de l’énoncé et les méthodes du cours. N’invente aucune donnée. Si une donnée manque ou est illisible, écris-le dans le corrigé au lieu de la deviner.\n- Calculs : fais chaque calcul pas à pas, puis refais-le une seconde fois (autre méthode ou vérification). N’écris la ligne N: que si les deux résultats sont identiques. En cas de doute, supprime la ligne N: et explique dans C:.\n- Tableaux : recopie chaque tableau de l’énoncé en texte, une ligne par ligne du tableau, avec les cellules séparées par le symbole |, la première ligne contenant les en-têtes. Exemple :\nNombre de divorces | 0 | 1 | 2\nEffectif | 5 | 3 | 25\nVérifie que tu as recopié chaque chiffre exactement, et que les totaux correspondent à l’énoncé.\n- Respecte exactement ce format :\nEX: titre de l’exercice\n(énoncé, données et tableaux écrits en texte)\nQ: première question\nN: la réponse sous forme d’un seul nombre, sans unité (ligne à supprimer si la réponse n’est pas un seul nombre)\nC: corrigé détaillé avec les calculs\nQ: question suivante (même structure)\n\nÉcris tout directement dans ta réponse, sans PDF, sans gras, sans balises markdown et sans autre texte.\n\nVoici l’exercice :\n";
+function rd(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}}
+function save(){try{localStorage.setItem("qcm_db",JSON.stringify(DB))}catch(e){store=false}}
+function saveS(){try{if(SESS)localStorage.setItem("qcm_sess",JSON.stringify(SESS));else localStorage.removeItem("qcm_sess")}catch(e){store=false}}
+function load(){try{localStorage.setItem("qcm_t","1");localStorage.removeItem("qcm_t")}catch(e){store=false}
+ var d=rd("qcm_db");if(d&&Array.isArray(d.sets))DB={sets:d.sets,hist:Array.isArray(d.hist)?d.hist:[],cats:Array.isArray(d.cats)?d.cats:[],stats:d.stats||null,last:d.last||"",streak:d.streak||0,best:d.best||0,fav:Array.isArray(d.fav)?d.fav:[],seeded:!!d.seeded,days:(d.days&&typeof d.days==="object"&&!Array.isArray(d.days))?d.days:{}};if(!DB.stats)DB.hist.forEach(function(x){addStat(x.c||"Sans matière",x.s,x.t)});var th=null;try{th=localStorage.getItem("qcm_th")}catch(e){}if(th)document.documentElement.setAttribute("data-theme",th);try{TH=localStorage.getItem("qcm_tp")==="1"}catch(e){}document.body.className=TH?"thumb":"";
+ var s=rd("qcm_sess");if(s&&s.order&&gs(s.setId))SESS=s}
+function gs(id){return DB.sets.filter(function(s){return s.id===id})[0]}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
+function dt(d){return new Date(d).toLocaleDateString("fr-FR")}
+function shuf(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function parse(txt){var B=[],c=null,last=null,m,Q=[],E=[],seen={};
+ txt.replace(/\r/g,"").split("\n").forEach(function(raw){var t=raw.trim();if(!t)return;
+  if(m=t.match(/^Q\s*\d*\s*[:.]\s*(.*)$/i)){c={q:m[1],c:[],l:[],r:null,e:""};B.push(c);last="q"}
+  else if(!c)return;
+  else if(m=t.match(/^([A-F])\s*[\).]\s*(.*)$/i)){c.l.push(m[1].toUpperCase());c.c.push(m[2]);last="c"}
+  else if(m=t.match(/^R(?:[ée]ponse)?\s*:\s*([A-F])/i)){c.r=m[1].toUpperCase();last="r"}
+  else if(m=t.match(/^E(?:xplication)?\s*:\s*(.*)$/i)){c.e=m[1];last="e"}
+  else if(last==="q")c.q+=" "+t;else if(last==="c")c.c[c.c.length-1]+=" "+t;else if(last==="e")c.e+=" "+t});
+ B.forEach(function(b,i){var p="Question "+(i+1)+" : ";
+  if(!b.q.trim())return E.push(p+"l’énoncé est vide.");
+  if(b.c.length<2)return E.push(p+"il faut au moins 2 choix (A, B…).");
+  if(b.c.some(function(x){return !x.trim()}))return E.push(p+"un choix est vide.");
+  if(!b.r)return E.push(p+"la ligne « R: » est manquante.");
+  var k=b.l.indexOf(b.r);if(k<0)return E.push(p+"la réponse "+b.r+" ne correspond à aucun choix.");
+  var key=b.q.trim().toLowerCase();if(seen[key])return E.push(p+"doublon, ignorée.");seen[key]=1;
+  Q.push({q:b.q.trim(),c:b.c.map(function(x){return x.trim()}),r:k,e:b.e.trim()})});
+ return {Q:Q,E:E,n:B.length}}
+function pn(x){return parseFloat(String(x).replace(/[\s\u00a0\u202f%]/g,"").replace(",","."))}
+function parseEx(txt){var X=[],Q=[],E=[],ex=null,it=null,last=null,m;
+ txt.replace(/\r/g,"").split("\n").forEach(function(raw){var t=raw.trim();if(!t)return;
+  if(m=t.match(/^EX\s*\d*\s*:\s*(.*)$/i)){ex={t:m[1]||"Exercice",s:"",it:[]};X.push(ex);it=null;last="s"}
+  else if(!ex)return;
+  else if(m=t.match(/^Q\s*\d*\s*:\s*(.*)$/i)){it={q:m[1],n:"",c:""};ex.it.push(it);last="q"}
+  else if(it&&(m=t.match(/^N\s*:\s*(.*)$/i))){it.n=m[1].trim();last="n"}
+  else if(it&&(m=t.match(/^C\s*:\s*(.*)$/i))){it.c=m[1];last="c"}
+  else if(last==="s")ex.s+=(ex.s?"\n":"")+t;else if(last==="q")it.q+="\n"+t;else if(last==="c")it.c+="\n"+t});
+ X.forEach(function(e,xi){var p="Exercice "+(xi+1)+" : ";if(!e.it.length)return E.push(p+"aucune ligne « Q: ».");
+  e.it.forEach(function(x,k){var pp=p+"question "+(k+1)+" : ";if(!x.q.trim())return E.push(pp+"l’énoncé est vide.");if(!x.c.trim())return E.push(pp+"la ligne « C: » (corrigé) est manquante.");if(x.n!==""&&isNaN(pn(x.n)))return E.push(pp+"« N: » doit être un nombre.");
+   Q.push({t:e.t.trim(),s:e.s.trim(),q:x.q.trim(),n:x.n===""?"":String(pn(x.n)),c:x.c.trim()})})});
+ return {Q:Q,E:E,n:X.length,ex:1}}
+function rate(ok){SESS.ans[SESS.i]={ok:!!ok,v:""};tmp.sh=null;saveS();R(true)}
+function chk(){var raw=$("#nv").value,q=gs(SESS.setId).questions[SESS.order[SESS.i]],v=pn(raw),e=pn(q.n);if(isNaN(v)){$("#nv").value="";$("#nv").placeholder="Tape un nombre";return}
+ SESS.ans[SESS.i]={ok:Math.abs(v-e)<=Math.max(0.01,Math.abs(e)*0.005),v:raw};saveS();R(true)}
+var PAL=["#2447c9","#17794a","#b42318","#a15c00","#7a3fc4","#007a8a","#c2410c","#4d5b72"],IP=null;
+window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();IP=e});
+function inst(){if(IP){IP.prompt();IP=null;R(true)}}
+function curTh(){var t=document.documentElement.getAttribute("data-theme");return t||(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}
+function theme(){var n=curTh()==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("qcm_th",n)}catch(e){}R(true)}
+function ds(d){return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2)}
+function yest(){var y=new Date();y.setDate(y.getDate()-1);return ds(y)}
+function streak(){var t=ds(new Date());return {n:(DB.last===t||DB.last===yest())?DB.streak||0:0,today:DB.last===t}}
+function bump(){var t=ds(new Date());if(DB.last===t)return;DB.streak=DB.last===yest()?(DB.streak||0)+1:1;DB.last=t;DB.best=Math.max(DB.best||0,DB.streak)}
+function addStat(cn,sc,t){DB.stats=DB.stats||{t:{s:0,t:0,n:0},c:{}};var T=DB.stats.t,C=DB.stats.c[cn]=DB.stats.c[cn]||{s:0,t:0,n:0};T.s+=sc;T.t+=t;T.n++;C.s+=sc;C.t+=t;C.n++}
+function catCol(n){for(var i=0;i<DB.cats.length;i++)if(DB.cats[i].n===n)return DB.cats[i].c;return "#4d5b72"}
+function catAdd(n){n=(n||"").trim().slice(0,30);if(!n)return "";for(var i=0;i<DB.cats.length;i++)if(DB.cats[i].n.toLowerCase()===n.toLowerCase())return DB.cats[i].n;DB.cats.push({n:n,c:PAL[DB.cats.length%PAL.length]});return n}
+function setcat(id,v){gs(id).cat=v;save();R(true)}
+function frate(ok){SESS.ans[SESS.i]={ok:!!ok};saveS();tmp.rv=null;if(SESS.i<SESS.order.length-1)mv(1);else fin()}
+var WN="<div class='wn'>⚠️ Corrigé issu d’une IA ou de tes séries importées : il peut contenir des erreurs. Vérifie-le avec ton cours ou ton prof.</div>",TH=false;
+function fk(){return SESS.setId+":"+SESS.order[SESS.i]}
+function isFav(k){return DB.fav.indexOf(k)>=0}
+function tf(){var k=fk(),i=DB.fav.indexOf(k);if(i>=0)DB.fav.splice(i,1);else DB.fav.push(k);save();R(true)}
+function unfav(k){var i=DB.fav.indexOf(k);if(i>=0)DB.fav.splice(i,1);save();R(true)}
+function starBtn(){return "<button class='star' title='Favori' onclick='tf()'>"+(isFav(fk())?"★":"☆")+"</button>"}
+function thumb(){TH=!TH;try{localStorage.setItem("qcm_tp",TH?"1":"0")}catch(e){}document.body.className=TH?"thumb":"";R(true)}
+function dock(){var a=$("#app"),k=[].slice.call(a.children).filter(function(e){return e.children.length&&(e.classList.contains("row")||(e.tagName==="BUTTON"&&e.classList.contains("btn")))});if(!k.length)return;var d=document.createElement("div");d.className="acts";k.forEach(function(e){d.appendChild(e)});a.appendChild(d)}
+function okN(x){return typeof x==="number"&&isFinite(x)}
+function clean(o){if(!o||o.app!=="ScoreUp"||!o.db||!Array.isArray(o.db.sets))return null;var d=o.db,ids={},C=/^#[0-9a-f]{6}$/i;
+ var sets=d.sets.filter(function(s){return s&&typeof s.name==="string"&&Array.isArray(s.questions)&&s.questions.every(function(q){return q&&typeof q.q==="string"&&(s.kind==="ex"?typeof q.c==="string":Array.isArray(q.c)&&okN(q.r)&&q.r>=0&&q.r<q.c.length)})}).map(function(s){var id=/^[a-z0-9]{3,30}$/i.test(s.id||"")&&!ids[s.id]?s.id:uid();ids[id]=1;return {id:id,name:s.name,questions:s.questions,kind:s.kind==="ex"?"ex":"qcm",cat:typeof s.cat==="string"?s.cat:"",wrong:Array.isArray(s.wrong)?s.wrong.filter(okN):[]}});
+ var cats=(Array.isArray(d.cats)?d.cats:[]).filter(function(k){return k&&typeof k.n==="string"}).map(function(k){return {n:k.n,c:C.test(k.c||"")?k.c:"#4d5b72"}});
+ var hist=(Array.isArray(d.hist)?d.hist:[]).filter(function(x){return x&&okN(x.s)&&okN(x.t)&&x.t>0}).map(function(x){return {n:String(x.n||""),m:MN[x.m]?x.m:"libre",s:x.s,t:x.t,d:okN(x.d)?x.d:Date.now(),c:String(x.c||"")}});
+ var st=d.stats,ok=!!(st&&st.t&&okN(st.t.s)&&okN(st.t.t)&&st.t.t>0&&okN(st.t.n)&&st.c&&typeof st.c==="object");if(ok)Object.keys(st.c).forEach(function(k){var x=st.c[k];if(!(x&&okN(x.s)&&okN(x.t)&&x.t>0&&okN(x.n)))ok=false});
+ return {sets:sets,hist:hist,cats:cats,stats:ok?st:null,last:/^\d{4}-\d{2}-\d{2}$/.test(d.last||"")?d.last:"",streak:okN(d.streak)?d.streak:0,best:okN(d.best)?d.best:0,fav:(Array.isArray(d.fav)?d.fav:[]).filter(function(k){return typeof k==="string"&&/^[a-z0-9]+:\d+$/i.test(k)}),days:cdays(d.days)}}
+function bkJson(){return JSON.stringify({app:"ScoreUp",v:2,date:new Date().toISOString(),db:DB},null,1)}
+function bkx(){var u=URL.createObjectURL(new Blob([bkJson()],{type:"application/json"})),a=document.createElement("a");a.href=u;a.download="scoreup-sauvegarde-"+ds(new Date())+".json";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},4000)}
+function bkc(b){copy(bkJson(),b)}
+function bkf(i){var f=i.files[0];if(!f)return;var r=new FileReader();r.onload=function(){$("#bt").value=String(r.result)};r.readAsText(f)}
+function bkr(ok){if(ok&&tmp.bk){DB=tmp.bk;if(!DB.stats)DB.hist.forEach(function(x){addStat(x.c||"Sans matière",x.s,x.t)});SESS=null;saveS();save();tmp={};go("home");return}
+ var t=$("#bt").value,o=null;tmp.bt=t;tmp.bk=null;try{o=JSON.parse(t)}catch(e){}var c=clean(o);if(c){tmp.be="";tmp.bk=c}else tmp.be="Sauvegarde invalide : choisis le fichier exporté par ScoreUp, ou colle son contenu en entier.";R(true)}
+var DEMO=[{id:"demo-compta",name:"Comptabilité générale – Chapitre 1",cat:"Comptabilité",txt:`Q: Quel principe impose d’enregistrer chaque opération au débit d’un compte et au crédit d’un autre, pour le même montant ?
+A) La prudence
+B) La partie double
+C) La continuité d’exploitation
+D) L’annualité des exercices
+R: B
+E: Avec la partie double, tout débit a un crédit d’égal montant.
+
+Q: Dans un bilan, que représente l’actif ?
+A) Ce que l’entreprise possède et ce qu’on lui doit (ses emplois)
+B) Ce que l’entreprise doit à ses créanciers et à ses associés
+C) La différence entre les produits et les charges
+D) Les ventes de l’année
+R: A
+E: L’actif regroupe les biens et les créances de l’entreprise. Le passif regroupe ses ressources : capitaux propres et dettes.
+
+Q: Quelle égalité est toujours vérifiée dans un bilan ?
+A) Actif = Charges + Produits
+B) Passif = Résultat
+C) Total de l’actif = Total du passif
+D) Charges = Produits
+R: C
+E: Le bilan est toujours équilibré : les emplois sont financés par des ressources de même total.
+
+Q: Une entreprise achète un véhicule de 20 000 000 et le règle par chèque bancaire. Quel est l’effet sur le total du bilan ?
+A) Il augmente de 20 000 000
+B) Il diminue de 20 000 000
+C) Il double
+D) Il ne change pas
+R: D
+E: Le véhicule (immobilisation) augmente et la banque diminue du même montant : le total reste identique.
+
+Q: Une entreprise achète un véhicule de 20 000 000, à payer dans 60 jours. Quel est l’effet sur le bilan ?
+A) Seul l’actif augmente
+B) L’actif et le passif augmentent chacun de 20 000 000
+C) Seul le passif augmente
+D) Le bilan ne change pas
+R: B
+E: Le véhicule augmente l’actif et la dette envers le fournisseur augmente le passif.
+
+Q: Que mesure le compte de résultat ?
+A) La performance de l’entreprise sur une période, à partir des produits et des charges
+B) Le patrimoine à une date donnée
+C) Uniquement la trésorerie
+D) Les dettes à long terme
+R: A
+E: Le bilan est une photo à une date donnée ; le compte de résultat est le film d’une période.
+
+Q: Comment calcule-t-on le résultat net de l’exercice ?
+A) Charges − Produits
+B) Actif − Passif
+C) Ventes − Stocks
+D) Produits − Charges
+R: D
+E: Si les produits dépassent les charges, c’est un bénéfice ; dans le cas contraire, c’est une perte.
+
+Q: Une entreprise emprunte 30 000 000 à une banque pour acheter un bâtiment. Que représente l’emprunt ?
+A) Un emploi
+B) Un produit
+C) Une ressource
+D) Une charge
+R: C
+E: L’emprunt est la ressource qui finance l’emploi (le bâtiment).`},
+{id:"demo-marketing",name:"Fondements du marketing – Chapitre 1",cat:"Marketing",txt:`Q: Quelle définition du marketing est la plus juste ?
+A) Identifier et satisfaire les besoins des clients de façon rentable
+B) Faire de la publicité pour vendre plus
+C) Fixer les prix les plus bas possible
+D) Distribuer les produits en magasin
+R: A
+E: Le marketing ne se limite pas à la publicité ou à la vente : il part des besoins du client.
+
+Q: Avoir soif est un besoin. Vouloir précisément une marque de boisson, c’est…
+A) Une demande solvable
+B) Un marché
+C) Un désir
+D) Une habitude
+R: C
+E: Le besoin est un manque ressenti ; le désir est la forme précise que ce besoin prend selon la culture et la personnalité.
+
+Q: Qu’appelle-t-on la demande en marketing ?
+A) Tous les besoins existants
+B) Des désirs appuyés par un pouvoir d’achat
+C) L’offre disponible sur le marché
+D) Le nombre de concurrents
+R: B
+E: Sans pouvoir d’achat, un désir reste potentiel et ne devient pas une demande.
+
+Q: Qu’est-ce qu’un marché au sens marketing ?
+A) Uniquement un lieu physique de vente
+B) L’ensemble des concurrents
+C) Le stock d’une entreprise
+D) L’ensemble des acheteurs actuels et potentiels d’un produit
+R: D
+E: Un marché désigne les clients, réels ou potentiels, qui ont un besoin et la capacité d’acheter.
+
+Q: Quels sont les 4 P du marketing-mix traditionnel ?
+A) Produit, Prix, Place (distribution), Promotion
+B) Produit, Profit, Personnel, Publicité
+C) Plan, Projet, Prix, Place
+D) Prix, Public, Processus, Preuve
+R: A
+E: Ce sont les quatre leviers que l’entreprise combine pour agir sur son marché.
+
+Q: Dans la pyramide de Maslow, quel besoin est le plus fondamental ?
+A) L’estime
+B) Les besoins physiologiques
+C) L’accomplissement de soi
+D) L’appartenance
+R: B
+E: Ordre : physiologiques, sécurité, appartenance, estime, accomplissement de soi.
+
+Q: Lequel de ces facteurs est un facteur psychologique du comportement du consommateur ?
+A) L’âge
+B) La famille
+C) La perception
+D) La classe sociale
+R: C
+E: Facteurs psychologiques : motivation, perception, apprentissage, croyances et attitudes. L’âge est un facteur personnel ; la famille et la classe sociale sont des facteurs sociaux.
+
+Q: Quelle est la première étape du processus d’achat ?
+A) La décision d’achat
+B) L’évaluation des solutions
+C) Le comportement après l’achat
+D) La reconnaissance du besoin
+R: D
+E: Le processus : reconnaissance du besoin, recherche d’informations, évaluation des solutions, décision d’achat, comportement après l’achat.`},
+{id:"demo-droit",name:"Introduction au droit – Chapitre 1",cat:"Droit",txt:`Q: Que désigne le droit objectif ?
+A) Les prérogatives dont dispose une personne
+B) Les décisions d’un seul juge
+C) L’ensemble des règles qui organisent la vie en société
+D) Les contrats entre particuliers
+R: C
+E: Le droit objectif est l’ensemble des règles obligatoires ; le droit subjectif est une prérogative reconnue à une personne.
+
+Q: Comment appelle-t-on une prérogative reconnue à une personne, comme le droit de propriété ?
+A) Un droit subjectif
+B) Une sanction
+C) Une personne morale
+D) Une source du droit
+R: A
+E: Les droits subjectifs découlent des règles du droit objectif.
+
+Q: Dans la hiérarchie des normes, quelle norme se situe au sommet ?
+A) Le règlement
+B) L’arrêté
+C) La circulaire
+D) La Constitution
+R: D
+E: Chaque norme doit respecter celles qui lui sont supérieures.
+
+Q: Quelle source écrite du droit est votée par le Parlement ?
+A) La coutume
+B) La loi
+C) La jurisprudence
+D) La doctrine
+R: B
+E: La loi est une source écrite ; la coutume est une pratique répétée considérée comme obligatoire.
+
+Q: Que désigne la jurisprudence ?
+A) L’ensemble des décisions rendues par les juridictions
+B) Les écrits des professeurs de droit
+C) Les usages d’une profession
+D) Les traités internationaux
+R: A
+E: Les écrits des juristes forment la doctrine, pas la jurisprudence.
+
+Q: Qu’est-ce qu’une personne morale ?
+A) Un être humain
+B) Un bien meuble
+C) Un groupement doté de la personnalité juridique, comme une société
+D) Un contrat
+R: C
+E: Une personne morale peut posséder des biens, signer des contrats et agir en justice, comme une personne physique.
+
+Q: À quel moment, en principe, une personne physique acquiert-elle la personnalité juridique ?
+A) À sa majorité
+B) À sa naissance (enfant né vivant)
+C) À son mariage
+D) À son premier emploi
+R: B
+E: La personnalité juridique commence à la naissance et s’achève avec le décès.
+
+Q: Qu’est-ce qui distingue la règle de droit d’une simple règle morale ?
+A) Elle est facultative
+B) Elle ne concerne que les entreprises
+C) Elle n’est jamais écrite
+D) Elle est assortie d’une sanction imposée par l’État
+R: D
+E: La règle de droit est obligatoire et son non-respect peut être sanctionné.`},
+{id:"demo-management",name:"Introduction au management – Chapitre 1",cat:"Management",txt:`Q: Quelle fonction du management consiste à fixer des objectifs et à définir les moyens de les atteindre ?
+A) Le contrôle
+B) La planification
+C) La coordination
+D) Le commandement
+R: B
+E: Planifier, c’est prévoir : on choisit les objectifs puis les moyens.
+
+Q: Quelle structure repose sur une seule ligne d’autorité, chaque salarié n’ayant qu’un seul chef ?
+A) La structure matricielle
+B) La structure divisionnelle
+C) La structure hiérarchique (linéaire)
+D) La structure par projet
+R: C
+E: Dans la structure hiérarchique, les ordres descendent du sommet vers la base par une seule voie.
+
+Q: Dans une structure matricielle, un salarié…
+A) Dépend de deux responsables à la fois (fonctionnel et projet)
+B) N’a aucun responsable
+C) Ne travaille jamais en équipe
+D) Dépend uniquement du directeur général
+R: A
+E: La matrice croise une autorité par fonction et une autorité par projet.
+
+Q: Quelle fonction de l’entreprise s’occupe du recrutement, de la formation et de la paie ?
+A) La fonction production
+B) La fonction commerciale
+C) La fonction financière
+D) La fonction ressources humaines
+R: D
+E: La fonction ressources humaines gère le personnel de l’entreprise.
+
+Q: Quelle fonction transforme des ressources en biens ou en services ?
+A) La fonction financière
+B) La fonction production
+C) La fonction commerciale
+D) La fonction ressources humaines
+R: B
+E: La production crée les biens et services que l’entreprise vend.
+
+Q: Quel style de direction est celui d’un dirigeant qui décide seul et impose ses ordres ?
+A) Autocratique
+B) Démocratique
+C) Laisser-faire
+D) Bureaucratique
+R: A
+E: Le style autocratique concentre la décision ; le style démocratique associe l’équipe aux décisions.
+
+Q: Dans le style de direction « laisser-faire », le dirigeant…
+A) Décide de tout seul
+B) Contrôle chaque tâche
+C) Laisse beaucoup d’autonomie et intervient peu
+D) Refuse toute délégation
+R: C
+E: Ce style convient à des équipes expérimentées, mais peut manquer de cadre.
+
+Q: Qui a proposé les fonctions « prévoir, organiser, commander, coordonner, contrôler » ?
+A) Maslow
+B) Taylor
+C) Porter
+D) Fayol
+R: D
+E: Henri Fayol décrit ces fonctions de l’administration. Taylor est associé à l’organisation scientifique du travail.`},
+{id:"demo-stats",name:"Statistiques 1 – Chapitre 1",cat:"Statistiques",txt:`Q: Quelle est la moyenne de la série 2 ; 4 ; 4 ; 6 ; 9 ?
+A) 4
+B) 4,5
+C) 5
+D) 6
+R: C
+E: (2 + 4 + 4 + 6 + 9) ÷ 5 = 25 ÷ 5 = 5.
+
+Q: Quelle est la médiane de la série 3 ; 7 ; 1 ; 9 ; 5 ; 11 ?
+A) 5
+B) 6
+C) 7
+D) 6,5
+R: B
+E: On range : 1 ; 3 ; 5 ; 7 ; 9 ; 11. Avec 6 valeurs, on prend la moyenne des deux valeurs centrales : (5 + 7) ÷ 2 = 6.
+
+Q: Quel est le mode de la série 5 ; 3 ; 5 ; 8 ; 3 ; 5 ; 9 ?
+A) 3
+B) 8
+C) 9
+D) 5
+R: D
+E: Le mode est la valeur la plus fréquente : 5 apparaît 3 fois.
+
+Q: Quelle est la variance de la série 2 ; 4 ; 4 ; 6 ; 9 (formule de la statistique descriptive, division par n) ?
+A) 5,6
+B) 7
+C) 28
+D) 5
+R: A
+E: Moyenne 5. Écarts au carré : 9 ; 1 ; 1 ; 1 ; 16, soit 28 au total. Variance = 28 ÷ 5 = 5,6.
+
+Q: Une série a une variance de 16. Quel est son écart-type ?
+A) 8
+B) 16
+C) 4
+D) 256
+R: C
+E: L’écart-type est la racine carrée de la variance : √16 = 4.
+
+Q: Comment définit-on la variance ?
+A) Le carré de la moyenne
+B) La moyenne des carrés des écarts à la moyenne
+C) La somme des écarts à la moyenne
+D) La différence entre la plus grande et la plus petite valeur
+R: B
+E: La somme des écarts à la moyenne est toujours nulle, d’où l’usage des carrés. La différence max − min est l’étendue.
+
+Q: On ajoute 10 à chaque valeur d’une série. Que deviennent la moyenne et l’écart-type ?
+A) La moyenne augmente de 10, l’écart-type ne change pas
+B) La moyenne et l’écart-type augmentent de 10
+C) La moyenne ne change pas, l’écart-type augmente de 10
+D) La moyenne et l’écart-type sont multipliés par 10
+R: A
+E: Une translation déplace la série sans modifier sa dispersion.
+
+Q: Deux séries ont la même moyenne (50). La première a un écart-type de 5, la seconde de 12. Laquelle est la plus dispersée ?
+A) La première
+B) Elles sont aussi dispersées
+C) On ne peut pas savoir
+D) La seconde
+R: D
+E: Plus l’écart-type est grand, plus les valeurs s’éloignent de la moyenne.`}];
+function addDemo(){var n=0;DEMO.forEach(function(d){if(DB.sets.some(function(x){return x.id===d.id}))return;var p=parse(d.txt);if(!p.Q.length)return;DB.sets.push({id:d.id,name:d.name,questions:p.Q,kind:"qcm",cat:catAdd(d.cat),wrong:[],demo:1});n++});return n}
+function seed(){if(!DB.seeded&&!DB.sets.length)addDemo();DB.seeded=true;save()}
+function ad(b){var n=addDemo();save();b.textContent=n?n+" série"+(n>1?"s":"")+" ajoutée"+(n>1?"s":"")+" ✓":"Toutes les séries d’exemple sont déjà présentes"}
+function R(keep){$("#app").innerHTML=V[view]();if(!keep)window.scrollTo(0,0);if(TH&&view==="quiz")dock();tick()}
+function go(v,x){view=v;cur=x||null;tmp.cf=0;R()}
+function tick(){if(!SESS)return;var e=document.getElementById("tm");if(e&&SESS.end){var r=SESS.end-Date.now();if(r<=0){fin(true);return}var s=Math.ceil(r/1000);e.textContent="⏱ "+Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
+ var q=document.getElementById("tq");if(q&&SESS.qt&&SESS.qs&&view==="quiz"){var z=SESS.qt-Math.floor((Date.now()-SESS.qs)/1000);if(z<=0){if(SESS.ans[SESS.i]===null){SESS.ans[SESS.i]=-1;saveS();R(true)}return}q.textContent="⏱ "+z+" s"}}
+setInterval(tick,500);
+function copy(txt,btn){var ok=function(){btn.textContent="Copié ✓"};
+ var fb=function(){var t=document.createElement("textarea");t.value=txt;document.body.appendChild(t);t.select();try{document.execCommand("copy");ok()}catch(e){btn.textContent="Sélectionne le texte et copie-le"}t.remove()};
+ if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(ok,fb);else fb()}
+function txtOf(s){if(s.kind==="ex"){var pv="",o=[];s.questions.forEach(function(x){var k=x.t+"\u0001"+x.s;if(k!==pv){o.push("EX: "+x.t+(x.s?"\n"+x.s:""));pv=k}o.push("Q: "+x.q+(x.n!==""?"\nN: "+x.n:"")+"\nC: "+x.c)});return o.join("\n\n")}return s.questions.map(function(q){return "Q: "+q.q+"\n"+q.c.map(function(c,i){return L[i]+") "+c}).join("\n")+"\nR: "+L[q.r]+(q.e?"\nE: "+q.e:"")}).join("\n\n")}
+function cp(k,b){copy(k==="p"?PROMPT:k==="e"?PROMPT2:txtOf(gs(cur)),b)}
+function an(){var t=$("#ta").value;tmp.d={t:t,nm:$("#nm").value.trim(),ct:$("#ct").value.trim()};tmp.imp=/^\s*EX\s*\d*\s*:/im.test(t)?parseEx(t):parse(t);if(t.indexOf("%PDF")===0)tmp.imp.pdf=1;R(true)}
+function loadPdf(){return new Promise(function(res,rej){if(window.pdfjsLib)return res();var s=document.createElement("script");s.src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";s.onload=function(){window.pdfjsLib?res():rej()};s.onerror=rej;document.head.appendChild(s)})}
+function pdfText(buf){return loadPdf().then(function(){pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";return pdfjsLib.getDocument({data:buf}).promise}).then(function(doc){var out="",p=Promise.resolve();for(var n=1;n<=doc.numPages;n++)(function(n){p=p.then(function(){return doc.getPage(n)}).then(function(pg){return pg.getTextContent()}).then(function(tc){var y=null,line="";tc.items.forEach(function(it){var ny=it.transform[5];if(y!==null&&Math.abs(ny-y)>2&&line){out+=line.trim()+"\n";line=""}y=ny;line+=it.str;if(it.hasEOL){out+=line.trim()+"\n";line=""}});if(line)out+=line.trim()+"\n"})})(n);return p.then(function(){if(!out.trim())throw 0;return out})})}
+function rf(i){var f=i.files[0];if(!f)return;var nm=$("#nm"),st=$("#st");if(!nm.value)nm.value=f.name.replace(/\.[^.]+$/,"");
+ if(/\.pdf$/i.test(f.name)||f.type==="application/pdf"){st.textContent="Lecture du PDF… (connexion Internet requise)";var r=new FileReader();r.onload=function(){pdfText(r.result).then(function(t){$("#ta").value=t;an()},function(){st.textContent="Impossible de lire ce PDF. Vérifie ta connexion et que le PDF contient du vrai texte (pas une photo ni un scan). Tu peux aussi copier-coller le texte."})};r.readAsArrayBuffer(f);return}
+ var r2=new FileReader();r2.onload=function(){$("#ta").value=String(r2.result);st.textContent=""};r2.readAsText(f)}
+function sv(){var nm=tmp.d.nm||"Série du "+dt(Date.now());DB.sets.unshift({id:uid(),name:nm,questions:tmp.imp.Q,kind:tmp.imp.ex?"ex":"qcm",cat:catAdd(tmp.d.ct),wrong:[]});save();tmp={};go("home")}
+function del(id){if(tmp.del!==id){tmp.del=id;R(true);return}DB.sets=DB.sets.filter(function(s){return s.id!==id});DB.fav=DB.fav.filter(function(k){return k.indexOf(id+":")!==0});if(SESS&&SESS.setId===id){SESS=null;saveS()}tmp.del=null;save();R(true)}
+function begin(id){var s=gs(id),mode=document.querySelector("input[name=m]:checked").value,pool;
+ if(mode==="erreurs"){pool=(s.wrong||[]).filter(function(i){return s.questions[i]})}else pool=s.questions.map(function(_,i){return i});
+ var n=Math.max(1,Math.min(pool.length,parseInt($("#nq").value,10)||pool.length)),mins=$("#mn")?Math.max(1,parseInt($("#mn").value,10)||n):0;
+ var qt=$("#qt")?Math.max(0,Math.min(300,parseInt($("#qt").value,10)||0)):0;
+ start(id,mode==="erreurs"?"erreurs":mode,pool,n,mode==="exam"?mins:0,$("#sh").checked);
+ if(qt&&SESS&&(SESS.mode==="libre"||SESS.mode==="erreurs")){SESS.qt=qt;SESS.qs=Date.now();saveS();R(true)}}
+function start(id,mode,pool,n,mins,sh){var s=gs(id),ix=sh?shuf(pool):pool.slice();ix=ix.slice(0,n);
+ SESS={setId:id,mode:mode,order:ix,perm:ix.map(function(i){var p=Array.isArray(s.questions[i].c)?s.questions[i].c.map(function(_,k){return k}):[];return sh?shuf(p):p}),ans:ix.map(function(){return null}),i:0,start:Date.now(),end:mins?Date.now()+mins*60000:0};
+ saveS();view="quiz";tmp.cf=0;R()}
+function pick(p){var S=SESS;if(S.mode!=="exam"&&S.ans[S.i]!==null)return;S.ans[S.i]=p;saveS();R(true)}
+function mv(d){SESS.qs=Date.now();SESS.i=Math.max(0,Math.min(SESS.order.length-1,SESS.i+d));saveS();tmp.cf=0;R()}
+function resume(){if(SESS.end&&Date.now()>=SESS.end){fin(true);return}if(SESS.qt&&SESS.ans[SESS.i]===null)SESS.qs=Date.now();view="quiz";R()}
+function fin(force){var S=SESS;if(!S)return;
+ if(S.mode==="exam"&&!force){var un=S.ans.filter(function(a){return a===null}).length;if(un&&!tmp.cf){tmp.cf=1;R(true);return}}
+ var s=gs(S.setId),sc=0,wr=[];
+ S.order.forEach(function(qi,i){var q=s.questions[qi];if((s.kind==="ex"||S.mode==="flash")?(S.ans[i]&&S.ans[i].ok):S.ans[i]===S.perm[i].indexOf(q.r))sc++;else wr.push(qi)});
+ s.wrong=wr;DB.hist.unshift({n:s.name,m:S.mode,s:sc,t:S.order.length,d:Date.now(),c:s.cat||""});DB.hist=DB.hist.slice(0,100);bump();DB.days=DB.days||{};var dk=ds(new Date());DB.days[dk]=(DB.days[dk]||0)+1;addStat(s.cat||"Sans matière",sc,S.order.length);save();
+ tmp.res={S:S,s:s,sc:sc};SESS=null;saveS();tmp.cf=0;view="res";R()}
+function rich(t){var o="",tb=[];function fl(){if(!tb.length)return;o+="<div class='tw'><table>"+tb.map(function(r,i){var g=i?"td":"th";return "<tr>"+r.map(function(c){return "<"+g+">"+esc(c.trim())+"</"+g+">"}).join("")+"</tr>"}).join("")+"</table></div>";tb=[]}
+ String(t).split("\n").forEach(function(l){if(l.indexOf("|")>=0){var c=l.replace(/^\s*\|/,"").replace(/\|\s*$/,"").split("|");if(c.length>=2){if(!c.every(function(x){return /^[\s:-]*$/.test(x)}))tb.push(c);return}}fl();o+=esc(l)+"\n"});fl();return o.replace(/\n$/,"")}
+function reg(){var D=DB.days||{},b="",n=0,a=0,mx=1,i,d,k,v,arr=[];for(i=29;i>=0;i--){d=new Date();d.setDate(d.getDate()-i);k=ds(d);v=D[k]||0;arr.push([k,v]);if(v>mx)mx=v;if(v){a++;n+=v}}
+ arr.forEach(function(x){b+="<i class='"+(x[1]?"":"z")+"' style='height:"+(x[1]?Math.max(12,Math.round(x[1]/mx*100)):4)+"%' title='"+x[0]+" : "+x[1]+"'></i>"});
+ return "<div class='cd'><b>Régularité · 30 derniers jours</b><div class='reg'>"+b+"</div><p class='mu'>"+a+" jour"+(a>1?"s":"")+" actif"+(a>1?"s":"")+" sur 30 · "+n+" séance"+(n>1?"s":"")+". Le suivi jour par jour commence à cette mise à jour.</p></div>"}
+function cdays(x){var o={};if(x&&typeof x==="object"&&!Array.isArray(x))Object.keys(x).forEach(function(k){if(/^\d{4}-\d{2}-\d{2}$/.test(k)&&okN(x[k])&&x[k]>0)o[k]=Math.floor(x[k])});return o}
+var V={
+home:function(){var st=streak(),f=(tmp.f>=0&&DB.cats[tmp.f])?DB.cats[tmp.f].n:null,h="<button class='back' style='float:right' onclick='theme()'>"+(curTh()==="dark"?"Mode clair":"Mode sombre")+"</button><h1>ScoreUp</h1><p class='mu'>Importe tes questions, entraîne-toi, passe un examen.</p>";
+ if(!store)h+="<div class='w'>Ce navigateur ne permet pas de sauvegarder : tes séries disparaîtront quand tu fermeras la page.</div>";
+ h+="<div class='cd'><b>"+(st.n?"🔥 "+st.n+" jour"+(st.n>1?"s":"")+" de suite":"Ta série de jours")+"</b><p class='mu'>"+(st.today?"Séance du jour faite. Bravo !":st.n?"Fais une séance aujourd’hui pour garder ta série.":"Fais une séance aujourd’hui pour la commencer.")+"</p></div>";
+ if(IP)h+="<button class='btn s' onclick='inst()'>Installer ScoreUp sur l’écran d’accueil</button>";
+ if(SESS){var s0=gs(SESS.setId);h+="<div class='cd'><b>"+MN[SESS.mode]+" en cours</b><p class='mu'>"+esc(s0.name)+" · question "+(SESS.i+1)+"/"+SESS.order.length+"</p><button class='btn' onclick='resume()'>Reprendre</button></div>"}
+ h+="<button class='btn' onclick='tmp.d=null;tmp.imp=null;go(\"imp\")'>Importer des questions</button>";
+ if(DB.cats.length)h+="<div class='chips'><button class='chip"+(f?"":" on")+"' onclick='tmp.f=-1;R(true)'>Toutes</button>"+DB.cats.map(function(k,i){return "<button class='chip"+(f===k.n?" on":"")+"' style='--c:"+k.c+";--cx:#fff' onclick='tmp.f="+i+";R(true)'>"+esc(k.n)+"</button>"}).join("")+"</div>";
+ if(!DB.sets.length)h+="<div class='cd'><p>Aucune série pour l’instant. Importe tes questions, ou ouvre « Comment faire » pour les générer avec une IA à partir de ton cours.</p></div>";
+ DB.sets.forEach(function(s){if(f&&s.cat!==f)return;h+="<div class='cd'>"+(s.cat?"<span class='bdg' style='background:"+catCol(s.cat)+"'>"+esc(s.cat)+"</span> ":"")+"<b>"+esc(s.name)+"</b><p class='mu'>"+(s.kind==="ex"?"Exercices · ":"")+s.questions.length+" question"+(s.questions.length>1?"s":"")+"</p>"+(DB.cats.length?"<select class='cs' onchange='setcat(\""+s.id+"\",this.value)'><option value=''>Sans matière</option>"+DB.cats.map(function(k){return "<option value=\""+esc(k.n)+"\""+(s.cat===k.n?" selected":"")+">"+esc(k.n)+"</option>"}).join("")+"</select>":"")+"<div class='row'><button class='btn' onclick='go(\"set\",\""+s.id+"\")'>Lancer</button><button class='btn s' onclick='go(\"exp\",\""+s.id+"\")'>Exporter</button></div><button class='btn d' onclick='del(\""+s.id+"\")'>"+(tmp.del===s.id?"Confirmer la suppression":"Supprimer")+"</button></div>"});
+ return h+"<div class='row'><button class='btn s' onclick='go(\"stats\")'>Statistiques</button><button class='btn s' onclick='go(\"hist\")'>Historique</button></div><div class='row'><button class='btn s' onclick='go(\"help\")'>Comment faire</button><button class='btn s' onclick='go(\"info\")'>Guide</button></div><div class='row'><button class='btn s' onclick='go(\"fav\")'>Favoris ★</button><button class='btn s' onclick='go(\"bk\")'>Sauvegarde</button></div>"+(DB.sets.length?"<p class='mu'>Tes séries sont gardées dans ce navigateur seulement. Utilise « Sauvegarde » pour tout garder en lieu sûr.</p>":"")+"<button class='back' onclick='thumb()'>Mode transport (boutons en bas) : "+(TH?"activé":"désactivé")+"</button>"},
+imp:function(){var d=tmp.d||{t:"",nm:""},p=tmp.imp,h="<button class='back' onclick='go(\"home\")'>← Retour</button><h1>Importer</h1><div class='row'><button class='btn s' onclick='cp(\"p\",this)'>Copier le prompt QCM</button><button class='btn s' onclick='cp(\"e\",this)'>Copier le prompt Exercices</button></div><p class='mu'>Colle le prompt dans une IA avec ton cours, puis reviens coller ici ce qu’elle te renvoie.</p><label for='nm'>Nom de la série</label><input type='text' id='nm' value='"+esc(d.nm)+"' placeholder='Ex. Comptabilité – chapitre 2'><label for='ct'>Matière (facultatif)</label><input type='text' id='ct' list='cl' value='"+esc(d.ct||"")+"' placeholder='Ex. Comptabilité' autocomplete='off'><datalist id='cl'>"+DB.cats.map(function(k){return "<option value=\""+esc(k.n)+"\">"}).join("")+"</datalist><label for='ta'>Colle tes questions ici</label><textarea id='ta' placeholder='Q: …&#10;A) …&#10;B) …&#10;R: B'>"+esc(d.t)+"</textarea><label for='fi'>Ou ouvre un fichier .txt ou .pdf</label><input type='file' id='fi' accept='.txt,.pdf,text/plain,application/pdf' onchange='rf(this)'><div id='st' class='mu'></div><button class='btn s' onclick='an()'>Vérifier</button>";
+ if(p){if(!p.n)h+="<div class='w'>"+(p.pdf?"Ce fichier est un PDF : l’appli ne lit que du texte. Demande à l’IA d’écrire les questions directement dans la conversation, puis copie-les et colle-les ici (ou enregistre-les dans un fichier .txt).":"Aucune question détectée. Chaque question doit commencer par « Q: ». Voir « Comment faire ».")+"</div>";
+  else{h+="<div class='cd g'><b>"+p.Q.length+" question"+(p.Q.length>1?"s":"")+" valide"+(p.Q.length>1?"s":"")+"</b></div>";
+   if(p.E.length)h+="<div class='cd b'><b>"+p.E.length+" à corriger</b>"+p.E.map(function(e){return "<p class='er'>"+esc(e)+"</p>"}).join("")+"</div>";
+   if(p.Q.length)h+="<button class='btn' onclick='sv()'>Enregistrer "+p.Q.length+" question"+(p.Q.length>1?"s":"")+"</button>"}}
+ return h},
+set:function(){var s=gs(cur),n=s.questions.length,w=(s.wrong||[]).length;if(s.kind==="ex")return "<button class='back' onclick='go(\"home\")'>← Retour</button><h1>"+esc(s.name)+"</h1><p class='mu'>"+n+" questions d’exercice</p><h3>Mode</h3><label class='c'><input type='radio' name='m' value='libre' checked> Réviser les questions</label>"+(w?"<label class='c'><input type='radio' name='m' value='erreurs'> Mes "+w+" ratée"+(w>1?"s":"")+" de la dernière fois</label>":"")+"<label for='nq'>Nombre de questions</label><input type='number' id='nq' min='1' max='"+n+"' value='"+n+"'><label class='c'><input type='checkbox' id='sh'> Mélanger l’ordre</label><button class='btn' onclick='begin(\""+s.id+"\")'>Commencer</button>";
+ return "<button class='back' onclick='go(\"home\")'>← Retour</button><h1>"+esc(s.name)+"</h1><p class='mu'>"+n+" questions</p><h3>Mode</h3><label class='c'><input type='radio' name='m' value='libre' checked> QCM libre : correction après chaque réponse</label><label class='c'><input type='radio' name='m' value='exam'> Examen chronométré : correction à la fin</label><label class='c'><input type='radio' name='m' value='flash'> Flashcards : touche la carte pour voir la réponse</label>"+(w?"<label class='c'><input type='radio' name='m' value='erreurs'> Mes "+w+" erreur"+(w>1?"s":"")+" de la dernière fois</label>":"")+"<label for='nq'>Nombre de questions</label><input type='number' id='nq' min='1' max='"+n+"' value='"+n+"'><label for='mn'>Durée en minutes (examen seulement)</label><input type='number' id='mn' min='1' value='"+Math.max(1,n)+"'><label for='qt'>Chrono par question, en secondes (QCM libre ; 0 = aucun)</label><input type='number' id='qt' min='0' max='300' value='0'><label class='c'><input type='checkbox' id='sh' checked> Mélanger les questions et les choix</label><button class='btn' onclick='begin(\""+s.id+"\")'>Commencer</button>"},
+quiz:function(){if(gs(SESS.setId).kind==="ex")return V.exq();if(SESS.mode==="flash")return V.flash();var S=SESS,s=gs(S.setId),i=S.i,q=s.questions[S.order[i]],pm=S.perm[i],a=S.ans[i],ex=S.mode==="exam",ci=pm.indexOf(q.r),n=S.order.length,un=S.ans.filter(function(x){return x===null}).length;
+ var h="<div class='top'><span>"+MN[S.mode]+" · "+(i+1)+"/"+n+"</span>"+starBtn()+""+(S.end?"<b id='tm'></b>":"")+(S.qt&&a===null?"<b id='tq'></b>":"")+"</div><div class='bar'><i style='width:"+((i+1)/n*100)+"%'></i></div><h2>"+esc(q.q)+"</h2>";
+ pm.forEach(function(k,p){var cl="opt";if(a===p)cl+=" sel";if(!ex&&a!==null){if(p===ci)cl=" opt ok";else if(p===a)cl="opt ko"}
+  h+="<button class='"+cl+"' onclick='pick("+p+")'><b>"+L[p]+"</b><span>"+esc(q.c[k])+"</span></button>"});
+ if(!ex&&a!==null)h+="<div class='cd'>"+(a===ci?"✅ Bonne réponse.":(a===-1?"⌛ Temps écoulé. ":"❌ Mauvaise réponse. ")+"La bonne réponse est "+L[ci]+".")+(q.e?"<p class='mu'>"+esc(q.e)+"</p>":"")+WN+"</div>";
+ h+="<div class='row'>";if(ex&&i>0)h+="<button class='btn s' onclick='mv(-1)'>← Précédent</button>";
+ if(i<n-1){if(ex||a!==null)h+="<button class='btn' onclick='mv(1)'>Suivant →</button>"}else if(!ex&&a!==null)h+="<button class='btn' onclick='fin()'>Voir le résultat</button>";
+ h+="</div>";
+ if(ex){if(tmp.cf)h+="<div class='w'>"+un+" question"+(un>1?"s":"")+" sans réponse. Terminer quand même ?</div><button class='btn' onclick='fin(true)'>Oui, terminer</button>";else h+="<button class='btn s' onclick='fin()'>Terminer l’examen</button>"}
+ return h+"<button class='back' onclick='go(\"home\")'>Quitter et reprendre plus tard</button>"},
+flash:function(){var S=SESS,s=gs(S.setId),i=S.i,q=s.questions[S.order[i]],n=S.order.length,rv=tmp.rv===i;
+ var h="<div class='top'><span>Flashcards · "+(i+1)+"/"+n+"</span>"+starBtn()+"</div><div class='bar'><i style='width:"+((i+1)/n*100)+"%'></i></div>";
+ h+="<div class='cd fc' onclick='tmp.rv="+i+";R(true)'><h2 style='margin:0 0 12px'>"+esc(q.q)+"</h2>"+(rv?"<p><b>"+esc(q.c[q.r])+"</b></p>"+(q.e?"<p class='mu'>"+esc(q.e)+"</p>":"")+WN:"<p class='mu'>Touche la carte pour voir la réponse</p>")+"</div>";
+ if(rv)h+="<div class='row'><button class='btn d' onclick='frate(0)'>À revoir</button><button class='btn' onclick='frate(1)'>Je savais</button></div>";
+ return h+"<button class='back' onclick='go(\"home\")'>Quitter et reprendre plus tard</button>"},
+exq:function(){var S=SESS,s=gs(S.setId),i=S.i,q=s.questions[S.order[i]],a=S.ans[i],n=S.order.length,isn=q.n!=="";
+ var h="<div class='top'><span>Exercices · "+(i+1)+"/"+n+"</span>"+starBtn()+"</div><div class='bar'><i style='width:"+((i+1)/n*100)+"%'></i></div><p class='mu'>"+esc(q.t)+"</p>"+(q.s?"<div class='cd' style='white-space:pre-wrap'>"+rich(q.s)+"</div>":"")+"<h2 style='white-space:pre-wrap'>"+rich(q.q)+"</h2>";
+ if(a){h+="<div class='cd "+(a.ok?"g":"b")+"'><b>"+(a.ok?"✅ Réussi":"❌ Raté")+"</b>"+(a.v?"<p>Ta réponse : "+esc(a.v)+"</p>":"")+"<p style='white-space:pre-wrap'>"+rich(q.c)+"</p>"+WN+"</div>";h+=i<n-1?"<button class='btn' onclick='mv(1)'>Suivant →</button>":"<button class='btn' onclick='fin()'>Voir le résultat</button>"}
+ else if(tmp.sh===i){h+="<div class='cd' style='white-space:pre-wrap'>"+rich(q.c)+"</div>"+WN+"<p>Avais-tu juste ?</p><div class='row'><button class='btn' onclick='rate(1)'>✅ Réussi</button><button class='btn d' onclick='rate(0)'>❌ Raté</button></div>"}
+ else{if(isn)h+="<label for='nv'>Ta réponse (un nombre)</label><input type='text' id='nv' inputmode='decimal'><button class='btn' onclick='chk()'>Vérifier</button>";
+  h+="<button class='btn s' onclick='"+(isn?"rate(0)":"tmp.sh="+i+";R(true)")+"'>"+(isn?"Voir le corrigé (compte comme raté)":"Voir le corrigé")+"</button>"}
+ return h+"<button class='back' onclick='go(\"home\")'>Quitter et reprendre plus tard</button>"},
+res:function(){var r=tmp.res;if(!r)return V.home();var S=r.S,s=r.s,t=S.order.length,pc=Math.round(r.sc/t*100);
+ var h="<h1>Résultat</h1><div class='cd'><div class='big'>"+r.sc+" / "+t+"</div><p class='mu'>"+pc+" % · "+MN[S.mode]+" · "+esc(s.name)+"</p></div>";
+ if(s.wrong.length)h+="<button class='btn' onclick='start(\""+s.id+"\",\"erreurs\","+JSON.stringify(s.wrong)+","+s.wrong.length+",0,true)'>Refaire mes "+s.wrong.length+" erreur"+(s.wrong.length>1?"s":"")+"</button>";
+ h+="<button class='btn s' onclick='go(\"home\")'>Accueil</button><h3>Correction</h3>"+WN+"";
+ S.order.forEach(function(qi,i){var q=s.questions[qi],pm=S.perm[i],a=S.ans[i],ok=a===pm.indexOf(q.r);if(S.mode==="flash"){ok=!!(a&&a.ok);h+="<div class='cd "+(ok?"g":"b")+"'><b>"+(i+1)+". "+esc(q.q)+"</b><p>"+esc(q.c[q.r])+"</p>"+(q.e?"<p class='mu'>"+esc(q.e)+"</p>":"")+"</div>";return}if(s.kind==="ex"){ok=!!(a&&a.ok);h+="<div class='cd "+(ok?"g":"b")+"'><b>"+(i+1)+". "+esc(q.q)+"</b>"+(a&&a.v?"<p>Ta réponse : "+esc(a.v)+"</p>":"")+"<p style='white-space:pre-wrap'>"+rich(q.c)+"</p></div>";return}
+  h+="<div class='cd "+(ok?"g":"b")+"'><b>"+(i+1)+". "+esc(q.q)+"</b><p>Ta réponse : "+(a===null||a===-1?"aucune":esc(q.c[pm[a]]))+"</p>"+(ok?"":"<p>Bonne réponse : "+esc(q.c[q.r])+"</p>")+(q.e?"<p class='mu'>"+esc(q.e)+"</p>":"")+"</div>"});
+ return h},
+info:function(){return "<button class='back' onclick='go(\"home\")'>← Retour</button><h1>Guide</h1><p class='mu'>Tout ce qu’il faut savoir pour bien utiliser l’appli.</p>"
++"<div class='cd'><b>À quoi ça sert</b><p>L’appli est vide au départ : tu y mets tes propres questions ou exercices, elle te fait réviser et te note. Rien n’est envoyé sur Internet.</p></div>"
++"<div class='cd'><b>Pour démarrer</b><p>1. Ouvre « Comment faire » et copie le prompt. 2. Colle-le dans une IA avec ton cours. 3. Importe le résultat (texte collé ou PDF). 4. Touche « Lancer ».</p></div>"
++"<div class='cd b'><b>⚠️ Tes séries peuvent disparaître</b><p>Elles sont gardées dans le navigateur de cet appareil, pas en ligne. Elles disparaissent si tu vides les données du navigateur ou si tu utilises la navigation privée, et elles ne passent pas d’un téléphone ou d’un navigateur à l’autre. Pour en garder une copie : « Exporter », « Copier la série », puis garde le texte dans un fichier ou dans un message WhatsApp à toi-même.</p></div>"
++"<div class='cd'><b>Activation</b><p>Le code d’activation ne marche que sur l’appareil pour lequel il a été généré. Si tu vides les données du navigateur ou si tu changes de téléphone, demande un nouveau code.</p></div>"
++"<div class='cd'><b>Partager une série</b><p>« Exporter », « Copier la série », puis envoie le texte (par WhatsApp par exemple). L’autre personne le colle dans « Importer ».</p></div>"
++"<div class='cd'><b>Les modes</b><p>QCM libre : la correction s’affiche après chaque réponse. Examen : tu choisis la durée, la correction vient à la fin, tu peux changer de réponse, et il se termine tout seul quand le temps est écoulé. Erreurs : seulement les questions ratées la dernière fois. Exercices : tu fais l’exercice sur papier, tu affiches le corrigé et tu te notes.</p></div>"
++"<div class='cd'><b>Exercices et réponses chiffrées</b><p>Quand la question attend un nombre, tape-le (virgule ou point) : l’appli accepte une petite marge d’arrondi. Les tableaux écrits avec le symbole | (une ligne par ligne du tableau) s’affichent en vrai tableau. Pour les graphiques, note-toi toi-même avec le corrigé.</p></div>"
++"<div class='cd'><b>Reprendre plus tard</b><p>« Quitter et reprendre plus tard » garde ta progression : touche « Reprendre » sur l’accueil. Il n’y a qu’une session en cours à la fois : en lancer une nouvelle remplace l’ancienne. Dans un examen, le chrono continue même si tu quittes.</p></div>"
++"<div class='cd'><b>Hors ligne et installation</b><p>Après une première ouverture avec Internet, ScoreUp s’enregistre sur ton appareil et peut s’ouvrir sans connexion. Seule la lecture d’un PDF demande Internet. Pour l’avoir comme une appli : sur Android, menu du navigateur puis « Installer l’application » ; sur iPhone, bouton Partager puis « Sur l’écran d’accueil ».</p></div><div class='cd'><b>Séries d’exemple</b><p>5 séries de révision (chapitre 1) sont fournies pour tester ScoreUp : comptabilité, marketing, droit, management et statistiques. Tu peux les supprimer, et ce bouton te les redonne.</p><button class='btn s' onclick='ad(this)'>Ajouter les séries d’exemple</button></div><div class='cd'><b>Nouveautés</b><p>Matières avec couleurs (à l’import, ou depuis la liste), statistiques globales et par matière, série de jours de révision, flashcards (touche la carte pour voir la réponse) et mode sombre ou clair en haut de l’accueil, favoris (étoile), sauvegarde complète et mode transport (boutons de navigation en bas).</p></div>"
++"<div class='cd'><b>Import</b><p>L’appli vérifie le format et indique la ligne à corriger. Les doublons sont ignorés. Un PDF doit contenir du vrai texte : une photo ou un scan ne marche pas. Les questions et les choix sont mélangés si la case est cochée, donc la lettre de la bonne réponse change d’un essai à l’autre.</p></div>"
++"<div class='cd'><b>Fiabilité</b><p>Une IA peut se tromper. Vérifie les réponses et les corrigés, surtout les calculs, avec ton cours ou ton prof avant de t’y fier ou de les partager. Demande aussi l’accord de ton prof avant de partager ses fiches.</p></div>"
++"<div class='cd'><b>Bon à savoir</b><p>Supprimer une série demande deux touches, pour éviter les erreurs. L’historique garde tes 100 derniers résultats.</p></div>"},
+fav:function(){var h="<button class='back' onclick='go(\"home\")'>← Retour</button><h1>Favoris ★</h1>",n=0;
+ DB.fav.forEach(function(k){var p=k.split(":"),st=gs(p[0]),q=st&&st.questions[+p[1]];if(!q)return;n++;var ex=st.kind==="ex",an=ex?q.c:q.c[q.r],op=tmp.fv===k;
+  h+="<div class='cd'>"+(st.cat?"<span class='bdg' style='background:"+catCol(st.cat)+"'>"+esc(st.cat)+"</span> ":"")+"<span class='mu'>"+esc(st.name)+"</span><p><b style='white-space:pre-wrap'>"+esc(ex&&q.t?q.t+" – "+q.q:q.q)+"</b></p>"+(op?"<p style='white-space:pre-wrap'>"+esc(an)+"</p>"+(!ex&&q.e?"<p class='mu'>"+esc(q.e)+"</p>":"")+WN:"")+"<div class='row'><button class='btn s' onclick='"+(op?"tmp.fv=null":"tmp.fv=\""+k+"\"")+";R(true)'>"+(op?"Masquer":"Voir la réponse")+"</button><button class='btn d' onclick='unfav(\""+k+"\")'>Retirer</button></div></div>"});
+ if(!n)h+="<p class='mu'>Aucune question en favori. Touche l’étoile ☆ pendant un quiz pour en ajouter.</p>";return h},
+bk:function(){var b=tmp.bk,h="<button class='back' onclick='go(\"home\")'>← Retour</button><h1>Sauvegarde</h1><p class='mu'>Garde une copie de tout (séries, historique, statistiques, matières, favoris), ou récupère-la sur un nouveau téléphone. Le code d’activation n’est pas inclus : un nouvel appareil a besoin de son propre code.</p>";
+ h+="<div class='cd'><b>Exporter</b><button class='btn' onclick='bkx()'>Exporter toutes mes données (Backup)</button><button class='btn s' onclick='bkc(this)'>Copier la sauvegarde</button><p class='mu'>Si le téléchargement ne démarre pas, utilise « Copier la sauvegarde » et colle-la dans un message ou un fichier.</p></div>";
+ h+="<div class='cd'><b>Restaurer</b><p class='mu'>Choisis ton fichier de sauvegarde, ou colle son contenu.</p><input type='file' id='bf' accept='.json,application/json' onchange='bkf(this)'><textarea id='bt' placeholder='Contenu de la sauvegarde…'>"+esc(tmp.bt||"")+"</textarea>"+(b?"<div class='w'>La sauvegarde contient "+b.sets.length+" série"+(b.sets.length>1?"s":"")+". Elle remplacera toutes les données actuelles de cet appareil. Confirmer ?</div><button class='btn' onclick='bkr(1)'>Oui, tout restaurer</button>":"<button class='btn s' onclick='bkr(0)'>Restaurer mes données</button>")+"<p class='er'>"+esc(tmp.be||"")+"</p></div>";return h},
+stats:function(){var S=DB.stats,h="<button class='back' onclick='go(\"home\")'>← Retour</button><h1>Statistiques</h1>",st=streak();
+ if(!S||!S.t.n)return h+"<p class='mu'>Fais une première séance pour voir tes statistiques.</p>";
+ var t=S.t,pc=Math.round(t.s/t.t*100);
+ h+="<div class='cd'><p class='mu'>Taux de réussite global</p><div class='big'>"+pc+" %</div><div class='bar'><i style='width:"+pc+"%'></i></div><p class='mu'>"+t.s+" bonnes réponses sur "+t.t+" · "+t.n+" séance"+(t.n>1?"s":"")+"</p></div>";
+ h+="<div class='cd'><b>Série en cours : "+st.n+" jour"+(st.n>1?"s":"")+"</b><p class='mu'>Meilleure série : "+Math.max(DB.best||0,st.n)+" jour"+(Math.max(DB.best||0,st.n)>1?"s":"")+"</p></div>"+reg()+"<h3>Par matière</h3>";
+ Object.keys(S.c).forEach(function(k){var x=S.c[k],p=Math.round(x.s/x.t*100),col=catCol(k);h+="<div class='cd'><span class='bdg' style='background:"+col+"'>"+esc(k)+"</span><b style='float:right'>"+p+" %</b><div class='bar'><i style='width:"+p+"%;background:"+col+"'></i></div><p class='mu'>"+x.n+" séance"+(x.n>1?"s":"")+" · "+x.s+"/"+x.t+" bonnes réponses</p></div>"});
+ return h},
+hist:function(){var h="<button class='back' onclick='go(\"home\")'>← Retour</button><h1>Historique</h1>";
+ if(!DB.hist.length)return h+"<p class='mu'>Aucun résultat pour l’instant.</p>";
+ DB.hist.forEach(function(x){h+="<div class='cd'><b>"+x.s+" / "+x.t+"</b> · "+Math.round(x.s/x.t*100)+" %<p class='mu'>"+esc(x.n)+" · "+MN[x.m]+" · "+dt(x.d)+"</p></div>"});
+ return h},
+exp:function(){var s=gs(cur);return "<button class='back' onclick='go(\"home\")'>← Retour</button><h1>Exporter</h1><p class='mu'>Copie ce texte et envoie-le à un ami : il l’importera dans son appli.</p><button class='btn' onclick='cp(\"s\",this)'>Copier la série</button><pre>"+esc(txtOf(s))+"</pre>"},
+help:function(){return "<button class='back' onclick='go(\"home\")'>← Retour</button><h1>Comment faire</h1><h3>1. Génère tes questions</h3><p>Copie ce prompt, colle-le dans Claude, Gemini ou ChatGPT, puis ajoute ton cours à la fin.</p><button class='btn' onclick='cp(\"p\",this)'>Copier le prompt</button><pre>"+esc(PROMPT)+"</pre><h3>2. Relis les réponses</h3><p>Une IA peut se tromper. Vérifie les bonnes réponses avant de t’en servir : la qualité des questions dépend de ta source.</p><h3>3. Importe</h3><p>Copie le résultat de l’IA, puis colle-le dans « Importer des questions ». L’appli vérifie le format et indique la ligne à corriger si besoin.</p><p>Tu peux aussi importer un PDF qui contient du texte. Seule cette lecture du PDF demande une connexion Internet ; le reste de l’appli n’en a pas besoin.</p><h3>Exercices (TD)</h3><p>Pour t’entraîner sur des exercices avec corrigé : copie ce prompt, colle-le dans une IA avec l’énoncé écrit en texte (pas en photo), puis importe le résultat comme d’habitude. Compare toujours le corrigé avec celui de ton prof : une IA peut se tromper dans les calculs.</p><button class='btn s' onclick='cp(\"e\",this)'>Copier le prompt pour exercices</button><pre>"+esc(PROMPT2)+"</pre><h3>Format attendu</h3><pre>Q: Quelle est la capitale du Sénégal ?\nA) Thiès\nB) Dakar\nC) Saint-Louis\nD) Kaolack\nR: B\nE: Dakar est la capitale depuis l’indépendance.</pre><p class='mu'>La ligne E: est facultative. Les autres sont obligatoires.</p>"}
+};
+var PUB={"kty": "EC", "crv": "P-256", "x": "a1NMDteN4-mIzN5bW7y_DveTs1pUcG4DKYhSFFtrisE", "y": "QrM4Zsgfr8rDZa6oqJzj4Qg9LGkLxqd4sjSYiq3EdkM"};
+function b64u(s){s=s.replace(/-/g,"+").replace(/_/g,"/");while(s.length%4)s+="=";var b=atob(s),u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u}
+function devId(){var id=null,i;try{id=localStorage.getItem("qcm_id")}catch(e){}
+ if(!/^[0-9a-f]{24}$/.test(id||"")){id="";var b=new Uint8Array(12);crypto.getRandomValues(b);for(i=0;i<12;i++)id+=("0"+b[i].toString(16)).slice(-2);try{localStorage.setItem("qcm_id",id)}catch(e){}}
+ return id}
+function fmt(id){return id.toUpperCase().replace(/(.{4})(?=.)/g,"$1-")}
+function chkCode(code){var id=devId();if(!(window.crypto&&crypto.subtle))return Promise.resolve(false);
+ return crypto.subtle.importKey("jwk",PUB,{name:"ECDSA",namedCurve:"P-256"},false,["verify"]).then(function(k){return crypto.subtle.verify({name:"ECDSA",hash:"SHA-256"},k,b64u(code.trim()),new TextEncoder().encode(id))}).catch(function(){return false})}
+/* ---------- QR code : générateur intégré (hors ligne) + lecteur caméra ---------- */
+const QR=(()=>{
+  const ECC={L:[-1,7,10,15,20,26,18,20,24,30,18,20,24,26,30,22,24,28,30,28,28,28,28,30,30,26,28,30,30,30,30,30,30,30,30,30,30,30,30,30,30],M:[-1,10,16,26,18,24,16,18,22,22,26,30,22,22,24,24,28,28,26,26,26,26,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28]};
+  const BLK={L:[-1,1,1,1,1,1,2,2,2,2,4,4,4,4,4,6,6,6,6,7,8,8,9,9,10,12,12,12,13,14,15,16,17,18,19,19,20,21,22,24,25],M:[-1,1,1,1,2,2,4,4,4,5,5,5,8,9,9,10,10,11,13,14,16,17,17,18,20,21,23,25,26,28,29,31,33,35,37,38,40,43,45,47,49]};
+  const FMT={L:1,M:0};
+  const mul=(x,y)=>{let z=0;for(let i=7;i>=0;i--){z=(z<<1)^((z>>>7)*0x11D);z^=((y>>>i)&1)*x}return z};
+  const rawModules=v=>{let r=(16*v+128)*v+64;if(v>=2){const na=Math.floor(v/7)+2;r-=(25*na-10)*na-55;if(v>=7)r-=36}return r};
+  const dataCw=(v,e)=>Math.floor(rawModules(v)/8)-ECC[e][v]*BLK[e][v];
+  const alignPos=v=>{if(v===1)return [];const na=Math.floor(v/7)+2,size=v*4+17,step=v===32?26:Math.ceil((v*4+4)/(na*2-2))*2,r=[6];for(let p=size-7;r.length<na;p-=step)r.splice(1,0,p);return r};
+  const rsDiv=d=>{const r=new Array(d).fill(0);r[d-1]=1;let root=1;for(let i=0;i<d;i++){for(let j=0;j<d;j++){r[j]=mul(r[j],root);if(j+1<d)r[j]^=r[j+1]}root=mul(root,2)}return r};
+  const rsRem=(data,div)=>{const r=div.map(()=>0);for(const b of data){const f=b^r.shift();r.push(0);div.forEach((c,i)=>{r[i]^=mul(c,f)})}return r};
+  const MASKS=[(x,y)=>(x+y)%2===0,(x,y)=>y%2===0,(x,y)=>x%3===0,(x,y)=>(x+y)%3===0,(x,y)=>(Math.floor(x/3)+Math.floor(y/2))%2===0,(x,y)=>x*y%2+x*y%3===0,(x,y)=>(x*y%2+x*y%3)%2===0,(x,y)=>((x+y)%2+x*y%3)%2===0];
+  function penalty(M,n){let p=0,dark=0;
+    for(let a=0;a<n;a++){let rr=1,rc=1;for(let b=1;b<=n;b++){if(b<n&&M[a][b]===M[a][b-1])rr++;else{if(rr>=5)p+=rr-2;rr=1}if(b<n&&M[b][a]===M[b-1][a])rc++;else{if(rc>=5)p+=rc-2;rc=1}}}
+    for(let y=0;y<n;y++)for(let x=0;x<n;x++){if(M[y][x])dark++;if(y<n-1&&x<n-1){const c=M[y][x];if(c===M[y][x+1]&&c===M[y+1][x]&&c===M[y+1][x+1])p+=3}}
+    return p+Math.max(0,Math.ceil(Math.abs(dark*20-n*n*10)/(n*n))-1)*10}
+  function encode(text,e){e=e||'L';const bytes=Array.from(new TextEncoder().encode(text));let v=1,cap=0;
+    for(;v<=40;v++){cap=dataCw(v,e)*8;if(4+(v<10?8:16)+bytes.length*8<=cap)break}
+    if(v>40)throw new Error('Données trop longues pour un QR code');
+    const bits=[],put=(val,len)=>{for(let i=len-1;i>=0;i--)bits.push((val>>>i)&1)};
+    put(4,4);put(bytes.length,v<10?8:16);bytes.forEach(b=>put(b,8));
+    put(0,Math.min(4,cap-bits.length));put(0,(8-bits.length%8)%8);for(let p=0xEC;bits.length<cap;p^=0xEC^0x11)put(p,8);
+    const data=[];for(let i=0;i<bits.length;i+=8){let b=0;for(let j=0;j<8;j++)b=(b<<1)|bits[i+j];data.push(b)}
+    const nb=BLK[e][v],el=ECC[e][v],raw=Math.floor(rawModules(v)/8),nShort=nb-raw%nb,shortLen=Math.floor(raw/nb),div=rsDiv(el),blocks=[];
+    for(let i=0,k=0;i<nb;i++){const dat=data.slice(k,k+shortLen-el+(i<nShort?0:1));k+=dat.length;const ec=rsRem(dat,div);if(i<nShort)dat.push(0);blocks.push(dat.concat(ec))}
+    const all=[];for(let i=0;i<blocks[0].length;i++)blocks.forEach((b,j)=>{if(i!==shortLen-el||j>=nShort)all.push(b[i])});
+    const size=v*4+17,M=Array.from({length:size},()=>new Array(size).fill(false)),F=Array.from({length:size},()=>new Array(size).fill(false));
+    const setF=(x,y,d)=>{M[y][x]=d;F[y][x]=true};
+    for(let i=0;i<size;i++){setF(6,i,i%2===0);setF(i,6,i%2===0)}
+    [[3,3],[size-4,3],[3,size-4]].forEach(([cx,cy])=>{for(let dy=-4;dy<=4;dy++)for(let dx=-4;dx<=4;dx++){const xx=cx+dx,yy=cy+dy;if(xx>=0&&xx<size&&yy>=0&&yy<size){const d=Math.max(Math.abs(dx),Math.abs(dy));setF(xx,yy,d!==2&&d!==4)}}});
+    const ap=alignPos(v),na=ap.length;
+    for(let i=0;i<na;i++)for(let j=0;j<na;j++){if((i===0&&j===0)||(i===0&&j===na-1)||(i===na-1&&j===0))continue;for(let dy=-2;dy<=2;dy++)for(let dx=-2;dx<=2;dx++)setF(ap[i]+dx,ap[j]+dy,Math.max(Math.abs(dx),Math.abs(dy))!==1)}
+    const drawFmt=m=>{const d=FMT[e]<<3|m;let r=d;for(let i=0;i<10;i++)r=(r<<1)^((r>>>9)*0x537);const b=((d<<10)|r)^0x5412,g=i=>((b>>>i)&1)!==0;
+      for(let i=0;i<=5;i++)setF(8,i,g(i));setF(8,7,g(6));setF(8,8,g(7));setF(7,8,g(8));for(let i=9;i<15;i++)setF(14-i,8,g(i));
+      for(let i=0;i<8;i++)setF(size-1-i,8,g(i));for(let i=8;i<15;i++)setF(8,size-15+i,g(i));setF(8,size-8,true)};
+    drawFmt(0);
+    if(v>=7){let r=v;for(let i=0;i<12;i++)r=(r<<1)^((r>>>11)*0x1F25);const b=v<<12|r;for(let i=0;i<18;i++){const bt=((b>>>i)&1)!==0,a=size-11+i%3,c=Math.floor(i/3);setF(a,c,bt);setF(c,a,bt)}}
+    let idx=0;for(let right=size-1;right>=1;right-=2){if(right===6)right=5;for(let vert=0;vert<size;vert++)for(let j=0;j<2;j++){const x=right-j,up=((right+1)&2)===0,y=up?size-1-vert:vert;if(!F[y][x]&&idx<all.length*8){M[y][x]=((all[idx>>>3]>>>(7-(idx&7)))&1)!==0;idx++}}}
+    const apply=m=>{for(let y=0;y<size;y++)for(let x=0;x<size;x++)if(!F[y][x]&&MASKS[m](x,y))M[y][x]=!M[y][x]};
+    let best=0,bp=Infinity;for(let m=0;m<8;m++){apply(m);drawFmt(m);const p=penalty(M,size);if(p<bp){bp=p;best=m}apply(m)}
+    apply(best);drawFmt(best);return M}
+  function canvas(text,px,e){const q=encode(text,e),n=q.length,quiet=4,total=n+quiet*2,scale=Math.max(2,Math.floor((px||300)/total)),c=document.createElement('canvas');
+    c.width=c.height=total*scale;const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.fillStyle='#000';
+    for(let y=0;y<n;y++)for(let xx=0;xx<n;xx++)if(q[y][xx])x.fillRect((xx+quiet)*scale,(y+quiet)*scale,scale,scale);c.className='qr';return c}
+  return {encode,canvas};
+})();
+
+/* Lecteur : BarcodeDetector (Android/Chrome) sinon jsQR chargé à la demande (puis gardé hors ligne) */
+let scanStream=null,scanTimer=null;
+function loadJsQR(){return new Promise((ok,ko)=>{if(window.jsQR)return ok();const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js';s.onload=()=>window.jsQR?ok():ko();s.onerror=ko;document.head.appendChild(s)})}
+async function startScan(video,status,onText){
+  stopScan();
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){status.textContent='📵 Caméra non disponible ici. Ouvre l\'appli installée (site en https).';return}
+  try{scanStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}},audio:false})}catch(e){status.textContent='📵 Accès à la caméra refusé. Autorise-le dans les réglages du navigateur.';return}
+  video.setAttribute('playsinline','');video.muted=true;video.srcObject=scanStream;try{await video.play()}catch(e){}
+  let detect=null;
+  if('BarcodeDetector' in window){try{const bd=new BarcodeDetector({formats:['qr_code']});detect=async()=>{const r=await bd.detect(video);return r.length?r[0].rawValue:null}}catch(e){detect=null}}
+  if(!detect){status.textContent='Chargement du lecteur…';try{await loadJsQR()}catch(e){status.textContent='❌ Lecteur QR indisponible hors ligne sur ce téléphone. Utilise le message ou le fichier.';stopScan();return}
+    const cv=document.createElement('canvas'),cx=cv.getContext('2d',{willReadFrequently:true});
+    detect=async()=>{const w=video.videoWidth,h=video.videoHeight;if(!w)return null;const s=Math.min(1,720/Math.max(w,h));cv.width=w*s|0;cv.height=h*s|0;cx.drawImage(video,0,0,cv.width,cv.height);const r=window.jsQR(cx.getImageData(0,0,cv.width,cv.height).data,cv.width,cv.height,{inversionAttempts:'dontInvert'});return r?r.data:null}}
+  if(!scanStream)return;
+  status.textContent='🎯 Vise le QR code…';
+  let busy=false;scanTimer=setInterval(async()=>{if(busy||!scanStream)return;busy=true;try{const t=await detect();if(t)onText(t)}catch(e){}busy=false},160);
+}
+function stopScan(){clearInterval(scanTimer);scanTimer=null;if(scanStream){scanStream.getTracks().forEach(t=>t.stop());scanStream=null}}
+
+function suOpen(h){suClose();var o=document.createElement("div");o.className="suov";o.id="suov";o.innerHTML="<div>"+h+"<button class='btn s' onclick='suClose()'>Fermer</button></div>";o.addEventListener("click",function(e){if(e.target===o)suClose()});document.body.appendChild(o)}
+function suClose(){stopScan();var o=document.getElementById("suov");if(o)o.remove()}
+function suShowQR(){suOpen("<b>Ton identifiant en QR</b><p class='mu' style='text-align:center'>La personne qui t’active scanne ce QR code.</p><div id='qrBox'></div><pre style='text-align:center'>"+fmt(devId())+"</pre>");document.getElementById("qrBox").appendChild(QR.canvas("SUID:"+devId(),600,"M"))}
+function suScan(){if(!(window.crypto&&crypto.subtle)){$("#ge").textContent="Ouvre l’appli depuis son lien https pour pouvoir l’activer.";return}
+ suOpen("<b>Scanner le code</b><p class='mu' style='text-align:center'>Vise le QR code affiché par la personne qui t’active.</p><div class='scanbox'><video id='scanV'></video><i></i></div><p id='scanS' class='mu' style='text-align:center'>Ouverture de la caméra…</p>");
+ var busy=false;startScan(document.getElementById("scanV"),document.getElementById("scanS"),function(t){if(busy)return;busy=true;var c=String(t).replace(/\s+/g,"").replace(/^SUCODE:/i,"");chkCode(c).then(function(ok){busy=false;if(ok){try{localStorage.setItem("qcm_act",c)}catch(e){}suClose();R()}else{var st=document.getElementById("scanS");if(st)st.textContent="❌ Ce code ne correspond pas à cet appareil"}})})}
+function boot(){try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}var c=null;try{c=localStorage.getItem("qcm_act")}catch(e){}if(!c)return gate();chkCode(c).then(function(ok){if(ok)R();else gate()})}
+function gate(){var id=fmt(devId());$("#app").innerHTML="<h1>ScoreUp</h1><p class='mu'>Pour activer l’appli sur cet appareil :</p><div class='cd'><b>1. Ton identifiant d’appareil</b><pre>"+id+"</pre><button class='btn s' onclick='copy(\""+id+"\",this)'>Copier mon identifiant</button><button class='btn s' onclick='suShowQR()'>🔳 Afficher en QR</button><p class='mu'>Envoie-le à la personne qui t’a proposé l’appli.</p></div><div class='cd'><b>2. Ton code d’activation</b><p class='mu'>Colle ici le code qu’elle te renvoie.</p><textarea id='gc' style='min-height:90px' autocomplete='off'></textarea><button class='btn' onclick='unlock()'>Activer</button><button class='btn s' onclick='suScan()'>📷 Scanner le code</button><p class='er' id='ge'></p></div><p class='mu'>L’activation ne se fait qu’une fois. Le code ne marche que sur cet appareil : si tu vides les données du navigateur ou si tu changes de téléphone, il faudra en demander un nouveau.</p>"+(store?"":"<div class='w'>Ton navigateur ne peut pas enregistrer l’activation (navigation privée ?). Utilise un onglet normal, sinon tu devras la refaire à chaque ouverture.</div>")}
+function unlock(){var c=$("#gc").value.replace(/\s+/g,"").replace(/^SUCODE:/i,"");if(!c){$("#ge").textContent="Colle ton code d’activation.";return}
+ if(!(window.crypto&&crypto.subtle)){$("#ge").textContent="Ouvre l’appli depuis son lien https pour pouvoir l’activer.";return}
+ $("#ge").textContent="Vérification…";chkCode(c).then(function(ok){if(ok){try{localStorage.setItem("qcm_act",c)}catch(e){}R()}else $("#ge").textContent="Code invalide pour cet appareil. Vérifie que tu l’as copié en entier et qu’il correspond à l’identifiant affiché."})}
+if("serviceWorker" in navigator&&location.protocol.indexOf("http")===0)navigator.serviceWorker.register("sw.js").catch(function(){});
+load();seed();boot();
+</script></body></html>
