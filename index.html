@@ -43,6 +43,820 @@ pre{white-space:pre-wrap;word-break:break-word;background:var(--cd);border:1px s
 .ecb{display:flex;align-items:center;gap:12px;width:100%;box-sizing:border-box;text-align:left;cursor:pointer;color:var(--tx);font:inherit}.ecb .mu{display:block;margin-top:2px}.ecb.on{border:2px solid var(--ac)}.eci{font-size:30px;line-height:1;flex:none}.ecr{margin-left:auto;font-size:24px;color:var(--mu);flex:none}.ecl{margin:8px 0 4px;padding-left:20px;line-height:1.6}
 </style></head><body><div id="app"></div>
 <script>
+/* =====================================================================
+   Thousand Labs — langue de l'interface (français / anglais)
+   TLL.switcher()  → boutons (TLL.switcher(true) : sans le titre « Langue ») « Français / English » à insérer dans un écran.
+   TLL.lang()      → 'fr' ou 'en'.   TLL.tr(texte) → traduction.
+   Le français reste la langue du code : en anglais, chaque texte affiché
+   est traduit à la volée grâce au dictionnaire TLL_EN (en bas du fichier).
+   Les contenus saisis (séries, ventes, notes…) ne sont pas modifiés.
+   ===================================================================== */
+var TLL=(function(){
+  var APP='scoreup',KEY='tl_lang_'+APP,L='fr';
+  try{L=localStorage.getItem(KEY)==='en'?'en':'fr'}catch(e){}
+  var D={},P=[],SUB=null,SUBK={},ready=false;
+  var SKIP={SCRIPT:1,STYLE:1,TEXTAREA:1,NOSCRIPT:1,CODE:1,PRE:1};
+  var ATTRS=['placeholder','title','aria-label','alt'];
+  var MO={janvier:'January','février':'February',mars:'March',avril:'April',mai:'May',juin:'June',juillet:'July','août':'August',septembre:'September',octobre:'October',novembre:'November','décembre':'December',
+    janv:'Jan','févr':'Feb',avr:'Apr',juil:'Jul',sept:'Sep',oct:'Oct',nov:'Nov','déc':'Dec',
+    lundi:'Monday',mardi:'Tuesday',mercredi:'Wednesday',jeudi:'Thursday',vendredi:'Friday',samedi:'Saturday',dimanche:'Sunday',
+    lun:'Mon',mar:'Tue',mer:'Wed',jeu:'Thu',ven:'Fri',sam:'Sat',dim:'Sun'};
+  var MORE=/(^|[^\p{L}])(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre|janv|févr|avr|juil|sept|oct|nov|déc|lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche)(\.?)(?=[^\p{L}]|$)/giu;
+  function norm(s){return String(s).replace(/[\s  ]+/g,' ').trim()}
+  function up(s){return s.charAt(0).toUpperCase()+s.slice(1)}
+  function lo(s){return s.charAt(0).toLowerCase()+s.slice(1)}
+  function escR(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}
+  function punct(s){return s.replace(/ ([:;!?])/g,'$1').replace(/« ?/g,'“').replace(/ ?»/g,'”')}
+  function build(){
+    if(ready)return;ready=true;var src=window.TLL_EN||{},k,keys=[];
+    for(k in src){var n=norm(k);if(!n)continue;
+      if(/\{#?\}/.test(n)){var parts=n.split(/(\{#?\})/),rs='';
+        for(var q=0;q<parts.length;q++)rs+=q%2?(parts[q]==='{#}'?'([\\d\\s.,/%+−-]+?)':'(.+?)'):escR(parts[q]);
+        P.push({re:new RegExp('^'+rs+'$','u'),out:src[k],w:n.replace(/\{#?\}/g,'').length})}
+      else{D[n]=src[k];if(!window.TLL_NOSUB&&n.length>=4&&n.indexOf(' ')>0)keys.push(n)}}
+    P.sort(function(a,b){return b.w-a.w});
+    (window.TLL_SUBX||[]).forEach(function(k){k=norm(k);if(D.hasOwnProperty(k)&&keys.indexOf(k)<0)keys.push(k)});
+    keys.sort(function(a,b){return b.length-a.length});
+    keys.forEach(function(k){SUBK[k.toLowerCase()]=D[k]});
+    if(keys.length)SUB=new RegExp('('+keys.map(escR).join('|')+')','giu');
+  }
+  function exact(c){
+    if(D.hasOwnProperty(c))return D[c];
+    var l=lo(c);if(l!==c&&D.hasOwnProperty(l))return up(D[l]);
+    var u=up(c);if(u!==c&&D.hasOwnProperty(u))return lo(D[u]);
+    return null;
+  }
+  function pat(c){
+    for(var i=0;i<P.length;i++){var p=P[i],g=c.match(p.re);
+      if(g){var o=p.out,j=1;return o.replace(/\{#?\}/g,function(){var v=g[j++];return v==null?'':trCore(v)})}}
+    return null;
+  }
+  function core(c){
+    var r=exact(c);if(r!=null)return r;
+    var m=c.match(/^([^\p{L}\p{N}«"(]*)([\s\S]*?)([\s:;.!?…,)»"*_]*)$/u);
+    if(m&&m[1]){r=exact(c.slice(m[1].length));if(r!=null)return m[1]+r}
+    if(m&&m[2]&&(m[1]||m[3])){r=exact(m[2]);if(r!=null)return m[1]+r+punct(m[3])}
+    r=pat(c);if(r!=null)return r;
+    if(m&&m[1]){r=pat(c.slice(m[1].length));if(r!=null)return m[1]+r}
+    if(m&&m[2]&&(m[1]||m[3])){r=pat(m[2]);if(r!=null)return m[1]+r+punct(m[3])}
+    return null;
+  }
+  function trCore(c){
+    var r=core(c);if(r!=null)return r;
+    var out=c,hit=false;
+    if(SUB)out=out.replace(SUB,function(k,g,o,str){var v=SUBK[k.toLowerCase()];if(v==null)return k;
+      var W=/[\p{L}\p{N}]/u;
+      if(W.test(k.charAt(0))&&o>0&&W.test(str.charAt(o-1)))return k;
+      if(W.test(k.charAt(k.length-1))&&W.test(str.charAt(o+k.length)))return k;
+      hit=true;if(k.charAt(0)!==k.charAt(0).toLowerCase())v=up(v);return v});
+    if(!window.TLL_NOSUB)out=out.replace(MORE,function(all,pre,w,dot){var v=MO[w.toLowerCase()];if(!v)return all;hit=true;
+      return pre+(w.charAt(0)===w.charAt(0).toUpperCase()?v:v)+(dot&&v.length>4?'':dot)});
+    return hit?punct(out):c;
+  }
+  function tr(s){try{return tr0(s)}catch(e){return s}}
+  function tr0(s){
+    if(L!=='en'||s==null)return s;s=String(s);build();
+    var c=norm(s);if(!c||!/\p{L}/u.test(c))return s;
+    var r=core(c);
+    if(r==null&&s.indexOf('\n')>=0)return s.split('\n').map(tr0).join('\n');
+    if(r==null)r=trCore(c);
+    if(r===c)return s;
+    var a=s.match(/^[\s ]*/)[0],b=s.match(/[\s ]*$/)[0];
+    return a+r+b;
+  }
+  function skip(el){
+    for(var e=el;e&&e.nodeType===1;e=e.parentNode){if(SKIP[e.tagName]||e.isContentEditable)return true;if(e.hasAttribute('data-notr'))return true}
+    return false;
+  }
+  function doText(n){
+    var v=n.nodeValue;if(!v||n.__tl===v)return;
+    if(n.parentNode&&skip(n.parentNode))return;
+    var t=tr(v);if(t!==v){n.__fr=v;n.nodeValue=t}n.__tl=n.nodeValue;
+  }
+  function doEl(el){
+    if(el.hasAttribute('data-notr')||(el.parentNode&&el.parentNode.nodeType===1&&skip(el.parentNode)))return;
+    for(var i=0;i<ATTRS.length;i++){var a=ATTRS[i],v=el.getAttribute(a);if(!v)continue;
+      el.__tla=el.__tla||{};if(el.__tla[a]===v)continue;
+      var t=tr(v);if(t!==v){el.__fra=el.__fra||{};el.__fra[a]=v;el.setAttribute(a,t)}el.__tla[a]=t}
+    if(el.tagName==='INPUT'&&/^(button|submit)$/i.test(el.type)&&el.value){var w=tr(el.value);if(w!==el.value)el.value=w}
+  }
+  function walk(root){
+    if(!root)return;
+    if(root.nodeType===3){doText(root);return}
+    if(root.nodeType!==1&&root.nodeType!==9&&root.nodeType!==11)return;
+    if(root.nodeType===1){if(root.tagName==='TEXTAREA')doEl(root);if(skip(root))return;doEl(root)}
+    var it=document.createTreeWalker(root,NodeFilter.SHOW_ELEMENT|NodeFilter.SHOW_TEXT,{acceptNode:function(n){
+      if(n.nodeType===1&&(SKIP[n.tagName]||n.hasAttribute('data-notr'))){if(n.tagName==='TEXTAREA')doEl(n);return NodeFilter.FILTER_REJECT}return NodeFilter.FILTER_ACCEPT}}),n;
+    while((n=it.nextNode())){if(n.nodeType===3)doText(n);else doEl(n)}
+  }
+  var obs=null;
+  function observe(){
+    if(obs||!window.MutationObserver||!document.body)return;
+    obs=new MutationObserver(function(list){if(L!=='en')return;
+      for(var i=0;i<list.length;i++){var m=list[i];
+        if(m.type==='childList')for(var j=0;j<m.addedNodes.length;j++)walk(m.addedNodes[j]);
+        else if(m.type==='characterData')doText(m.target);
+        else if(m.type==='attributes')doEl(m.target)}});
+    obs.observe(document.body,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:ATTRS});
+  }
+  function restore(){
+    var it=document.createTreeWalker(document.body,NodeFilter.SHOW_ELEMENT|NodeFilter.SHOW_TEXT),n;
+    while((n=it.nextNode())){
+      if(n.nodeType===3){if(n.__fr!=null&&n.nodeValue===n.__tl)n.nodeValue=n.__fr;n.__fr=null;n.__tl=null}
+      else if(n.__fra){for(var a in n.__fra)n.setAttribute(a,n.__fra[a]);n.__fra=null;n.__tla=null}else n.__tla=null}
+  }
+  /* Dates en anglais quand l'anglais est choisi */
+  function patchDates(){
+    var map=function(loc){return (L==='en'&&(loc==null||/^fr/i.test(String(loc))))?'en-GB':loc};
+    ['toLocaleDateString','toLocaleTimeString','toLocaleString'].forEach(function(f){var o=Date.prototype[f];
+      Date.prototype[f]=function(loc,opt){return o.call(this,map(loc),opt)}});
+    var DTF=Intl.DateTimeFormat;
+    try{Intl.DateTimeFormat=function(loc,opt){return new DTF(map(loc),opt)};Intl.DateTimeFormat.prototype=DTF.prototype;Intl.DateTimeFormat.supportedLocalesOf=DTF.supportedLocalesOf}catch(e){}
+  }
+  /* Messages système (alerte, confirmation, saisie) */
+  function patchDialogs(){
+    ['alert','confirm'].forEach(function(f){var o=window[f];if(!o)return;window[f]=function(m){return o.call(window,tr(m))}});
+    var p=window.prompt;if(p)window.prompt=function(m,d){return p.call(window,tr(m),d)};
+  }
+  function apply(){
+    document.documentElement.lang=L;
+    if(L==='en'){build();walk(document.body);observe()}
+    if(TLL.onchange)try{TLL.onchange(L)}catch(e){}
+  }
+  function set(l){
+    l=l==='en'?'en':'fr';if(l===L)return;
+    try{localStorage.setItem(KEY,l)}catch(e){}
+    var was=L;L=l;
+    if(was==='en'&&l==='fr')restore();
+    apply();
+    try{document.querySelectorAll('.tl-lang button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-l')===L)});
+      document.querySelectorAll('.tl-lang-t').forEach(function(t){t.textContent='🌍 '+(L==='en'?'Language':'Langue')})}catch(e){}
+  }
+  function switcher(noTitle){
+    var b=function(k,lab){return '<button type="button" data-l="'+k+'" class="'+(L===k?'on':'')+'" onclick="TLL.set(\''+k+'\')">'+lab+'</button>'};
+    return '<div class="tl-lang-w" data-notr>'+(noTitle?'':'<div class="tl-lang-t">🌍 '+(L==='en'?'Language':'Langue')+'</div>')+'<div class="tl-lang" role="group" aria-label="Langue / Language">'+b('fr','🇫🇷 Français')+b('en','🇬🇧 English')+'</div></div>';
+  }
+  /* Le titre « Langue » suit la langue choisie */
+  var css='.tl-lang-w{margin:12px 0}.tl-lang-t{font-weight:700;font-size:14px;margin:0 0 6px}.tl-lang{display:flex;gap:8px}'
+    +'.tl-lang button{flex:1;min-height:42px;padding:8px 10px;border-radius:999px;border:1.5px solid currentColor;background:transparent;color:inherit;font:600 14px/1.2 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;opacity:.6;cursor:pointer}'
+    +'.tl-lang button.on{opacity:1;border-width:2px;box-shadow:0 0 0 1px currentColor inset}';
+  function init(){
+    try{var s=document.createElement('style');s.textContent=css;document.head.appendChild(s)}catch(e){}
+    patchDates();patchDialogs();
+    if(document.body)apply();else document.addEventListener('DOMContentLoaded',apply);
+  }
+  var TLL={lang:function(){return L},set:set,tr:tr,switcher:switcher,refresh:function(){if(L==='en')walk(document.body)},onchange:null};
+  TLL._init=init;
+  return TLL;
+})();
+
+/* Dictionnaire français → anglais */
+var TLL_EN={
+"Ton navigateur peut installer {} comme une vraie application : icône propre (sans logo de navigateur), plein écran et ouverture hors ligne.": "Your browser can install {} as a real app: its own icon (no browser logo), full screen and offline access.",
+"Tu as déjà une icône avec le petit logo du navigateur ? Après l'installation, fais une sauvegarde de tes données, puis supprime l'ancienne icône.": "Already have an icon with the small browser logo? After installing, back up your data, then delete the old icon.",
+"Tu as déjà une icône avec le petit logo du navigateur ? Après l’installation, fais une sauvegarde de tes données, puis supprime l’ancienne icône.": "Already have an icon with the small browser logo? After installing, back up your data, then delete the old icon.",
+"{} est ouverte comme une application.": "{} is open as an app.",
+"Si son icône porte le petit logo de ton navigateur, c'est un simple raccourci. Pour une installation complète, suis les étapes ci-dessous.": "If its icon shows your browser's small logo, it's just a shortcut. For a full install, follow the steps below.",
+"Si son icône porte le petit logo de ton navigateur, c’est un simple raccourci. Pour une installation complète, suis les étapes ci-dessous.": "If its icon shows your browser's small logo, it's just a shortcut. For a full install, follow the steps below.",
+"Installe {} sur ton écran d'accueil : elle s'ouvrira comme une vraie application, même sans Internet.": "Install {} on your home screen: it will open like a real app, even without Internet.",
+"Installe {} sur ton écran d’accueil : elle s’ouvrira comme une vraie application, même sans Internet.": "Install {} on your home screen: it will open like a real app, even without Internet.",
+"Installer {}": "Install {}",
+"Ouvre le lien de l'appli dans le navigateur, avec Internet.": "Open the app's link in your browser, with Internet on.",
+"Ouvre le lien de l’appli dans le navigateur, avec Internet.": "Open the app's link in your browser, with Internet on.",
+"Touche le menu": "Tap the menu",
+"(en haut ou en bas à droite).": "(top or bottom right).",
+"Choisis": "Choose",
+"« Installer l'application »": "“Install app”",
+"« Installer l’application »": "“Install app”",
+". Évite « Ajouter à l'écran d'accueil » : ça crée un simple raccourci avec le logo du navigateur.": ". Avoid “Add to Home screen”: it only creates a shortcut with the browser logo.",
+". Évite « Ajouter à l’écran d’accueil » : ça crée un simple raccourci avec le logo du navigateur.": ". Avoid “Add to Home screen”: it only creates a shortcut with the browser logo.",
+"Si « Installer » n'apparaît pas : recharge la page, attends quelques secondes et réessaie.": "If “Install” doesn't appear: reload the page, wait a few seconds and try again.",
+"Si « Installer » n’apparaît pas : recharge la page, attends quelques secondes et réessaie.": "If “Install” doesn't appear: reload the page, wait a few seconds and try again.",
+"Ouvre le lien dans": "Open the link in",
+"Touche": "Tap",
+"Partager": "Share",
+"(le carré avec une flèche).": "(the square with an arrow).",
+"« Sur l'écran d'accueil »": "“Add to Home Screen”",
+"« Sur l’écran d’accueil »": "“Add to Home Screen”",
+", puis": ", then",
+"Ajouter": "Add",
+"Sur iPhone, installe l'appli AVANT de l'activer, puis ouvre-la toujours depuis son icône : l'iPhone sépare Safari et les applis installées.": "On iPhone, install the app BEFORE activating it, then always open it from its icon: the iPhone keeps Safari and installed apps separate.",
+"Sur iPhone, installe l’appli AVANT de l’activer, puis ouvre-la toujours depuis son icône : l’iPhone sépare Safari et les applis installées.": "On iPhone, install the app BEFORE activating it, then always open it from its icon: the iPhone keeps Safari and installed apps separate.",
+"Ordinateur (Chrome, Edge, Brave)": "Computer (Chrome, Edge, Brave)",
+"Clique sur l'icône d'installation à droite de la barre d'adresse.": "Click the install icon on the right of the address bar.",
+"Clique sur l’icône d’installation à droite de la barre d’adresse.": "Click the install icon on the right of the address bar.",
+"Comment installer, pas à pas": "How to install, step by step",
+"Installer l'application": "Install the app",
+"Installer l’application": "Install the app",
+"Site officiel :": "Official website:",
+"Site officiel": "Official website",
+"Aujourd'hui": "Today",
+"Aujourd’hui": "Today",
+"Hier": "Yesterday",
+"Demain": "Tomorrow",
+"à l'instant": "just now",
+"à l’instant": "just now",
+"il y a {} min": "{} min ago",
+"il y a {} h": "{} h ago",
+"il y a {} jours": "{} days ago",
+"il y a {} jour": "{} day ago",
+"jamais": "never",
+"Fermer": "Close",
+"Annuler": "Cancel",
+"Enregistrer": "Save",
+"Supprimer": "Delete",
+"Modifier": "Edit",
+"Valider": "Confirm",
+"Retour": "Back",
+"← Retour": "← Back",
+"Copier": "Copy",
+"Copié ✅": "Copied ✅",
+"Copié ✓": "Copied ✓",
+"Copié !": "Copied!",
+"Coller": "Paste",
+"Collé ✅": "Pasted ✅",
+"Activer": "Activate",
+"Réglages": "Settings",
+"Paramètres": "Settings",
+"Accueil": "Home",
+"Apparence": "Appearance",
+"Clair": "Light",
+"Sombre": "Dark",
+"Auto": "Auto",
+"Thème": "Theme",
+"Sauvegarde": "Backup",
+"Licence": "Licence",
+"Langue": "Language",
+"Oui": "Yes",
+"Non": "No",
+"OK": "OK",
+"Total": "Total",
+"Date": "Date",
+"Note": "Note",
+"Nom": "Name",
+"Téléphone": "Phone",
+"Autre": "Other",
+"Espèces": "Cash",
+"Catégorie": "Category",
+"Montant": "Amount",
+"Statut": "Status",
+"Paiement": "Payment",
+"Code d'activation": "Activation code",
+"Code d’activation": "Activation code",
+"ID appareil": "Device ID",
+"Ton ID appareil": "Your device ID",
+"Votre ID appareil": "Your device ID",
+"Demander mon code": "Request my code",
+"Scanner": "Scan",
+"Fichier": "File",
+"QR": "QR",
+"Ouverture de la caméra…": "Opening the camera…",
+"Chargement du lecteur…": "Loading the scanner…",
+"🎯 Vise le QR code…": "🎯 Aim at the QR code…",
+"Vise le QR code…": "Aim at the QR code…",
+"📵 Caméra non disponible ici. Ouvre l'appli installée (site en https).": "📵 Camera not available here. Open the installed app (https site).",
+"📵 Caméra non disponible ici. Ouvre l’appli installée (site en https).": "📵 Camera not available here. Open the installed app (https site).",
+"📵 Accès à la caméra refusé. Autorise-le dans les réglages du navigateur.": "📵 Camera access denied. Allow it in your browser settings.",
+"❌ Lecteur QR indisponible hors ligne sur ce téléphone. Utilise le message ou le fichier.": "❌ QR scanner unavailable offline on this phone. Use the message or the file.",
+"Contacter le support": "Contact support",
+"Thousand Labs": "Thousand Labs",
+"Activée ✅": "Activated ✅",
+"Zone sensible": "Danger zone",
+"Ton navigateur peut installer": "Your browser can install",
+"comme une vraie application : icône propre (sans logo de navigateur), plein écran et ouverture hors ligne.": "as a real app: its own icon (no browser logo), full screen and offline access.",
+"est ouverte comme une application.": "is open as an app.",
+"Installe": "Install",
+"sur ton écran d'accueil : elle s'ouvrira comme une vraie application, même sans Internet.": "on your home screen: it will open like a real app, even without Internet.",
+"sur ton écran d’accueil : elle s’ouvrira comme une vraie application, même sans Internet.": "on your home screen: it will open like a real app, even without Internet.",
+"ou": "or",
+"Dernière sauvegarde : {}": "Last backup: {}",
+"{} Ko": "{} KB",
+"Ko": "KB",
+"QCM libre": "Free MCQ",
+"Examen": "Exam",
+"Erreurs": "Mistakes",
+"Flashcards": "Flashcards",
+"Sans matière": "No subject",
+"Question {} :": "Question {}:",
+"Question": "Question",
+"l’énoncé est vide.": "the question is empty.",
+"l'énoncé est vide.": "the question is empty.",
+"il faut au moins 2 choix (A, B…).": "at least 2 choices are needed (A, B…).",
+"un choix est vide.": "a choice is empty.",
+"la ligne « R: » est manquante.": "the “R:” line is missing.",
+"la réponse": "the answer",
+"ne correspond à aucun choix.": "doesn't match any choice.",
+"doublon, ignorée.": "duplicate, ignored.",
+"Exercice": "Exercise",
+"Exercice {} :": "Exercise {}:",
+"question {} :": "question {}:",
+"aucune ligne « Q: ».": "no “Q:” line.",
+"la ligne « C: » (corrigé) est manquante.": "the “C:” line (solution) is missing.",
+"« N: » doit être un nombre.": "“N:” must be a number.",
+"Tape un nombre": "Type a number",
+"⚠️ Corrigé issu d’une IA ou de tes séries importées : il peut contenir des erreurs. Vérifie-le avec ton cours ou ton prof.": "⚠️ Solution from an AI or from your imported sets: it may contain mistakes. Check it against your course or your teacher.",
+"⚠️ Corrigé issu d'une IA ou de tes séries importées : il peut contenir des erreurs. Vérifie-le avec ton cours ou ton prof.": "⚠️ Solution from an AI or from your imported sets: it may contain mistakes. Check it against your course or your teacher.",
+"Favori": "Favourite",
+"Sauvegarde invalide : choisis le fichier exporté par ScoreUp, ou colle son contenu en entier.": "Invalid backup: choose the file exported by ScoreUp, or paste its full content.",
+"École de Management": "School of Management",
+"Gestion, finance, marketing, commerce": "Management, finance, marketing, business",
+"Pour les étudiants qui se forment à la gestion des entreprises : comptabilité, finance, marketing, ressources humaines ou logistique.": "For students training in business management: accounting, finance, marketing, human resources or logistics.",
+"Comptabilité, finance et audit": "Accounting, finance and audit",
+"Banque et assurance": "Banking and insurance",
+"Marketing, vente et relation client": "Marketing, sales and customer relations",
+"Ressources humaines": "Human resources",
+"Logistique et supply chain": "Logistics and supply chain",
+"Administration des affaires": "Business administration",
+"Management international": "International management",
+"École de Droit": "School of Law",
+"Droit privé, droit des affaires, fiscalité": "Private law, business law, taxation",
+"Pour les étudiants en droit : bases du droit civil, du droit constitutionnel et administratif, organisation de la justice et économie.": "For law students: basics of civil law, constitutional and administrative law, the justice system and economics.",
+"Droit privé fondamental": "Fundamental private law",
+"Droit des affaires et fiscalité": "Business law and taxation",
+"Droit notarial et gestion du patrimoine": "Notarial law and wealth management",
+"Droit maritime et activités portuaires": "Maritime law and port activities",
+"Droit de l’énergie et des mines": "Energy and mining law",
+"Droit de l'énergie et des mines": "Energy and mining law",
+"Passation des marchés publics": "Public procurement",
+"École d’Ingénieurs": "School of Engineering",
+"École d'Ingénieurs": "School of Engineering",
+"Informatique, réseaux, systèmes": "Computing, networks, systems",
+"Pour les étudiants en informatique : algorithmique, numération, architecture des ordinateurs, réseaux et mathématiques.": "For computer science students: algorithms, number systems, computer architecture, networks and mathematics.",
+"Informatique appliquée à la gestion (IAGE)": "Computing applied to management (IAGE)",
+"Génie logiciel": "Software engineering",
+"Réseaux et systèmes": "Networks and systems",
+"Sécurité des systèmes d’information": "Information systems security",
+"Sécurité des systèmes d'information": "Information systems security",
+"Big data et actuariat": "Big data and actuarial science",
+"Management et technologies": "Management and technology",
+"Web, design, marketing digital": "Web, design, digital marketing",
+"Pour les étudiants des métiers du web et du multimédia : création de sites, design graphique et marketing digital.": "For students in web and multimedia careers: website creation, graphic design and digital marketing.",
+"Développement web et mobile": "Web and mobile development",
+"Webdesign et UX/UI": "Web design and UX/UI",
+"Marketing digital": "Digital marketing",
+"Communication digitale": "Digital communication",
+"Création multimédia": "Multimedia creation",
+"Science politique, relations internationales, communication": "Political science, international relations, communication",
+"Pour les étudiants en science politique, relations internationales, communication et journalisme.": "For students in political science, international relations, communication and journalism.",
+"Science politique": "Political science",
+"Relations internationales": "International relations",
+"Gouvernance territoriale": "Territorial governance",
+"Communication": "Communication",
+"Journalisme et métiers de l’information": "Journalism and information careers",
+"Journalisme et métiers de l'information": "Journalism and information careers",
+"{} série ajoutée": "{} set added",
+"{} séries ajoutées": "{} sets added",
+"{} série complétée avec de nouvelles questions": "{} set completed with new questions",
+"{} séries complétées avec de nouvelles questions": "{} sets completed with new questions",
+"séries ajoutées": "sets added",
+"série ajoutée": "set added",
+"séries complétées avec de nouvelles questions": "sets completed with new questions",
+"série complétée avec de nouvelles questions": "set completed with new questions",
+"Toutes les séries de ton école sont déjà là": "All your school's sets are already here",
+". Bonne révision !": ". Happy revising!",
+"Bonne révision !": "Happy revising!",
+": tes séries étaient déjà là.": ": your sets were already here.",
+"tes séries étaient déjà là.": "your sets were already here.",
+"🎓 École choisie :": "🎓 School chosen:",
+"École choisie :": "School chosen:",
+". Tu pourras ajouter ses séries depuis les Réglages.": ". You can add its sets later from Settings.",
+"Tu pourras ajouter ses séries depuis les Réglages.": "You can add its sets later from Settings.",
+"Sélectionne le texte et copie-le": "Select the text and copy it",
+"Lecture du PDF… (connexion Internet requise)": "Reading the PDF… (Internet connection required)",
+"Impossible de lire ce PDF. Vérifie ta connexion et que le PDF contient du vrai texte (pas une photo ni un scan). Tu peux aussi copier-coller le texte.": "Unable to read this PDF. Check your connection and that the PDF contains real text (not a photo or scan). You can also copy and paste the text.",
+"Série du {}": "Set of {}",
+"Régularité · 30 derniers jours": "Consistency · last 30 days",
+"{} jours sur 30 · {} séances": "{} days out of 30 · {} sessions",
+"{} jour sur 30 · {} séance": "{} day out of 30 · {} session",
+"{} jours sur 30 · {} séance": "{} days out of 30 · {} session",
+"{} jour sur 30 · {} séances": "{} day out of 30 · {} sessions",
+"sur 30 ·": "out of 30 ·",
+"séances": "sessions",
+"séance": "session",
+". Le suivi jour par jour commence à cette mise à jour.": ". Day-by-day tracking starts with this update.",
+"Le suivi jour par jour commence à cette mise à jour.": "Day-by-day tracking starts with this update.",
+"Mode clair": "Light mode",
+"Mode sombre": "Dark mode",
+"Ce navigateur ne permet pas de sauvegarder : tes séries disparaîtront quand tu fermeras la page.": "This browser can't save: your sets will disappear when you close the page.",
+"{} jours de suite": "{} days in a row",
+"{} jour de suite": "{} day in a row",
+"de suite": "in a row",
+"Ta série de jours": "Your day streak",
+"Séance du jour faite. Bravo !": "Today's session done. Well done!",
+"Fais une séance aujourd’hui pour garder ta série.": "Do a session today to keep your streak.",
+"Fais une séance aujourd'hui pour garder ta série.": "Do a session today to keep your streak.",
+"Fais une séance aujourd’hui pour la commencer.": "Do a session today to start it.",
+"Fais une séance aujourd'hui pour la commencer.": "Do a session today to start it.",
+"Installer ScoreUp sur l’écran d’accueil": "Install ScoreUp on the home screen",
+"Installer ScoreUp sur l'écran d'accueil": "Install ScoreUp on the home screen",
+"en cours": "in progress",
+"· question": "· question",
+"Reprendre": "Resume",
+"Importer des questions": "Import questions",
+"Toutes": "All",
+"Aucune série pour l’instant. Importe tes questions, ou ouvre « Comment faire » pour les générer avec une IA à partir de ton cours.": "No sets yet. Import your questions, or open “How to” to generate them with an AI from your course.",
+"Aucune série pour l'instant. Importe tes questions, ou ouvre « Comment faire » pour les générer avec une IA à partir de ton cours.": "No sets yet. Import your questions, or open “How to” to generate them with an AI from your course.",
+"Ajouter les séries de mon école": "Add my school's sets",
+"🎓 Choisir mon école": "🎓 Choose my school",
+"{} questions": "{} questions",
+"{} question": "{} question",
+"Exercices ·": "Exercises ·",
+"Exercices": "Exercises",
+"Lancer": "Start",
+"Exporter": "Export",
+"Confirmer la suppression": "Confirm deletion",
+"Statistiques": "Statistics",
+"Historique": "History",
+"Comment faire": "How to",
+"Guide": "Guide",
+"Favoris ★": "Favourites ★",
+"Favoris": "Favourites",
+"⚙️ Réglages": "⚙️ Settings",
+"Tes séries sont gardées dans ce navigateur seulement. Utilise « Sauvegarde » pour tout garder en lieu sûr.": "Your sets are kept in this browser only. Use “Backup” to keep everything safe.",
+"Mode transport (boutons en bas) :": "Transport mode (buttons at the bottom):",
+"activé": "on",
+"désactivé": "off",
+"Importer": "Import",
+"Copier le prompt QCM": "Copy the MCQ prompt",
+"Copier le prompt Exercices": "Copy the Exercises prompt",
+"Colle le prompt dans une IA avec ton cours, puis reviens coller ici ce qu’elle te renvoie.": "Paste the prompt into an AI with your course, then come back and paste here what it returns.",
+"Colle le prompt dans une IA avec ton cours, puis reviens coller ici ce qu'elle te renvoie.": "Paste the prompt into an AI with your course, then come back and paste here what it returns.",
+"Nom de la série": "Set name",
+"Ex. Comptabilité – chapitre 2": "E.g. Accounting – chapter 2",
+"Matière (facultatif)": "Subject (optional)",
+"Ex. Comptabilité": "E.g. Accounting",
+"Colle tes questions ici": "Paste your questions here",
+"Ou ouvre un fichier .txt ou .pdf": "Or open a .txt or .pdf file",
+"Vérifier": "Check",
+"Ce fichier est un PDF : l’appli ne lit que du texte. Demande à l’IA d’écrire les questions directement dans la conversation, puis copie-les et colle-les ici (ou enregistre-les dans un fichier .txt).": "This file is a PDF: the app only reads text. Ask the AI to write the questions directly in the conversation, then copy and paste them here (or save them in a .txt file).",
+"Ce fichier est un PDF : l'appli ne lit que du texte. Demande à l'IA d'écrire les questions directement dans la conversation, puis copie-les et colle-les ici (ou enregistre-les dans un fichier .txt).": "This file is a PDF: the app only reads text. Ask the AI to write the questions directly in the conversation, then copy and paste them here (or save them in a .txt file).",
+"Aucune question détectée. Chaque question doit commencer par « Q: ». Voir « Comment faire ».": "No questions detected. Each question must start with “Q:”. See “How to”.",
+"{} questions valides": "{} valid questions",
+"{} question valide": "{} valid question",
+"{} à corriger": "{} to fix",
+"à corriger": "to fix",
+"questions d’exercice": "exercise questions",
+"questions d'exercice": "exercise questions",
+"question d’exercice": "exercise question",
+"question d'exercice": "exercise question",
+"Mode": "Mode",
+"Réviser les questions": "Review the questions",
+"Mes": "My",
+"ratée": "missed",
+"ratées": "missed",
+"de la dernière fois": "from last time",
+"Nombre de questions": "Number of questions",
+"Mélanger l’ordre": "Shuffle the order",
+"Mélanger l'ordre": "Shuffle the order",
+"Commencer": "Start",
+"QCM libre : correction après chaque réponse": "Free MCQ: correction after each answer",
+"Examen chronométré : correction à la fin": "Timed exam: correction at the end",
+"Flashcards : touche la carte pour voir la réponse": "Flashcards: tap the card to see the answer",
+"Durée en minutes (examen seulement)": "Duration in minutes (exam only)",
+"Chrono par question, en secondes (QCM libre ; 0 = aucun)": "Timer per question, in seconds (free MCQ; 0 = none)",
+"Mélanger les questions et les choix": "Shuffle questions and choices",
+"✅ Bonne réponse.": "✅ Correct answer.",
+"⌛ Temps écoulé.": "⌛ Time's up.",
+"❌ Mauvaise réponse.": "❌ Wrong answer.",
+"La bonne réponse est": "The correct answer is",
+"La bonne réponse est {}.": "The correct answer is {}.",
+"← Précédent": "← Previous",
+"Suivant →": "Next →",
+"Voir le résultat": "See the result",
+"{} sans réponse. Terminer quand même ?": "{} unanswered. Finish anyway?",
+"{} questions sans réponse. Terminer quand même ?": "{} questions unanswered. Finish anyway?",
+"{} question sans réponse. Terminer quand même ?": "{} question unanswered. Finish anyway?",
+"sans réponse. Terminer quand même ?": "unanswered. Finish anyway?",
+"Oui, terminer": "Yes, finish",
+"Terminer l’examen": "Finish the exam",
+"Terminer l'examen": "Finish the exam",
+"Quitter et reprendre plus tard": "Quit and resume later",
+"Flashcards ·": "Flashcards ·",
+"Touche la carte pour voir la réponse": "Tap the card to see the answer",
+"À revoir": "To review",
+"Je savais": "I knew it",
+"✅ Réussi": "✅ Got it",
+"❌ Raté": "❌ Missed",
+"Ta réponse :": "Your answer:",
+"Avais-tu juste ?": "Were you right?",
+"Ta réponse (un nombre)": "Your answer (a number)",
+"Voir le corrigé (compte comme raté)": "See the solution (counts as missed)",
+"Voir le corrigé": "See the solution",
+"Résultat": "Result",
+"Refaire mes": "Redo my",
+"Refaire mes {} erreurs": "Redo my {} mistakes",
+"Refaire mes {} erreur": "Redo my {} mistake",
+"erreurs": "mistakes",
+"erreur": "mistake",
+"Correction": "Correction",
+"Bonne réponse :": "Correct answer:",
+"Tout ce qu’il faut savoir pour bien utiliser l’appli.": "Everything you need to know to use the app well.",
+"Tout ce qu'il faut savoir pour bien utiliser l'appli.": "Everything you need to know to use the app well.",
+"À quoi ça sert": "What it's for",
+"L’appli est vide au départ : tu y mets tes propres questions ou exercices, elle te fait réviser et te note. Rien n’est envoyé sur Internet.": "The app starts empty: you add your own questions or exercises, it helps you revise and grades you. Nothing is sent over the Internet.",
+"L'appli est vide au départ : tu y mets tes propres questions ou exercices, elle te fait réviser et te note. Rien n'est envoyé sur Internet.": "The app starts empty: you add your own questions or exercises, it helps you revise and grades you. Nothing is sent over the Internet.",
+"Pour démarrer": "Getting started",
+"1. Ouvre « Comment faire » et copie le prompt. 2. Colle-le dans une IA avec ton cours. 3. Importe le résultat (texte collé ou PDF). 4. Touche « Lancer ».": "1. Open “How to” and copy the prompt. 2. Paste it into an AI with your course. 3. Import the result (pasted text or PDF). 4. Tap “Start”.",
+"⚠️ Tes séries peuvent disparaître": "⚠️ Your sets can disappear",
+"Elles sont gardées dans le navigateur de cet appareil, pas en ligne. Elles disparaissent si tu vides les données du navigateur ou si tu utilises la navigation privée, et elles ne passent pas d’un téléphone ou d’un navigateur à l’autre. Pour en garder une copie : « Exporter », « Copier la série », puis garde le texte dans un fichier ou dans un message WhatsApp à toi-même.": "They're kept in this device's browser, not online. They disappear if you clear the browser data or use private browsing, and they don't move from one phone or browser to another. To keep a copy: “Export”, “Copy the set”, then keep the text in a file or in a WhatsApp message to yourself.",
+"Elles sont gardées dans le navigateur de cet appareil, pas en ligne. Elles disparaissent si tu vides les données du navigateur ou si tu utilises la navigation privée, et elles ne passent pas d'un téléphone ou d'un navigateur à l'autre. Pour en garder une copie : « Exporter », « Copier la série », puis garde le texte dans un fichier ou dans un message WhatsApp à toi-même.": "They're kept in this device's browser, not online. They disappear if you clear the browser data or use private browsing, and they don't move from one phone or browser to another. To keep a copy: “Export”, “Copy the set”, then keep the text in a file or in a WhatsApp message to yourself.",
+"Activation et essai gratuit": "Activation and free trial",
+"À la première ouverture, tu as 48 heures d’essai gratuit complet. Ensuite, un code d’activation est nécessaire. Reculer l’heure du téléphone pendant l’essai bloque l’appli : seul un code d’activation la débloque. Une fois l’appli activée, plus aucune vérification de l’heure n’est faite.": "When you first open it, you get a full 48-hour free trial. After that, an activation code is needed. Setting the phone's clock back during the trial locks the app: only an activation code unlocks it. Once the app is activated, the time is no longer checked.",
+"À la première ouverture, tu as 48 heures d'essai gratuit complet. Ensuite, un code d'activation est nécessaire. Reculer l'heure du téléphone pendant l'essai bloque l'appli : seul un code d'activation la débloque. Une fois l'appli activée, plus aucune vérification de l'heure n'est faite.": "When you first open it, you get a full 48-hour free trial. After that, an activation code is needed. Setting the phone's clock back during the trial locks the app: only an activation code unlocks it. Once the app is activated, the time is no longer checked.",
+"Le code d’activation ne marche que sur l’appareil pour lequel il a été généré. Si tu vides les données du navigateur ou si tu changes de téléphone, demande un nouveau code.": "The activation code only works on the device it was generated for. If you clear the browser data or change phones, ask for a new code.",
+"Le code d'activation ne marche que sur l'appareil pour lequel il a été généré. Si tu vides les données du navigateur ou si tu changes de téléphone, demande un nouveau code.": "The activation code only works on the device it was generated for. If you clear the browser data or change phones, ask for a new code.",
+"Partager une série": "Share a set",
+"« Exporter », « Copier la série », puis envoie le texte (par WhatsApp par exemple). L’autre personne le colle dans « Importer ».": "“Export”, “Copy the set”, then send the text (by WhatsApp, for example). The other person pastes it into “Import”.",
+"« Exporter », « Copier la série », puis envoie le texte (par WhatsApp par exemple). L'autre personne le colle dans « Importer ».": "“Export”, “Copy the set”, then send the text (by WhatsApp, for example). The other person pastes it into “Import”.",
+"Les modes": "The modes",
+"QCM libre : la correction s’affiche après chaque réponse. Examen : tu choisis la durée, la correction vient à la fin, tu peux changer de réponse, et il se termine tout seul quand le temps est écoulé. Erreurs : seulement les questions ratées la dernière fois. Exercices : tu fais l’exercice sur papier, tu affiches le corrigé et tu te notes.": "Free MCQ: the correction shows after each answer. Exam: you choose the duration, the correction comes at the end, you can change answers, and it ends by itself when time is up. Mistakes: only the questions missed last time. Exercises: you do the exercise on paper, show the solution and grade yourself.",
+"QCM libre : la correction s'affiche après chaque réponse. Examen : tu choisis la durée, la correction vient à la fin, tu peux changer de réponse, et il se termine tout seul quand le temps est écoulé. Erreurs : seulement les questions ratées la dernière fois. Exercices : tu fais l'exercice sur papier, tu affiches le corrigé et tu te notes.": "Free MCQ: the correction shows after each answer. Exam: you choose the duration, the correction comes at the end, you can change answers, and it ends by itself when time is up. Mistakes: only the questions missed last time. Exercises: you do the exercise on paper, show the solution and grade yourself.",
+"Exercices et réponses chiffrées": "Exercises and numerical answers",
+"Quand la question attend un nombre, tape-le (virgule ou point) : l’appli accepte une petite marge d’arrondi. Les tableaux écrits avec le symbole | (une ligne par ligne du tableau) s’affichent en vrai tableau. Pour les graphiques, note-toi toi-même avec le corrigé.": "When the question expects a number, type it (comma or dot): the app accepts a small rounding margin. Tables written with the | symbol (one line per table row) are shown as real tables. For graphs, grade yourself using the solution.",
+"Quand la question attend un nombre, tape-le (virgule ou point) : l'appli accepte une petite marge d'arrondi. Les tableaux écrits avec le symbole | (une ligne par ligne du tableau) s'affichent en vrai tableau. Pour les graphiques, note-toi toi-même avec le corrigé.": "When the question expects a number, type it (comma or dot): the app accepts a small rounding margin. Tables written with the | symbol (one line per table row) are shown as real tables. For graphs, grade yourself using the solution.",
+"Reprendre plus tard": "Resume later",
+"« Quitter et reprendre plus tard » garde ta progression : touche « Reprendre » sur l’accueil. Il n’y a qu’une session en cours à la fois : en lancer une nouvelle remplace l’ancienne. Dans un examen, le chrono continue même si tu quittes.": "“Quit and resume later” keeps your progress: tap “Resume” on the home screen. Only one session runs at a time: starting a new one replaces the old one. In an exam, the timer keeps running even if you leave.",
+"« Quitter et reprendre plus tard » garde ta progression : touche « Reprendre » sur l'accueil. Il n'y a qu'une session en cours à la fois : en lancer une nouvelle remplace l'ancienne. Dans un examen, le chrono continue même si tu quittes.": "“Quit and resume later” keeps your progress: tap “Resume” on the home screen. Only one session runs at a time: starting a new one replaces the old one. In an exam, the timer keeps running even if you leave.",
+"Hors ligne et installation": "Offline and installation",
+"Après une première ouverture avec Internet, ScoreUp s’enregistre sur ton appareil et peut s’ouvrir sans connexion. Seule la lecture d’un PDF demande Internet. Pour l’avoir comme une appli : sur Android, menu du navigateur puis « Installer l’application » ; sur iPhone, bouton Partager puis « Sur l’écran d’accueil ».": "After a first opening with Internet, ScoreUp saves itself on your device and can open without a connection. Only reading a PDF needs Internet. To have it as an app: on Android, browser menu then “Install app”; on iPhone, Share button then “Add to Home Screen”.",
+"Après une première ouverture avec Internet, ScoreUp s'enregistre sur ton appareil et peut s'ouvrir sans connexion. Seule la lecture d'un PDF demande Internet. Pour l'avoir comme une appli : sur Android, menu du navigateur puis « Installer l'application » ; sur iPhone, bouton Partager puis « Sur l'écran d'accueil ».": "After a first opening with Internet, ScoreUp saves itself on your device and can open without a connection. Only reading a PDF needs Internet. To have it as an app: on Android, browser menu then “Install app”; on iPhone, Share button then “Add to Home Screen”.",
+"Séries d’exemple": "Sample sets",
+"Séries d'exemple": "Sample sets",
+"5 séries de révision (chapitre 1) sont fournies pour tester ScoreUp : comptabilité, marketing, droit, management et statistiques. Tu peux les supprimer, et ce bouton te les redonne.": "5 revision sets (chapter 1) are provided to try ScoreUp: accounting, marketing, law, management and statistics. You can delete them, and this button brings them back.",
+"Ajouter les séries d’exemple": "Add the sample sets",
+"Ajouter les séries d'exemple": "Add the sample sets",
+"Nouveautés": "What's new",
+"Matières avec couleurs (à l’import, ou depuis la liste), statistiques globales et par matière, série de jours de révision, flashcards (touche la carte pour voir la réponse) et mode sombre ou clair en haut de l’accueil, favoris (étoile), sauvegarde complète et mode transport (boutons de navigation en bas).": "Colour-coded subjects (when importing, or from the list), overall and per-subject statistics, revision day streak, flashcards (tap the card to see the answer) and dark or light mode at the top of the home screen, favourites (star), full backup and transport mode (navigation buttons at the bottom).",
+"Matières avec couleurs (à l'import, ou depuis la liste), statistiques globales et par matière, série de jours de révision, flashcards (touche la carte pour voir la réponse) et mode sombre ou clair en haut de l'accueil, favoris (étoile), sauvegarde complète et mode transport (boutons de navigation en bas).": "Colour-coded subjects (when importing, or from the list), overall and per-subject statistics, revision day streak, flashcards (tap the card to see the answer) and dark or light mode at the top of the home screen, favourites (star), full backup and transport mode (navigation buttons at the bottom).",
+"Mon école": "My school",
+"Au premier lancement, choisis ton école (Management, Droit, Ingénieurs, Digital Campus ou Madiba Leadership Institute). Tu vois ses principales filières et tu peux importer 5 séries de démarrage de 20 questions, niveau L1. Tu peux changer d’école ou ajouter ses séries plus tard depuis « ⚙️ Réglages ».": "On first launch, choose your school (Management, Law, Engineering, Digital Campus or Madiba Leadership Institute). You see its main programmes and can import 5 starter sets of 20 questions, Year 1 level. You can change school or add its sets later from “⚙️ Settings”.",
+"Au premier lancement, choisis ton école (Management, Droit, Ingénieurs, Digital Campus ou Madiba Leadership Institute). Tu vois ses principales filières et tu peux importer 5 séries de démarrage de 20 questions, niveau L1. Tu peux changer d'école ou ajouter ses séries plus tard depuis « ⚙️ Réglages ».": "On first launch, choose your school (Management, Law, Engineering, Digital Campus or Madiba Leadership Institute). You see its main programmes and can import 5 starter sets of 20 questions, Year 1 level. You can change school or add its sets later from “⚙️ Settings”.",
+"Import": "Import",
+"L’appli vérifie le format et indique la ligne à corriger. Les doublons sont ignorés. Un PDF doit contenir du vrai texte : une photo ou un scan ne marche pas. Les questions et les choix sont mélangés si la case est cochée, donc la lettre de la bonne réponse change d’un essai à l’autre.": "The app checks the format and shows the line to fix. Duplicates are ignored. A PDF must contain real text: a photo or scan won't work. Questions and choices are shuffled if the box is ticked, so the correct answer's letter changes from one try to the next.",
+"L'appli vérifie le format et indique la ligne à corriger. Les doublons sont ignorés. Un PDF doit contenir du vrai texte : une photo ou un scan ne marche pas. Les questions et les choix sont mélangés si la case est cochée, donc la lettre de la bonne réponse change d'un essai à l'autre.": "The app checks the format and shows the line to fix. Duplicates are ignored. A PDF must contain real text: a photo or scan won't work. Questions and choices are shuffled if the box is ticked, so the correct answer's letter changes from one try to the next.",
+"Fiabilité": "Reliability",
+"Une IA peut se tromper. Vérifie les réponses et les corrigés, surtout les calculs, avec ton cours ou ton prof avant de t’y fier ou de les partager. Demande aussi l’accord de ton prof avant de partager ses fiches.": "An AI can make mistakes. Check the answers and solutions, especially calculations, against your course or teacher before relying on or sharing them. Also ask your teacher's permission before sharing their notes.",
+"Une IA peut se tromper. Vérifie les réponses et les corrigés, surtout les calculs, avec ton cours ou ton prof avant de t'y fier ou de les partager. Demande aussi l'accord de ton prof avant de partager ses fiches.": "An AI can make mistakes. Check the answers and solutions, especially calculations, against your course or teacher before relying on or sharing them. Also ask your teacher's permission before sharing their notes.",
+"Le bouton « ⚙️ Réglages » de l’accueil regroupe : ton école, ton prénom, la langue, le thème, le mode transport, l’installation de l’appli, ta licence et ton identifiant, tes données et le contact Thousand Labs.": "The “⚙️ Settings” button on the home screen gathers: your school, your first name, the language, the theme, transport mode, app installation, your licence and ID, your data and the Thousand Labs contact.",
+"Le bouton « ⚙️ Réglages » de l'accueil regroupe : ton école, ton prénom, la langue, le thème, le mode transport, l'installation de l'appli, ta licence et ton identifiant, tes données et le contact Thousand Labs.": "The “⚙️ Settings” button on the home screen gathers: your school, your first name, the language, the theme, transport mode, app installation, your licence and ID, your data and the Thousand Labs contact.",
+"Bon à savoir": "Good to know",
+"Supprimer une série demande deux touches, pour éviter les erreurs. L’historique garde tes 100 derniers résultats.": "Deleting a set takes two taps, to avoid mistakes. History keeps your last 100 results.",
+"Supprimer une série demande deux touches, pour éviter les erreurs. L'historique garde tes 100 derniers résultats.": "Deleting a set takes two taps, to avoid mistakes. History keeps your last 100 results.",
+"← Toutes les écoles": "← All schools",
+"✅ C’est ton école actuelle.": "✅ This is your current school.",
+"✅ C'est ton école actuelle.": "✅ This is your current school.",
+"🎓 Principales filières": "🎓 Main programmes",
+"{} séries de démarrage · niveau L1": "{} starter sets · Year 1 level",
+"de démarrage · niveau L1": "starter · Year 1 level",
+"· déjà ajoutée": "· already added",
+"Des questions de cours générales pour bien commencer. Complète-les avec les QCM tirés de tes propres cours.": "General course questions to get started. Add MCQs from your own courses.",
+"Choisir et importer": "Choose and import",
+"Choisir sans importer": "Choose without importing",
+"Choisir cette école": "Choose this school",
+"🎓 Choisis ton école": "🎓 Choose your school",
+"ScoreUp te propose des séries de QCM adaptées à ton école, pour réviser tout de suite. Touche une école pour voir ses filières.": "ScoreUp offers MCQ sets suited to your school, so you can start revising right away. Tap a school to see its programmes.",
+"Passer pour l’instant": "Skip for now",
+"Passer pour l'instant": "Skip for now",
+"Tu pourras changer d’école à tout moment dans les Réglages.": "You can change school at any time in Settings.",
+"Tu pourras changer d'école à tout moment dans les Réglages.": "You can change school at any time in Settings.",
+"👋 Ton prénom": "👋 Your first name",
+"Pour les messages d’accueil. Il reste sur ton téléphone.": "For welcome messages. It stays on your phone.",
+"Pour les messages d'accueil. Il reste sur ton téléphone.": "For welcome messages. It stays on your phone.",
+"Ex. Awa": "E.g. Awa",
+"Retirer": "Remove",
+"🎓 Mon école": "🎓 My school",
+"Aucune école choisie": "No school chosen",
+"Changer d’école": "Change school",
+"Changer d'école": "Change school",
+"Choisir mon école": "Choose my school",
+"🎨 Apparence": "🎨 Appearance",
+"📱 Automatique": "📱 Automatic",
+"Automatique": "Automatic",
+"Mode transport : boutons de navigation en bas de l’écran pendant les quiz": "Transport mode: navigation buttons at the bottom of the screen during quizzes",
+"Mode transport : boutons de navigation en bas de l'écran pendant les quiz": "Transport mode: navigation buttons at the bottom of the screen during quizzes",
+"🔑 Licence": "🔑 Licence",
+"✅ ScoreUp est activé sur cet appareil.": "✅ ScoreUp is activated on this device.",
+"🎁 Essai gratuit en cours : il reste {}.": "🎁 Free trial in progress: {} left.",
+"🎁 Essai gratuit en cours : il reste": "🎁 Free trial in progress: time left",
+"🔒 Appli verrouillée (heure de l’appareil reculée).": "🔒 App locked (device clock set back).",
+"🔒 Appli verrouillée (heure de l'appareil reculée).": "🔒 App locked (device clock set back).",
+"⏰ Essai gratuit terminé.": "⏰ Free trial over.",
+"Identifiant d’appareil": "Device ID",
+"Identifiant d'appareil": "Device ID",
+"Activer ScoreUp": "Activate ScoreUp",
+"💬 Contacter Thousand Labs": "💬 Contact Thousand Labs",
+"💾 Mes données": "💾 My data",
+"{} séries · {} résultats dans l’historique · {} favoris": "{} sets · {} results in history · {} favourites",
+"{} séries · {} résultats dans l'historique · {} favoris": "{} sets · {} results in history · {} favourites",
+"{} série · {} résultats dans l’historique · {} favoris": "{} set · {} results in history · {} favourites",
+"{} série · {} résultats dans l'historique · {} favoris": "{} set · {} results in history · {} favourites",
+"{} séries · {} résultat dans l’historique · {} favoris": "{} sets · {} result in history · {} favourites",
+"{} séries · {} résultat dans l'historique · {} favoris": "{} sets · {} result in history · {} favourites",
+"{} série · {} résultat dans l’historique · {} favoris": "{} set · {} result in history · {} favourites",
+"{} série · {} résultat dans l'historique · {} favoris": "{} set · {} result in history · {} favourites",
+"{} séries · {} résultats dans l’historique · {} favori": "{} sets · {} results in history · {} favourite",
+"{} séries · {} résultats dans l'historique · {} favori": "{} sets · {} results in history · {} favourite",
+"{} série · {} résultats dans l’historique · {} favori": "{} set · {} results in history · {} favourite",
+"{} série · {} résultats dans l'historique · {} favori": "{} set · {} results in history · {} favourite",
+"{} séries · {} résultat dans l’historique · {} favori": "{} sets · {} result in history · {} favourite",
+"{} séries · {} résultat dans l'historique · {} favori": "{} sets · {} result in history · {} favourite",
+"{} série · {} résultat dans l’historique · {} favori": "{} set · {} result in history · {} favourite",
+"{} série · {} résultat dans l'historique · {} favori": "{} set · {} result in history · {} favourite",
+"Sauvegarder ou restaurer": "Back up or restore",
+"Confirmer : effacer historique et statistiques": "Confirm: erase history and statistics",
+"Effacer l’historique et les statistiques": "Erase history and statistics",
+"Effacer l'historique et les statistiques": "Erase history and statistics",
+"Tes séries sont gardées.": "Your sets are kept.",
+"📚 Aide": "📚 Help",
+"ℹ️ À propos": "ℹ️ About",
+"Stockage :": "Storage:",
+"✅ enregistré dans ce navigateur": "✅ saved in this browser",
+"⚠️ indisponible (navigation privée ?)": "⚠️ unavailable (private browsing?)",
+"Stockage : ✅ enregistré dans ce navigateur": "Storage: ✅ saved in this browser",
+"Stockage : ⚠️ indisponible (navigation privée ?)": "Storage: ⚠️ unavailable (private browsing?)",
+"⚠️ Zone sensible": "⚠️ Danger zone",
+"Confirmer : tout effacer": "Confirm: erase everything",
+"Tout effacer (séries, historique, favoris)": "Erase everything (sets, history, favourites)",
+"L’activation et ton prénom sont conservés. Fais une sauvegarde avant.": "Your activation and first name are kept. Make a backup first.",
+"L'activation et ton prénom sont conservés. Fais une sauvegarde avant.": "Your activation and first name are kept. Make a backup first.",
+"Masquer": "Hide",
+"Voir la réponse": "See the answer",
+"Aucune question en favori. Touche l’étoile ☆ pendant un quiz pour en ajouter.": "No favourite questions. Tap the star ☆ during a quiz to add some.",
+"Aucune question en favori. Touche l'étoile ☆ pendant un quiz pour en ajouter.": "No favourite questions. Tap the star ☆ during a quiz to add some.",
+"Garde une copie de tout (séries, historique, statistiques, matières, favoris), ou récupère-la sur un nouveau téléphone. Le code d’activation n’est pas inclus : un nouvel appareil a besoin de son propre code.": "Keep a copy of everything (sets, history, statistics, subjects, favourites), or restore it on a new phone. The activation code isn't included: a new device needs its own code.",
+"Garde une copie de tout (séries, historique, statistiques, matières, favoris), ou récupère-la sur un nouveau téléphone. Le code d'activation n'est pas inclus : un nouvel appareil a besoin de son propre code.": "Keep a copy of everything (sets, history, statistics, subjects, favourites), or restore it on a new phone. The activation code isn't included: a new device needs its own code.",
+"Exporter toutes mes données (Backup)": "Export all my data (Backup)",
+"Copier la sauvegarde": "Copy the backup",
+"Si le téléchargement ne démarre pas, utilise « Copier la sauvegarde » et colle-la dans un message ou un fichier.": "If the download doesn't start, use “Copy the backup” and paste it into a message or file.",
+"Contenu de la sauvegarde…": "Backup content…",
+"Restaurer": "Restore",
+"Choisis ton fichier de sauvegarde, ou colle son contenu.": "Choose your backup file, or paste its content.",
+"La sauvegarde contient": "The backup contains",
+". Elle remplacera toutes les données actuelles de cet appareil. Confirmer ?": ". It will replace all current data on this device. Confirm?",
+"Oui, tout restaurer": "Yes, restore everything",
+"Restaurer mes données": "Restore my data",
+"Fais une première séance pour voir tes statistiques.": "Do a first session to see your statistics.",
+"Taux de réussite global": "Overall success rate",
+"bonnes réponses sur": "correct answers out of",
+"{} bonnes réponses sur {}": "{} correct answers out of {}",
+"Série en cours :": "Current streak:",
+"Meilleure série :": "Best streak:",
+"Par matière": "By subject",
+"bonnes réponses": "correct answers",
+"{} bonnes réponses": "{} correct answers",
+"Aucun résultat pour l’instant.": "No results yet.",
+"Aucun résultat pour l'instant.": "No results yet.",
+"Copie ce texte et envoie-le à un ami : il l’importera dans son appli.": "Copy this text and send it to a friend: they'll import it into their app.",
+"Copie ce texte et envoie-le à un ami : il l'importera dans son appli.": "Copy this text and send it to a friend: they'll import it into their app.",
+"Copier la série": "Copy the set",
+"1. Génère tes questions": "1. Generate your questions",
+"Copie ce prompt, colle-le dans Claude, Gemini ou ChatGPT, puis ajoute ton cours à la fin.": "Copy this prompt, paste it into Claude, Gemini or ChatGPT, then add your course at the end.",
+"Copier le prompt": "Copy the prompt",
+"2. Relis les réponses": "2. Check the answers",
+"Une IA peut se tromper. Vérifie les bonnes réponses avant de t’en servir : la qualité des questions dépend de ta source.": "An AI can make mistakes. Check the correct answers before using them: the quality of the questions depends on your source.",
+"Une IA peut se tromper. Vérifie les bonnes réponses avant de t'en servir : la qualité des questions dépend de ta source.": "An AI can make mistakes. Check the correct answers before using them: the quality of the questions depends on your source.",
+"3. Importe": "3. Import",
+"Copie le résultat de l’IA, puis colle-le dans « Importer des questions ». L’appli vérifie le format et indique la ligne à corriger si besoin.": "Copy the AI's result, then paste it into “Import questions”. The app checks the format and shows the line to fix if needed.",
+"Copie le résultat de l'IA, puis colle-le dans « Importer des questions ». L'appli vérifie le format et indique la ligne à corriger si besoin.": "Copy the AI's result, then paste it into “Import questions”. The app checks the format and shows the line to fix if needed.",
+"Tu peux aussi importer un PDF qui contient du texte. Seule cette lecture du PDF demande une connexion Internet ; le reste de l’appli n’en a pas besoin.": "You can also import a PDF that contains text. Only reading the PDF needs an Internet connection; the rest of the app doesn't.",
+"Tu peux aussi importer un PDF qui contient du texte. Seule cette lecture du PDF demande une connexion Internet ; le reste de l'appli n'en a pas besoin.": "You can also import a PDF that contains text. Only reading the PDF needs an Internet connection; the rest of the app doesn't.",
+"Exercices (TD)": "Exercises (tutorials)",
+"Pour t’entraîner sur des exercices avec corrigé : copie ce prompt, colle-le dans une IA avec l’énoncé écrit en texte (pas en photo), puis importe le résultat comme d’habitude. Compare toujours le corrigé avec celui de ton prof : une IA peut se tromper dans les calculs.": "To practise exercises with solutions: copy this prompt, paste it into an AI with the exercise written as text (not a photo), then import the result as usual. Always compare the solution with your teacher's: an AI can make calculation mistakes.",
+"Pour t'entraîner sur des exercices avec corrigé : copie ce prompt, colle-le dans une IA avec l'énoncé écrit en texte (pas en photo), puis importe le résultat comme d'habitude. Compare toujours le corrigé avec celui de ton prof : une IA peut se tromper dans les calculs.": "To practise exercises with solutions: copy this prompt, paste it into an AI with the exercise written as text (not a photo), then import the result as usual. Always compare the solution with your teacher's: an AI can make calculation mistakes.",
+"Copier le prompt pour exercices": "Copy the prompt for exercises",
+"Format attendu": "Expected format",
+"La ligne E: est facultative. Les autres sont obligatoires.": "The E: line is optional. The others are required.",
+"Ton identifiant en QR": "Your ID as a QR code",
+"La personne qui t’active scanne ce QR code.": "The person activating you scans this QR code.",
+"La personne qui t'active scanne ce QR code.": "The person activating you scans this QR code.",
+"Ouvre l’appli depuis son lien https pour pouvoir l’activer.": "Open the app from its https link to be able to activate it.",
+"Ouvre l'appli depuis son lien https pour pouvoir l'activer.": "Open the app from its https link to be able to activate it.",
+"Scanner le code": "Scan the code",
+"Vise le QR code affiché par la personne qui t’active.": "Aim at the QR code shown by the person activating you.",
+"Vise le QR code affiché par la personne qui t'active.": "Aim at the QR code shown by the person activating you.",
+"❌ Ce code ne correspond pas à cet appareil": "❌ This code doesn't match this device",
+"🎁 Essai gratuit : il reste {}": "🎁 Free trial: {} left",
+"🎁 Essai gratuit : il reste": "🎁 Free trial: time left",
+"Tu as accès à tout ScoreUp pendant 48 heures. Active l’appli pour la garder.": "You have access to all of ScoreUp for 48 hours. Activate the app to keep it.",
+"Tu as accès à tout ScoreUp pendant 48 heures. Active l'appli pour la garder.": "You have access to all of ScoreUp for 48 hours. Activate the app to keep it.",
+"Bonjour {} ! Prêt(e) à faire grimper ton score aujourd’hui ?": "Hello {}! Ready to push your score up today?",
+"Bonjour {} ! Prêt(e) à faire grimper ton score aujourd'hui ?": "Hello {}! Ready to push your score up today?",
+"Content de te revoir, {} ! Une petite série pour bien commencer ?": "Good to see you again, {}! A quick set to get going?",
+"{}, chaque question révisée est un point de plus le jour de l’examen 💪": "{}, every question you revise is one more point on exam day 💪",
+"{}, chaque question révisée est un point de plus le jour de l'examen 💪": "{}, every question you revise is one more point on exam day 💪",
+"Salut {} ! Ta régularité fait toute la différence.": "Hi {}! Your consistency makes all the difference.",
+"Bienvenue {} ! On reprend là où tu t’étais arrêté(e) ?": "Welcome {}! Shall we pick up where you left off?",
+"Bienvenue {} ! On reprend là où tu t'étais arrêté(e) ?": "Welcome {}! Shall we pick up where you left off?",
+"{}, 10 minutes aujourd’hui valent mieux que 3 heures la veille de l’examen.": "{}, 10 minutes today beat 3 hours the night before the exam.",
+"{}, 10 minutes aujourd'hui valent mieux que 3 heures la veille de l'examen.": "{}, 10 minutes today beat 3 hours the night before the exam.",
+"Allez {}, montre à ce chapitre qui est le patron ! 🚀": "Come on {}, show this chapter who's boss! 🚀",
+"Prêt(e) à réviser ? Importe tes questions, entraîne-toi, passe un examen.": "Ready to revise? Import your questions, practise, take an exam.",
+"Bienvenue sur ScoreUp ! Une petite série pour bien commencer ?": "Welcome to ScoreUp! A quick set to get going?",
+"Chaque question révisée est un point de plus le jour de l’examen 💪": "Every question you revise is one more point on exam day 💪",
+"Chaque question révisée est un point de plus le jour de l'examen 💪": "Every question you revise is one more point on exam day 💪",
+"Changer mon prénom": "Change my first name",
+"Ajouter mon prénom": "Add my first name",
+"Bienvenue sur ScoreUp 👋": "Welcome to ScoreUp 👋",
+"Révise avec des QCM, des examens chronométrés et des exercices corrigés, même sans Internet.": "Revise with MCQs, timed exams and corrected exercises, even without Internet.",
+"🎁 48 heures d’essai gratuit": "🎁 48-hour free trial",
+"🎁 48 heures d'essai gratuit": "🎁 48-hour free trial",
+"Tout est débloqué pendant 48 heures (il reste {}). Ensuite, il faudra un code d’activation.": "Everything is unlocked for 48 hours ({} left). After that, you'll need an activation code.",
+"Tout est débloqué pendant 48 heures (il reste {}). Ensuite, il faudra un code d'activation.": "Everything is unlocked for 48 hours ({} left). After that, you'll need an activation code.",
+"Ton prénom (facultatif)": "Your first name (optional)",
+"Il sert seulement à t’accueillir sur l’écran d’accueil. Il reste sur ton téléphone.": "It's only used to greet you on the home screen. It stays on your phone.",
+"Il sert seulement à t'accueillir sur l'écran d'accueil. Il reste sur ton téléphone.": "It's only used to greet you on the home screen. It stays on your phone.",
+"Continuer": "Continue",
+"Passer": "Skip",
+"🔒 L’heure de ton appareil a été reculée pendant la période d’essai. L’appli est verrouillée : seul un code d’activation peut la débloquer.": "🔒 Your device's clock was set back during the trial period. The app is locked: only an activation code can unlock it.",
+"🔒 L'heure de ton appareil a été reculée pendant la période d'essai. L'appli est verrouillée : seul un code d'activation peut la débloquer.": "🔒 Your device's clock was set back during the trial period. The app is locked: only an activation code can unlock it.",
+"Ta période d’essai de 48 heures est terminée": "Your 48-hour trial period is over",
+"Ta période d'essai de 48 heures est terminée": "Your 48-hour trial period is over",
+"Merci d’avoir essayé ScoreUp ! Active l’appli pour continuer : tes séries et tes résultats sont conservés.": "Thanks for trying ScoreUp! Activate the app to continue: your sets and results are kept.",
+"Merci d'avoir essayé ScoreUp ! Active l'appli pour continuer : tes séries et tes résultats sont conservés.": "Thanks for trying ScoreUp! Activate the app to continue: your sets and results are kept.",
+"← Retour à l’appli (essai : {})": "← Back to the app (trial: {})",
+"← Retour à l'appli (essai : {})": "← Back to the app (trial: {})",
+"Pour activer l’appli sur cet appareil :": "To activate the app on this device:",
+"Pour activer l'appli sur cet appareil :": "To activate the app on this device:",
+"1. Ton identifiant d’appareil": "1. Your device ID",
+"1. Ton identifiant d'appareil": "1. Your device ID",
+"Copier mon identifiant": "Copy my ID",
+"🔳 Afficher en QR": "🔳 Show as QR",
+"Envoie-le à la personne qui t’a proposé l’appli, ou directement à Thousand Labs :": "Send it to the person who offered you the app, or directly to Thousand Labs:",
+"Envoie-le à la personne qui t'a proposé l'appli, ou directement à Thousand Labs :": "Send it to the person who offered you the app, or directly to Thousand Labs:",
+"💬 Demander mon code sur WhatsApp": "💬 Request my code on WhatsApp",
+"2. Ton code d’activation": "2. Your activation code",
+"2. Ton code d'activation": "2. Your activation code",
+"Colle ici le code qu’elle te renvoie.": "Paste the code they send you here.",
+"Colle ici le code qu'elle te renvoie.": "Paste the code they send you here.",
+"📷 Scanner le code": "📷 Scan the code",
+"L’activation ne se fait qu’une fois. Le code ne marche que sur cet appareil : si tu vides les données du navigateur ou si tu changes de téléphone, il faudra en demander un nouveau.": "Activation is done only once. The code only works on this device: if you clear the browser data or change phones, you'll need to request a new one.",
+"L'activation ne se fait qu'une fois. Le code ne marche que sur cet appareil : si tu vides les données du navigateur ou si tu changes de téléphone, il faudra en demander un nouveau.": "Activation is done only once. The code only works on this device: if you clear the browser data or change phones, you'll need to request a new one.",
+"Ton navigateur ne peut pas enregistrer l’activation (navigation privée ?). Utilise un onglet normal, sinon tu devras la refaire à chaque ouverture.": "Your browser can't save the activation (private browsing?). Use a normal tab, otherwise you'll have to redo it every time you open it.",
+"Ton navigateur ne peut pas enregistrer l'activation (navigation privée ?). Utilise un onglet normal, sinon tu devras la refaire à chaque ouverture.": "Your browser can't save the activation (private browsing?). Use a normal tab, otherwise you'll have to redo it every time you open it.",
+"Colle ton code d’activation.": "Paste your activation code.",
+"Colle ton code d'activation.": "Paste your activation code.",
+"Vérification…": "Checking…",
+"Code invalide pour cet appareil. Vérifie que tu l’as copié en entier et qu’il correspond à l’identifiant affiché.": "Invalid code for this device. Check that you copied all of it and that it matches the ID shown.",
+"Code invalide pour cet appareil. Vérifie que tu l'as copié en entier et qu'il correspond à l'identifiant affiché.": "Invalid code for this device. Check that you copied all of it and that it matches the ID shown.",
+"{} h {}": "{} h {}",
+"Choisir et importer les {} séries": "Choose and import the {} sets",
+"Choisir et importer {} séries": "Choose and import {} sets",
+"Choisir et importer {} série": "Choose and import {} set",
+"{} : {}. Bonne révision !": "{}: {}. Happy revising!",
+"{} : tes séries étaient déjà là.": "{}: your sets were already here.",
+"{#} séries ajoutées, {#} séries complétées avec de nouvelles questions": "{} sets added, {} sets completed with new questions",
+"{#} série ajoutée, {#} série complétée avec de nouvelles questions": "{} set added, {} set completed with new questions",
+"{#} séries ajoutées, {#} série complétée avec de nouvelles questions": "{} sets added, {} set completed with new questions",
+"{#} série ajoutée, {#} séries complétées avec de nouvelles questions": "{} set added, {} sets completed with new questions",
+"Mode transport (boutons en bas) : {}": "Transport mode (buttons at the bottom): {}",
+"❌ Mauvaise réponse. La bonne réponse est {}.": "❌ Wrong answer. The correct answer is {}.",
+"⌛ Temps écoulé. La bonne réponse est {}.": "⌛ Time's up. The correct answer is {}.",
+"{#} % · {} · {}": "{}% · {} · {}",
+"{} · question {#}": "{} · question {}",
+"{} · Examen · {#}": "{} · Exam · {}",
+"{} · QCM libre · {#}": "{} · Free MCQ · {}",
+"{} · Erreurs · {#}": "{} · Mistakes · {}",
+"{} · Flashcards · {#}": "{} · Flashcards · {}",
+"{} · Exercices · {#}": "{} · Exercises · {}",
+"Ta réponse : aucune": "Your answer: none",
+"Ta réponse : {}": "Your answer: {}",
+"Bonne réponse : {}": "Correct answer: {}",
+"{#} bonnes réponses sur {#} · {#} séances": "{} correct answers out of {} · {} sessions",
+"{#} bonnes réponses sur {#} · {#} séance": "{} correct answers out of {} · {} session",
+"{#} séances · {#} bonnes réponses": "{} sessions · {} correct answers",
+"{#} séance · {#} bonnes réponses": "{} session · {} correct answers",
+"Série en cours : {#} jours": "Current streak: {} days",
+"Série en cours : {#} jour": "Current streak: {} day",
+"Meilleure série : {#} jours": "Best streak: {} days",
+"Meilleure série : {#} jour": "Best streak: {} day",
+"{#} jours actifs sur 30 · {#} séances. Le suivi jour par jour commence à cette mise à jour.": "{} active days out of 30 · {} sessions. Day-by-day tracking starts with this update.",
+"{#} jour actif sur 30 · {#} séances. Le suivi jour par jour commence à cette mise à jour.": "{} active day out of 30 · {} sessions. Day-by-day tracking starts with this update.",
+"{#} jours actifs sur 30 · {#} séance. Le suivi jour par jour commence à cette mise à jour.": "{} active days out of 30 · {} session. Day-by-day tracking starts with this update.",
+"{#} jour actif sur 30 · {#} séance. Le suivi jour par jour commence à cette mise à jour.": "{} active day out of 30 · {} session. Day-by-day tracking starts with this update.",
+"{#} jours actifs sur 30 · {#} séances": "{} active days out of 30 · {} sessions",
+"{#} jour actif sur 30 · {#} séances": "{} active day out of 30 · {} sessions",
+"{#} jours actifs sur 30 · {#} séance": "{} active days out of 30 · {} session",
+"{#} jour actif sur 30 · {#} séance": "{} active day out of 30 · {} session",
+"{#} jours de suite": "{} days in a row",
+"{#} jour de suite": "{} day in a row",
+"Question {#} : {}": "Question {}: {}",
+"Exercice {#} : question {#} : {}": "Exercise {}, question {}: {}",
+"Exercice {#} : {}": "Exercise {}: {}",
+"la réponse {} ne correspond à aucun choix.": "answer {} doesn't match any choice.",
+"{#} questions valides": "{} valid questions",
+"{#} question valide": "{} valid question",
+"{#} à corriger": "{} to fix",
+"Mes {#} ratées de la dernière fois": "My {} missed from last time",
+"Mes {#} ratée de la dernière fois": "My {} missed from last time",
+"La sauvegarde contient {#} séries. Elle remplacera toutes les données actuelles de cet appareil. Confirmer ?": "The backup contains {} sets. It will replace all current data on this device. Confirm?",
+"La sauvegarde contient {#} série. Elle remplacera toutes les données actuelles de cet appareil. Confirmer ?": "The backup contains {} set. It will replace all current data on this device. Confirm?",
+"{} en cours": "{} in progress"
+};
+var TLL_SUBX=[];
+var TLL_NOSUB=1;
+TLL._init();
+</script>
+<script>
 
 /* =====================================================================
    Thousand Labs — section « Installer l'application » (commune à toutes les applis)
@@ -84,6 +898,9 @@ function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&am
 var DB={sets:[],hist:[],cats:[],fav:[],seeded:false,days:{}},SESS=null,store=true,view="home",cur=null,tmp={};
 var MN={libre:"QCM libre",exam:"Examen",erreurs:"Erreurs",flash:"Flashcards"};
 var PROMPT="Tu es un professeur d’université expert et rigoureux. À partir du cours ci-dessous, crée 20 QCM.\n\nRègles :\n- Utilise EXCLUSIVEMENT les informations du cours fourni. N’invente rien. Si une information manque dans le cours, ne pose pas la question.\n- Une seule bonne réponse par question, et trois mauvaises réponses plausibles. Répartis la bonne réponse entre A, B, C et D.\n- Avant d’écrire chaque question, vérifie dans le cours que la lettre indiquée après R: est bien la bonne.\n- Respecte exactement ce format, avec une ligne vide entre deux questions :\nQ: la question\nA) premier choix\nB) deuxième choix\nC) troisième choix\nD) quatrième choix\nR: la lettre de la bonne réponse\nE: une courte explication\n\nÉcris tout directement dans ta réponse, pas dans un PDF ni dans un fichier. N’ajoute aucun autre texte : pas d’introduction, pas de conclusion, pas de gras, pas de balises markdown.\n\nVoici le cours :\n";
+var PROMPT_EN="You are a rigorous, expert university lecturer. Using the course below, create 20 multiple-choice questions.\n\nRules:\n- Use ONLY the information in the course provided. Don't make anything up. If some information is missing from the course, don't ask the question.\n- Only one correct answer per question, and three plausible wrong answers. Spread the correct answer across A, B, C and D.\n- Before writing each question, check in the course that the letter given after R: is really the correct one.\n- Follow this format exactly, with a blank line between two questions:\nQ: the question\nA) first choice\nB) second choice\nC) third choice\nD) fourth choice\nR: the letter of the correct answer\nE: a short explanation\n\nWrite everything directly in your reply, not in a PDF or a file. Don't add any other text: no introduction, no conclusion, no bold, no markdown tags.\n\nHere is the course:\n";
+var PROMPT2_EN="You are a rigorous, expert university lecturer. Using the exercise below, write out the exercise and its detailed solution.\n\nRules:\n- Use only the data in the exercise and the methods of the course. Don't make up any data. If some data is missing or unreadable, say so in the solution instead of guessing it.\n- Calculations: do each calculation step by step, then do it a second time (another method or a check). Only write the N: line if both results are identical. If in doubt, remove the N: line and explain in C:.\n- Tables: copy each table from the exercise as text, one line per table row, with cells separated by the | symbol, the first line containing the headers. Example:\nNumber of divorces | 0 | 1 | 2\nCount | 5 | 3 | 25\nCheck that you copied every figure exactly, and that the totals match the exercise.\n- Follow this format exactly:\nEX: title of the exercise\n(statement, data and tables written as text)\nQ: first question\nN: the answer as a single number, without unit (remove this line if the answer isn't a single number)\nC: detailed solution with the calculations\nQ: next question (same structure)\n\nWrite everything directly in your reply, no PDF, no bold, no markdown tags and no other text.\n\nHere is the exercise:\n";
+function PR(k){var en=TLL.lang()==="en";return k==="e"?(en?PROMPT2_EN:PROMPT2):(en?PROMPT_EN:PROMPT)}
 var PROMPT2="Tu es un professeur d’université expert et rigoureux. À partir de l’exercice ci-dessous, écris l’exercice et son corrigé détaillé.\n\nRègles :\n- Utilise uniquement les données de l’énoncé et les méthodes du cours. N’invente aucune donnée. Si une donnée manque ou est illisible, écris-le dans le corrigé au lieu de la deviner.\n- Calculs : fais chaque calcul pas à pas, puis refais-le une seconde fois (autre méthode ou vérification). N’écris la ligne N: que si les deux résultats sont identiques. En cas de doute, supprime la ligne N: et explique dans C:.\n- Tableaux : recopie chaque tableau de l’énoncé en texte, une ligne par ligne du tableau, avec les cellules séparées par le symbole |, la première ligne contenant les en-têtes. Exemple :\nNombre de divorces | 0 | 1 | 2\nEffectif | 5 | 3 | 25\nVérifie que tu as recopié chaque chiffre exactement, et que les totaux correspondent à l’énoncé.\n- Respecte exactement ce format :\nEX: titre de l’exercice\n(énoncé, données et tableaux écrits en texte)\nQ: première question\nN: la réponse sous forme d’un seul nombre, sans unité (ligne à supprimer si la réponse n’est pas un seul nombre)\nC: corrigé détaillé avec les calculs\nQ: question suivante (même structure)\n\nÉcris tout directement dans ta réponse, sans PDF, sans gras, sans balises markdown et sans autre texte.\n\nVoici l’exercice :\n";
 function rd(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}}
 function save(){try{localStorage.setItem("qcm_db",JSON.stringify(DB))}catch(e){store=false}}
@@ -4172,7 +4989,7 @@ function copy(txt,btn){var ok=function(){btn.textContent="Copié ✓"};
  var fb=function(){var t=document.createElement("textarea");t.value=txt;document.body.appendChild(t);t.select();try{document.execCommand("copy");ok()}catch(e){btn.textContent="Sélectionne le texte et copie-le"}t.remove()};
  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(ok,fb);else fb()}
 function txtOf(s){if(s.kind==="ex"){var pv="",o=[];s.questions.forEach(function(x){var k=x.t+"\u0001"+x.s;if(k!==pv){o.push("EX: "+x.t+(x.s?"\n"+x.s:""));pv=k}o.push("Q: "+x.q+(x.n!==""?"\nN: "+x.n:"")+"\nC: "+x.c)});return o.join("\n\n")}return s.questions.map(function(q){return "Q: "+q.q+"\n"+q.c.map(function(c,i){return L[i]+") "+c}).join("\n")+"\nR: "+L[q.r]+(q.e?"\nE: "+q.e:"")}).join("\n\n")}
-function cp(k,b){copy(k==="p"?PROMPT:k==="e"?PROMPT2:txtOf(gs(cur)),b)}
+function cp(k,b){copy(k==="p"?PR("p"):k==="e"?PR("e"):txtOf(gs(cur)),b)}
 function an(){var t=$("#ta").value;tmp.d={t:t,nm:$("#nm").value.trim(),ct:$("#ct").value.trim()};tmp.imp=/^\s*EX\s*\d*\s*:/im.test(t)?parseEx(t):parse(t);if(t.indexOf("%PDF")===0)tmp.imp.pdf=1;R(true)}
 function loadPdf(){return new Promise(function(res,rej){if(window.pdfjsLib)return res();var s=document.createElement("script");s.src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";s.onload=function(){window.pdfjsLib?res():rej()};s.onerror=rej;document.head.appendChild(s)})}
 function pdfText(buf){return loadPdf().then(function(){pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";return pdfjsLib.getDocument({data:buf}).promise}).then(function(doc){var out="",p=Promise.resolve();for(var n=1;n<=doc.numPages;n++)(function(n){p=p.then(function(){return doc.getPage(n)}).then(function(pg){return pg.getTextContent()}).then(function(tc){var y=null,line="";tc.items.forEach(function(it){var ny=it.transform[5];if(y!==null&&Math.abs(ny-y)>2&&line){out+=line.trim()+"\n";line=""}y=ny;line+=it.str;if(it.hasEOL){out+=line.trim()+"\n";line=""}});if(line)out+=line.trim()+"\n"})})(n);return p.then(function(){if(!out.trim())throw 0;return out})})}
@@ -4267,7 +5084,7 @@ info:function(){return "<button class='back' onclick='go(\"home\")'>← Retour</
 +"<div class='cd'><b>Mon école</b><p>Au premier lancement, choisis ton école (Management, Droit, Ingénieurs, Digital Campus ou Madiba Leadership Institute). Tu vois ses principales filières et tu peux importer 5 séries de démarrage de 20 questions, niveau L1. Tu peux changer d’école ou ajouter ses séries plus tard depuis « ⚙️ Réglages ».</p></div>"
 +"<div class='cd'><b>Import</b><p>L’appli vérifie le format et indique la ligne à corriger. Les doublons sont ignorés. Un PDF doit contenir du vrai texte : une photo ou un scan ne marche pas. Les questions et les choix sont mélangés si la case est cochée, donc la lettre de la bonne réponse change d’un essai à l’autre.</p></div>"
 +"<div class='cd'><b>Fiabilité</b><p>Une IA peut se tromper. Vérifie les réponses et les corrigés, surtout les calculs, avec ton cours ou ton prof avant de t’y fier ou de les partager. Demande aussi l’accord de ton prof avant de partager ses fiches.</p></div>"
-+"<div class='cd'><b>Réglages</b><p>Le bouton « ⚙️ Réglages » de l’accueil regroupe : ton école, ton prénom, le thème, le mode transport, l’installation de l’appli, ta licence et ton identifiant, tes données et le contact Thousand Labs.</p></div><div class='cd'><b>Bon à savoir</b><p>Supprimer une série demande deux touches, pour éviter les erreurs. L’historique garde tes 100 derniers résultats.</p></div>"},
++"<div class='cd'><b>Réglages</b><p>Le bouton « ⚙️ Réglages » de l’accueil regroupe : ton école, ton prénom, la langue, le thème, le mode transport, l’installation de l’appli, ta licence et ton identifiant, tes données et le contact Thousand Labs.</p></div><div class='cd'><b>Bon à savoir</b><p>Supprimer une série demande deux touches, pour éviter les erreurs. L’historique garde tes 100 derniers résultats.</p></div>"},
 ecole:function(){var s=school(tmp.ec),mine=lsg("qcm_school"),h;
  if(s){var ss=schoolSets(s.id),miss=ss.filter(function(d){return !gs(d.id)}).length;
   h="<button class='back' onclick='ecBack()'>← Toutes les écoles</button><h1>"+s.ico+" "+esc(s.nom)+"</h1><p class='mu'>"+esc(s.desc)+"</p>"+(mine===s.id?"<p class='mu'>✅ C’est ton école actuelle.</p>":"");
@@ -4283,6 +5100,7 @@ reg:function(){var th=null;try{th=localStorage.getItem("qcm_th")}catch(e){}th=th
  var h="<button class='back' onclick='go(\"home\")'>← Retour</button><h1>Réglages</h1>";
  h+="<div class='cd'><b>👋 Ton prénom</b><p class='mu'>Pour les messages d’accueil. Il reste sur ton téléphone.</p><input type='text' id='rgn' maxlength='24' value='"+esc(n)+"' placeholder='Ex. Awa'><div class='row'><button class='btn' onclick='rgName()'>Enregistrer</button>"+(n?"<button class='btn s' onclick='rgName(1)'>Retirer</button>":"")+"</div></div>";
  var ms=mySchool();h+="<div class='cd'><b>🎓 Mon école</b><p>"+(ms?ms.ico+" "+esc(ms.nom):"Aucune école choisie")+"</p><button class='btn s' onclick='tmp.ec=null;go(\"ecole\",\"reg\")'>"+(ms?"Changer d’école":"Choisir mon école")+"</button>"+(ms?"<button class='btn s' onclick='ad(this)'>Ajouter les séries de mon école</button>":"")+"</div>";
+ h+="<div class='cd'><b>🌍 Langue</b>"+TLL.switcher(true)+"</div>";
  h+="<div class='cd'><b>🎨 Apparence</b><div class='chips'>"+[["auto","📱 Automatique"],["light","☀️ Clair"],["dark","🌙 Sombre"]].map(function(x){return "<button class='chip"+(th===x[0]?" on":"")+"' onclick='rgTheme(\""+x[0]+"\")'>"+x[1]+"</button>"}).join("")+"</div><label class='c'><input type='checkbox' "+(TH?"checked":"")+" onchange='thumb()'> Mode transport : boutons de navigation en bas de l’écran pendant les quiz</label></div>";
  h+="<div class='cd'><b>📲 Installer l’application</b><div style='margin-top:8px'>"+TLI.html("ScoreUp","btn")+"</div></div>";
  h+="<div class='cd'><b>🔑 Licence</b><p>"+(ts==="act"?"✅ ScoreUp est activé sur cet appareil.":ts==="trial"?"🎁 Essai gratuit en cours : il reste "+leftTxt()+".":ts==="cheat"?"🔒 Appli verrouillée (heure de l’appareil reculée).":"⏰ Essai gratuit terminé.")+"</p><p class='mu'>Identifiant d’appareil</p><pre>"+id+"</pre><div class='row'><button class='btn s' onclick='copy(\""+id+"\",this)'>Copier</button><button class='btn s' onclick='suShowQR()'>🔳 QR</button></div>"+(ts==="act"?"":"<button class='btn' onclick='gate()'>Activer ScoreUp</button>")+"<a class='btn' style='background:#25d366;color:#fff;text-align:center;text-decoration:none;line-height:24px' href='https://wa.me/221711216581?text="+encodeURIComponent("Bonjour, j’ai une question sur ScoreUp. Mon identifiant d’appareil : "+id)+"' target='_blank' rel='noopener'>💬 Contacter Thousand Labs</a></div>";
@@ -4310,7 +5128,7 @@ hist:function(){var h="<button class='back' onclick='go(\"home\")'>← Retour</b
  DB.hist.forEach(function(x){h+="<div class='cd'><b>"+x.s+" / "+x.t+"</b> · "+Math.round(x.s/x.t*100)+" %<p class='mu'>"+esc(x.n)+" · "+MN[x.m]+" · "+dt(x.d)+"</p></div>"});
  return h},
 exp:function(){var s=gs(cur);return "<button class='back' onclick='go(\"home\")'>← Retour</button><h1>Exporter</h1><p class='mu'>Copie ce texte et envoie-le à un ami : il l’importera dans son appli.</p><button class='btn' onclick='cp(\"s\",this)'>Copier la série</button><pre>"+esc(txtOf(s))+"</pre>"},
-help:function(){return "<button class='back' onclick='go(\"home\")'>← Retour</button><h1>Comment faire</h1><h3>1. Génère tes questions</h3><p>Copie ce prompt, colle-le dans Claude, Gemini ou ChatGPT, puis ajoute ton cours à la fin.</p><button class='btn' onclick='cp(\"p\",this)'>Copier le prompt</button><pre>"+esc(PROMPT)+"</pre><h3>2. Relis les réponses</h3><p>Une IA peut se tromper. Vérifie les bonnes réponses avant de t’en servir : la qualité des questions dépend de ta source.</p><h3>3. Importe</h3><p>Copie le résultat de l’IA, puis colle-le dans « Importer des questions ». L’appli vérifie le format et indique la ligne à corriger si besoin.</p><p>Tu peux aussi importer un PDF qui contient du texte. Seule cette lecture du PDF demande une connexion Internet ; le reste de l’appli n’en a pas besoin.</p><h3>Exercices (TD)</h3><p>Pour t’entraîner sur des exercices avec corrigé : copie ce prompt, colle-le dans une IA avec l’énoncé écrit en texte (pas en photo), puis importe le résultat comme d’habitude. Compare toujours le corrigé avec celui de ton prof : une IA peut se tromper dans les calculs.</p><button class='btn s' onclick='cp(\"e\",this)'>Copier le prompt pour exercices</button><pre>"+esc(PROMPT2)+"</pre><h3>Format attendu</h3><pre>Q: Quelle est la capitale du Sénégal ?\nA) Thiès\nB) Dakar\nC) Saint-Louis\nD) Kaolack\nR: B\nE: Dakar est la capitale depuis l’indépendance.</pre><p class='mu'>La ligne E: est facultative. Les autres sont obligatoires.</p>"}
+help:function(){return "<button class='back' onclick='go(\"home\")'>← Retour</button><h1>Comment faire</h1><h3>1. Génère tes questions</h3><p>Copie ce prompt, colle-le dans Claude, Gemini ou ChatGPT, puis ajoute ton cours à la fin.</p><button class='btn' onclick='cp(\"p\",this)'>Copier le prompt</button><pre>"+esc(PR("p"))+"</pre><h3>2. Relis les réponses</h3><p>Une IA peut se tromper. Vérifie les bonnes réponses avant de t’en servir : la qualité des questions dépend de ta source.</p><h3>3. Importe</h3><p>Copie le résultat de l’IA, puis colle-le dans « Importer des questions ». L’appli vérifie le format et indique la ligne à corriger si besoin.</p><p>Tu peux aussi importer un PDF qui contient du texte. Seule cette lecture du PDF demande une connexion Internet ; le reste de l’appli n’en a pas besoin.</p><h3>Exercices (TD)</h3><p>Pour t’entraîner sur des exercices avec corrigé : copie ce prompt, colle-le dans une IA avec l’énoncé écrit en texte (pas en photo), puis importe le résultat comme d’habitude. Compare toujours le corrigé avec celui de ton prof : une IA peut se tromper dans les calculs.</p><button class='btn s' onclick='cp(\"e\",this)'>Copier le prompt pour exercices</button><pre>"+esc(PR("e"))+"</pre><h3>Format attendu</h3><pre>"+(TLL.lang()==="en"?"Q: What is the capital of Senegal?\nA) Thiès\nB) Dakar\nC) Saint-Louis\nD) Kaolack\nR: B\nE: Dakar has been the capital since independence.":"Q: Quelle est la capitale du Sénégal ?\nA) Thiès\nB) Dakar\nC) Saint-Louis\nD) Kaolack\nR: B\nE: Dakar est la capitale depuis l’indépendance.")+"</pre><p class='mu'>La ligne E: est facultative. Les autres sont obligatoires.</p>"}
 };
 var PUB={"kty": "EC", "crv": "P-256", "x": "a1NMDteN4-mIzN5bW7y_DveTs1pUcG4DKYhSFFtrisE", "y": "QrM4Zsgfr8rDZa6oqJzj4Qg9LGkLxqd4sjSYiq3EdkM"};var PUBS=[PUB,{"kty": "EC", "crv": "P-256", "x": "SHoZAs_cwa82xgMOI6zzDtzeSulWF-mLTZnPy-bHAS0", "y": "KzNwMXGq_Sx00QFmaXRgNcGdcS-GmcK8i0akGx6WDh8"}];
 function b64u(s){s=s.replace(/-/g,"+").replace(/_/g,"/");while(s.length%4)s+="=";var b=atob(s),u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u}
@@ -4422,7 +5240,7 @@ var GREET=["Bonjour {n} ! Prêt(e) à faire grimper ton score aujourd’hui ?","
 var GREET0=["Prêt(e) à réviser ? Importe tes questions, entraîne-toi, passe un examen.","Bienvenue sur ScoreUp ! Une petite série pour bien commencer ?","Chaque question révisée est un point de plus le jour de l’examen 💪"];
 function greet(){var n=myName(),d=new Date(),k=d.getDate()+d.getMonth()*31,a=n?GREET:GREET0,t=a[k%a.length].replace("{n}",esc(n)),hr=d.getHours();
  var hi=hr<12?"☀️ ":hr<18?"📚 ":"🌙 ";return "<p class='mu' style='font-size:16px'>"+hi+t+"</p><button class='back' style='font-size:13px;padding:0 0 6px' onclick='hello()'>"+(n?"Changer mon prénom":"Ajouter mon prénom")+"</button>"}
-function hello(){var n=myName();$("#app").innerHTML="<h1>Bienvenue sur ScoreUp 👋</h1><p class='mu'>Révise avec des QCM, des examens chronométrés et des exercices corrigés, même sans Internet.</p>"+(ACT?"":"<div class='cd' style='border-left:5px solid var(--ac)'><b>🎁 48 heures d’essai gratuit</b><p class='mu'>Tout est débloqué pendant 48 heures (il reste "+leftTxt()+"). Ensuite, il faudra un code d’activation.</p></div>")+"<div class='cd'><label for='pn'>Ton prénom (facultatif)</label><input type='text' id='pn' maxlength='24' autocomplete='given-name' value='"+esc(n)+"' placeholder='Ex. Awa'><p class='mu'>Il sert seulement à t’accueillir sur l’écran d’accueil. Il reste sur ton téléphone.</p><button class='btn' onclick='saveName()'>Continuer</button><button class='btn s' onclick='saveName(1)'>Passer</button></div>"}
+function hello(){var n=myName();$("#app").innerHTML="<h1>Bienvenue sur ScoreUp 👋</h1><p class='mu'>Révise avec des QCM, des examens chronométrés et des exercices corrigés, même sans Internet.</p>"+TLL.switcher()+(ACT?"":"<div class='cd' style='border-left:5px solid var(--ac)'><b>🎁 48 heures d’essai gratuit</b><p class='mu'>Tout est débloqué pendant 48 heures (il reste "+leftTxt()+"). Ensuite, il faudra un code d’activation.</p></div>")+"<div class='cd'><label for='pn'>Ton prénom (facultatif)</label><input type='text' id='pn' maxlength='24' autocomplete='given-name' value='"+esc(n)+"' placeholder='Ex. Awa'><p class='mu'>Il sert seulement à t’accueillir sur l’écran d’accueil. Il reste sur ton téléphone.</p><button class='btn' onclick='saveName()'>Continuer</button><button class='btn s' onclick='saveName(1)'>Passer</button></div>"}
 function saveName(skip){var v=skip?"":(($("#pn")||{}).value||"").replace(/\s+/g," ").trim().slice(0,24);if(v)lss("qcm_name",v);else if(!skip)lsr("qcm_name");lss("qcm_hello","1");view=lsg("qcm_school")===null?"ecole":"home";cur=null;tmp.ec=null;R()}
 document.addEventListener("click",seen,true);document.addEventListener("keydown",seen,true);
 setInterval(function(){if(ACT)return;var st=trialState();if(st==="trial")seen();else if(document.getElementById("gc")===null)gate()},30000);
@@ -4435,7 +5253,7 @@ function rgClear(k){if(tmp.rc!==k){tmp.rc=k;R(true);return}tmp.rc=null;
  else{DB={sets:[],hist:[],cats:[],fav:[],seeded:true,days:{},stats:null,last:"",streak:0,best:0};SESS=null;saveS()}
  save();R(true)}
 function boot(){try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}var c=null;try{c=localStorage.getItem("qcm_act")}catch(e){}if(!c)return trialBoot();chkCode(c).then(function(ok){if(ok){activated();afterAccess()}else trialBoot()})}
-function gate(){var id=fmt(devId()),ts=ACT?"act":trialState();$("#app").innerHTML="<h1>ScoreUp</h1>"+(ts==="cheat"?"<div class='w'>🔒 L’heure de ton appareil a été reculée pendant la période d’essai. L’appli est verrouillée : seul un code d’activation peut la débloquer.</div>":ts==="over"?"<div class='cd b'><b>Ta période d’essai de 48 heures est terminée</b><p class='mu'>Merci d’avoir essayé ScoreUp ! Active l’appli pour continuer : tes séries et tes résultats sont conservés.</p></div>":ts==="trial"?"<button class='back' onclick='R()'>← Retour à l’appli (essai : "+leftTxt()+")</button>":"")+"<p class='mu'>Pour activer l’appli sur cet appareil :</p><div class='cd'><b>1. Ton identifiant d’appareil</b><pre>"+id+"</pre><button class='btn s' onclick='copy(\""+id+"\",this)'>Copier mon identifiant</button><button class='btn s' onclick='suShowQR()'>🔳 Afficher en QR</button><p class='mu'>Envoie-le à la personne qui t’a proposé l’appli, ou directement à Thousand Labs :</p><a class='btn' style='background:#25d366;color:#fff;text-align:center;text-decoration:none;line-height:24px' href='https://wa.me/221711216581?text="+encodeURIComponent("Bonjour, je souhaite activer ScoreUp. Mon identifiant d’appareil : "+id)+"' target='_blank' rel='noopener'>💬 Demander mon code sur WhatsApp</a></div><div class='cd'><b>2. Ton code d’activation</b><p class='mu'>Colle ici le code qu’elle te renvoie.</p><textarea id='gc' style='min-height:90px' autocomplete='off'></textarea><button class='btn' onclick='unlock()'>Activer</button><button class='btn s' onclick='suScan()'>📷 Scanner le code</button><p class='er' id='ge'></p></div><p class='mu'>L’activation ne se fait qu’une fois. Le code ne marche que sur cet appareil : si tu vides les données du navigateur ou si tu changes de téléphone, il faudra en demander un nouveau.</p>"+(store?"":"<div class='w'>Ton navigateur ne peut pas enregistrer l’activation (navigation privée ?). Utilise un onglet normal, sinon tu devras la refaire à chaque ouverture.</div>")+"<p class='mu' style='text-align:center'>Site officiel : <a href='https://thousandlabs.github.io/ScoreUp/' style='color:var(--ac)'>thousandlabs.github.io/ScoreUp</a></p>"}
+function gate(){var id=fmt(devId()),ts=ACT?"act":trialState();$("#app").innerHTML="<h1>ScoreUp</h1>"+TLL.switcher()+(ts==="cheat"?"<div class='w'>🔒 L’heure de ton appareil a été reculée pendant la période d’essai. L’appli est verrouillée : seul un code d’activation peut la débloquer.</div>":ts==="over"?"<div class='cd b'><b>Ta période d’essai de 48 heures est terminée</b><p class='mu'>Merci d’avoir essayé ScoreUp ! Active l’appli pour continuer : tes séries et tes résultats sont conservés.</p></div>":ts==="trial"?"<button class='back' onclick='R()'>← Retour à l’appli (essai : "+leftTxt()+")</button>":"")+"<p class='mu'>Pour activer l’appli sur cet appareil :</p><div class='cd'><b>1. Ton identifiant d’appareil</b><pre>"+id+"</pre><button class='btn s' onclick='copy(\""+id+"\",this)'>Copier mon identifiant</button><button class='btn s' onclick='suShowQR()'>🔳 Afficher en QR</button><p class='mu'>Envoie-le à la personne qui t’a proposé l’appli, ou directement à Thousand Labs :</p><a class='btn' style='background:#25d366;color:#fff;text-align:center;text-decoration:none;line-height:24px' href='https://wa.me/221711216581?text="+encodeURIComponent("Bonjour, je souhaite activer ScoreUp. Mon identifiant d’appareil : "+id)+"' target='_blank' rel='noopener'>💬 Demander mon code sur WhatsApp</a></div><div class='cd'><b>2. Ton code d’activation</b><p class='mu'>Colle ici le code qu’elle te renvoie.</p><textarea id='gc' style='min-height:90px' autocomplete='off'></textarea><button class='btn' onclick='unlock()'>Activer</button><button class='btn s' onclick='suScan()'>📷 Scanner le code</button><p class='er' id='ge'></p></div><p class='mu'>L’activation ne se fait qu’une fois. Le code ne marche que sur cet appareil : si tu vides les données du navigateur ou si tu changes de téléphone, il faudra en demander un nouveau.</p>"+(store?"":"<div class='w'>Ton navigateur ne peut pas enregistrer l’activation (navigation privée ?). Utilise un onglet normal, sinon tu devras la refaire à chaque ouverture.</div>")+"<p class='mu' style='text-align:center'>Site officiel : <a href='https://thousandlabs.github.io/ScoreUp/' style='color:var(--ac)'>thousandlabs.github.io/ScoreUp</a></p>"}
 function unlock(){var c=$("#gc").value.replace(/\s+/g,"").replace(/^SUCODE:/i,"");if(!c){$("#ge").textContent="Colle ton code d’activation.";return}
  if(!(window.crypto&&crypto.subtle)){$("#ge").textContent="Ouvre l’appli depuis son lien https pour pouvoir l’activer.";return}
  $("#ge").textContent="Vérification…";chkCode(c).then(function(ok){if(ok){try{localStorage.setItem("qcm_act",c)}catch(e){}activated();afterAccess()}else $("#ge").textContent="Code invalide pour cet appareil. Vérifie que tu l’as copié en entier et qu’il correspond à l’identifiant affiché."})}
