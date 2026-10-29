@@ -212,6 +212,12 @@ var TLL=(function(){
 
 /* Dictionnaire français → anglais */
 var TLL_EN={
+"Sauvegarde envoyée ✓": "Backup sent ✓",
+"Sauvegarde téléchargée 💾": "Backup downloaded 💾",
+"Ta dernière sauvegarde date de plus de 7 jours": "Your last backup is more than 7 days old",
+"Tu n’as encore fait aucune sauvegarde": "You haven’t made any backup yet",
+"Tes séries, ton historique et tes statistiques sont uniquement sur ce téléphone. Envoie-toi une copie (WhatsApp, Drive…) pour ne rien perdre.": "Your sets, history and statistics are only on this phone. Send yourself a copy (WhatsApp, Drive…) so you don’t lose anything.",
+"💾 Sauvegarder maintenant": "💾 Back up now",
 "Ton navigateur peut installer {} comme une vraie application : icône propre (sans logo de navigateur), plein écran et ouverture hors ligne.": "Your browser can install {} as a real app: its own icon (no browser logo), full screen and offline access.",
 "Tu as déjà une icône avec le petit logo du navigateur ? Après l'installation, fais une sauvegarde de tes données, puis supprime l'ancienne icône.": "Already have an icon with the small browser logo? After installing, back up your data, then delete the old icon.",
 "Tu as déjà une icône avec le petit logo du navigateur ? Après l’installation, fais une sauvegarde de tes données, puis supprime l’ancienne icône.": "Already have an icon with the small browser logo? After installing, back up your data, then delete the old icon.",
@@ -977,7 +983,15 @@ function clean(o){if(!o||o.app!=="ScoreUp"||!o.db||!Array.isArray(o.db.sets))ret
  var st=d.stats,ok=!!(st&&st.t&&okN(st.t.s)&&okN(st.t.t)&&st.t.t>0&&okN(st.t.n)&&st.c&&typeof st.c==="object");if(ok)Object.keys(st.c).forEach(function(k){var x=st.c[k];if(!(x&&okN(x.s)&&okN(x.t)&&x.t>0&&okN(x.n)))ok=false});
  return {sets:sets,hist:hist,cats:cats,stats:ok?st:null,last:/^\d{4}-\d{2}-\d{2}$/.test(d.last||"")?d.last:"",streak:okN(d.streak)?d.streak:0,best:okN(d.best)?d.best:0,fav:(Array.isArray(d.fav)?d.fav:[]).filter(function(k){return typeof k==="string"&&/^[a-z0-9]+:\d+$/i.test(k)}),days:cdays(d.days)}}
 function bkJson(){return JSON.stringify({app:"ScoreUp",v:2,date:new Date().toISOString(),db:DB},null,1)}
-function bkx(){var u=URL.createObjectURL(new Blob([bkJson()],{type:"application/json"})),a=document.createElement("a");a.href=u;a.download="scoreup-sauvegarde-"+ds(new Date())+".json";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},4000)}
+function bkDl(){var u=URL.createObjectURL(new Blob([bkJson()],{type:"application/json"})),a=document.createElement("a");a.href=u;a.download="scoreup-sauvegarde-"+ds(new Date())+".json";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},4000)}
+/* Sauvegarde : menu de partage du téléphone (WhatsApp, Drive…) ; sinon téléchargement */
+function suToast(msg){try{var d=document.createElement("div");d.textContent=(window.TLL&&TLL.tr)?TLL.tr(msg):msg;d.setAttribute("style","position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#101a3d;color:#fff;padding:12px 18px;border-radius:12px;font-weight:600;z-index:9999;max-width:90vw;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.25)");document.body.appendChild(d);setTimeout(function(){d.remove()},2800)}catch(e){}}
+function bkDone(msg){try{localStorage.setItem("qcm_bk_at",String(Date.now()))}catch(e){}suToast(msg);if(typeof R==="function")R(true)}
+function bkx(){var name="scoreup-sauvegarde-"+ds(new Date())+".json",f=null;try{f=new File([bkJson()],name,{type:"application/json"})}catch(e){}
+ if(f&&navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],title:name}).then(function(){bkDone("Sauvegarde envoyée ✓")},function(e){if(!(e&&e.name==="AbortError")){bkDl();bkDone("Sauvegarde téléchargée 💾")}});return}
+ bkDl();bkDone("Sauvegarde téléchargée 💾")}
+function bkBanner(){var lb=0;try{lb=+localStorage.getItem("qcm_bk_at")||0}catch(e){}if((DB.hist||[]).length<3||Date.now()-lb<7*864e5)return "";
+ return "<div class='cd' style='border-left:5px solid #a15c00'><b>💾 "+(lb?"Ta dernière sauvegarde date de plus de 7 jours":"Tu n’as encore fait aucune sauvegarde")+"</b><p class='mu'>Tes séries, ton historique et tes statistiques sont uniquement sur ce téléphone. Envoie-toi une copie (WhatsApp, Drive…) pour ne rien perdre.</p><button class='btn' onclick='bkx()'>💾 Sauvegarder maintenant</button></div>"}
 function bkc(b){copy(bkJson(),b)}
 function bkf(i){var f=i.files[0];if(!f)return;var r=new FileReader();r.onload=function(){$("#bt").value=String(r.result)};r.readAsText(f)}
 function bkr(ok){if(ok&&tmp.bk){DB=tmp.bk;if(!DB.stats)DB.hist.forEach(function(x){addStat(x.c||"Sans matière",x.s,x.t)});SESS=null;saveS();save();tmp={};go("home");return}
@@ -5025,7 +5039,7 @@ function reg(){var D=DB.days||{},b="",n=0,a=0,mx=1,i,d,k,v,arr=[];for(i=29;i>=0;
  return "<div class='cd'><b>Régularité · 30 derniers jours</b><div class='reg'>"+b+"</div><p class='mu'>"+a+" jour"+(a>1?"s":"")+" actif"+(a>1?"s":"")+" sur 30 · "+n+" séance"+(n>1?"s":"")+". Le suivi jour par jour commence à cette mise à jour.</p></div>"}
 function cdays(x){var o={};if(x&&typeof x==="object"&&!Array.isArray(x))Object.keys(x).forEach(function(k){if(/^\d{4}-\d{2}-\d{2}$/.test(k)&&okN(x[k])&&x[k]>0)o[k]=Math.floor(x[k])});return o}
 var V={
-home:function(){var st=streak(),f=(tmp.f>=0&&DB.cats[tmp.f])?DB.cats[tmp.f].n:null,h="<button class='back' style='float:right' onclick='theme()'>"+(curTh()==="dark"?"Mode clair":"Mode sombre")+"</button><h1>ScoreUp</h1>"+greet()+trialBanner();
+home:function(){var st=streak(),f=(tmp.f>=0&&DB.cats[tmp.f])?DB.cats[tmp.f].n:null,h="<button class='back' style='float:right' onclick='theme()'>"+(curTh()==="dark"?"Mode clair":"Mode sombre")+"</button><h1>ScoreUp</h1>"+greet()+trialBanner()+bkBanner();
  if(tmp.note){h+="<div class='cd g'>"+tmp.note+"</div>";tmp.note=null}
  if(!store)h+="<div class='w'>Ce navigateur ne permet pas de sauvegarder : tes séries disparaîtront quand tu fermeras la page.</div>";
  h+="<div class='cd'><b>"+(st.n?"🔥 "+st.n+" jour"+(st.n>1?"s":"")+" de suite":"Ta série de jours")+"</b><p class='mu'>"+(st.today?"Séance du jour faite. Bravo !":st.n?"Fais une séance aujourd’hui pour garder ta série.":"Fais une séance aujourd’hui pour la commencer.")+"</p></div>";
