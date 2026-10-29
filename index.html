@@ -929,7 +929,9 @@ function parse(txt){var B=[],c=null,last=null,m,Q=[],E=[],seen={};
   var key=b.q.trim().toLowerCase();if(seen[key])return E.push(p+"doublon, ignorée.");seen[key]=1;
   Q.push({q:b.q.trim(),c:b.c.map(function(x){return x.trim()}),r:k,e:b.e.trim()})});
  return {Q:Q,E:E,n:B.length}}
-function pn(x){return parseFloat(String(x).replace(/[\s\u00a0\u202f%]/g,"").replace(",","."))}
+function pn(x){var t=String(x).replace(/[\s  %]/g,""),lc=t.lastIndexOf(","),ld=t.lastIndexOf(".");if(/^-?[1-9]\d{0,2}([.,]\d{3}){2,}$/.test(t))t=t.replace(/[.,]/g,"");else if(lc>-1&&ld>-1)t=lc>ld?t.replace(/\./g,"").replace(",","."):t.replace(/,/g,"");else t=t.replace(",",".");return parseFloat(t)}
+/* « 1.500 » ou « 12,345 » : milliers OU décimale ? On accepte les deux lectures. */
+function pnAll(x){var a=[pn(x)],t=String(x).replace(/[\s  %]/g,"");if(/^-?[1-9]\d{0,2}[.,]\d{3}$/.test(t))a.push(parseFloat(t.replace(/[.,]/g,"")));return a.filter(function(v){return !isNaN(v)})}
 function parseEx(txt){var X=[],Q=[],E=[],ex=null,it=null,last=null,m;
  txt.replace(/\r/g,"").split("\n").forEach(function(raw){var t=raw.trim();if(!t)return;
   if(m=t.match(/^EX\s*\d*\s*:\s*(.*)$/i)){ex={t:m[1]||"Exercice",s:"",it:[]};X.push(ex);it=null;last="s"}
@@ -940,11 +942,11 @@ function parseEx(txt){var X=[],Q=[],E=[],ex=null,it=null,last=null,m;
   else if(last==="s")ex.s+=(ex.s?"\n":"")+t;else if(last==="q")it.q+="\n"+t;else if(last==="c")it.c+="\n"+t});
  X.forEach(function(e,xi){var p="Exercice "+(xi+1)+" : ";if(!e.it.length)return E.push(p+"aucune ligne « Q: ».");
   e.it.forEach(function(x,k){var pp=p+"question "+(k+1)+" : ";if(!x.q.trim())return E.push(pp+"l’énoncé est vide.");if(!x.c.trim())return E.push(pp+"la ligne « C: » (corrigé) est manquante.");if(x.n!==""&&isNaN(pn(x.n)))return E.push(pp+"« N: » doit être un nombre.");
-   Q.push({t:e.t.trim(),s:e.s.trim(),q:x.q.trim(),n:x.n===""?"":String(pn(x.n)),c:x.c.trim()})})});
+   Q.push({t:e.t.trim(),s:e.s.trim(),q:x.q.trim(),n:x.n===""?"":(pnAll(x.n).length>1?x.n.replace(/[\s\u00a0\u202f]/g,""):String(pn(x.n))),c:x.c.trim()})})});
  return {Q:Q,E:E,n:X.length,ex:1}}
 function rate(ok){SESS.ans[SESS.i]={ok:!!ok,v:""};tmp.sh=null;saveS();R(true)}
-function chk(){var raw=$("#nv").value,q=gs(SESS.setId).questions[SESS.order[SESS.i]],v=pn(raw),e=pn(q.n);if(isNaN(v)){$("#nv").value="";$("#nv").placeholder="Tape un nombre";return}
- SESS.ans[SESS.i]={ok:Math.abs(v-e)<=Math.max(0.01,Math.abs(e)*0.005),v:raw};saveS();R(true)}
+function chk(){var raw=$("#nv").value,q=gs(SESS.setId).questions[SESS.order[SESS.i]],v=pn(raw),e=pn(q.n),V=pnAll(raw),E=pnAll(q.n);if(isNaN(v)){$("#nv").value="";$("#nv").placeholder="Tape un nombre";return}
+ SESS.ans[SESS.i]={ok:V.some(function(a){return E.some(function(b){return Math.abs(a-b)<=Math.max(0.01,Math.abs(b)*0.005)})}),v:raw};saveS();R(true)}
 var PAL=["#2447c9","#17794a","#b42318","#a15c00","#7a3fc4","#007a8a","#c2410c","#4d5b72"],IP=null;
 window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();IP=e});
 function inst(){if(IP){IP.prompt();IP=null;R(true)}}
