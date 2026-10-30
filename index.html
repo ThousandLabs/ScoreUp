@@ -212,6 +212,7 @@ var TLL=(function(){
 
 /* Dictionnaire français → anglais */
 var TLL_EN={
+"Pendant l’essai gratuit, tu ne peux restaurer qu’une sauvegarde faite sur ce téléphone. Active ScoreUp pour récupérer une sauvegarde d’un autre appareil.":"During the free trial, you can only restore a backup made on this phone. Activate ScoreUp to restore a backup from another device.",
 "Sauvegarde envoyée ✓": "Backup sent ✓",
 "Sauvegarde téléchargée 💾": "Backup downloaded 💾",
 "Ta dernière sauvegarde date de plus de 7 jours": "Your last backup is more than 7 days old",
@@ -982,7 +983,7 @@ function clean(o){if(!o||o.app!=="ScoreUp"||!o.db||!Array.isArray(o.db.sets))ret
  var hist=(Array.isArray(d.hist)?d.hist:[]).filter(function(x){return x&&okN(x.s)&&okN(x.t)&&x.t>0}).map(function(x){return {n:String(x.n||""),m:MN[x.m]?x.m:"libre",s:x.s,t:x.t,d:okN(x.d)?x.d:Date.now(),c:String(x.c||"")}});
  var st=d.stats,ok=!!(st&&st.t&&okN(st.t.s)&&okN(st.t.t)&&st.t.t>0&&okN(st.t.n)&&st.c&&typeof st.c==="object");if(ok)Object.keys(st.c).forEach(function(k){var x=st.c[k];if(!(x&&okN(x.s)&&okN(x.t)&&x.t>0&&okN(x.n)))ok=false});
  return {sets:sets,hist:hist,cats:cats,stats:ok?st:null,last:/^\d{4}-\d{2}-\d{2}$/.test(d.last||"")?d.last:"",streak:okN(d.streak)?d.streak:0,best:okN(d.best)?d.best:0,fav:(Array.isArray(d.fav)?d.fav:[]).filter(function(k){return typeof k==="string"&&/^[a-z0-9]+:\d+$/i.test(k)}),days:cdays(d.days)}}
-function bkJson(){return JSON.stringify({app:"ScoreUp",v:2,date:new Date().toISOString(),db:DB},null,1)}
+function bkJson(){return JSON.stringify({app:"ScoreUp",v:2,date:new Date().toISOString(),dev:devId(),db:DB},null,1)}
 function bkDl(){var u=URL.createObjectURL(new Blob([bkJson()],{type:"application/json"})),a=document.createElement("a");a.href=u;a.download="scoreup-sauvegarde-"+ds(new Date())+".json";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},4000)}
 /* Sauvegarde : menu de partage du téléphone (WhatsApp, Drive…) ; sinon téléchargement */
 function suToast(msg){try{var d=document.createElement("div");d.textContent=(window.TLL&&TLL.tr)?TLL.tr(msg):msg;d.setAttribute("style","position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#101a3d;color:#fff;padding:12px 18px;border-radius:12px;font-weight:600;z-index:9999;max-width:90vw;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.25)");document.body.appendChild(d);setTimeout(function(){d.remove()},2800)}catch(e){}}
@@ -995,7 +996,7 @@ function bkBanner(){var lb=0;try{lb=+localStorage.getItem("qcm_bk_at")||0}catch(
 function bkc(b){copy(bkJson(),b)}
 function bkf(i){var f=i.files[0];if(!f)return;var r=new FileReader();r.onload=function(){$("#bt").value=String(r.result)};r.readAsText(f)}
 function bkr(ok){if(ok&&tmp.bk){DB=tmp.bk;if(!DB.stats)DB.hist.forEach(function(x){addStat(x.c||"Sans matière",x.s,x.t)});SESS=null;saveS();save();tmp={};go("home");return}
- var t=$("#bt").value,o=null;tmp.bt=t;tmp.bk=null;try{o=JSON.parse(t)}catch(e){}var c=clean(o);if(c){tmp.be="";tmp.bk=c}else tmp.be="Sauvegarde invalide : choisis le fichier exporté par ScoreUp, ou colle son contenu en entier.";R(true)}
+ var t=$("#bt").value,o=null;tmp.bt=t;tmp.bk=null;try{o=JSON.parse(t)}catch(e){}var c=clean(o);if(c&&!ACT&&!(o&&o.dev===devId())){tmp.be="Pendant l’essai gratuit, tu ne peux restaurer qu’une sauvegarde faite sur ce téléphone. Active ScoreUp pour récupérer une sauvegarde d’un autre appareil.";c=null;tmp.bk=null;R(true);return}if(c){tmp.be="";tmp.bk=c}else tmp.be="Sauvegarde invalide : choisis le fichier exporté par ScoreUp, ou colle son contenu en entier.";R(true)}
 var DEMO=[{id:"demo-compta",name:"Comptabilité générale – Chapitre 1",cat:"Comptabilité",txt:`Q: Quel principe impose d’enregistrer chaque opération au débit d’un compte et au crédit d’un autre, pour le même montant ?
 A) La prudence
 B) La partie double
