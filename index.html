@@ -220,7 +220,18 @@ var TLL=(function(){
 
 /* Dictionnaire français → anglais */
 var TLL_EN={
-"Le bouton ☰ en haut à droite ouvre le menu : Accueil, Statistiques, Historique, Favoris, Sauvegarde, Réglages, aide, thème et mode transport, depuis n’importe quel écran. Le bouton « ⚙️ Réglages » de l’accueil regroupe : ton école, ton prénom, la langue, le thème, le mode transport, l’installation de l’appli, ta licence et ton identifiant, tes données et le contact Thousand Labs.": "The ☰ button at the top right opens the menu: Home, Statistics, History, Favourites, Backup, Settings, help, theme and transport mode, from any screen. The “⚙️ Settings” button on the home screen gathers: your school, your first name, the language, the theme, transport mode, app installation, your licence and ID, your data and the Thousand Labs contact.",
+"☰ Statistiques, historique, réglages… : touche le menu en haut à droite.": "☰ Statistics, history, settings…: tap the menu at the top right.",
+"🔁 À revoir aujourd’hui": "🔁 To review today",
+"Les questions ratées lors de ta dernière séance. Les revoir aide à les retenir.": "Questions you missed in your last session. Reviewing them helps you remember.",
+"Revoir": "Review",
+"autres séries : ouvre-les depuis la liste.": "other sets: open them from the list.",
+"✏️ Corriger cette réponse": "✏️ Correct this answer",
+"✏️ Corriger cette question": "✏️ Correct this question",
+"Si l’IA s’est trompée, choisis la bonne réponse. La correction est enregistrée dans ta série.": "If the AI got it wrong, choose the right answer. The correction is saved in your set.",
+"Explication (facultatif)": "Explanation (optional)",
+"Enregistrer la correction": "Save the correction",
+"Tu as acheté auprès d’un vendeur ? Envoie-lui cet identifiant.": "Bought from a seller? Send them this ID.",
+"Le bouton ☰ en haut à droite ouvre le menu : Accueil, Statistiques, Historique, Favoris, Sauvegarde, Réglages, aide, thème et mode transport, depuis n’importe quel écran. Le bouton retour du téléphone ramène à l’accueil. « ⚙️ Réglages » regroupe : ton école, ton prénom, la langue, le thème, le mode transport, l’installation de l’appli, ta licence et ton identifiant, tes données et le contact Thousand Labs.": "The ☰ button at the top right opens the menu: Home, Statistics, History, Favourites, Backup, Settings, help, theme and transport mode, from any screen. The phone’s back button returns to the home screen. “⚙️ Settings” gathers: your school, your first name, the language, the theme, transport mode, app installation, your licence and ID, your data and the Thousand Labs contact.",
 "Ouvrir le menu": "Open menu",
 "Fermer le menu": "Close menu",
 "Mode transport : activé": "Transport mode: on",
@@ -5046,22 +5057,42 @@ function ecPick(imp){var s=school(tmp.ec);if(!s)return;lss("qcm_school",s.id);va
  tmp.f=-1;go("home")}
 function ecSkip(){if(lsg("qcm_school")===null)lss("qcm_school","0");tmp.ec=null;go(cur==="reg"?"reg":"home")}
 function ecBack(){if(tmp.ec){tmp.ec=null;R()}else go(cur==="reg"?"reg":"home")}
-function R(keep){if(!ACT&&trialState()!=="trial"){gate();return}seen();$("#app").innerHTML=mnBtn()+V[view]();if(!keep)window.scrollTo(0,0);if(TH&&view==="quiz")dock();tick()}
+function R(keep){if(!ACT&&trialState()!=="trial"){gate();return}seen();$("#app").innerHTML=mnBtn()+V[view]();if(!keep)window.scrollTo(0,0);hSync();if(TH&&view==="quiz")dock();tick()}
 function go(v,x){view=v;cur=x||null;tmp.cf=0;R()}
+/* « À revoir aujourd'hui » : séries où des questions ont été ratées à la dernière séance */
+function revoir(){if(SESS)return "";var L2=DB.sets.filter(function(s){return (s.wrong||[]).filter(function(i){return s.questions[i]}).length}).sort(function(a,b){return b.wrong.length-a.wrong.length});if(!L2.length)return "";
+ var h="<div class='cd' style='border-left:5px solid var(--ko)'><b>🔁 À revoir aujourd’hui</b><p class='mu'>Les questions ratées lors de ta dernière séance. Les revoir aide à les retenir.</p>";
+ L2.slice(0,3).forEach(function(s){var w=s.wrong.filter(function(i){return s.questions[i]});h+="<div class='row' style='align-items:center;margin-top:8px'><span style='flex:1;min-width:0'><b>"+esc(s.name)+"</b><br><span class='mu'>"+w.length+"</span> <span class='mu'>"+(w.length>1?"erreurs":"erreur")+"</span></span><button class='btn s' style='flex:none;width:auto;margin:0' onclick='start(\""+s.id+"\",\"erreurs\","+JSON.stringify(w)+","+w.length+",0,true)'>Revoir</button></div>"});
+ if(L2.length>3)h+="<p class='mu' style='margin-top:8px'><span>+"+(L2.length-3)+"</span> <span>autres séries : ouvre-les depuis la liste.</span></p>";
+ return h+"</div>"}
+/* ✏️ Corriger une réponse (si l'IA s'est trompée) : la correction est enregistrée dans la série */
+function qEdit(sid,qi){var s=gs(sid),q=s&&s.questions[qi];if(!q||s.kind==="ex")return;var h="<h3 style='margin-top:0'>✏️ Corriger cette question</h3><p class='mu'>Si l’IA s’est trompée, choisis la bonne réponse. La correction est enregistrée dans ta série.</p><p><b>"+esc(q.q)+"</b></p>";
+ q.c.forEach(function(c,k){h+="<label class='c' style='margin:10px 0;align-items:flex-start'><input type='radio' name='qer' value='"+k+"'"+(k===q.r?" checked":"")+"><span>"+esc(c)+"</span></label>"});
+ h+="<label for='qee'>Explication (facultatif)</label><textarea id='qee' style='min-height:90px;font-family:inherit;font-size:15px'>"+esc(q.e||"")+"</textarea><button class='btn' onclick='qSave(\""+sid+"\","+qi+")'>Enregistrer la correction</button>";suOpen(h);hSync()}
+function qSave(sid,qi){var s=gs(sid),q=s&&s.questions[qi],r=document.querySelector("input[name=qer]:checked"),e=document.getElementById("qee");if(!q||!r)return;q.r=+r.value;q.e=(e?e.value:"").trim();save();suClose();R(true)}
+
 /* Menu ☰ : accès rapide aux Statistiques, Réglages, etc. depuis n'importe quel écran (sauf pendant un quiz) */
 var MNI=[["home","🏠","Accueil"],["stats","📊","Statistiques"],["hist","🕘","Historique"],["fav","⭐","Favoris"],["bk","💾","Sauvegarde"],["reg","⚙️","Réglages"],0,["help","🤖","Comment faire"],["info","📘","Guide"]];
 function mnBtn(){return (view==="quiz"||(view==="ecole"&&lsg("qcm_school")===null))?"":"<button class='mnb' aria-label='Ouvrir le menu' title='Menu' onclick='mnOpen()'>☰</button>"}
 function mnOpen(){if(document.getElementById("mnov"))return;var h="<nav role='dialog' aria-modal='true' aria-label='Menu'><div class='mnh'><b>ScoreUp</b><button aria-label='Fermer le menu' onclick='mnClose()'>✕</button></div>";
  MNI.forEach(function(m){h+=m?"<button class='mni"+(view===m[0]?" on":"")+"' onclick='mnGo(\""+m[0]+"\")'><i>"+m[1]+"</i><span>"+m[2]+"</span></button>":"<div class='mns'></div>"});
- h+="<div class='mns'></div><button class='mni' onclick='mnClose();theme()'><i>"+(curTh()==="dark"?"☀️":"🌙")+"</i><span>"+(curTh()==="dark"?"Mode clair":"Mode sombre")+"</span></button><button class='mni' onclick='mnClose();thumb()'><i>👍</i><span>"+(TH?"Mode transport : activé":"Mode transport : désactivé")+"</span></button></nav>";
- var o=document.createElement("div");o.className="mnov";o.id="mnov";o.innerHTML=h;o.addEventListener("click",function(e){if(e.target===o)mnClose()});document.body.appendChild(o);
- try{history.pushState({mn:1},"")}catch(e){}
+ h+="<div class='mns'></div><button class='mni' onclick='mnClose(1);theme()'><i>"+(curTh()==="dark"?"☀️":"🌙")+"</i><span>"+(curTh()==="dark"?"Mode clair":"Mode sombre")+"</span></button><button class='mni' onclick='mnClose(1);thumb()'><i>👍</i><span>"+(TH?"Mode transport : activé":"Mode transport : désactivé")+"</span></button></nav>";
+ var o=document.createElement("div");o.className="mnov";o.id="mnov";o.innerHTML=h;o.addEventListener("click",function(e){if(e.target===o)mnClose()});document.body.appendChild(o);hSync();
  requestAnimationFrame(function(){o.classList.add("on");var f=o.querySelector(".mni.on")||o.querySelector(".mni");if(f)f.focus({preventScroll:true})})}
-function mnClose(fromBack){var o=document.getElementById("mnov");if(!o)return;o.id="";o.classList.remove("on");setTimeout(function(){o.remove()},230);
- if(!fromBack){try{if(history.state&&history.state.mn)history.back()}catch(e){}}var b=document.querySelector(".mnb");if(b)b.focus({preventScroll:true})}
-function mnGo(v){mnClose();if(v==="ecole"){tmp.ec=null}go(v)}
-window.addEventListener("popstate",function(){if(document.getElementById("mnov"))mnClose(true)});
+/* noSync : l'écran va être redessiné juste après (R appelle hSync) */
+function mnClose(noSync){var o=document.getElementById("mnov");if(!o)return;o.id="";o.classList.remove("on");setTimeout(function(){o.remove()},230);if(!noSync)hSync()}
+function mnGo(v){mnClose(1);if(v==="ecole"){tmp.ec=null}go(v)}
 document.addEventListener("keydown",function(e){if(e.key==="Escape"&&document.getElementById("mnov"))mnClose()});
+/* Bouton retour du téléphone : ferme le menu ou la fenêtre ouverte, sinon revient à l'accueil (au lieu de quitter l'appli).
+   Une seule « marche » d'historique est posée tant qu'on n'est pas sur l'accueil ou qu'un menu est ouvert. */
+var HSKIP=false;
+function hNeed(){return !!document.getElementById("mnov")||!!document.getElementById("suov")||(view!=="home"&&!document.getElementById("gc"))}
+function hSync(){try{var on=!!(history.state&&history.state.su);if(hNeed()&&!on)history.pushState({su:1},"");else if(!hNeed()&&on){HSKIP=true;history.back()}}catch(e){}}
+window.addEventListener("popstate",function(){if(HSKIP){HSKIP=false;return}
+ if(document.getElementById("mnov")){mnClose(1);hSync();return}
+ if(document.getElementById("suov")){suClose();hSync();return}
+ if(document.getElementById("gc"))return;
+ if(view!=="home"){view="home";cur=null;tmp.cf=0;R()}});
 
 function tick(){if(!SESS)return;var e=document.getElementById("tm");if(e&&SESS.end){var r=SESS.end-Date.now();if(r<=0){fin(true);return}var s=Math.ceil(r/1000);e.textContent="⏱ "+Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
  var q=document.getElementById("tq");if(q&&SESS.qt&&SESS.qs&&view==="quiz"){var z=SESS.qt-Math.floor((Date.now()-SESS.qs)/1000);if(z<=0){if(SESS.ans[SESS.i]===null){SESS.ans[SESS.i]=-1;saveS();R(true)}return}q.textContent="⏱ "+z+" s"}}
@@ -5108,13 +5139,14 @@ home:function(){var st=streak(),f=(tmp.f>=0&&DB.cats[tmp.f])?DB.cats[tmp.f].n:nu
  if(tmp.note){h+="<div class='cd g'>"+tmp.note+"</div>";tmp.note=null}
  if(!store)h+="<div class='w'>Ce navigateur ne permet pas de sauvegarder : tes séries disparaîtront quand tu fermeras la page.</div>";
  h+="<div class='cd'><b>"+(st.n?"🔥 "+st.n+" jour"+(st.n>1?"s":"")+" de suite":"Ta série de jours")+"</b><p class='mu'>"+(st.today?"Séance du jour faite. Bravo !":st.n?"Fais une séance aujourd’hui pour garder ta série.":"Fais une séance aujourd’hui pour la commencer.")+"</p></div>";
+ h+=revoir();
  if(IP)h+="<button class='btn s' onclick='inst()'>Installer ScoreUp sur l’écran d’accueil</button>";
  if(SESS){var s0=gs(SESS.setId);h+="<div class='cd'><b>"+MN[SESS.mode]+" en cours</b><p class='mu'>"+esc(s0.name)+" · question "+(SESS.i+1)+"/"+SESS.order.length+"</p><button class='btn' onclick='resume()'>Reprendre</button></div>"}
  h+="<button class='btn' onclick='tmp.d=null;tmp.imp=null;go(\"imp\")'>Importer des questions</button>";
  if(DB.cats.length)h+="<div class='chips'><button class='chip"+(f?"":" on")+"' onclick='tmp.f=-1;R(true)'>Toutes</button>"+DB.cats.map(function(k,i){return "<button class='chip"+(f===k.n?" on":"")+"' style='--c:"+k.c+";--cx:#fff' onclick='tmp.f="+i+";R(true)'>"+esc(k.n)+"</button>"}).join("")+"</div>";
  if(!DB.sets.length)h+="<div class='cd'><p>Aucune série pour l’instant. Importe tes questions, ou ouvre « Comment faire » pour les générer avec une IA à partir de ton cours.</p>"+(mySchool()?"<button class='btn s' onclick='ad(this)'>Ajouter les séries de mon école</button>":"<button class='btn s' onclick='tmp.ec=null;go(\"ecole\")'>🎓 Choisir mon école</button>")+"</div>";
  DB.sets.forEach(function(s){if(f&&s.cat!==f)return;h+="<div class='cd'>"+(s.cat?"<span class='bdg' style='background:"+catCol(s.cat)+"'>"+esc(s.cat)+"</span> ":"")+"<b>"+esc(s.name)+"</b><p class='mu'>"+(s.kind==="ex"?"Exercices · ":"")+s.questions.length+" question"+(s.questions.length>1?"s":"")+"</p>"+(DB.cats.length?"<select class='cs' onchange='setcat(\""+s.id+"\",this.value)'><option value=''>Sans matière</option>"+DB.cats.map(function(k){return "<option value=\""+esc(k.n)+"\""+(s.cat===k.n?" selected":"")+">"+esc(k.n)+"</option>"}).join("")+"</select>":"")+"<div class='row'><button class='btn' onclick='go(\"set\",\""+s.id+"\")'>Lancer</button><button class='btn s' onclick='go(\"exp\",\""+s.id+"\")'>Exporter</button></div><button class='btn d' onclick='del(\""+s.id+"\")'>"+(tmp.del===s.id?"Confirmer la suppression":"Supprimer")+"</button></div>"});
- return h+"<div class='row'><button class='btn s' onclick='go(\"stats\")'>Statistiques</button><button class='btn s' onclick='go(\"hist\")'>Historique</button></div><div class='row'><button class='btn s' onclick='go(\"help\")'>Comment faire</button><button class='btn s' onclick='go(\"info\")'>Guide</button></div><div class='row'><button class='btn s' onclick='go(\"fav\")'>Favoris ★</button><button class='btn s' onclick='go(\"bk\")'>Sauvegarde</button></div><button class='btn s' onclick='go(\"reg\")'>⚙️ Réglages</button>"+(DB.sets.length?"<p class='mu'>Tes séries sont gardées dans ce navigateur seulement. Utilise « Sauvegarde » pour tout garder en lieu sûr.</p>":"")+"<button class='back' onclick='thumb()'>Mode transport (boutons en bas) : "+(TH?"activé":"désactivé")+"</button>"},
+ return h+(DB.sets.length?"<p class='mu'>Tes séries sont gardées dans ce navigateur seulement. Utilise « Sauvegarde » pour tout garder en lieu sûr.</p>":"")+"<p class='mu' style='text-align:center'>☰ Statistiques, historique, réglages… : touche le menu en haut à droite.</p>"},
 imp:function(){var d=tmp.d||{t:"",nm:""},p=tmp.imp,h="<button class='back' onclick='go(\"home\")'>← Retour</button><h1>Importer</h1>"+aiBox()+"<p class='mu'>Exercices (TD) avec corrigé ? <button class='back' style='padding:0;font-size:14px' onclick='cp(\"e\",this)'>Copier le prompt Exercices</button></p><h3 class='aih'>📥 Colle le résultat</h3><label for='nm'>Nom de la série</label><input type='text' id='nm' value='"+esc(d.nm)+"' placeholder='Ex. Comptabilité – chapitre 2'><label for='ct'>Matière (facultatif)</label><input type='text' id='ct' list='cl' value='"+esc(d.ct||"")+"' placeholder='Ex. Comptabilité' autocomplete='off'><datalist id='cl'>"+DB.cats.map(function(k){return "<option value=\""+esc(k.n)+"\">"}).join("")+"</datalist><label for='ta'>Colle tes questions ici</label><textarea id='ta' placeholder='Q: …&#10;A) …&#10;B) …&#10;R: B'>"+esc(d.t)+"</textarea><label for='fi'>Ou ouvre un fichier .txt ou .pdf</label><input type='file' id='fi' accept='.txt,.pdf,text/plain,application/pdf' onchange='rf(this)'><div id='st' class='mu'></div><button class='btn s' onclick='an()'>Vérifier</button>";
  if(p){if(!p.n)h+="<div class='w'>"+(p.pdf?"Ce fichier est un PDF : l’appli ne lit que du texte. Demande à l’IA d’écrire les questions directement dans la conversation, puis copie-les et colle-les ici (ou enregistre-les dans un fichier .txt).":"Aucune question détectée. Chaque question doit commencer par « Q: ». Voir « Comment faire ».")+"</div>";
   else{h+="<div class='cd g'><b>"+p.Q.length+" question"+(p.Q.length>1?"s":"")+" valide"+(p.Q.length>1?"s":"")+"</b></div>";
@@ -5127,7 +5159,7 @@ quiz:function(){if(gs(SESS.setId).kind==="ex")return V.exq();if(SESS.mode==="fla
  var h="<div class='top'><span>"+MN[S.mode]+" · "+(i+1)+"/"+n+"</span>"+starBtn()+""+(S.end?"<b id='tm'></b>":"")+(S.qt&&a===null?"<b id='tq'></b>":"")+"</div><div class='bar'><i style='width:"+((i+1)/n*100)+"%'></i></div><h2>"+esc(q.q)+"</h2>";
  pm.forEach(function(k,p){var cl="opt";if(a===p)cl+=" sel";if(!ex&&a!==null){if(p===ci)cl=" opt ok";else if(p===a)cl="opt ko"}
   h+="<button class='"+cl+"' onclick='pick("+p+")'><b>"+L[p]+"</b><span>"+esc(q.c[k])+"</span></button>"});
- if(!ex&&a!==null)h+="<div class='cd'>"+(a===ci?"✅ Bonne réponse.":(a===-1?"⌛ Temps écoulé. ":"❌ Mauvaise réponse. ")+"La bonne réponse est "+L[ci]+".")+(q.e?"<p class='mu'>"+esc(q.e)+"</p>":"")+WN+"</div>";
+ if(!ex&&a!==null)h+="<div class='cd'>"+(a===ci?"✅ Bonne réponse.":(a===-1?"⌛ Temps écoulé. ":"❌ Mauvaise réponse. ")+"La bonne réponse est "+L[ci]+".")+(q.e?"<p class='mu'>"+esc(q.e)+"</p>":"")+WN+"<button class='back' style='padding:4px 0' onclick='qEdit(\""+s.id+"\","+S.order[i]+")'>✏️ Corriger cette réponse</button></div>";
  h+="<div class='row'>";if(ex&&i>0)h+="<button class='btn s' onclick='mv(-1)'>← Précédent</button>";
  if(i<n-1){if(ex||a!==null)h+="<button class='btn' onclick='mv(1)'>Suivant →</button>"}else if(!ex&&a!==null)h+="<button class='btn' onclick='fin()'>Voir le résultat</button>";
  h+="</div>";
@@ -5135,7 +5167,7 @@ quiz:function(){if(gs(SESS.setId).kind==="ex")return V.exq();if(SESS.mode==="fla
  return h+"<button class='back' onclick='go(\"home\")'>Quitter et reprendre plus tard</button>"},
 flash:function(){var S=SESS,s=gs(S.setId),i=S.i,q=s.questions[S.order[i]],n=S.order.length,rv=tmp.rv===i;
  var h="<div class='top'><span>Flashcards · "+(i+1)+"/"+n+"</span>"+starBtn()+"</div><div class='bar'><i style='width:"+((i+1)/n*100)+"%'></i></div>";
- h+="<div class='cd fc' onclick='tmp.rv="+i+";R(true)'><h2 style='margin:0 0 12px'>"+esc(q.q)+"</h2>"+(rv?"<p><b>"+esc(q.c[q.r])+"</b></p>"+(q.e?"<p class='mu'>"+esc(q.e)+"</p>":"")+WN:"<p class='mu'>Touche la carte pour voir la réponse</p>")+"</div>";
+ h+="<div class='cd fc' onclick='tmp.rv="+i+";R(true)'><h2 style='margin:0 0 12px'>"+esc(q.q)+"</h2>"+(rv?"<p><b>"+esc(q.c[q.r])+"</b></p>"+(q.e?"<p class='mu'>"+esc(q.e)+"</p>":"")+WN+"<button class='back' style='padding:4px 0' onclick='event.stopPropagation();qEdit(\""+s.id+"\","+S.order[i]+")'>✏️ Corriger cette réponse</button>":"<p class='mu'>Touche la carte pour voir la réponse</p>")+"</div>";
  if(rv)h+="<div class='row'><button class='btn d' onclick='frate(0)'>À revoir</button><button class='btn' onclick='frate(1)'>Je savais</button></div>";
  return h+"<button class='back' onclick='go(\"home\")'>Quitter et reprendre plus tard</button>"},
 exq:function(){var S=SESS,s=gs(S.setId),i=S.i,q=s.questions[S.order[i]],a=S.ans[i],n=S.order.length,isn=q.n!=="";
@@ -5150,7 +5182,7 @@ res:function(){var r=tmp.res;if(!r)return V.home();var S=r.S,s=r.s,t=S.order.len
  if(s.wrong.length)h+="<button class='btn' onclick='start(\""+s.id+"\",\"erreurs\","+JSON.stringify(s.wrong)+","+s.wrong.length+",0,true)'>Refaire mes "+s.wrong.length+" erreur"+(s.wrong.length>1?"s":"")+"</button>";
  h+="<button class='btn s' onclick='go(\"home\")'>Accueil</button><h3>Correction</h3>"+WN+"";
  S.order.forEach(function(qi,i){var q=s.questions[qi],pm=S.perm[i],a=S.ans[i],ok=a===pm.indexOf(q.r);if(S.mode==="flash"){ok=!!(a&&a.ok);h+="<div class='cd "+(ok?"g":"b")+"'><b>"+(i+1)+". "+esc(q.q)+"</b><p>"+esc(q.c[q.r])+"</p>"+(q.e?"<p class='mu'>"+esc(q.e)+"</p>":"")+"</div>";return}if(s.kind==="ex"){ok=!!(a&&a.ok);h+="<div class='cd "+(ok?"g":"b")+"'><b>"+(i+1)+". "+esc(q.q)+"</b>"+(a&&a.v?"<p>Ta réponse : "+esc(a.v)+"</p>":"")+"<p style='white-space:pre-wrap'>"+rich(q.c)+"</p></div>";return}
-  h+="<div class='cd "+(ok?"g":"b")+"'><b>"+(i+1)+". "+esc(q.q)+"</b><p>Ta réponse : "+(a===null||a===-1?"aucune":esc(q.c[pm[a]]))+"</p>"+(ok?"":"<p>Bonne réponse : "+esc(q.c[q.r])+"</p>")+(q.e?"<p class='mu'>"+esc(q.e)+"</p>":"")+"</div>"});
+  h+="<div class='cd "+(ok?"g":"b")+"'><b>"+(i+1)+". "+esc(q.q)+"</b><p>Ta réponse : "+(a===null||a===-1?"aucune":esc(q.c[pm[a]]))+"</p>"+(ok?"":"<p>Bonne réponse : "+esc(q.c[q.r])+"</p>")+(q.e?"<p class='mu'>"+esc(q.e)+"</p>":"")+"<button class='back' style='padding:4px 0' onclick='qEdit(\""+s.id+"\","+qi+")'>✏️ Corriger cette réponse</button></div>"});
  return h},
 info:function(){return "<button class='back' onclick='go(\"home\")'>← Retour</button><h1>Guide</h1><p class='mu'>Tout ce qu’il faut savoir pour bien utiliser l’appli.</p>"
 +"<div class='cd'><b>À quoi ça sert</b><p>L’appli est vide au départ : tu y mets tes propres questions ou exercices, elle te fait réviser et te note. Rien n’est envoyé sur Internet.</p></div>"
@@ -5165,7 +5197,7 @@ info:function(){return "<button class='back' onclick='go(\"home\")'>← Retour</
 +"<div class='cd'><b>Mon école</b><p>Au premier lancement, choisis ton école (Management, Droit, Ingénieurs, Digital Campus ou Madiba Leadership Institute). Tu vois ses principales filières et tu peux importer 5 séries de démarrage de 20 questions, niveau L1. Tu peux changer d’école ou ajouter ses séries plus tard depuis « ⚙️ Réglages ».</p></div>"
 +"<div class='cd'><b>Import</b><p>L’appli vérifie le format et indique la ligne à corriger. Les doublons sont ignorés. Un PDF doit contenir du vrai texte : une photo ou un scan ne marche pas. Les questions et les choix sont mélangés si la case est cochée, donc la lettre de la bonne réponse change d’un essai à l’autre.</p></div>"
 +"<div class='cd'><b>Fiabilité</b><p>Une IA peut se tromper. Vérifie les réponses et les corrigés, surtout les calculs, avec ton cours ou ton prof avant de t’y fier ou de les partager. Demande aussi l’accord de ton prof avant de partager ses fiches.</p></div>"
-+"<div class='cd'><b>Réglages</b><p>Le bouton ☰ en haut à droite ouvre le menu : Accueil, Statistiques, Historique, Favoris, Sauvegarde, Réglages, aide, thème et mode transport, depuis n’importe quel écran. Le bouton « ⚙️ Réglages » de l’accueil regroupe : ton école, ton prénom, la langue, le thème, le mode transport, l’installation de l’appli, ta licence et ton identifiant, tes données et le contact Thousand Labs.</p></div><div class='cd'><b>Bon à savoir</b><p>Supprimer une série demande deux touches, pour éviter les erreurs. L’historique garde tes 100 derniers résultats.</p></div>"},
++"<div class='cd'><b>Réglages</b><p>Le bouton ☰ en haut à droite ouvre le menu : Accueil, Statistiques, Historique, Favoris, Sauvegarde, Réglages, aide, thème et mode transport, depuis n’importe quel écran. Le bouton retour du téléphone ramène à l’accueil. « ⚙️ Réglages » regroupe : ton école, ton prénom, la langue, le thème, le mode transport, l’installation de l’appli, ta licence et ton identifiant, tes données et le contact Thousand Labs.</p></div><div class='cd'><b>Bon à savoir</b><p>Supprimer une série demande deux touches, pour éviter les erreurs. L’historique garde tes 100 derniers résultats.</p></div>"},
 ecole:function(){var s=school(tmp.ec),mine=lsg("qcm_school"),h;
  if(s){var ss=schoolSets(s.id),miss=ss.filter(function(d){return !gs(d.id)}).length;
   h="<button class='back' onclick='ecBack()'>← Toutes les écoles</button><h1>"+s.ico+" "+esc(s.nom)+"</h1><p class='mu'>"+esc(s.desc)+"</p>"+(mine===s.id?"<p class='mu'>✅ C’est ton école actuelle.</p>":"");
@@ -5286,7 +5318,7 @@ async function startScan(video,status,onText){
 function stopScan(){clearInterval(scanTimer);scanTimer=null;if(scanStream){scanStream.getTracks().forEach(t=>t.stop());scanStream=null}}
 
 function suOpen(h){suClose();var o=document.createElement("div");o.className="suov";o.id="suov";o.innerHTML="<div>"+h+"<button class='btn s' onclick='suClose()'>Fermer</button></div>";o.addEventListener("click",function(e){if(e.target===o)suClose()});document.body.appendChild(o)}
-function suClose(){stopScan();var o=document.getElementById("suov");if(o)o.remove()}
+function suClose(){stopScan();var o=document.getElementById("suov");if(o){o.remove();hSync()}}
 function suShowQR(){suOpen("<b>Ton identifiant en QR</b><p class='mu' style='text-align:center'>La personne qui t’active scanne ce QR code.</p><div id='qrBox'></div><pre style='text-align:center'>"+fmt(devId())+"</pre>");document.getElementById("qrBox").appendChild(QR.canvas("SUID:"+devId(),600,"M"))}
 function suScan(){if(!(window.crypto&&crypto.subtle)){$("#ge").textContent="Ouvre l’appli depuis son lien https pour pouvoir l’activer.";return}
  suOpen("<b>Scanner le code</b><p class='mu' style='text-align:center'>Vise le QR code affiché par la personne qui t’active.</p><div class='scanbox'><video id='scanV'></video><i></i></div><p id='scanS' class='mu' style='text-align:center'>Ouverture de la caméra…</p>");
@@ -5336,7 +5368,103 @@ function rgClear(k){if(tmp.rc!==k){tmp.rc=k;R(true);return}tmp.rc=null;
 function boot(){try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}var c=null;try{c=localStorage.getItem("qcm_act")}catch(e){}if(!c)return trialBoot();chkCode(c).then(function(ok){if(ok){activated();afterAccess()}else trialBoot()})}
 /* ---------- Thousand Labs : signature avec logo (écran d'activation + licence) ---------- */
 function tlBrand(big){var s=big?40:28;return '<div class="tlbrand" style="display:flex;align-items:center;justify-content:center;gap:10px;margin:16px 0 4px"><svg width="'+s+'" height="'+s+'" viewBox="0 -2 120 120" aria-hidden="true" style="flex-shrink:0"><path d="M20 102 V22 L60 72 L100 22 V102" fill="none" stroke="currentColor" stroke-width="15"/><circle cx="60" cy="44" r="7" fill="#E8A317"/><circle cx="70" cy="27" r="4.5" fill="#E8A317"/></svg><span style="line-height:1.15;text-align:left"><span style="display:block;font-size:12px;opacity:.75">Une appli de</span><b style="letter-spacing:1.5px">THOUSAND LABS</b></span></div>'+(big?'<p style="text-align:center;margin:4px 0 0;font-size:14px"><a href="https://thousandlabs.github.io/" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">Découvrir nos autres applis</a></p>':'')}
-function gate(){var id=fmt(devId()),ts=ACT?"act":trialState();$("#app").innerHTML="<h1>ScoreUp</h1>"+TLL.switcher()+(ts==="cheat"?"<div class='w'>🔒 L’heure de ton appareil a été reculée pendant la période d’essai. L’appli est verrouillée : seul un code d’activation peut la débloquer.</div>":ts==="over"?"<div class='cd b'><b>Ta période d’essai de 48 heures est terminée</b><p class='mu'>Merci d’avoir essayé ScoreUp ! Active l’appli pour continuer : tes séries et tes résultats sont conservés.</p></div>":ts==="trial"?"<button class='back' onclick='R()'>← Retour à l’appli (essai : "+leftTxt()+")</button>":"")+"<p class='mu'>Pour activer l’appli sur cet appareil :</p><div class='cd'><b>1. Ton identifiant d’appareil</b><pre>"+id+"</pre><button class='btn s' onclick='copy(\""+id+"\",this)'>Copier mon identifiant</button><button class='btn s' onclick='suShowQR()'>🔳 Afficher en QR</button><p class='mu'>Envoie-le à la personne qui t’a proposé l’appli, ou directement à Thousand Labs :</p><a class='btn' style='background:#25d366;color:#fff;text-align:center;text-decoration:none;line-height:24px' href='https://wa.me/221711216581?text="+encodeURIComponent("Bonjour, je souhaite activer ScoreUp. Mon identifiant d’appareil : "+id)+"' target='_blank' rel='noopener'>💬 Demander mon code sur WhatsApp</a></div><div class='cd'><b>2. Ton code d’activation</b><p class='mu'>Colle ici le code qu’elle te renvoie.</p><textarea id='gc' style='min-height:90px' autocomplete='off'></textarea><button class='btn' onclick='unlock()'>Activer</button><button class='btn s' onclick='suScan()'>📷 Scanner le code</button><p class='er' id='ge'></p></div><p class='mu'>L’activation ne se fait qu’une fois. Le code ne marche que sur cet appareil : si tu vides les données du navigateur ou si tu changes de téléphone, il faudra en demander un nouveau.</p>"+(store?"":"<div class='w'>Ton navigateur ne peut pas enregistrer l’activation (navigation privée ?). Utilise un onglet normal, sinon tu devras la refaire à chaque ouverture.</div>")+tlBrand(0)+"<p class='mu' style='text-align:center'>Site officiel : <a href='https://thousandlabs.github.io/ScoreUp/' style='color:var(--ac)'>thousandlabs.github.io/ScoreUp</a></p>"}
+/* =====================================================================
+   Thousand Labs — module « Acheter » (écran d'activation)
+   Le client choisit sa formule, paie par Wave / Orange Money / espèces,
+   indique le numéro qui a payé (pour vérification), puis envoie sa
+   demande complète sur WhatsApp en un seul message.
+   TLBUY.html() → bloc à insérer dans l'écran d'activation.
+   ===================================================================== */
+var TLBUY=(function(){
+  var C={app:'',dev:function(){return ''},plans:[],unit:0,pay:'221711216581',payFmt:'71 121 65 81',wa:'221711216581',lang:function(){return 'fr'},note:''};
+  var S={p:0,q:1,m:'wave'};
+  var EN={
+    "🛒 Acheter {app}":"🛒 Buy {app}",
+    "1. Choisis ta formule":"1. Choose your plan","1. Choisissez votre formule":"1. Choose your plan",
+    "personne":"person","personnes":"people","appareil":"device","appareils":"devices",
+    "Nombre d’appareils":"Number of devices",
+    "Total à payer":"Total to pay",
+    "2. Paie":"2. Pay","2. Payez":"2. Pay",
+    "Envoie {total} au":"Send {total} to","Envoyez {total} au":"Send {total} to",
+    "Espèces (en main propre)":"Cash (in person)",
+    "Copier le numéro":"Copy number","Copié ✓":"Copied ✓",
+    "3. Envoie ta demande":"3. Send your request","3. Envoyez votre demande":"3. Send your request",
+    "Numéro qui a payé":"Number that paid",
+    "Ex. 77 123 45 67":"E.g. 77 123 45 67",
+    "Identifiants des autres personnes (un par ligne)":"Other people’s device IDs (one per line)",
+    "Facultatif : tu pourras aussi les envoyer plus tard.":"Optional: you can also send them later.",
+    "Facultatif : vous pourrez aussi les envoyer plus tard.":"Optional: you can also send them later.",
+    "✅ J’ai payé : envoyer ma demande":"✅ I’ve paid: send my request",
+    "💬 Envoyer ma demande (paiement en espèces)":"💬 Send my request (cash payment)",
+    "Indique le numéro qui a payé, pour que le paiement soit vérifié.":"Enter the number that paid, so the payment can be checked.",
+    "Indiquez le numéro qui a payé, pour que le paiement soit vérifié.":"Enter the number that paid, so the payment can be checked.",
+    "Ton code arrive sur WhatsApp dès que le paiement est vérifié. Colle-le ensuite ci-dessous.":"Your code arrives on WhatsApp as soon as the payment is checked. Then paste it below.",
+    "Votre code arrive sur WhatsApp dès que le paiement est vérifié. Collez-le ensuite ci-dessous.":"Your code arrives on WhatsApp as soon as the payment is checked. Then paste it below.",
+    "Groupe : une seule personne paie pour tous et envoie les identifiants de chacun.":"Group: one person pays for everyone and sends each person’s device ID.",
+    "Un code par appareil.":"One code per device."
+  };
+  function lg(){try{return C.lang()==='en'?'en':'fr'}catch(e){return 'fr'}}
+  function T(s,v){var r=lg()==='en'&&EN[s]?EN[s]:s;if(v)for(var k in v)r=r.split('{'+k+'}').join(v[k]);return r}
+  function vous(a,b){return C.vous?b:a}
+  function fmtF(n){return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,' ')+' F'}
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+  function plan(){return C.plans.length?C.plans[Math.min(S.p,C.plans.length-1)]:{n:S.q,price:C.unit*S.q}}
+  function unitWord(n){return C.unitWord==='appareil'?(n>1?T('appareils'):T('appareil')):(n>1?T('personnes'):T('personne'))}
+  var hooked=false;
+  function init(cfg){for(var k in cfg)C[k]=cfg[k];
+    if(!hooked&&window.TLL){hooked=true;var prev=TLL.onchange;TLL.onchange=function(l){if(prev)try{prev(l)}catch(e){}redraw()}}}
+  function body(){
+    var p=plan(),h='';
+    h+='<p class="tlb-t">'+T(vous('1. Choisis ta formule','1. Choisissez votre formule'))+'</p>';
+    if(C.plans.length){h+='<div class="tlb-plans">'+C.plans.map(function(x,i){return '<button type="button" class="tlb-pl'+(i===S.p?' on':'')+'" onclick="TLBUY.pick('+i+')"><b>'+x.n+' '+unitWord(x.n)+'</b><span>'+fmtF(x.price)+'</span></button>'}).join('')+'</div>'}
+    else{h+='<div class="tlb-qty"><span>'+T('Nombre d’appareils')+'</span><button type="button" onclick="TLBUY.qty(-1)" aria-label="−">−</button><b>'+S.q+'</b><button type="button" onclick="TLBUY.qty(1)" aria-label="+">+</button></div><p class="tlb-mu">'+T('Un code par appareil.')+' '+fmtF(C.unit)+' × '+S.q+'</p>'}
+    if(C.note)h+='<p class="tlb-mu">'+esc(C.note)+'</p>';
+    h+='<div class="tlb-tot"><span>'+T('Total à payer')+'</span><b>'+fmtF(p.price)+'</b></div>';
+    h+='<p class="tlb-t">'+T(vous('2. Paie','2. Payez'))+'</p><div class="tlb-m">'+[['wave','🌊 Wave'],['om','🟠 Orange Money'],['cash','💵 '+T('Espèces (en main propre)')]].map(function(m){return '<button type="button" class="'+(S.m===m[0]?'on':'')+'" onclick="TLBUY.meth(\''+m[0]+'\')">'+m[1]+'</button>'}).join('')+'</div>';
+    if(S.m!=='cash')h+='<div class="tlb-pay">'+T(vous('Envoie {total} au','Envoyez {total} au'),{total:'<b>'+fmtF(p.price)+'</b>'})+'<div class="tlb-num">'+C.payFmt+'</div><button type="button" class="tlb-b2" onclick="TLBUY.cpy(this)">📋 '+T('Copier le numéro')+'</button></div>';
+    h+='<p class="tlb-t">'+T(vous('3. Envoie ta demande','3. Envoyez votre demande'))+'</p>';
+    if(S.m!=='cash')h+='<label class="tlb-l" for="tlb-ph">'+T('Numéro qui a payé')+'</label><input id="tlb-ph" class="tlb-in" type="tel" inputmode="tel" autocomplete="tel" placeholder="'+T('Ex. 77 123 45 67')+'">';
+    if(p.n>1)h+='<p class="tlb-mu">'+T('Groupe : une seule personne paie pour tous et envoie les identifiants de chacun.')+'</p><label class="tlb-l" for="tlb-ids">'+T('Identifiants des autres personnes (un par ligne)')+'</label><textarea id="tlb-ids" class="tlb-in" rows="3" spellcheck="false" autocomplete="off"></textarea><p class="tlb-mu">'+T(vous('Facultatif : tu pourras aussi les envoyer plus tard.','Facultatif : vous pourrez aussi les envoyer plus tard.'))+'</p>';
+    h+='<p class="tlb-er" id="tlb-er"></p><button type="button" class="tlb-go" onclick="TLBUY.send()">'+(S.m==='cash'?T('💬 Envoyer ma demande (paiement en espèces)'):T('✅ J’ai payé : envoyer ma demande'))+'</button>';
+    h+='<p class="tlb-mu">'+T(vous('Ton code arrive sur WhatsApp dès que le paiement est vérifié. Colle-le ensuite ci-dessous.','Votre code arrive sur WhatsApp dès que le paiement est vérifié. Collez-le ensuite ci-dessous.'))+'</p>';
+    return h}
+  function inner(){return '<p class="tlb-h">'+T('🛒 Acheter {app}',{app:esc(C.app)})+'</p><div id="tlb-b">'+body()+'</div>'}
+  function html(){return '<div class="tlb" id="tlb" data-notr>'+inner()+'</div>'}
+  function keep(){var a=document.getElementById('tlb-ph'),b=document.getElementById('tlb-ids');return [a?a.value:null,b?b.value:null]}
+  function redraw(){var k=keep(),el=document.getElementById('tlb');if(!el)return;el.innerHTML=inner();var a=document.getElementById('tlb-ph'),b=document.getElementById('tlb-ids');if(a&&k[0]!=null)a.value=k[0];if(b&&k[1]!=null)b.value=k[1]}
+  function pick(i){S.p=i;redraw()}
+  function qty(d){S.q=Math.max(1,Math.min(20,S.q+d));redraw()}
+  function meth(m){S.m=m;redraw()}
+  function cpy(b){var t=C.payFmt.replace(/\D/g,''),ok=function(){var o=b.innerHTML;b.textContent=T('Copié ✓');setTimeout(function(){b.innerHTML=o},1500)};
+    try{navigator.clipboard.writeText(t).then(ok,function(){fb()})}catch(e){fb()}
+    function fb(){var x=document.createElement('textarea');x.value=t;document.body.appendChild(x);x.select();try{document.execCommand('copy');ok()}catch(e){}x.remove()}}
+  function send(){
+    var p=plan(),er=document.getElementById('tlb-er'),ph=document.getElementById('tlb-ph'),ids=document.getElementById('tlb-ids'),num='';
+    if(S.m!=='cash'){num=(ph&&ph.value||'').replace(/[^\d+ ]/g,'').trim();if(num.replace(/\D/g,'').length<7){er.textContent=T(vous('Indique le numéro qui a payé, pour que le paiement soit vérifié.','Indiquez le numéro qui a payé, pour que le paiement soit vérifié.'));if(ph)ph.focus();return}}
+    er.textContent='';
+    var others=ids?ids.value.split(/[\n,;]+/).map(function(s){return s.trim()}).filter(Boolean):[];
+    var M={wave:'Wave',om:'Orange Money',cash:'espèces (en main propre)'}[S.m];
+    var msg='Bonjour, je prends '+C.app+' — '+p.n+' '+(C.unitWord==='appareil'?(p.n>1?'appareils':'appareil'):(p.n>1?'personnes':'personne'))+' ('+fmtF(p.price).replace(/ /g,' ')+').\n'
+      +(S.m==='cash'?'Paiement : en espèces, en main propre.\n':'Paiement : '+M+' depuis le '+num+'.\n')
+      +'Mon identifiant : '+C.dev();
+    if(p.n>1)msg+=others.length?'\nAutres identifiants :\n'+others.map(function(s,i){return (i+2)+'. '+s}).join('\n'):'\nJ’enverrai les autres identifiants ensuite.';
+    window.open('https://wa.me/'+C.wa+'?text='+encodeURIComponent(msg),'_blank','noopener')}
+  var CSS='.tlb{border:1.5px solid rgba(37,211,102,.55);border-radius:14px;padding:14px;margin:12px 0;text-align:left;background:rgba(37,211,102,.06)}'
+   +'.tlb-h{font-weight:700;font-size:17px;margin:0 0 4px}.tlb-t{font-weight:700;margin:14px 0 6px;font-size:15px}.tlb-mu{opacity:.75;font-size:13px;margin:6px 0}'
+   +'.tlb-plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:8px}.tlb-pl{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 6px;border-radius:12px;border:1.5px solid rgba(128,128,128,.4);background:transparent;color:inherit;font:inherit;cursor:pointer}.tlb-pl span{font-size:14px;opacity:.85}.tlb-pl.on{border-color:#1a9e52;background:rgba(37,211,102,.16);box-shadow:0 0 0 1px #1a9e52}'
+   +'.tlb-qty{display:flex;align-items:center;gap:10px}.tlb-qty span{flex:1}.tlb-qty button{width:40px;height:40px;border-radius:10px;border:1.5px solid rgba(128,128,128,.4);background:transparent;color:inherit;font-size:20px;cursor:pointer}.tlb-qty b{min-width:24px;text-align:center;font-size:18px}'
+   +'.tlb-tot{display:flex;justify-content:space-between;align-items:center;margin:10px 0 0;padding:10px 12px;border-radius:10px;background:rgba(128,128,128,.12)}.tlb-tot b{font-size:19px}'
+   +'.tlb-m{display:flex;flex-wrap:wrap;gap:6px}.tlb-m button{flex:1 1 auto;min-height:40px;padding:8px 10px;border-radius:999px;border:1.5px solid rgba(128,128,128,.4);background:transparent;color:inherit;font:600 14px system-ui,sans-serif;cursor:pointer}.tlb-m button.on{border-color:#1a9e52;background:rgba(37,211,102,.16)}'
+   +'.tlb-pay{margin:10px 0 0;padding:10px 12px;border-radius:10px;background:rgba(128,128,128,.12);text-align:center;font-size:14px}.tlb-num{font:700 24px/1.3 ui-monospace,Menlo,Consolas,monospace;letter-spacing:1px;margin:4px 0}'
+   +'.tlb-b2{border:1.5px solid rgba(128,128,128,.45);background:transparent;color:inherit;border-radius:999px;padding:6px 14px;font:600 13px system-ui,sans-serif;cursor:pointer}'
+   +'.tlb-l{display:block;font-weight:600;font-size:14px;margin:8px 0 4px}.tlb-in{width:100%;box-sizing:border-box;padding:10px;border-radius:8px;border:1.5px solid rgba(128,128,128,.45);background:rgba(255,255,255,.04);color:inherit;font:16px system-ui,sans-serif}textarea.tlb-in{font:13px/1.4 ui-monospace,Menlo,Consolas,monospace}'
+   +'.tlb-er{color:#d93025;font-size:14px;margin:6px 0 0;min-height:0}.tlb-er:empty{display:none}'
+   +'.tlb-go{display:block;width:100%;min-height:48px;margin:10px 0 0;border:0;border-radius:10px;background:#25d366;color:#fff;font:700 16px system-ui,sans-serif;cursor:pointer}';
+  try{var st=document.createElement('style');st.textContent=CSS;document.head.appendChild(st)}catch(e){}
+  return {init:init,html:html,pick:pick,qty:qty,meth:meth,cpy:cpy,send:send,redraw:redraw}
+})();
+
+function gate(){var id=fmt(devId()),ts=ACT?"act":trialState();$("#app").innerHTML="<h1>ScoreUp</h1>"+TLL.switcher()+(ts==="cheat"?"<div class='w'>🔒 L’heure de ton appareil a été reculée pendant la période d’essai. L’appli est verrouillée : seul un code d’activation peut la débloquer.</div>":ts==="over"?"<div class='cd b'><b>Ta période d’essai de 48 heures est terminée</b><p class='mu'>Merci d’avoir essayé ScoreUp ! Active l’appli pour continuer : tes séries et tes résultats sont conservés.</p></div>":ts==="trial"?"<button class='back' onclick='R()'>← Retour à l’appli (essai : "+leftTxt()+")</button>":"")+"<p class='mu'>Pour activer l’appli sur cet appareil :</p><div class='cd'><b>1. Ton identifiant d’appareil</b><pre>"+id+"</pre><button class='btn s' onclick='copy(\""+id+"\",this)'>Copier mon identifiant</button><button class='btn s' onclick='suShowQR()'>🔳 Afficher en QR</button><p class='mu'>Tu as acheté auprès d’un vendeur ? Envoie-lui cet identifiant.</p></div>"+(TLBUY.init({app:"ScoreUp",dev:function(){return id},plans:[{n:1,price:5000},{n:2,price:9000},{n:5,price:21000}],lang:function(){return TLL.lang()}}),TLBUY.html())+"<div class='cd'><b>2. Ton code d’activation</b><p class='mu'>Colle ici le code qu’elle te renvoie.</p><textarea id='gc' style='min-height:90px' autocomplete='off'></textarea><button class='btn' onclick='unlock()'>Activer</button><button class='btn s' onclick='suScan()'>📷 Scanner le code</button><p class='er' id='ge'></p></div><p class='mu'>L’activation ne se fait qu’une fois. Le code ne marche que sur cet appareil : si tu vides les données du navigateur ou si tu changes de téléphone, il faudra en demander un nouveau.</p>"+(store?"":"<div class='w'>Ton navigateur ne peut pas enregistrer l’activation (navigation privée ?). Utilise un onglet normal, sinon tu devras la refaire à chaque ouverture.</div>")+tlBrand(0)+"<p class='mu' style='text-align:center'>Site officiel : <a href='https://thousandlabs.github.io/ScoreUp/' style='color:var(--ac)'>thousandlabs.github.io/ScoreUp</a></p>"}
 function unlock(){var c=$("#gc").value.replace(/\s+/g,"").replace(/^SUCODE:/i,"");if(!c){$("#ge").textContent="Colle ton code d’activation.";return}
  if(!(window.crypto&&crypto.subtle)){$("#ge").textContent="Ouvre l’appli depuis son lien https pour pouvoir l’activer.";return}
  $("#ge").textContent="Vérification…";chkCode(c).then(function(ok){if(ok){try{localStorage.setItem("qcm_act",c)}catch(e){}activated();afterAccess()}else $("#ge").textContent="Code invalide pour cet appareil. Vérifie que tu l’as copié en entier et qu’il correspond à l’identifiant affiché."})}
