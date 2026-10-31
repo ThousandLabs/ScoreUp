@@ -5345,12 +5345,32 @@ function trialState(){if(ACT)return "act";if(lsg("qcm_lock"))return "cheat";
  var now=Date.now(),last=+lsg("qcm_seen")||0;
  if(last&&now<last-SKEW){lss("qcm_lock","1");return "cheat"}
  return Math.max(now,last)-trialStart()<TRIAL_MS?"trial":"over"}
-function seen(){if(ACT)return;var now=Date.now(),last=+lsg("qcm_seen")||0;if(now>last)lss("qcm_seen",String(now))}
+function seen(){if(ACT)return;tlHeal();var now=Date.now(),last=+lsg("qcm_seen")||0;if(now>last)lss("qcm_seen",String(now))}
 function activated(){ACT=true;["qcm_trial","qcm_seen","qcm_lock"].forEach(lsr);try{document.cookie="su_t=;max-age=0;path=/"}catch(e){}}
 function leftMs(){return Math.max(0,TRIAL_MS-(Math.max(Date.now(),+lsg("qcm_seen")||0)-trialStart()))}
 function leftTxt(){var m=Math.ceil(leftMs()/60000),h=Math.floor(m/60);return h?h+" h "+String(m%60).padStart(2,"0"):m+" min"}
 function trialBanner(){if(ACT)return "";return "<div class='cd' style='border-left:5px solid var(--ac)'><b>🎁 Essai gratuit : il reste "+leftTxt()+"</b><p class='mu'>Tu as accès à tout ScoreUp pendant 48 heures. Active l’appli pour la garder.</p><button class='btn s' onclick='gate()'>Activer ScoreUp</button></div>"}
-function trialBoot(){var st=trialState();if(st==="trial"){seen();afterAccess()}else gate()}
+
+/* ---------- 🎁 Traces de l'essai gratuit ----------
+   La date de début de l'essai est recopiée à 4 endroits (stockage local, cookie, base interne, cache).
+   S'il en reste une seule, l'essai est restauré : effacer « juste le cache » ou « juste les cookies »
+   ne relance pas l'essai. Seul l'effacement complet des données du site y parvient… et il efface aussi
+   toutes les données de toutes les applis Thousand Labs. Aucune empreinte du téléphone n'est utilisée. */
+const TLT=(()=>{const K='tl_trial_'+'scoreup',OK=v=>v>1.6e12&&v<4e12;
+  const ckGet=()=>{try{const m=document.cookie.match(new RegExp('(?:^|;\\s*)'+K+'=(\\d+)'));return m?+m[1]:0}catch(e){return 0}};
+  const ckSet=v=>{try{document.cookie=K+'='+v+';max-age=315360000;path=/;SameSite=Lax'}catch(e){}};
+  const idb=(w,v)=>new Promise(res=>{try{const r=indexedDB.open('thousandlabs',1);r.onupgradeneeded=()=>{try{r.result.createObjectStore('kv')}catch(e){}};r.onerror=()=>res(0);
+    r.onsuccess=()=>{try{const tx=r.result.transaction('kv',w?'readwrite':'readonly'),st=tx.objectStore('kv');if(!w){const g=st.get(K);g.onsuccess=()=>res(+g.result||0);g.onerror=()=>res(0)}else{st.put(v,K);tx.oncomplete=()=>res(1);tx.onerror=()=>res(0)}}catch(e){res(0)}}}catch(e){res(0)}});
+  const cGet=async()=>{try{const c=await caches.open('tl-trace'),m=await c.match('./__tl/'+K);return m?+(await m.text())||0:0}catch(e){return 0}};
+  const cSet=async v=>{try{const c=await caches.open('tl-trace');await c.put('./__tl/'+K,new Response(String(v)))}catch(e){}};
+  let last=0;
+  async function sync(cur,restore,force){const n=Date.now();if(!force&&n-last<30000)return;last=n;
+    try{const all=[+cur||0,ckGet(),await idb(false),await cGet()].filter(OK);if(!all.length)return;const t=Math.min(...all);
+      if(ckGet()!==t)ckSet(t);idb(true,t);cSet(t);if(t!==(+cur||0))restore(t)}catch(e){}}
+  function reloadOnce(){try{if(sessionStorage.getItem('h_'+K))return;sessionStorage.setItem('h_'+K,'1')}catch(e){return}location.reload()}
+  return {sync,reloadOnce}})();
+function tlHeal(f){if(ACT)return;TLT.sync(+lsg("qcm_trial")||0,function(t){if(ACT)return;lss("qcm_trial",String(t));TLT.reloadOnce()},f)}
+  function trialBoot(){setTimeout(function(){tlHeal(true)},0);var st=trialState();if(st==="trial"){seen();afterAccess()}else gate()}
 function afterAccess(){if(lsg("qcm_hello")===null)return hello();if(lsg("qcm_school")===null){view="ecole";cur=null;tmp.ec=null}R()}
 function myName(){return (lsg("qcm_name")||"").trim()}
 var GREET=["Bonjour {n} ! Prêt(e) à faire grimper ton score aujourd’hui ?","Content de te revoir, {n} ! Une petite série pour bien commencer ?","{n}, chaque question révisée est un point de plus le jour de l’examen 💪","Salut {n} ! Ta régularité fait toute la différence.","Bienvenue {n} ! On reprend là où tu t’étais arrêté(e) ?","{n}, 10 minutes aujourd’hui valent mieux que 3 heures la veille de l’examen.","Allez {n}, montre à ce chapitre qui est le patron ! 🚀"];
