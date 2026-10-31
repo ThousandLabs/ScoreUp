@@ -8,7 +8,7 @@ module.exports = [
   tagline: 'Révise mieux. Progresse plus vite.',
   desc: 'L’appli de révision avec QCM, examens chronométrés, flashcards et exercices corrigés. Fonctionne hors ligne, sur ton téléphone, en français ou en anglais.',
   pills: ['Élèves', 'Étudiants', 'Préparation d’examens', 'Profs & formateurs'],
-  news: ['Menu ☰ rapide', 'À revoir aujourd’hui', 'Corriger une réponse', 'Achat Wave / Orange Money dans l’appli'],
+  news: ['Nouvel accueil', 'À revoir aujourd’hui', 'Corriger une réponse', 'Achat Wave / Orange Money dans l’appli'],
   features: [
     { i: 'check', t: 'QCM interactifs', d: 'Réponds, vois tout de suite si c’est juste, avec l’explication de la bonne réponse.' },
     { i: 'timer', t: 'Mode examen chronométré', d: 'Mets-toi en conditions réelles et découvre ta note à la fin.' },
@@ -47,7 +47,7 @@ module.exports = [
   tagline: 'Maîtrisez votre argent, jour après jour.',
   desc: 'Gestion financière personnelle et suivi de petits projets commerciaux. 100 % hors ligne, 100 % privé, sans inscription. En français ou en anglais.',
   pills: ['Étudiants', 'Jeunes actifs', 'Petits projets commerciaux', 'Familles'],
-  news: ['Essai gratuit 48 h', 'Achat Wave / Orange Money dans l’appli', 'Interface en anglais', 'Installation guidée'],
+  news: ['Nouvel accueil', 'Essai gratuit 48 h', 'Achat Wave / Orange Money dans l’appli', 'Interface en anglais'],
   features: [
     { i: 'wallet', t: 'Entrées & projets', d: 'Revenus, multi-projets commerciaux et convertisseur de devises intégré.' },
     { i: 'list', t: 'Journal des dépenses', d: 'Chaque dépense notée en temps réel, avec sorties fixes et enveloppes par poste.' },
@@ -67,7 +67,7 @@ module.exports = [
     { t: 'Faites le bilan', d: 'En fin de mois, voyez où est parti l’argent et ajustez le mois suivant.' }
   ],
   chips: [['phone', 'Android & iPhone'], ['wifioff', 'Hors ligne'], ['lock', 'Sans compte ni abonnement'], ['globe', 'Français · English'], ['qr', 'Activation QR']],
-  trialStep: 'Touchez « Commencer l’essai gratuit » : toutes les fonctions pendant 48 heures, sans code.',
+  trialStep: 'Touchez « Essayer gratuitement 48 h » : toutes les fonctions pendant 48 heures, sans code.',
   priceTitle: 'Tarif', price: '10 000 F', priceSub: 'Une seule fois, sans abonnement. Le code est lié à votre téléphone (10 000 F par appareil).',
   perks: ['Toutes les fonctions, sans limite', 'Interface en français ou en anglais', 'Mises à jour incluses', 'Sauvegarde et restauration par fichier', 'Guide d’utilisation intégré'],
   faq: [
@@ -76,7 +76,7 @@ module.exports = [
     ['Mes données sont-elles envoyées quelque part ?', 'Non. Tout reste sur votre téléphone, sans compte ni inscription.'],
     ['Et si je change de téléphone ?', 'Exportez votre sauvegarde, demandez un nouveau code, puis importez-la.']
   ],
-  trialText: 'Sur l’écran d’activation, touchez « Commencer l’essai gratuit » : toutes les fonctions de Budget Flow pendant 48 h, sans code. Une seule fois par téléphone. À la fin, activez l’appli avec votre code : vos données sont conservées.',
+  trialText: 'Sur l’écran d’activation, touchez « Essayer gratuitement 48 h » : toutes les fonctions de Budget Flow pendant 48 h, sans code. Une seule fois par téléphone. À la fin, activez l’appli avec votre code : vos données sont conservées.',
   foot2: 'Données 100 % sur votre téléphone · aucune inscription'
 },
 {
@@ -85,11 +85,11 @@ module.exports = [
   tagline: 'Suivez vos ventes. Partagez vos gains.',
   desc: 'L’appli de gestion pour les équipes, les petits commerçants et les étudiants entrepreneurs. Sans compte, sans abonnement, même sans Internet. En français ou en anglais.',
   pills: ['Équipes de prestations', 'Salons de coiffure', 'Boutiques & commerçants', 'Étudiants entrepreneurs'],
-  news: ['Essai gratuit 48 h', 'Achat Wave / Orange Money dans l’appli', 'Synchro automatique d’équipe', '2 règles de partage des gains'],
+  news: ['Ventes perso (100 % au vendeur)', 'Saisie rapide des ventes passées', 'Synchro automatique d’équipe', 'Essai gratuit 48 h'],
   features: [
     { i: 'bolt', t: 'Une vente en 3 secondes', d: 'Catalogue de services : le prix se remplit tout seul. Espèces, Wave, Orange Money, ventes à crédit.' },
     { i: 'chart', t: 'Tableau de bord clair', d: 'Chiffre d’affaires, charges, bénéfice net, objectif du mois, top services et graphique jour par jour.' },
-    { i: 'pie', t: 'Partage des gains flexible', d: 'Au choix : vendeur + caisse commune (un % à celui qui vend, le reste selon les parts) ou % fixes du bénéfice net par membre.' },
+    { i: 'pie', t: 'Partage des gains flexible', d: 'Au choix : vendeur + caisse commune (un % à celui qui vend, le reste selon les parts) ou % fixes du bénéfice net par membre. Ventes perso possibles, hors partage.', n: 1 },
     { i: 'calendar', t: 'Charges automatiques', d: 'Wifi, loyer, abonnements : comptés chaque mois sans les ressaisir. Plus les dépenses ponctuelles.' },
     { i: 'sync', t: 'Synchro d’équipe', n: 1, d: 'Automatique avec un code d’équipe dès qu’il y a du réseau, ou sans Internet par WhatsApp, fichier ou QR code.' },
     { i: 'receipt', t: 'Reçus & bilans WhatsApp', d: 'Un reçu envoyé au client en un geste, et le bilan du mois partagé à toute l’équipe.' },
@@ -105,7 +105,7 @@ module.exports = [
     { t: 'Tout le monde est à jour', d: 'Même tableau de bord pour tous, et le responsable garde la main sur les règles.' }
   ],
   chips: [['phone', 'Android & iPhone'], ['wifioff', 'Fonctionne hors ligne'], ['lock', 'Sans compte ni abonnement'], ['globe', 'Français · English'], ['qr', 'Activation QR']],
-  trialStep: 'Touchez « Commencer l’essai gratuit » : toutes les fonctions pendant 48 heures, sans code.',
+  trialStep: 'Touchez « Essayer gratuitement 48 h » : toutes les fonctions pendant 48 heures, sans code.',
   priceTitle: 'Tarifs — paiement unique, par téléphone', perPerson: true,
   plans: [['1 personne', '7 500 F', '7 500 F / pers.'], ['5 personnes', '35 000 F', '7 000 F / pers.'], ['10 personnes', '60 000 F', '6 000 F / pers.']],
   priceNote: 'Plus de 10 personnes : par packs de 10 (ex. 30 personnes = 3 × 60 000 F = 180 000 F). Chaque code donne l’appli complète, fonctions de responsable incluses.',
@@ -115,7 +115,7 @@ module.exports = [
     ['Faut-il Internet pour la synchro ?', 'Un peu de réseau pour la synchro automatique. Sans Internet : WhatsApp, fichier ou QR code.'],
     ['Et si je change de téléphone ?', 'Téléchargez votre sauvegarde, demandez un nouveau code, puis restaurez-la.']
   ],
-  trialText: 'Sur l’écran d’activation, touchez « Commencer l’essai gratuit » : toutes les fonctions de Nexus Track pendant 48 h, sans code. Une seule fois par téléphone. À la fin, activez l’appli avec votre code : vos données sont conservées.',
+  trialText: 'Sur l’écran d’activation, touchez « Essayer gratuitement 48 h » : toutes les fonctions de Nexus Track pendant 48 h, sans code. Une seule fois par téléphone. À la fin, activez l’appli avec votre code : vos données sont conservées.',
   foot2: 'Données chiffrées · aucune inscription'
 },
 {
@@ -124,7 +124,7 @@ module.exports = [
   tagline: 'Comprenez enfin votre électricité. Payez moins.',
   desc: 'Le carnet de bord de votre compteur Woyofal : vos appareils, vos recharges, les tranches Senelec et votre vraie consommation, expliqués simplement. 100 % hors ligne, 100 % privé, sans inscription.',
   pills: ['Familles', 'Étudiants & colocations', 'Boutiques & commerçants', 'Propriétaires'],
-  news: ['Essai gratuit 48 h', 'Achat Wave / Orange Money dans l’appli', 'Scanner d’étiquette', 'Conseil de recharge'],
+  news: ['Nouvel accueil', 'Essai gratuit 48 h', 'Scanner d’étiquette', 'Conseil de recharge'],
   features: [
     { i: 'chart', t: 'Tranches enfin expliquées', d: 'La grille officielle Senelec intégrée : où vous en êtes dans le mois et le prix réel de votre prochain kWh.' },
     { i: 'plug', t: 'Qui consomme quoi ?', d: 'Décrivez vos appareils en une phrase (« 2 télés Samsung 43 pouces, 1 clim 1,5 CV ») : coût par jour et par mois.' },
@@ -144,7 +144,7 @@ module.exports = [
   ],
   chips: [['phone', 'Android & iPhone'], ['wifioff', 'Hors ligne'], ['lock', 'Sans compte ni abonnement'], ['globe', 'Français · English · Wolof'], ['qr', 'Activation QR']],
   extra: `<div class="extra"><div class="tx"><b class="t"><span class="new">Nouveau</span> Scannez l’étiquette de vos appareils</b><p>Touchez « Scanner l’étiquette » : la caméra s’ouvre dans l’appli. Visez la plaque signalétique : Power Log <b>lit la puissance, la marque et le modèle</b> et les remplit pour vous.</p><p>Un modèle déjà enregistré retrouve sa puissance tout seul. Hors ligne après la 1re utilisation ; la photo reste sur votre téléphone.</p></div><div><div class="lab">MODEL: KF-1500<br>220-240V~ 50Hz <i>1500W</i></div><div class="res"><span>Puissance (W)</span><span>1 500 W ✓</span></div></div></div>`,
-  trialStep: 'Touchez « Commencer l’essai gratuit » : toutes les fonctions pendant 48 heures, sans code.',
+  trialStep: 'Touchez « Essayer gratuitement 48 h » : toutes les fonctions pendant 48 heures, sans code.',
   priceTitle: 'Tarif', price: '5 000 F', priceSub: 'Une seule fois, sans abonnement. Le code est lié à votre téléphone (5 000 F par appareil).',
   perks: ['Toutes les fonctions, sans limite', 'Plusieurs compteurs (maison, boutique…)', 'Mises à jour incluses', 'Sauvegarde et restauration par fichier', 'Grille tarifaire modifiable si la Senelec change ses prix'],
   faq: [
@@ -153,6 +153,6 @@ module.exports = [
     ['Les tarifs sont-ils officiels ?', 'Oui : grille Senelec en vigueur (CRSE, 1er janvier 2026), modifiable dans les réglages.'],
     ['Et si je change de téléphone ?', 'Exportez votre sauvegarde, demandez un nouveau code, puis importez-la.']
   ],
-  trialText: 'Sur l’écran d’activation, touchez « Commencer l’essai gratuit » : toutes les fonctions de Power Log pendant 48 h, sans code. Une seule fois par téléphone. À la fin, activez l’appli avec votre code : vos données sont conservées.',
+  trialText: 'Sur l’écran d’activation, touchez « Essayer gratuitement 48 h » : toutes les fonctions de Power Log pendant 48 h, sans code. Une seule fois par téléphone. À la fin, activez l’appli avec votre code : vos données sont conservées.',
   foot2: 'Données 100 % sur votre téléphone · aucune inscription'
 }];

@@ -69,14 +69,14 @@ function html(a) {
     ['Ouvre le lien', 'Ouvrez le lien', T('Scanne le QR code ci-dessous ou ouvre le lien dans Chrome (Safari sur iPhone).', 'Scannez le QR code ci-dessous ou ouvrez le lien dans Chrome (Safari sur iPhone).')],
     ['Installe l’appli', 'Installez l’appli', 'Menu (les 3 points) › « Installer l’application ». Sur iPhone : Partager › « Sur l’écran d’accueil ».'],
     ['Essaie 48 h', 'Essayez 48 h', a.trialStep],
-    ['Achète et active', 'Achetez et activez', T('Sur l’écran d’activation : « 🛒 Acheter », choisis ta formule, paie et envoie ta demande. Colle ensuite le code reçu.', 'Sur l’écran d’activation : « 🛒 Acheter », choisissez votre formule, payez et envoyez votre demande. Collez ensuite le code reçu.')]
+    ['Achète et active', 'Achetez et activez', T('Sur l’écran « Activer » : choisis ta formule, paie et envoie ta demande. Colle ensuite le code reçu.', 'Sur l’écran « Activer » : choisissez votre formule, payez et envoyez votre demande. Collez ensuite le code reçu.')]
   ].map((s, i) => `<div class="s4"><span class="n4">${i + 1}</span><b>${T(s[0], s[1])}</b><p>${s[2]}</p></div>`).join('');
   return `<!doctype html><html lang="fr"><head><meta charset="utf-8"><style>
 @page{size:A4;margin:0}*{box-sizing:border-box}
 body{margin:0;font-family:Inter,sans-serif;color:#151a2d;font-size:8.6pt;line-height:1.38;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .page{width:210mm;height:297mm;position:relative;overflow:hidden;page-break-after:always;display:flex;flex-direction:column}
 .page:last-child{page-break-after:auto}
-.hd{background:linear-gradient(120deg,${C.d1},${C.d2});color:#fff;padding:9mm 12mm 8mm}
+.hd{background:#16233f;color:#fff;padding:9mm 12mm 8mm}
 .hd.sm{padding:6mm 12mm 5.5mm;display:flex;align-items:center;gap:4mm}
 .brand{display:flex;align-items:center;gap:4.5mm}.brand img{width:16mm;height:16mm;border-radius:4mm;box-shadow:0 2mm 5mm rgba(0,0,0,.25)}
 .hd.sm img{width:10mm;height:10mm;border-radius:2.6mm}
@@ -108,13 +108,13 @@ h3{display:flex;align-items:center;gap:2.4mm;font:800 11pt Inter;margin:5mm 0 2.
 .mu{color:#5d667a}.note{font-size:7pt;color:#4b5468;margin:2mm 0 0}
 .row2{display:grid;grid-template-columns:1.45fr 1fr;gap:4mm;align-items:start}
 .pt{width:100%;border-collapse:separate;border-spacing:0;border:1px solid #e3e7ef;border-radius:2.6mm;overflow:hidden;font-size:8pt}
-.pt th{background:${C.d1};color:#fff;text-align:left;font:700 7pt Inter;padding:2.4mm 3mm}.pt td{padding:2.4mm 3mm;border-top:1px solid #edf0f5}.pt .r{text-align:right}
+.pt th{background:#16233f;color:#fff;text-align:left;font:700 7pt Inter;padding:2.4mm 3mm}.pt td{padding:2.4mm 3mm;border-top:1px solid #edf0f5}.pt .r{text-align:right}
 .pc{background:${C.l};border-radius:3mm;padding:3.4mm 4mm;text-align:center}.pc .big{font:800 23pt/1.1 Inter;margin:1mm 0;color:#151a2d}.pc p{margin:0 0 2mm;font-size:7.4pt}
 .pc ul{list-style:none;margin:0;padding:0;text-align:left;font-size:7.4pt}.pc li{display:flex;gap:1.6mm;align-items:center;margin:1mm 0}.pc li svg{color:${C.a}}
 .qc{border:1.4px solid ${C.a};border-radius:3mm;padding:3.4mm;text-align:center;background:${C.l}}.qc b{font:800 9pt Inter;display:block;margin-bottom:2mm}
 .qc .qw{background:#fff;display:inline-block;padding:1.6mm;border-radius:2mm}.qc .u{font:700 6.8pt Inter;color:${C.t};margin-top:2mm;word-break:break-all}.qc .mu{font-size:6.6pt}
 .fqg{display:grid;grid-template-columns:1fr 1fr;gap:2.4mm}.fq{border:1px solid #e3e7ef;border-radius:2.6mm;padding:2.6mm 3mm}.fq b{font:700 7.8pt Inter}.fq p{margin:.8mm 0 0;font-size:7.2pt;color:#4b5468}
-.cmd{margin-top:4mm;background:${C.d1};color:#fff;border-radius:3.4mm;padding:3.6mm 4mm;display:flex;gap:4.5mm;align-items:center}
+.cmd{margin-top:4mm;background:#16233f;color:#fff;border-radius:3.4mm;padding:3.6mm 4mm;display:flex;gap:4.5mm;align-items:center}
 .cmd .qw{background:#fff;border-radius:2mm;padding:1.4mm;flex:none}.cmd b.t{font:800 9.6pt Inter}.cmd p{margin:1mm 0 0;font-size:7.3pt;opacity:.9}
 .cmd .tel{font:800 17pt Inter;margin:1.4mm 0 .4mm;letter-spacing:.5px;opacity:1}
 .ol{margin:1.4mm 0 0;padding-left:4mm;font-size:7.3pt}.ol li{margin:.5mm 0}
@@ -140,12 +140,12 @@ h3{display:flex;align-items:center;gap:2.4mm;font:800 11pt Inter;margin:5mm 0 2.
  <div class="hd sm"><img src="${logo}"><div><h1>Obtenir ${a.name}</h1><p>${T('En 2 minutes, en face à face ou à distance', 'En 2 minutes, en face à face ou à distance')}</p></div></div>
  <div class="bd">
   <h3 style="margin-top:3mm">4 étapes, c’est tout</h3><div class="g4">${steps4}</div>
-  <p class="rmt">${T('En face à face : touche « QR » sous ton identifiant, le vendeur le scanne et te montre ton code à scanner. Le code ne fonctionne que sur ton téléphone.', 'En face à face : touchez « QR » sous votre code appareil, le vendeur le scanne et vous montre votre code à scanner. Le code ne fonctionne que sur votre téléphone.')}</p>
+  <p class="rmt">${T('En face à face : en bas de l’écran « Activer », affiche le QR code de ton téléphone ; le vendeur le scanne et te montre ton code à scanner. Le code ne fonctionne que sur ton téléphone.', 'En face à face : en bas de l’écran « Activer », affichez le QR code de votre téléphone ; le vendeur le scanne et vous montre votre code à scanner. Le code ne fonctionne que sur votre téléphone.')}</p>
   <div class="row2"><div><h3>${a.priceTitle}</h3>${price}</div>
    <div><h3 style="visibility:hidden">.</h3><div class="qc"><b>Accéder à ${a.name}</b><div class="qw">${qrSvg(url, 112)}</div><div class="u">${url}</div><div class="mu">${T('Scanne avec l’appareil photo de ton téléphone', 'Scannez avec l’appareil photo de votre téléphone')}</div></div></div></div>
   <h3>Questions fréquentes</h3><div class="fqg">${faq}</div>
   <div class="cmd"><div class="qw">${qrSvg(wa, 78)}</div><div><b class="t">Commande & activation</b>
-   <ol class="ol"><li>${T('Sur l’écran d’activation, touche « 🛒 Acheter » et choisis ta formule.', 'Sur l’écran d’activation, touchez « 🛒 Acheter » et choisissez votre formule.')}</li>
+   <ol class="ol"><li>${T('Sur l’écran « Activer », choisis ta formule.', 'Sur l’écran « Activer », choisissez votre formule.')}</li>
    <li>${T('Paie par Wave ou Orange Money au numéro ci-dessous (ou en espèces, en main propre).', 'Payez par Wave ou Orange Money au numéro ci-dessous (ou en espèces, en main propre).')}</li>
    <li>${T('Indique le numéro qui a payé et touche « J’ai payé » : ta demande part sur WhatsApp.', 'Indiquez le numéro qui a payé et touchez « J’ai payé » : votre demande part sur WhatsApp.')}</li></ol>
    <div class="tel">71 121 65 81</div><p>${T('Ton code arrive dès que le paiement est vérifié. Groupe : une seule personne paie et envoie les identifiants de tous. Le QR code ouvre la conversation WhatsApp.', 'Votre code arrive dès que le paiement est vérifié. Groupe : une seule personne paie et envoie les codes appareil de tous. Le QR code ouvre la conversation WhatsApp.')}</p></div></div>
