@@ -1,5 +1,5 @@
 /* ScoreUp — service worker : appli disponible hors ligne, mises à jour automatiques */
-const CACHE = 'scoreup-v3.3';
+const CACHE = 'scoreup-v3.4';
 const PREFIX = 'scoreup-v'; /* les applis Thousand Labs partagent le même domaine : on ne touche qu'à NOS caches */
 const ASSETS = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 const OFFLINE = () => new Response(
@@ -9,7 +9,15 @@ self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c =>
 self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k.startsWith(PREFIX) && k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
 self.addEventListener('fetch', e => {
   const r = e.request; if (r.method !== 'GET') return;
-  if (r.mode === 'navigate') {
+  const path = new URL(r.url).pathname;
+  /* Brochures PDF (et autres documents) : toujours la version en ligne, la copie enregistrée seulement hors ligne */
+  if (/\.pdf$/i.test(path)) {
+    e.respondWith(fetch(r).then(res => { if (res.ok) { const cp = res.clone(); caches.open(CACHE).then(c => c.put(path, cp)); } return res; })
+      .catch(() => caches.match(path).then(m => m || OFFLINE())));
+    return;
+  }
+  /* Seule la page de l'appli est traitée comme l'appli (avant : ouvrir la brochure PDF la remplaçait hors ligne) */
+  if (r.mode === 'navigate' && (path.endsWith('/') || path.endsWith('/index.html'))) {
     /* Réseau d'abord (pour recevoir les mises à jour), mais :
        • au bout de 3 s sans réponse (connexion lente), on ouvre la copie enregistrée ;
        • on n'enregistre que la vraie page de l'appli (pas une erreur 404 ni la page
