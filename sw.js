@@ -1,5 +1,5 @@
 /* ScoreUp — service worker : appli disponible hors ligne, mises à jour automatiques */
-const CACHE = 'scoreup-v3.0';
+const CACHE = 'scoreup-v3.1';
 const PREFIX = 'scoreup-v'; /* les applis Thousand Labs partagent le même domaine : on ne touche qu'à NOS caches */
 const ASSETS = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 const OFFLINE = () => new Response(
