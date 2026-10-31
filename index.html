@@ -43,6 +43,12 @@ pre{white-space:pre-wrap;word-break:break-word;background:var(--cd);border:1px s
 .suov>div{width:100%;max-width:520px;max-height:92vh;overflow:auto;background:var(--cd);color:var(--tx);border-radius:20px 20px 0 0;padding:16px 16px calc(20px + env(safe-area-inset-bottom,0px))}
 @media(min-width:600px){.suov{align-items:center}.suov>div{border-radius:20px}}
 .ecb{display:flex;align-items:center;gap:12px;width:100%;box-sizing:border-box;text-align:left;cursor:pointer;color:var(--tx);font:inherit}.ecb .mu{display:block;margin-top:2px}.ecb.on{border:2px solid var(--ac)}.eci{font-size:30px;line-height:1;flex:none}.ecr{margin-left:auto;font-size:24px;color:var(--mu);flex:none}.ecl{margin:8px 0 4px;padding-left:20px;line-height:1.6}
+.mnb{position:fixed;top:calc(env(safe-area-inset-top,0px) + 10px);right:max(12px,calc(50vw - 308px));z-index:20;width:46px;height:46px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid var(--bd);background:var(--cd);color:var(--tx);font:22px/1 system-ui,sans-serif;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.14)}
+.mnov{position:fixed;inset:0;z-index:98;background:rgba(0,0,0,.45);opacity:0;transition:opacity .2s}.mnov.on{opacity:1}
+.mnov>nav{position:absolute;top:0;right:0;bottom:0;width:min(300px,84vw);box-sizing:border-box;overflow:auto;background:var(--cd);color:var(--tx);box-shadow:-4px 0 18px rgba(0,0,0,.22);transform:translateX(100%);transition:transform .22s ease;padding:calc(env(safe-area-inset-top,0px) + 12px) 10px calc(env(safe-area-inset-bottom,0px) + 16px)}.mnov.on>nav{transform:none}
+.mnh{display:flex;align-items:center;justify-content:space-between;padding:0 4px 10px 10px;margin-bottom:6px;border-bottom:1px solid var(--bd)}.mnh b{font-size:19px}.mnh button{width:44px;height:44px;border:0;background:none;color:var(--tx);font-size:22px;cursor:pointer;border-radius:10px}
+.mni{display:flex;align-items:center;gap:14px;width:100%;min-height:48px;padding:10px 12px;margin:2px 0;border:0;border-radius:10px;background:none;color:var(--tx);font:500 16px system-ui,sans-serif;text-align:left;cursor:pointer}.mni:hover,.mni:focus-visible{background:var(--bg)}.mni.on{background:var(--bg);color:var(--ac);font-weight:700}
+.mni i{font-style:normal;width:24px;text-align:center;flex:none}.mns{height:1px;background:var(--bd);margin:8px 6px}
 </style></head><body><div id="app"></div>
 <script>
 /* =====================================================================
@@ -214,6 +220,11 @@ var TLL=(function(){
 
 /* Dictionnaire français → anglais */
 var TLL_EN={
+"Le bouton ☰ en haut à droite ouvre le menu : Accueil, Statistiques, Historique, Favoris, Sauvegarde, Réglages, aide, thème et mode transport, depuis n’importe quel écran. Le bouton « ⚙️ Réglages » de l’accueil regroupe : ton école, ton prénom, la langue, le thème, le mode transport, l’installation de l’appli, ta licence et ton identifiant, tes données et le contact Thousand Labs.": "The ☰ button at the top right opens the menu: Home, Statistics, History, Favourites, Backup, Settings, help, theme and transport mode, from any screen. The “⚙️ Settings” button on the home screen gathers: your school, your first name, the language, the theme, transport mode, app installation, your licence and ID, your data and the Thousand Labs contact.",
+"Ouvrir le menu": "Open menu",
+"Fermer le menu": "Close menu",
+"Mode transport : activé": "Transport mode: on",
+"Mode transport : désactivé": "Transport mode: off",
 "🤖 Génère tes QCM avec une IA": "🤖 Generate your MCQs with an AI",
 "📖 Par chapitre": "📖 By chapter",
 "📚 Tout le cours": "📚 Whole course",
@@ -5035,8 +5046,23 @@ function ecPick(imp){var s=school(tmp.ec);if(!s)return;lss("qcm_school",s.id);va
  tmp.f=-1;go("home")}
 function ecSkip(){if(lsg("qcm_school")===null)lss("qcm_school","0");tmp.ec=null;go(cur==="reg"?"reg":"home")}
 function ecBack(){if(tmp.ec){tmp.ec=null;R()}else go(cur==="reg"?"reg":"home")}
-function R(keep){if(!ACT&&trialState()!=="trial"){gate();return}seen();$("#app").innerHTML=V[view]();if(!keep)window.scrollTo(0,0);if(TH&&view==="quiz")dock();tick()}
+function R(keep){if(!ACT&&trialState()!=="trial"){gate();return}seen();$("#app").innerHTML=mnBtn()+V[view]();if(!keep)window.scrollTo(0,0);if(TH&&view==="quiz")dock();tick()}
 function go(v,x){view=v;cur=x||null;tmp.cf=0;R()}
+/* Menu ☰ : accès rapide aux Statistiques, Réglages, etc. depuis n'importe quel écran (sauf pendant un quiz) */
+var MNI=[["home","🏠","Accueil"],["stats","📊","Statistiques"],["hist","🕘","Historique"],["fav","⭐","Favoris"],["bk","💾","Sauvegarde"],["reg","⚙️","Réglages"],0,["help","🤖","Comment faire"],["info","📘","Guide"]];
+function mnBtn(){return (view==="quiz"||(view==="ecole"&&lsg("qcm_school")===null))?"":"<button class='mnb' aria-label='Ouvrir le menu' title='Menu' onclick='mnOpen()'>☰</button>"}
+function mnOpen(){if(document.getElementById("mnov"))return;var h="<nav role='dialog' aria-modal='true' aria-label='Menu'><div class='mnh'><b>ScoreUp</b><button aria-label='Fermer le menu' onclick='mnClose()'>✕</button></div>";
+ MNI.forEach(function(m){h+=m?"<button class='mni"+(view===m[0]?" on":"")+"' onclick='mnGo(\""+m[0]+"\")'><i>"+m[1]+"</i><span>"+m[2]+"</span></button>":"<div class='mns'></div>"});
+ h+="<div class='mns'></div><button class='mni' onclick='mnClose();theme()'><i>"+(curTh()==="dark"?"☀️":"🌙")+"</i><span>"+(curTh()==="dark"?"Mode clair":"Mode sombre")+"</span></button><button class='mni' onclick='mnClose();thumb()'><i>👍</i><span>"+(TH?"Mode transport : activé":"Mode transport : désactivé")+"</span></button></nav>";
+ var o=document.createElement("div");o.className="mnov";o.id="mnov";o.innerHTML=h;o.addEventListener("click",function(e){if(e.target===o)mnClose()});document.body.appendChild(o);
+ try{history.pushState({mn:1},"")}catch(e){}
+ requestAnimationFrame(function(){o.classList.add("on");var f=o.querySelector(".mni.on")||o.querySelector(".mni");if(f)f.focus({preventScroll:true})})}
+function mnClose(fromBack){var o=document.getElementById("mnov");if(!o)return;o.id="";o.classList.remove("on");setTimeout(function(){o.remove()},230);
+ if(!fromBack){try{if(history.state&&history.state.mn)history.back()}catch(e){}}var b=document.querySelector(".mnb");if(b)b.focus({preventScroll:true})}
+function mnGo(v){mnClose();if(v==="ecole"){tmp.ec=null}go(v)}
+window.addEventListener("popstate",function(){if(document.getElementById("mnov"))mnClose(true)});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&document.getElementById("mnov"))mnClose()});
+
 function tick(){if(!SESS)return;var e=document.getElementById("tm");if(e&&SESS.end){var r=SESS.end-Date.now();if(r<=0){fin(true);return}var s=Math.ceil(r/1000);e.textContent="⏱ "+Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
  var q=document.getElementById("tq");if(q&&SESS.qt&&SESS.qs&&view==="quiz"){var z=SESS.qt-Math.floor((Date.now()-SESS.qs)/1000);if(z<=0){if(SESS.ans[SESS.i]===null){SESS.ans[SESS.i]=-1;saveS();R(true)}return}q.textContent="⏱ "+z+" s"}}
 setInterval(tick,500);
@@ -5078,7 +5104,7 @@ function reg(){var D=DB.days||{},b="",n=0,a=0,mx=1,i,d,k,v,arr=[];for(i=29;i>=0;
  return "<div class='cd'><b>Régularité · 30 derniers jours</b><div class='reg'>"+b+"</div><p class='mu'>"+a+" jour"+(a>1?"s":"")+" actif"+(a>1?"s":"")+" sur 30 · "+n+" séance"+(n>1?"s":"")+". Le suivi jour par jour commence à cette mise à jour.</p></div>"}
 function cdays(x){var o={};if(x&&typeof x==="object"&&!Array.isArray(x))Object.keys(x).forEach(function(k){if(/^\d{4}-\d{2}-\d{2}$/.test(k)&&okN(x[k])&&x[k]>0)o[k]=Math.floor(x[k])});return o}
 var V={
-home:function(){var st=streak(),f=(tmp.f>=0&&DB.cats[tmp.f])?DB.cats[tmp.f].n:null,h="<button class='back' style='float:right' onclick='theme()'>"+(curTh()==="dark"?"Mode clair":"Mode sombre")+"</button><h1>ScoreUp</h1>"+greet()+trialBanner()+bkBanner();
+home:function(){var st=streak(),f=(tmp.f>=0&&DB.cats[tmp.f])?DB.cats[tmp.f].n:null,h="<button class='back' style='float:right;margin-right:56px' onclick='theme()'>"+(curTh()==="dark"?"Mode clair":"Mode sombre")+"</button><h1>ScoreUp</h1>"+greet()+trialBanner()+bkBanner();
  if(tmp.note){h+="<div class='cd g'>"+tmp.note+"</div>";tmp.note=null}
  if(!store)h+="<div class='w'>Ce navigateur ne permet pas de sauvegarder : tes séries disparaîtront quand tu fermeras la page.</div>";
  h+="<div class='cd'><b>"+(st.n?"🔥 "+st.n+" jour"+(st.n>1?"s":"")+" de suite":"Ta série de jours")+"</b><p class='mu'>"+(st.today?"Séance du jour faite. Bravo !":st.n?"Fais une séance aujourd’hui pour garder ta série.":"Fais une séance aujourd’hui pour la commencer.")+"</p></div>";
@@ -5139,7 +5165,7 @@ info:function(){return "<button class='back' onclick='go(\"home\")'>← Retour</
 +"<div class='cd'><b>Mon école</b><p>Au premier lancement, choisis ton école (Management, Droit, Ingénieurs, Digital Campus ou Madiba Leadership Institute). Tu vois ses principales filières et tu peux importer 5 séries de démarrage de 20 questions, niveau L1. Tu peux changer d’école ou ajouter ses séries plus tard depuis « ⚙️ Réglages ».</p></div>"
 +"<div class='cd'><b>Import</b><p>L’appli vérifie le format et indique la ligne à corriger. Les doublons sont ignorés. Un PDF doit contenir du vrai texte : une photo ou un scan ne marche pas. Les questions et les choix sont mélangés si la case est cochée, donc la lettre de la bonne réponse change d’un essai à l’autre.</p></div>"
 +"<div class='cd'><b>Fiabilité</b><p>Une IA peut se tromper. Vérifie les réponses et les corrigés, surtout les calculs, avec ton cours ou ton prof avant de t’y fier ou de les partager. Demande aussi l’accord de ton prof avant de partager ses fiches.</p></div>"
-+"<div class='cd'><b>Réglages</b><p>Le bouton « ⚙️ Réglages » de l’accueil regroupe : ton école, ton prénom, la langue, le thème, le mode transport, l’installation de l’appli, ta licence et ton identifiant, tes données et le contact Thousand Labs.</p></div><div class='cd'><b>Bon à savoir</b><p>Supprimer une série demande deux touches, pour éviter les erreurs. L’historique garde tes 100 derniers résultats.</p></div>"},
++"<div class='cd'><b>Réglages</b><p>Le bouton ☰ en haut à droite ouvre le menu : Accueil, Statistiques, Historique, Favoris, Sauvegarde, Réglages, aide, thème et mode transport, depuis n’importe quel écran. Le bouton « ⚙️ Réglages » de l’accueil regroupe : ton école, ton prénom, la langue, le thème, le mode transport, l’installation de l’appli, ta licence et ton identifiant, tes données et le contact Thousand Labs.</p></div><div class='cd'><b>Bon à savoir</b><p>Supprimer une série demande deux touches, pour éviter les erreurs. L’historique garde tes 100 derniers résultats.</p></div>"},
 ecole:function(){var s=school(tmp.ec),mine=lsg("qcm_school"),h;
  if(s){var ss=schoolSets(s.id),miss=ss.filter(function(d){return !gs(d.id)}).length;
   h="<button class='back' onclick='ecBack()'>← Toutes les écoles</button><h1>"+s.ico+" "+esc(s.nom)+"</h1><p class='mu'>"+esc(s.desc)+"</p>"+(mine===s.id?"<p class='mu'>✅ C’est ton école actuelle.</p>":"");
