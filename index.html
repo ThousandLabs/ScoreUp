@@ -23,7 +23,7 @@ p{margin:6px 0}.mu{color:var(--mu);font-size:14px}
 .opt b{flex:none;width:28px;height:28px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:14px}
 .opt.sel{border-color:var(--ac);box-shadow:0 0 0 1px var(--ac)}.opt.ok{border-color:var(--ok);background:var(--ob)}.opt.ko{border-color:var(--ko);background:var(--kb)}
 .top{display:flex;justify-content:space-between;font-size:14px;color:var(--mu)}.bar{height:6px;background:var(--bd);border-radius:3px;margin:6px 0}.bar i{display:block;height:100%;background:var(--ac);border-radius:3px}
-input[type=text],input[type=number],textarea,select{width:100%;box-sizing:border-box;padding:10px;margin:4px 0 10px;border:1.5px solid var(--bd);border-radius:8px;background:var(--cd);color:var(--tx);font:16px system-ui,sans-serif}
+input[type=text],input[type=number],input[type=date],textarea,select{width:100%;box-sizing:border-box;padding:10px;margin:4px 0 10px;border:1.5px solid var(--bd);border-radius:8px;background:var(--cd);color:var(--tx);font:16px system-ui,sans-serif}
 textarea{min-height:190px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px}
 label{display:block;font-weight:600;font-size:15px;margin-top:8px}label.c{display:flex;gap:10px;align-items:center;font-weight:400}label.c input{width:20px;height:20px;margin:0}
 pre{white-space:pre-wrap;word-break:break-word;background:var(--cd);border:1px solid var(--bd);border-radius:8px;padding:12px;font:14px/1.45 ui-monospace,Menlo,Consolas,monospace;margin:8px 0}
@@ -925,7 +925,163 @@ var TLL_EN={
 "Mes {#} ratée de la dernière fois": "My {} missed from last time",
 "La sauvegarde contient {#} séries. Elle remplacera toutes les données actuelles de cet appareil. Confirmer ?": "The backup contains {} sets. It will replace all current data on this device. Confirm?",
 "La sauvegarde contient {#} série. Elle remplacera toutes les données actuelles de cet appareil. Confirmer ?": "The backup contains {} set. It will replace all current data on this device. Confirm?",
-"{} en cours": "{} in progress"
+"{} en cours": "{} in progress",
+"Révision": "Review",
+"Annale": "Past paper",
+"Annales": "Past papers",
+"📝 Annales": "📝 Past papers",
+"🔍 Rechercher": "🔍 Search",
+"Rechercher": "Search",
+"Mes examens": "My exams",
+"📅 Mes examens": "📅 My exams",
+"Ta note": "Your grade",
+"⚔️ Défier un ami": "⚔️ Challenge a friend",
+"Points négatifs : −0,25 par mauvaise réponse": "Negative marking: −0.25 per wrong answer",
+"Points négatifs en examen (−0,25 par mauvaise réponse)": "Negative marking in exams (−0.25 per wrong answer)",
+"Révision espacée : tes questions ratées reviennent aujourd’hui, et celles que tu sais reviennent de plus en plus tard (1, 3, 7, 15 puis 30 jours).": "Spaced repetition: questions you missed come back today, and the ones you know come back later and later (1, 3, 7, 15 then 30 days).",
+"question à revoir": "question to review",
+"Révision espacée : mes {#} questions du jour": "Spaced repetition: my {} questions for today",
+"Révision espacée : mes {#} question du jour": "Spaced repetition: my {} question for today",
+"🎯 Point faible :": "🎯 Weak spot:",
+"de réussite sur tes dernières séances.": "success rate in your last sessions.",
+"Réviser ce chapitre": "Revise this chapter",
+"📅 Ajouter la date d’un examen": "📅 Add an exam date",
+"Gérer mes examens": "Manage my exams",
+"Pour être prêt(e) : environ": "To be ready: about",
+"question par jour": "question a day",
+"questions par jour": "questions a day",
+"({#} à maîtriser)": "({} to master)",
+"Toutes tes questions sont maîtrisées. Continue à réviser !": "All your questions are mastered. Keep revising!",
+"Ajoute des séries de cette matière pour préparer cet examen.": "Add sets for this subject to prepare for this exam.",
+"Ajoute la date de tes partiels : l’accueil affiche le compte à rebours et le nombre de questions à revoir chaque jour pour être prêt(e) à temps.": "Add the dates of your exams: the home screen shows the countdown and how many questions to review each day to be ready in time.",
+"➕ Ajouter un examen": "➕ Add an exam",
+"Nom de l’examen": "Exam name",
+"Ex. Partiel de comptabilité": "E.g. Accounting mid-term",
+"Matière": "Subject",
+"Toutes mes séries": "All my sets",
+"Indique le nom et la date de l’examen.": "Enter the name and date of the exam.",
+"Cette date est déjà passée.": "This date has already passed.",
+"Une question est considérée comme maîtrisée quand tu y as bien répondu au moins 3 fois de suite, à quelques jours d’intervalle (révision espacée).": "A question counts as mastered when you've answered it correctly at least 3 times in a row, a few days apart (spaced repetition).",
+"Ex. amortissement, bilan, prudence…": "E.g. depreciation, balance sheet, prudence…",
+"Tape au moins 2 lettres : un mot du cours, d’une question ou d’une réponse.": "Type at least 2 letters: a word from the course, a question or an answer.",
+"Aucune question ne contient ce mot.": "No question contains this word.",
+"résultat": "result",
+"résultats": "results",
+"(40 premiers affichés)": "(first 40 shown)",
+"Ouvrir la série": "Open the set",
+"✏️ Modifier": "✏️ Edit",
+"🛠️ Modifier": "🛠️ Edit",
+"· Annale": "· Past paper",
+"Défi copié : colle-le dans WhatsApp 📋": "Challenge copied: paste it into WhatsApp 📋",
+"Défi de": "Challenge from",
+"😅 Perdu cette fois. Retente ta chance !": "😅 Lost this time. Try again!",
+"Score à battre. À toi de jouer !": "Score to beat. Your turn!",
+"Score à battre :": "Score to beat:",
+"🛠️ Modifier toute la question": "🛠️ Edit the whole question",
+"🛠️ Modifier la question": "🛠️ Edit the question",
+"Choix (laisse vide pour retirer un choix) et bonne réponse :": "Choices (leave empty to remove a choice) and correct answer:",
+"Titre de l’exercice": "Exercise title",
+"Énoncé et données": "Statement and data",
+"Tableaux : une ligne par ligne du tableau, cellules séparées par le symbole |. Le titre et l’énoncé sont mis à jour pour toutes les questions de cet exercice.": "Tables: one line per table row, cells separated by the | symbol. The title and statement are updated for every question of this exercise.",
+"Réponse chiffrée (facultatif, un seul nombre)": "Numerical answer (optional, a single number)",
+"Corrigé": "Solution",
+"Points au barème": "Points in the marking scheme",
+"Supprimer cette question": "Delete this question",
+"La question est vide.": "The question is empty.",
+"Il faut au moins 2 choix.": "At least 2 choices are needed.",
+"Choisis la bonne réponse (le rond devant un choix rempli).": "Choose the correct answer (the circle in front of a filled-in choice).",
+"Le corrigé est vide.": "The solution is empty.",
+"La réponse chiffrée doit être un nombre.": "The numerical answer must be a number.",
+"Question enregistrée ✓": "Question saved ✓",
+"Question supprimée": "Question deleted",
+"Une série doit garder au moins une question : supprime plutôt la série.": "A set must keep at least one question: delete the set instead.",
+"Nom enregistré ✓": "Name saved ✓",
+"🛠️ Modifier la série": "🛠️ Edit the set",
+"Enregistrer le nom": "Save the name",
+"Touche une question pour la modifier ou la supprimer.": "Tap a question to edit or delete it.",
+"Corrigé à comparer": "Solution to compare",
+"➕ QCM": "➕ MCQ",
+"➕ Question d’exercice": "➕ Exercise question",
+"🛠️ Examiner / modifier les questions": "🛠️ Review / edit the questions",
+"🛠️ Mode édition": "🛠️ Edit mode",
+"Examiner et modifier les questions": "Review and edit the questions",
+"Une série contient une erreur ? Au lieu de la supprimer, active ce mode : un bouton « Modifier » apparaît sur chaque série et pendant les révisions, pour corriger, ajouter ou supprimer des questions.": "Does a set contain a mistake? Instead of deleting it, turn on this mode: an “Edit” button appears on each set and during revision, to fix, add or delete questions.",
+"Entraîne-toi sur de vrais sujets d’examen des années passées : QCM et exercices, chronométrés, avec une note sur 20.": "Practise on real exam papers from past years: MCQs and exercises, timed, with a grade out of 20.",
+"Aucune annale pour l’instant. Ajoute ton premier sujet en suivant les étapes ci-dessous.": "No past papers yet. Add your first one by following the steps below.",
+"Dernière note :": "Last grade:",
+"➕ Ajouter une annale": "➕ Add a past paper",
+"Retrouve un ancien sujet d’examen : photo, PDF ou texte.": "Find a past exam paper: photo, PDF or text.",
+"Copie le prompt ci-dessous, colle-le dans Claude, Gemini ou ChatGPT, puis joins le sujet (photo ou PDF acceptés).": "Copy the prompt below, paste it into Claude, Gemini or ChatGPT, then attach the paper (photo or PDF accepted).",
+"Copie la réponse de l’IA, touche « Importer une annale » et colle-la.": "Copy the AI's reply, tap “Import a past paper” and paste it.",
+"Copier le prompt Annales": "Copy the past-paper prompt",
+"Importer une annale": "Import a past paper",
+"Voir le prompt": "See the prompt",
+"⚠️ Les anciens sujets ont rarement un corrigé : c’est l’IA qui le rédige. Il peut contenir des erreurs, surtout dans les calculs. Vérifie-le avec ton cours ou ton prof.": "⚠️ Past papers rarely come with a solution: the AI writes it. It may contain mistakes, especially in calculations. Check it with your course or your teacher.",
+"← Annales": "← Past papers",
+"Conditions d’examen": "Exam conditions",
+"Les questions arrivent dans l’ordre du sujet. Tu peux revenir en arrière et changer tes réponses. La correction et ta note sur 20 arrivent à la fin. Fais les exercices sur papier : tu te noteras avec le corrigé.": "Questions come in the order of the paper. You can go back and change your answers. The correction and your grade out of 20 come at the end. Do the exercises on paper: you'll grade yourself with the solution.",
+"Barème :": "Marking scheme:",
+"{#} points": "{} points",
+"ramené sur 20.": "scaled to 20.",
+"Durée en minutes": "Duration in minutes",
+"Commencer l’annale": "Start the past paper",
+"📝 Correction": "📝 Correction",
+"QCM et réponses chiffrées sont notés automatiquement. Pour les autres questions, compare ta copie avec le corrigé et note-toi honnêtement.": "MCQs and numerical answers are graded automatically. For the other questions, compare your work with the solution and grade yourself honestly.",
+"Encore": "Still",
+"question à noter.": "question to grade.",
+"questions à noter.": "questions to grade.",
+"Tout est noté !": "Everything is graded!",
+"Revoir l’énoncé": "See the statement again",
+"Réponse attendue :": "Expected answer:",
+"✅ Juste : noté automatiquement": "✅ Correct: graded automatically",
+"✅ Juste": "✅ Correct",
+"🟡 À moitié": "🟡 Half right",
+"❌ Faux": "❌ Wrong",
+"Note les": "Grade the",
+"questions restantes pour voir ta note.": "remaining questions to see your grade.",
+"Note la dernière question pour voir ta note.": "Grade the last question to see your grade.",
+"Voir ma note sur 20": "See my grade out of 20",
+"Ton brouillon (facultatif)": "Your draft (optional)",
+"Fais l’exercice sur papier. Tu peux noter ici tes résultats clés.": "Do the exercise on paper. You can note your key results here.",
+"À la fin, tu compareras avec le corrigé et tu te noteras.": "At the end, you'll compare with the solution and grade yourself.",
+"Tu peux la laisser vide : le corrigé s’affichera à la fin.": "You can leave it empty: the solution will be shown at the end.",
+"question sans réponse.": "question unanswered.",
+"questions sans réponse.": "questions unanswered.",
+"Terminer l’annale et voir la correction ?": "Finish the past paper and see the correction?",
+"Terminer l’annale": "Finish the past paper",
+"📝 Annale": "📝 Past paper",
+"{#} QCM": "{} MCQs",
+"{#} min": "{} min",
+"🎯 Points faibles par chapitre": "🎯 Weak spots by chapter",
+"D’après tes 5 dernières séances sur chaque série, du plus faible au plus solide.": "Based on your last 5 sessions on each set, from weakest to strongest.",
+"À retravailler en priorité": "Work on this first",
+"À consolider": "To consolidate",
+"Bien maîtrisé": "Well mastered",
+"Ancien sujet d’examen ?": "Past exam paper?",
+"🆕 Nouveau : 5 exercices corrigés de comptabilité (chapitres 1 et 2) ont été ajoutés à tes séries.": "🆕 New: 5 accounting exercises with solutions (chapters 1 and 2) have been added to your sets.",
+"Note sur 20": "Grade out of 20",
+"Révision espacée": "Spaced repetition",
+"Points faibles": "Weak spots",
+"Défier un ami": "Challenge a friend",
+"Mode édition": "Edit mode",
+"Chaque séance donne une note sur 20, comme à l’examen. En mode Examen, tu peux activer les points négatifs : −0,25 par mauvaise réponse (une question sans réponse vaut 0).": "Each session gives a grade out of 20, like in the exam. In Exam mode, you can turn on negative marking: −0.25 per wrong answer (an unanswered question is worth 0).",
+"Chaque question a sa propre date de retour. Ratée : elle revient le jour même. Juste : elle revient après 1 jour, puis 3, 7, 15 et 30 jours. Ouvre l’appli chaque jour et suis « 🔁 À revoir aujourd’hui ».": "Each question has its own return date. Missed: it comes back the same day. Correct: it comes back after 1 day, then 3, 7, 15 and 30 days. Open the app every day and follow “🔁 To review today”.",
+"Ajoute la date de tes partiels (menu ☰, « Mes examens ») : l’accueil affiche le compte à rebours et le nombre de questions à revoir par jour pour être prêt(e) à temps.": "Add the dates of your exams (☰ menu, “My exams”): the home screen shows the countdown and how many questions to review per day to be ready in time.",
+"Dans « Statistiques », tes séries sont classées de la plus faible à la plus solide, avec un bouton pour réviser directement le chapitre à retravailler.": "In “Statistics”, your sets are ranked from weakest to strongest, with a button to revise the chapter that needs work straight away.",
+"Entraîne-toi sur d’anciens sujets d’examen : QCM et exercices, chronométrés. Copie le prompt Annales, donne-le à une IA avec une photo ou un PDF du sujet, puis importe sa réponse. À la fin, QCM et réponses chiffrées sont notés tout seuls ; pour le reste, tu te notes avec le corrigé. Tu obtiens une note sur 20.": "Practise on past exam papers: MCQs and exercises, timed. Copy the past-paper prompt, give it to an AI with a photo or PDF of the paper, then import its reply. At the end, MCQs and numerical answers are graded automatically; for the rest, you grade yourself with the solution. You get a grade out of 20.",
+"Après une séance, touche « ⚔️ Défier un ami » : ton ami reçoit la série et ton score par WhatsApp, l’importe dans ScoreUp et tente de faire mieux.": "After a session, tap “⚔️ Challenge a friend”: your friend receives the set and your score on WhatsApp, imports it into ScoreUp and tries to do better.",
+"Retrouve n’importe quelle question ou notion (par exemple « amortissement ») dans toutes tes séries.": "Find any question or notion (for example “depreciation”) in all your sets.",
+"Dans « ⚙️ Réglages », active le mode édition pour corriger une question fausse, en ajouter ou en supprimer, sans supprimer toute la série.": "In “⚙️ Settings”, turn on edit mode to fix a wrong question, add or delete questions, without deleting the whole set.",
+"5 séries de révision (chapitre 1) sont fournies pour tester ScoreUp : comptabilité, marketing, droit, management et statistiques, ainsi que 5 exercices corrigés de comptabilité (chapitres 1 et 2). Tu peux les supprimer, et ce bouton te les redonne.": "5 revision sets (chapter 1) are provided to try ScoreUp: accounting, marketing, law, management and statistics, plus 5 accounting exercises with solutions (chapters 1 and 2). You can delete them, and this button gives them back.",
+"questions à revoir": "questions to review",
+"aujourd’hui": "today",
+"passé": "past",
+"🏆 Tu as gagné le défi !": "🏆 You won the challenge!",
+"🤝 Égalité !": "🤝 It's a tie!",
+"➕ Nouvelle question": "➕ New question",
+"Question ajoutée ✓": "Question added ✓",
+"{#} séance": "{} session",
+"{#} séances": "{} sessions"
 };
 var TLL_SUBX=[];
 var TLL_NOSUB=1;
@@ -975,7 +1131,7 @@ var TLI=(function(){
 var L="ABCDEF",$=function(s){return document.querySelector(s)};
 function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
 var DB={sets:[],hist:[],cats:[],fav:[],seeded:false,days:{}},SESS=null,store=true,view="home",cur=null,tmp={};
-var MN={libre:"QCM libre",exam:"Examen",erreurs:"Erreurs",flash:"Flashcards"};
+var MN={libre:"QCM libre",exam:"Examen",erreurs:"Erreurs",flash:"Flashcards",srs:"Révision",annale:"Annale"};
 var PROMPT="Tu es un professeur d’université expert et rigoureux. À partir du cours ci-dessous, crée 20 QCM.\n\nRègles :\n- Utilise EXCLUSIVEMENT les informations du cours fourni. N’invente rien. Si une information manque dans le cours, ne pose pas la question.\n- Une seule bonne réponse par question, et trois mauvaises réponses plausibles. Répartis la bonne réponse entre A, B, C et D.\n- Avant d’écrire chaque question, vérifie dans le cours que la lettre indiquée après R: est bien la bonne.\n- Respecte exactement ce format, avec une ligne vide entre deux questions :\nQ: la question\nA) premier choix\nB) deuxième choix\nC) troisième choix\nD) quatrième choix\nR: la lettre de la bonne réponse\nE: une courte explication\n\nÉcris tout directement dans ta réponse, pas dans un PDF ni dans un fichier. N’ajoute aucun autre texte : pas d’introduction, pas de conclusion, pas de gras, pas de balises markdown.\n\nVoici le cours :\n";
 var PROMPT_EN="You are a rigorous, expert university lecturer. Using the course below, create 20 multiple-choice questions.\n\nRules:\n- Use ONLY the information in the course provided. Don't make anything up. If some information is missing from the course, don't ask the question.\n- Only one correct answer per question, and three plausible wrong answers. Spread the correct answer across A, B, C and D.\n- Before writing each question, check in the course that the letter given after R: is really the correct one.\n- Follow this format exactly, with a blank line between two questions:\nQ: the question\nA) first choice\nB) second choice\nC) third choice\nD) fourth choice\nR: the letter of the correct answer\nE: a short explanation\n\nWrite everything directly in your reply, not in a PDF or a file. Don't add any other text: no introduction, no conclusion, no bold, no markdown tags.\n\nHere is the course:\n";
 var PROMPT2_EN="You are a rigorous, expert university lecturer. Using the exercise below, write out the exercise and its detailed solution.\n\nRules:\n- Use only the data in the exercise and the methods of the course. Don't make up any data. If some data is missing or unreadable, say so in the solution instead of guessing it.\n- Calculations: do each calculation step by step, then do it a second time (another method or a check). Only write the N: line if both results are identical. If in doubt, remove the N: line and explain in C:.\n- Tables: copy each table from the exercise as text, one line per table row, with cells separated by the | symbol, the first line containing the headers. Example:\nNumber of divorces | 0 | 1 | 2\nCount | 5 | 3 | 25\nCheck that you copied every figure exactly, and that the totals match the exercise.\n- Follow this format exactly:\nEX: title of the exercise\n(statement, data and tables written as text)\nQ: first question\nN: the answer as a single number, without unit (remove this line if the answer isn't a single number)\nC: detailed solution with the calculations\nQ: next question (same structure)\n\nWrite everything directly in your reply, no PDF, no bold, no markdown tags and no other text.\n\nHere is the exercise:\n";
@@ -1002,7 +1158,7 @@ function rd(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return nu
 function save(){try{localStorage.setItem("qcm_db",JSON.stringify(DB))}catch(e){store=false}}
 function saveS(){try{if(SESS)localStorage.setItem("qcm_sess",JSON.stringify(SESS));else localStorage.removeItem("qcm_sess")}catch(e){store=false}}
 function load(){try{localStorage.setItem("qcm_t","1");localStorage.removeItem("qcm_t")}catch(e){store=false}
- var d=rd("qcm_db");if(d&&Array.isArray(d.sets))DB={sets:d.sets,hist:Array.isArray(d.hist)?d.hist:[],cats:Array.isArray(d.cats)?d.cats:[],stats:d.stats||null,last:d.last||"",streak:d.streak||0,best:d.best||0,fav:Array.isArray(d.fav)?d.fav:[],seeded:!!d.seeded,days:(d.days&&typeof d.days==="object"&&!Array.isArray(d.days))?d.days:{}};if(!DB.stats)DB.hist.forEach(function(x){addStat(x.c||"Sans matière",x.s,x.t)});var th=null;try{th=localStorage.getItem("qcm_th")}catch(e){}if(th)document.documentElement.setAttribute("data-theme",th);try{TH=localStorage.getItem("qcm_tp")==="1"}catch(e){}document.body.className=TH?"thumb":"";
+ var d=rd("qcm_db");if(d&&Array.isArray(d.sets))DB={sets:d.sets,hist:Array.isArray(d.hist)?d.hist:[],cats:Array.isArray(d.cats)?d.cats:[],stats:d.stats||null,last:d.last||"",streak:d.streak||0,best:d.best||0,fav:Array.isArray(d.fav)?d.fav:[],seeded:!!d.seeded,days:(d.days&&typeof d.days==="object"&&!Array.isArray(d.days))?d.days:{},srs:(d.srs&&typeof d.srs==="object")?d.srs:{},goals:Array.isArray(d.goals)?d.goals:[],mg:d.mg||0};if(!DB.stats)DB.hist.forEach(function(x){addStat(x.c||"Sans matière",x.s,x.t)});var th=null;try{th=localStorage.getItem("qcm_th")}catch(e){}if(th)document.documentElement.setAttribute("data-theme",th);try{TH=localStorage.getItem("qcm_tp")==="1"}catch(e){}document.body.className=TH?"thumb":"";
  var s=rd("qcm_sess");if(s&&s.order&&gs(s.setId))SESS=s}
 function gs(id){return DB.sets.filter(function(s){return s.id===id})[0]}
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
@@ -1067,11 +1223,11 @@ function thumb(){TH=!TH;try{localStorage.setItem("qcm_tp",TH?"1":"0")}catch(e){}
 function dock(){var a=$("#app"),k=[].slice.call(a.children).filter(function(e){return e.children.length&&(e.classList.contains("row")||(e.tagName==="BUTTON"&&e.classList.contains("btn")))});if(!k.length)return;var d=document.createElement("div");d.className="acts";k.forEach(function(e){d.appendChild(e)});a.appendChild(d)}
 function okN(x){return typeof x==="number"&&isFinite(x)}
 function clean(o){if(!o||o.app!=="ScoreUp"||!o.db||!Array.isArray(o.db.sets))return null;var d=o.db,ids={},C=/^#[0-9a-f]{6}$/i;
- var sets=d.sets.filter(function(s){return s&&typeof s.name==="string"&&Array.isArray(s.questions)&&s.questions.every(function(q){return q&&typeof q.q==="string"&&(s.kind==="ex"?typeof q.c==="string":Array.isArray(q.c)&&okN(q.r)&&q.r>=0&&q.r<q.c.length)})}).map(function(s){var id=/^[a-z0-9]{3,30}$/i.test(s.id||"")&&!ids[s.id]?s.id:uid();ids[id]=1;return {id:id,name:s.name,questions:s.questions,kind:s.kind==="ex"?"ex":"qcm",cat:typeof s.cat==="string"?s.cat:"",wrong:Array.isArray(s.wrong)?s.wrong.filter(okN):[]}});
+ var sets=d.sets.filter(function(s){return s&&typeof s.name==="string"&&Array.isArray(s.questions)&&s.questions.every(function(q){var x=s.kind==="ex"||(s.kind==="an"&&q&&q.ty==="x");return q&&typeof q.q==="string"&&(x?typeof q.c==="string":Array.isArray(q.c)&&okN(q.r)&&q.r>=0&&q.r<q.c.length)})}).map(function(s){var id=/^[a-z0-9-]{3,40}$/i.test(s.id||"")&&!ids[s.id]?s.id:uid();ids[id]=1;var k=s.kind==="ex"||s.kind==="an"?s.kind:"qcm",o={id:id,name:s.name,questions:s.questions,kind:k,cat:typeof s.cat==="string"?s.cat:"",wrong:Array.isArray(s.wrong)?s.wrong.filter(okN):[]};if(s.demo)o.demo=1;if(k==="an")o.dur=okN(s.dur)?s.dur:120;if(s.defi&&okN(s.defi.g))o.defi={w:String(s.defi.w||"").slice(0,24),g:s.defi.g};return o});
  var cats=(Array.isArray(d.cats)?d.cats:[]).filter(function(k){return k&&typeof k.n==="string"}).map(function(k){return {n:k.n,c:C.test(k.c||"")?k.c:"#4d5b72"}});
- var hist=(Array.isArray(d.hist)?d.hist:[]).filter(function(x){return x&&okN(x.s)&&okN(x.t)&&x.t>0}).map(function(x){return {n:String(x.n||""),m:MN[x.m]?x.m:"libre",s:x.s,t:x.t,d:okN(x.d)?x.d:Date.now(),c:String(x.c||"")}});
+ var hist=(Array.isArray(d.hist)?d.hist:[]).filter(function(x){return x&&okN(x.s)&&okN(x.t)&&x.t>0}).map(function(x){var o={n:String(x.n||""),m:MN[x.m]?x.m:"libre",s:x.s,t:x.t,d:okN(x.d)?x.d:Date.now(),c:String(x.c||"")};if(okN(x.g))o.g=x.g;if(typeof x.id==="string")o.id=x.id;return o});
  var st=d.stats,ok=!!(st&&st.t&&okN(st.t.s)&&okN(st.t.t)&&st.t.t>0&&okN(st.t.n)&&st.c&&typeof st.c==="object");if(ok)Object.keys(st.c).forEach(function(k){var x=st.c[k];if(!(x&&okN(x.s)&&okN(x.t)&&x.t>0&&okN(x.n)))ok=false});
- return {sets:sets,hist:hist,cats:cats,stats:ok?st:null,last:/^\d{4}-\d{2}-\d{2}$/.test(d.last||"")?d.last:"",streak:okN(d.streak)?d.streak:0,best:okN(d.best)?d.best:0,fav:(Array.isArray(d.fav)?d.fav:[]).filter(function(k){return typeof k==="string"&&/^[a-z0-9]+:\d+$/i.test(k)}),days:cdays(d.days)}}
+ return {sets:sets,hist:hist,cats:cats,stats:ok?st:null,last:/^\d{4}-\d{2}-\d{2}$/.test(d.last||"")?d.last:"",streak:okN(d.streak)?d.streak:0,best:okN(d.best)?d.best:0,fav:(Array.isArray(d.fav)?d.fav:[]).filter(function(k){return typeof k==="string"&&/^[a-z0-9-]+:\d+$/i.test(k)}),days:cdays(d.days),srs:(function(x){var o={};if(x&&typeof x==="object")Object.keys(x).forEach(function(k){var v=x[k];if(/^[a-z0-9-]+:\d+$/i.test(k)&&v&&okN(v.b)&&/^\d{4}-\d{2}-\d{2}$/.test(v.d||""))o[k]={b:Math.max(0,Math.min(5,v.b)),d:v.d}});return o})(d.srs),goals:(Array.isArray(d.goals)?d.goals:[]).filter(function(g){return g&&typeof g.n==="string"&&/^\d{4}-\d{2}-\d{2}$/.test(g.d||"")}).map(function(g){return {id:String(g.id||uid()),n:g.n.slice(0,40),d:g.d,c:typeof g.c==="string"?g.c:""}}),mg:1}}
 function bkJson(){return JSON.stringify({app:"ScoreUp",v:2,date:new Date().toISOString(),dev:devId(),db:DB},null,1)}
 function bkDl(){var u=URL.createObjectURL(new Blob([bkJson()],{type:"application/json"})),a=document.createElement("a");a.href=u;a.download="scoreup-sauvegarde-"+ds(new Date())+".json";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},4000)}
 /* Sauvegarde : menu de partage du téléphone (WhatsApp, Drive…) ; sinon téléchargement */
@@ -1880,7 +2036,202 @@ B) La plus petite valeur de la série
 C) La moitié de la moyenne
 D) La valeur la plus fréquente
 R: A
-E: Q1, la médiane et Q3 partagent la série ordonnée en quatre parts d’effectifs à peu près égaux.`}];
+E: Q1, la médiane et Q3 partagent la série ordonnée en quatre parts d’effectifs à peu près égaux.`},
+{id:"demo-compta-ex",name:"Comptabilité générale – Exercices (chap. 1 et 2)",cat:"Comptabilité",kind:"ex",txt:`EX: Exercice 1 – Analyse des flux (chapitre 1)
+Analyse les opérations suivantes. Les montants sont en milliers de francs.
+Rappel : la ressource est l’origine du flux (d’où vient la valeur) ; l’emploi est sa destination (l’utilisation qui en est faite).
+N° | Opération | Montant
+1 | Achat d’un terrain par chèque bancaire | 28 000
+2 | Achat de mobilier de bureau à crédit | 4 000
+3 | Achat d’une imprimante payée par caisse | 1 400
+4 | Vente de marchandises au client Diop, paiement ultérieur | 2 400
+5 | Achat de marchandises à crédit au fournisseur Raoul | 3 200
+6 | Paiement par chèque des intérêts du mois sur l’emprunt | 6 500
+7 | Paiement des salaires du mois par chèque | 4 240
+8 | Paiement de l’assurance par chèque | 1 120
+9 | Vente de produits finis payée par chèque | 2 800
+10 | Achat de marchandises au fournisseur Camara payé par chèque | 6 000
+11 | Vente au comptant de marchandises au client Obiang, payée en espèces | 1 500
+Q: Pour les opérations 1, 2 et 3, indique la ressource et l’emploi.
+C: Opération | Ressource (origine) | Emploi (destination) | Montant
+1 | Banque (le chèque fait sortir l’argent du compte) | Terrain | 28 000
+2 | Fournisseur (dette : on paiera plus tard) | Mobilier de bureau | 4 000
+3 | Caisse | Matériel de bureau (imprimante) | 1 400
+Astuce : demande-toi « d’où vient la valeur ? » (ressource) et « à quoi sert-elle ? » (emploi).
+Q: Pour les opérations 4 et 5, indique la ressource et l’emploi.
+C: Opération | Ressource (origine) | Emploi (destination) | Montant
+4 | Marchandises (vendues) | Client Diop (créance : il paiera plus tard) | 2 400
+5 | Fournisseur Raoul (dette) | Marchandises (achats) | 3 200
+Une vente à crédit crée une créance sur le client ; un achat à crédit crée une dette envers le fournisseur.
+Q: Pour les opérations 6, 7 et 8, indique la ressource et l’emploi.
+C: Opération | Ressource (origine) | Emploi (destination) | Montant
+6 | Banque | Intérêts (charges financières) | 6 500
+7 | Banque | Salaires (charges de personnel) | 4 240
+8 | Banque | Assurance (charge) | 1 120
+Ces trois opérations sont des charges : l’argent sort de la banque pour payer une dépense de fonctionnement.
+Q: Pour les opérations 9, 10 et 11, indique la ressource et l’emploi.
+C: Opération | Ressource (origine) | Emploi (destination) | Montant
+9 | Produits finis (vendus) | Banque | 2 800
+10 | Banque | Marchandises (achats) | 6 000
+11 | Marchandises (vendues) | Caisse | 1 500
+Comme dans l’exemple du cours (vente au client Fall), lors d’une vente, les biens vendus sont la ressource et l’encaissement est l’emploi.
+Q: Quel est le montant total, en milliers de francs, des sommes sorties de la banque (opérations payées par chèque) ?
+N: 45860
+C: Les opérations payées par chèque sont la 1, la 6, la 7, la 8 et la 10.
+28 000 + 6 500 + 4 240 + 1 120 + 6 000 = 45 860 (milliers de francs).
+L’opération 9 n’en fait pas partie : le chèque est reçu, l’argent entre en banque.
+Q: Pour l’opération 11, décris le flux réel et le flux monétaire (origine, destination, montant). Ces flux sont-ils internes ou externes ?
+C: Flux | Origine | Destination | Montant
+Flux réel (marchandises) | Entreprise | Client Obiang | 1 500
+Flux monétaire (espèces) | Client Obiang | Entreprise (caisse) | 1 500
+Ce sont deux flux externes : ils ont lieu entre l’entreprise et un tiers. Comme le dit le cours, les flux externes sont opposés et de valeurs égales.
+
+EX: Exercice 2 – Patrimoine et situation nette (chapitre 2)
+Au 31/12/2020, le patrimoine de l’entreprise IMPORT SARL comprend les éléments suivants :
+Élément | Montant (F)
+Un bâtiment | 9 000 000
+Un terrain | 6 000 000
+Un véhicule | 4 000 000
+Une machine | 2 500 000
+Un mobilier | 2 000 000
+Un compte en banque | 3 600 000
+Une créance sur les clients | 1 200 000
+Espèces en caisse | 300 000
+Somme due à l’État | 450 000
+Somme due aux fournisseurs | 1 500 000
+Somme due à la banque (emprunt) | 5 000 000
+Q: Quel est le total des biens de l’entreprise (en francs) ?
+N: 27400000
+C: Les biens sont ce que l’entreprise possède. La créance sur les clients n’est pas un bien : c’est une créance, on la compte à part.
+Bien | Montant
+Bâtiment | 9 000 000
+Terrain | 6 000 000
+Véhicule | 4 000 000
+Machine | 2 500 000
+Mobilier | 2 000 000
+Compte bancaire | 3 600 000
+Espèces en caisse | 300 000
+Total des biens | 27 400 000
+Q: Quel est le total des dettes de l’entreprise (en francs) ?
+N: 6950000
+C: Dette | Montant
+État | 450 000
+Fournisseurs | 1 500 000
+Emprunt bancaire | 5 000 000
+Total des dettes | 6 950 000
+Q: Quelle est la situation nette de l’entreprise (en francs) ?
+N: 21650000
+C: Situation nette = (biens + créances) – dettes
+= 27 400 000 + 1 200 000 – 6 950 000 = 21 650 000 F.
+La situation nette est positive : ce que l’entreprise possède et ce qu’on lui doit dépasse ce qu’elle doit.
+
+EX: Exercice 3 – Le magasin de M. Sène (chapitre 2)
+Le 1er juillet de l’année N, M. Sène ouvre un magasin de vente en gros. Trois mois après le démarrage de son activité, les éléments suivants ont été recensés :
+Élément | Montant (F)
+Un hangar | 400 000
+Des installations | 250 000
+Un réfrigérateur | 300 000
+Une encaisse | 100 000
+Un dépôt en banque | 150 000
+Des créances sur les clients | 150 000
+Un stock de marchandises | 700 000
+Une dette envers son banquier, payable dans 3 ans | 600 000
+Une dette envers ses fournisseurs | 200 000
+Son apport au démarrage était de 1 000 000 F.
+Q: Quel est le montant total des ressources extérieures (dettes) dont M. Sène a disposé (en francs) ? Donne aussi leur appellation comptable.
+N: 800000
+C: Ressource extérieure | Appellation comptable | Montant
+Dette envers le banquier (3 ans) | Emprunts (dette financière) | 600 000
+Dette envers les fournisseurs | Fournisseurs (dette d’exploitation) | 200 000
+Total | – | 800 000
+Q: Quel est le montant total des emplois (en francs) ? Donne l’appellation comptable de chaque emploi.
+N: 2050000
+C: Emploi | Appellation comptable | Montant
+Hangar | Bâtiments | 400 000
+Installations | Installations et agencements | 250 000
+Réfrigérateur | Matériel | 300 000
+Stock de marchandises | Marchandises | 700 000
+Créances sur les clients | Clients | 150 000
+Dépôt en banque | Banque | 150 000
+Encaisse | Caisse | 100 000
+Total des emplois | – | 2 050 000
+Q: Quel est le montant des capitaux propres et ressources assimilées à la fin de la période (en francs) ?
+N: 1250000
+C: Les capitaux propres sont ce qui reste quand on retire les dettes de l’ensemble des emplois.
+Capitaux propres = total des emplois – dettes = 2 050 000 – 800 000 = 1 250 000 F.
+Q: Sachant que son apport était de 1 000 000 F, quel est le résultat réalisé à la fin du trimestre (en francs) ? Est-ce un bénéfice ou une perte ?
+N: 250000
+C: Résultat net = (biens + créances) – (capital + dettes)
+= 2 050 000 – (1 000 000 + 800 000) = 250 000 F.
+Le résultat est positif : c’est un bénéfice de 250 000 F.
+Autre façon de le voir : capitaux propres – apport = 1 250 000 – 1 000 000 = 250 000 F.
+Q: Présente le bilan de M. Sène au 30 septembre de l’année N.
+C: Bilan au 30 septembre N
+Actif | Montant | Passif | Montant
+Bâtiments (hangar) | 400 000 | Capital | 1 000 000
+Installations et agencements | 250 000 | Résultat net (bénéfice) | 250 000
+Matériel (réfrigérateur) | 300 000 | Emprunts | 600 000
+Marchandises | 700 000 | Fournisseurs | 200 000
+Clients | 150 000 | – | –
+Banque | 150 000 | – | –
+Caisse | 100 000 | – | –
+Total actif | 2 050 000 | Total passif | 2 050 000
+À l’actif : l’actif immobilisé (bâtiments, installations, matériel), l’actif circulant (marchandises, clients) puis la trésorerie-actif (banque, caisse). Au passif : les capitaux propres (capital et résultat), puis les dettes (emprunts, fournisseurs). Le bilan est équilibré : total actif = total passif.
+
+EX: Exercice 4 – Postulats et conventions comptables (chapitre 1)
+Pour chaque situation, indique le postulat ou la convention comptable qui s’applique, et explique-le en une phrase.
+Q: L’entreprise utilise un camion en crédit-bail. Elle n’en est pas encore propriétaire, mais elle l’inscrit à l’actif de son bilan.
+C: Postulat de la prééminence de la réalité économique sur l’apparence juridique. Juridiquement, le camion appartient encore au bailleur, mais économiquement c’est l’entreprise qui l’utilise et en tire les avantages : il est donc inscrit à l’actif du preneur (locataire).
+Q: Un client qui doit 500 000 F à l’entreprise est en grandes difficultés financières. L’entreprise tient compte de cette perte probable. En revanche, elle n’enregistre pas le gain qu’elle espère d’un procès qu’elle pense gagner.
+C: Convention de prudence. Elle oblige à tenir compte des pertes latentes, même si elles ne sont pas absolument certaines, et refuse la prise en compte des produits latents (gains seulement espérés).
+Q: Une machine achetée 2 500 000 F vaudrait aujourd’hui 3 000 000 F sur le marché. Pour quel montant (en francs) doit-elle être inscrite dans les comptes ?
+N: 2500000
+C: Convention du coût historique : un actif acquis à titre onéreux est enregistré à son coût d’acquisition, soit 2 500 000 F. La plus-value espérée de 500 000 F n’est pas enregistrée (c’est aussi une application de la prudence : pas de produit latent).
+Q: Le 28 décembre N, l’entreprise établit une facture de vente. Le client ne paiera qu’en février N+1. À quel moment la vente doit-elle être enregistrée ?
+C: Postulat de la comptabilité d’engagement : l’opération est enregistrée au moment où la facture est établie, donc en décembre N, et non au moment du paiement. Avec le postulat de la spécialisation des exercices, cette vente est rattachée à l’exercice N.
+Q: Le propriétaire d’une entreprise individuelle paie le loyer de sa maison familiale avec son argent personnel. Le comptable n’enregistre pas cette dépense dans les comptes de l’entreprise.
+C: Postulat de l’entité : l’entreprise est considérée comme une entité autonome, distincte de son propriétaire. Les dépenses personnelles du propriétaire ne concernent pas la comptabilité de l’entreprise.
+Q: Chaque année, l’entreprise change de méthode pour évaluer ses stocks, si bien qu’on ne peut plus comparer ses comptes d’une année à l’autre. Quel postulat n’est pas respecté ?
+C: Postulat de la permanence des méthodes : les règles comptables et la structure des comptes doivent rester constantes pour permettre les comparaisons dans le temps et dans l’espace.
+Q: Le bilan d’ouverture au 1er janvier N+1 reprend exactement les montants du bilan de clôture au 31 décembre N.
+C: Convention de la correspondance bilan de clôture – bilan d’ouverture : le bilan d’ouverture d’un exercice N+1 doit correspondre au bilan de clôture de l’exercice N.
+
+EX: Exercice 5 – La boutique de Mlle Diallo (chapitre 2)
+Mlle Diallo a ouvert une boutique de cosmétiques avec un apport (capital) de 1 100 000 F. À la fin de l’exercice, elle recense les éléments suivants :
+Élément | Montant (F)
+Mobilier | 350 000
+Matériel informatique | 450 000
+Stock de marchandises | 600 000
+Créances sur les clients | 120 000
+Compte en banque | 230 000
+Espèces en caisse | 50 000
+Dettes envers les fournisseurs | 380 000
+Emprunt bancaire sur 2 ans | 500 000
+Impôts dus à l’État | 70 000
+Q: Quel est le total des biens et créances (en francs) ?
+N: 1800000
+C: 350 000 + 450 000 + 600 000 + 120 000 + 230 000 + 50 000 = 1 800 000 F.
+Q: Quel est le total des dettes (en francs) ?
+N: 950000
+C: Fournisseurs 380 000 + emprunt 500 000 + État 70 000 = 950 000 F.
+Q: Quelle est la situation nette (en francs) ?
+N: 850000
+C: Situation nette = (biens + créances) – dettes = 1 800 000 – 950 000 = 850 000 F.
+Q: L’exercice se termine-t-il par un bénéfice ou par une perte ? De quel montant (en francs) ?
+N: 250000
+C: Capital + dettes = 1 100 000 + 950 000 = 2 050 000 F. C’est plus que les biens et créances (1 800 000 F) : l’exercice se termine par une perte.
+Perte nette = (capital + dettes) – (biens + créances) = 2 050 000 – 1 800 000 = 250 000 F.
+Vérification : situation nette 850 000 = capital 1 100 000 – perte 250 000.
+Q: Présente le bilan de fin d’exercice de Mlle Diallo.
+C: Actif | Montant | Passif | Montant
+Mobilier | 350 000 | Capital | 1 100 000
+Matériel informatique | 450 000 | Résultat net (perte) | – 250 000
+Marchandises | 600 000 | Emprunts | 500 000
+Clients | 120 000 | Fournisseurs | 380 000
+Banque | 230 000 | État | 70 000
+Caisse | 50 000 | – | –
+Total actif | 1 800 000 | Total passif | 1 800 000
+La perte se place au passif, dans les capitaux propres, avec un signe moins : elle diminue les capitaux propres (1 100 000 – 250 000 = 850 000 F). Rappel du cours : bénéfice net et perte nette ne figurent jamais ensemble dans un même bilan.`}];
 var SCHOOL_SETS=[{id:"droit-personnes",school:"droit",name:"Droit civil – Les personnes",cat:"Droit civil",txt:`Q: Qu’est-ce que la personnalité juridique ?
 A) Le droit de voter aux élections
 B) Le caractère d’une personne, tel qu’on le perçoit en société
@@ -5074,7 +5425,7 @@ var SCHOOLS=[
 function school(id){return SCHOOLS.filter(function(s){return s.id===id})[0]||null}
 function mySchool(){return school(lsg("qcm_school"))}
 function schoolSets(id){return id==="management"?DEMO:SCHOOL_SETS.filter(function(s){return s.school===id})}
-var ADDC=0;function addSets(list){var n=0;ADDC=0;list.forEach(function(d){var ex=gs(d.id);if(ex){if(ex.demo&&ex.kind==="qcm"){var have={};ex.questions.forEach(function(x){have[x.q.toLowerCase()]=1});var add=parse(d.txt).Q.filter(function(x){return !have[x.q.toLowerCase()]});if(add.length){ex.questions=ex.questions.concat(add);ADDC++}}return}var p=parse(d.txt);if(!p.Q.length)return;DB.sets.push({id:d.id,name:d.name,questions:p.Q,kind:"qcm",cat:catAdd(d.cat),wrong:[],demo:1});n++});return n+ADDC}
+var ADDC=0;function addSets(list){var n=0;ADDC=0;list.forEach(function(d){var ex=gs(d.id);if(ex){if(ex.demo&&ex.kind==="qcm"){var have={};ex.questions.forEach(function(x){have[x.q.toLowerCase()]=1});var add=parse(d.txt).Q.filter(function(x){return !have[x.q.toLowerCase()]});if(add.length){ex.questions=ex.questions.concat(add);ADDC++}}return}if(d.kind==="ex"){var pe=parseEx(d.txt);if(!pe.Q.length)return;DB.sets.push({id:d.id,name:d.name,questions:pe.Q,kind:"ex",cat:catAdd(d.cat),wrong:[],demo:1});n++;return}var p=parse(d.txt);if(!p.Q.length)return;DB.sets.push({id:d.id,name:d.name,questions:p.Q,kind:"qcm",cat:catAdd(d.cat),wrong:[],demo:1});n++});return n+ADDC}
 function addDemo(){return addSets(DEMO)}
 function seed(){DB.seeded=true;save()}
 function nSer(n){return n+" série"+(n>1?"s":"")}
@@ -5089,9 +5440,9 @@ function ecBack(){if(tmp.ec){tmp.ec=null;R()}else go(cur==="reg"?"reg":"home")}
 function R(keep){if(!ACT&&trialState()!=="trial"){gate();return}seen();$("#app").innerHTML=mnBtn()+V[view]();if(!keep)window.scrollTo(0,0);hSync();if(TH&&view==="quiz")dock();tick()}
 function go(v,x){view=v;cur=x||null;tmp.cf=0;R()}
 /* « À revoir aujourd'hui » : séries où des questions ont été ratées à la dernière séance */
-function revoir(){if(SESS)return "";var L2=DB.sets.filter(function(s){return (s.wrong||[]).filter(function(i){return s.questions[i]}).length}).sort(function(a,b){return b.wrong.length-a.wrong.length});if(!L2.length)return "";
- var h="<div class='cd' style='border-left:5px solid var(--ko)'><b>🔁 À revoir aujourd’hui</b><p class='mu'>Les questions ratées lors de ta dernière séance. Les revoir aide à les retenir.</p>";
- L2.slice(0,3).forEach(function(s){var w=s.wrong.filter(function(i){return s.questions[i]});h+="<div class='row' style='align-items:center;margin-top:8px'><span style='flex:1;min-width:0'><b>"+esc(s.name)+"</b><br><span class='mu'>"+w.length+"</span> <span class='mu'>"+(w.length>1?"erreurs":"erreur")+"</span></span><button class='btn s' style='flex:none;width:auto;margin:0' onclick='start(\""+s.id+"\",\"erreurs\","+JSON.stringify(w)+","+w.length+",0,true)'>Revoir</button></div>"});
+function revoir(){if(SESS)return "";var L2=DB.sets.map(function(s){return {s:s,w:srsDue(s)}}).filter(function(x){return x.w.length}).sort(function(a,b){return b.w.length-a.w.length});if(!L2.length)return "";
+ var h="<div class='cd' style='border-left:5px solid var(--ko)'><b>🔁 À revoir aujourd’hui</b><p class='mu'>Révision espacée : tes questions ratées reviennent aujourd’hui, et celles que tu sais reviennent de plus en plus tard (1, 3, 7, 15 puis 30 jours).</p>";
+ L2.slice(0,3).forEach(function(x){var s=x.s,w=x.w;h+="<div class='row' style='align-items:center;margin-top:8px'><span style='flex:1;min-width:0'><b>"+esc(s.name)+"</b><br><span class='mu'>"+w.length+"</span> <span class='mu'>"+(w.length>1?"questions à revoir":"question à revoir")+"</span></span><button class='btn s' style='flex:none;width:auto;margin:0' onclick='start(\""+s.id+"\",\"srs\","+JSON.stringify(w)+","+w.length+",0,true)'>Revoir</button></div>"});
  if(L2.length>3)h+="<p class='mu' style='margin-top:8px'><span>+"+(L2.length-3)+"</span> <span>autres séries : ouvre-les depuis la liste.</span></p>";
  return h+"</div>"}
 /* ✏️ Corriger une réponse (si l'IA s'est trompée) : la correction est enregistrée dans la série */
@@ -5101,7 +5452,7 @@ function qEdit(sid,qi){var s=gs(sid),q=s&&s.questions[qi];if(!q||s.kind==="ex")r
 function qSave(sid,qi){var s=gs(sid),q=s&&s.questions[qi],r=document.querySelector("input[name=qer]:checked"),e=document.getElementById("qee");if(!q||!r)return;q.r=+r.value;q.e=(e?e.value:"").trim();save();suClose();R(true)}
 
 /* Menu ☰ : accès rapide aux Statistiques, Réglages, etc. depuis n'importe quel écran (sauf pendant un quiz) */
-var MNI=[["home","🏠","Accueil"],["stats","📊","Statistiques"],["hist","🕘","Historique"],["fav","⭐","Favoris"],["bk","💾","Sauvegarde"],["reg","⚙️","Réglages"],0,["help","🤖","Comment faire"],["info","📘","Guide"]];
+var MNI=[["home","🏠","Accueil"],["stats","📊","Statistiques"],["hist","🕘","Historique"],["fav","⭐","Favoris"],["ann","📝","Annales"],["goals","📅","Mes examens"],["find","🔍","Rechercher"],["bk","💾","Sauvegarde"],["reg","⚙️","Réglages"],0,["help","🤖","Comment faire"],["info","📘","Guide"]];
 function mnBtn(){return (view==="quiz"||(view==="ecole"&&lsg("qcm_school")===null))?"":"<button class='mnb' aria-label='Ouvrir le menu' title='Menu' onclick='mnOpen()'>☰</button>"}
 function mnOpen(){if(document.getElementById("mnov"))return;var h="<nav role='dialog' aria-modal='true' aria-label='Menu'><div class='mnh'><b>ScoreUp</b><button aria-label='Fermer le menu' onclick='mnClose()'>✕</button></div>";
  MNI.forEach(function(m){h+=m?"<button class='mni"+(view===m[0]?" on":"")+"' onclick='mnGo(\""+m[0]+"\")'><i>"+m[1]+"</i><span>"+m[2]+"</span></button>":"<div class='mns'></div>"});
@@ -5129,66 +5480,227 @@ setInterval(tick,500);
 function copy(txt,btn){var ok=function(){btn.textContent="Copié ✓"};
  var fb=function(){var t=document.createElement("textarea");t.value=txt;document.body.appendChild(t);t.select();try{document.execCommand("copy");ok()}catch(e){btn.textContent="Sélectionne le texte et copie-le"}t.remove()};
  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(ok,fb);else fb()}
-function txtOf(s){if(s.kind==="ex"){var pv="",o=[];s.questions.forEach(function(x){var k=x.t+"\u0001"+x.s;if(k!==pv){o.push("EX: "+x.t+(x.s?"\n"+x.s:""));pv=k}o.push("Q: "+x.q+(x.n!==""?"\nN: "+x.n:"")+"\nC: "+x.c)});return o.join("\n\n")}return s.questions.map(function(q){return "Q: "+q.q+"\n"+q.c.map(function(c,i){return L[i]+") "+c}).join("\n")+"\nR: "+L[q.r]+(q.e?"\nE: "+q.e:"")}).join("\n\n")}
+function txtOf(s){if(s.kind==="an"){var o=["ANNALE: "+s.name+"\nDUREE: "+(s.dur||120)],pv="";s.questions.forEach(function(x){if(x.ty==="q"){pv="";o.push("Q: "+x.q+"\n"+x.c.map(function(c,i){return L[i]+") "+c}).join("\n")+"\nR: "+L[x.r]+(x.e?"\nE: "+x.e:"")+"\nP: "+x.p)}else{var k=x.t+"\u0001"+x.s;if(k!==pv){o.push("EX: "+x.t+(x.s?"\n"+x.s:""));pv=k}o.push("Q: "+x.q+(x.n!==""?"\nN: "+x.n:"")+"\nC: "+x.c+"\nP: "+x.p)}});return o.join("\n\n")}
+ if(s.kind==="ex"){var pv="",o=[];s.questions.forEach(function(x){var k=x.t+"\u0001"+x.s;if(k!==pv){o.push("EX: "+x.t+(x.s?"\n"+x.s:""));pv=k}o.push("Q: "+x.q+(x.n!==""?"\nN: "+x.n:"")+"\nC: "+x.c)});return o.join("\n\n")}return s.questions.map(function(q){return "Q: "+q.q+"\n"+q.c.map(function(c,i){return L[i]+") "+c}).join("\n")+"\nR: "+L[q.r]+(q.e?"\nE: "+q.e:"")}).join("\n\n")}
 function cp(k,b){copy(k==="p"?PR("p"):k==="e"?PR("e"):txtOf(gs(cur)),b)}
-function an(){var t=$("#ta").value;tmp.d={t:t,nm:$("#nm").value.trim(),ct:$("#ct").value.trim()};tmp.imp=/^\s*EX\s*\d*\s*:/im.test(t)?parseEx(t):parse(t);if(t.indexOf("%PDF")===0)tmp.imp.pdf=1;R(true)}
+function an(){var t=$("#ta").value;tmp.d={t:t,nm:$("#nm").value.trim(),ct:$("#ct").value.trim()};tmp.imp=/^\s*ANNALE\s*:/im.test(t)?parseAn(t):/^\s*EX\s*\d*\s*:/im.test(t)?parseEx(t):parse(t);if(t.indexOf("%PDF")===0)tmp.imp.pdf=1;var df=defiRead(t);if(df){tmp.imp.defi=df;if(!tmp.d.nm)tmp.d.nm=df.nm}if(tmp.imp.an&&!tmp.d.nm&&tmp.imp.ti)tmp.d.nm=tmp.imp.ti.slice(0,80);R(true)}
 function loadPdf(){return new Promise(function(res,rej){if(window.pdfjsLib)return res();var s=document.createElement("script");s.src="lib/pdf.js";s.onload=function(){window.pdfjsLib?res():rej()};s.onerror=rej;document.head.appendChild(s)})}
 function pdfText(buf){return loadPdf().then(function(){pdfjsLib.GlobalWorkerOptions.workerSrc="lib/pdf.worker.js";return pdfjsLib.getDocument({data:buf}).promise}).then(function(doc){var out="",p=Promise.resolve();for(var n=1;n<=doc.numPages;n++)(function(n){p=p.then(function(){return doc.getPage(n)}).then(function(pg){return pg.getTextContent()}).then(function(tc){var y=null,line="";tc.items.forEach(function(it){var ny=it.transform[5];if(y!==null&&Math.abs(ny-y)>2&&line){out+=line.trim()+"\n";line=""}y=ny;line+=it.str;if(it.hasEOL){out+=line.trim()+"\n";line=""}});if(line)out+=line.trim()+"\n"})})(n);return p.then(function(){if(!out.trim())throw 0;return out})})}
 function rf(i){var f=i.files[0];if(!f)return;var nm=$("#nm"),st=$("#st");if(!nm.value)nm.value=f.name.replace(/\.[^.]+$/,"");
  if(/\.pdf$/i.test(f.name)||f.type==="application/pdf"){st.textContent="Lecture du PDF… (connexion Internet requise)";var r=new FileReader();r.onload=function(){pdfText(r.result).then(function(t){$("#ta").value=t;an()},function(){st.textContent="Impossible de lire ce PDF. Vérifie ta connexion et que le PDF contient du vrai texte (pas une photo ni un scan). Tu peux aussi copier-coller le texte."})};r.readAsArrayBuffer(f);return}
  var r2=new FileReader();r2.onload=function(){$("#ta").value=String(r2.result);st.textContent=""};r2.readAsText(f)}
-function sv(){var nm=tmp.d.nm||"Série du "+dt(Date.now());DB.sets.unshift({id:uid(),name:nm,questions:tmp.imp.Q,kind:tmp.imp.ex?"ex":"qcm",cat:catAdd(tmp.d.ct),wrong:[]});save();tmp={};go("home")}
-function del(id){if(tmp.del!==id){tmp.del=id;R(true);return}DB.sets=DB.sets.filter(function(s){return s.id!==id});DB.fav=DB.fav.filter(function(k){return k.indexOf(id+":")!==0});if(SESS&&SESS.setId===id){SESS=null;saveS()}tmp.del=null;save();R(true)}
+function sv(){var I=tmp.imp,nm=tmp.d.nm||(I.an?"Annale du ":"Série du ")+dt(Date.now()),o={id:uid(),name:nm,questions:I.Q,kind:I.an?"an":I.ex?"ex":"qcm",cat:catAdd(tmp.d.ct),wrong:[]};if(I.an)o.dur=I.du||120;if(I.defi)o.defi={w:I.defi.w,g:I.defi.g};DB.sets.unshift(o);save();tmp={};go(o.kind==="an"?"ann":"home")}
+function del(id){if(tmp.del!==id){tmp.del=id;R(true);return}DB.sets=DB.sets.filter(function(s){return s.id!==id});dropKeys(id);if(SESS&&SESS.setId===id){SESS=null;saveS()}tmp.del=null;save();R(true)}
 function begin(id){var s=gs(id),mode=document.querySelector("input[name=m]:checked").value,pool;
- if(mode==="erreurs"){pool=(s.wrong||[]).filter(function(i){return s.questions[i]})}else pool=s.questions.map(function(_,i){return i});
+ if(mode==="erreurs"){pool=(s.wrong||[]).filter(function(i){return s.questions[i]})}else if(mode==="srs")pool=srsDue(s);else pool=s.questions.map(function(_,i){return i});if(!pool.length)return;
  var n=Math.max(1,Math.min(pool.length,parseInt($("#nq").value,10)||pool.length)),mins=$("#mn")?Math.max(1,parseInt($("#mn").value,10)||n):0;
  var qt=$("#qt")?Math.max(0,Math.min(300,parseInt($("#qt").value,10)||0)):0;
+ var ng=mode==="exam"&&$("#neg")&&$("#neg").checked;
  start(id,mode==="erreurs"?"erreurs":mode,pool,n,mode==="exam"?mins:0,$("#sh").checked);
- if(qt&&SESS&&(SESS.mode==="libre"||SESS.mode==="erreurs")){SESS.qt=qt;SESS.qs=Date.now();saveS();R(true)}}
+ if(ng&&SESS){SESS.neg=0.25;saveS()}
+ if(qt&&SESS&&(SESS.mode==="libre"||SESS.mode==="erreurs"||SESS.mode==="srs")){SESS.qt=qt;SESS.qs=Date.now();saveS();R(true)}}
 function start(id,mode,pool,n,mins,sh){var s=gs(id),ix=sh?shuf(pool):pool.slice();ix=ix.slice(0,n);
  SESS={setId:id,mode:mode,order:ix,perm:ix.map(function(i){var p=Array.isArray(s.questions[i].c)?s.questions[i].c.map(function(_,k){return k}):[];return sh?shuf(p):p}),ans:ix.map(function(){return null}),i:0,start:Date.now(),end:mins?Date.now()+mins*60000:0};
  saveS();view="quiz";tmp.cf=0;R()}
-function pick(p){var S=SESS;if(S.mode!=="exam"&&S.ans[S.i]!==null)return;S.ans[S.i]=p;saveS();R(true)}
+function pick(p){var S=SESS;if(S.mode!=="exam"&&S.mode!=="annale"&&S.ans[S.i]!==null)return;S.ans[S.i]=p;saveS();R(true)}
 function mv(d){SESS.qs=Date.now();SESS.i=Math.max(0,Math.min(SESS.order.length-1,SESS.i+d));saveS();tmp.cf=0;R()}
 function resume(){if(SESS.end&&Date.now()>=SESS.end){fin(true);return}if(SESS.qt&&SESS.ans[SESS.i]===null)SESS.qs=Date.now();view="quiz";R()}
 function fin(force){var S=SESS;if(!S)return;
+ if(gs(S.setId).kind==="an"){if(S.ph==="corr")return;if(!force&&!tmp.cf){tmp.cf=1;R(true);return}anCorr(S,gs(S.setId));tmp.cf=0;view="quiz";R();return}
  if(S.mode==="exam"&&!force){var un=S.ans.filter(function(a){return a===null}).length;if(un&&!tmp.cf){tmp.cf=1;R(true);return}}
- var s=gs(S.setId),sc=0,wr=[];
- S.order.forEach(function(qi,i){var q=s.questions[qi];if((s.kind==="ex"||S.mode==="flash")?(S.ans[i]&&S.ans[i].ok):S.ans[i]===S.perm[i].indexOf(q.r))sc++;else wr.push(qi)});
- s.wrong=wr;DB.hist.unshift({n:s.name,m:S.mode,s:sc,t:S.order.length,d:Date.now(),c:s.cat||""});DB.hist=DB.hist.slice(0,100);bump();DB.days=DB.days||{};var dk=ds(new Date());DB.days[dk]=(DB.days[dk]||0)+1;addStat(s.cat||"Sans matière",sc,S.order.length);save();
- tmp.res={S:S,s:s,sc:sc};SESS=null;saveS();tmp.cf=0;view="res";R()}
+ var s=gs(S.setId),sc=0,wr=[],wa=0;
+ S.order.forEach(function(qi,i){var q=s.questions[qi],sf=s.kind==="ex"||S.mode==="flash",ok=sf?!!(S.ans[i]&&S.ans[i].ok):S.ans[i]===S.perm[i].indexOf(q.r);if(ok)sc++;else{wr.push(qi);if(!sf&&S.ans[i]!==null&&S.ans[i]!==-1)wa++}srsUp(s.id,qi,ok)});
+ var g=g20(Math.max(0,sc-(S.neg||0)*wa)/S.order.length*20);
+ s.wrong=wr;DB.hist.unshift({n:s.name,m:S.mode,s:sc,t:S.order.length,d:Date.now(),c:s.cat||"",g:g,id:s.id});DB.hist=DB.hist.slice(0,100);bump();DB.days=DB.days||{};var dk=ds(new Date());DB.days[dk]=(DB.days[dk]||0)+1;addStat(s.cat||"Sans matière",sc,S.order.length);save();
+ tmp.res={S:S,s:s,sc:sc,g:g,wa:wa};SESS=null;saveS();tmp.cf=0;view="res";R()}
 function rich(t){var o="",tb=[];function fl(){if(!tb.length)return;o+="<div class='tw'><table>"+tb.map(function(r,i){var g=i?"td":"th";return "<tr>"+r.map(function(c){return "<"+g+">"+esc(c.trim())+"</"+g+">"}).join("")+"</tr>"}).join("")+"</table></div>";tb=[]}
  String(t).split("\n").forEach(function(l){if(l.indexOf("|")>=0){var c=l.replace(/^\s*\|/,"").replace(/\|\s*$/,"").split("|");if(c.length>=2){if(!c.every(function(x){return /^[\s:-]*$/.test(x)}))tb.push(c);return}}fl();o+=esc(l)+"\n"});fl();return o.replace(/\n$/,"")}
 function reg(){var D=DB.days||{},b="",n=0,a=0,mx=1,i,d,k,v,arr=[];for(i=29;i>=0;i--){d=new Date();d.setDate(d.getDate()-i);k=ds(d);v=D[k]||0;arr.push([k,v]);if(v>mx)mx=v;if(v){a++;n+=v}}
  arr.forEach(function(x){b+="<i class='"+(x[1]?"":"z")+"' style='height:"+(x[1]?Math.max(12,Math.round(x[1]/mx*100)):4)+"%' title='"+x[0]+" : "+x[1]+"'></i>"});
  return "<div class='cd'><b>Régularité · 30 derniers jours</b><div class='reg'>"+b+"</div><p class='mu'>"+a+" jour"+(a>1?"s":"")+" actif"+(a>1?"s":"")+" sur 30 · "+n+" séance"+(n>1?"s":"")+". Le suivi jour par jour commence à cette mise à jour.</p></div>"}
 function cdays(x){var o={};if(x&&typeof x==="object"&&!Array.isArray(x))Object.keys(x).forEach(function(k){if(/^\d{4}-\d{2}-\d{2}$/.test(k)&&okN(x[k])&&x[k]>0)o[k]=Math.floor(x[k])});return o}
+/* =====================================================================
+   Nouveautés v4 : note sur 20, révision espacée, compte à rebours,
+   points faibles par chapitre, recherche, défi entre amis,
+   mode édition des questions, Annales (QCM + exercices).
+   ===================================================================== */
+var APPURL="https://thousandlabs.github.io/ScoreUp/";
+function g20(x){return Math.round(x*10)/10}
+function fmtG(g){return String(g20(g)).replace(".",",")}
+function plur(n,a,b){return n>1?(b||a+"s"):a}
+function dAdd(n){var d=new Date();d.setDate(d.getDate()+n);return ds(d)}
+function dDiff(k){var a=new Date(k+"T00:00:00"),b=new Date();b.setHours(0,0,0,0);return Math.round((a-b)/864e5)}
+function sKey(sid,qi){return sid+":"+qi}
+
+/* ---------- Révision espacée (boîtes de Leitner) ----------
+   Raté → revient aujourd'hui. Juste → la question monte d'une boîte
+   et revient après 1, 3, 7, 15 puis 30 jours. */
+var SRI=[0,1,3,7,15,30];
+function srsUp(sid,qi,ok){DB.srs=DB.srs||{};var k=sKey(sid,qi),o=DB.srs[k]||{b:0};o.b=ok?Math.min(5,(o.b||0)+1):0;o.d=dAdd(ok?SRI[o.b]:0);DB.srs[k]=o}
+function srsDue(s){var t=ds(new Date()),o=[];if(!s||s.kind==="an")return o;s.questions.forEach(function(_,i){var x=DB.srs&&DB.srs[sKey(s.id,i)];if(x&&x.d<=t)o.push(i)});return o}
+function srsBox(sid,qi){var x=DB.srs&&DB.srs[sKey(sid,qi)];return x?x.b||0:-1}
+/* Mise à jour unique : anciennes erreurs → révision espacée ; exercices de compta pour l'École de Management */
+function migr(){if((DB.mg||0)>=1)return;DB.mg=1;DB.srs=DB.srs||{};var t=ds(new Date());
+ DB.sets.forEach(function(s){(s.wrong||[]).forEach(function(i){if(s.questions[i]&&!DB.srs[sKey(s.id,i)])DB.srs[sKey(s.id,i)]={b:0,d:t}})});
+ var ms=mySchool();if(ms&&ms.id==="management"&&gs("demo-compta")&&!gs("demo-compta-ex")){addSets(DEMO.filter(function(d){return d.id==="demo-compta-ex"}));tmp.note="🆕 Nouveau : 5 exercices corrigés de comptabilité (chapitres 1 et 2) ont été ajoutés à tes séries."}
+ save()}
+/* Quand une question est supprimée : décale favoris, révisions et erreurs */
+function reKey(sid,qi){function mv(k){var p=k.lastIndexOf(":");if(k.slice(0,p)!==sid)return k;var i=+k.slice(p+1);return i===qi?null:i>qi?sKey(sid,i-1):k}
+ DB.fav=DB.fav.map(mv).filter(function(k){return k});var n={};Object.keys(DB.srs||{}).forEach(function(k){var m=mv(k);if(m)n[m]=DB.srs[k]});DB.srs=n;
+ var s=gs(sid);if(s)s.wrong=(s.wrong||[]).filter(function(i){return i!==qi}).map(function(i){return i>qi?i-1:i})}
+function dropKeys(sid){DB.fav=DB.fav.filter(function(k){return k.indexOf(sid+":")!==0});Object.keys(DB.srs||{}).forEach(function(k){if(k.indexOf(sid+":")===0)delete DB.srs[k]})}
+
+/* ---------- Points faibles par chapitre (5 dernières séances de chaque série) ---------- */
+function perSet(){var o={};DB.hist.forEach(function(x){if(x.m==="annale")return;var s=x.id?gs(x.id):null;if(!s)s=DB.sets.filter(function(z){return z.name===x.n})[0];if(!s||s.kind==="an")return;var r=o[s.id]=o[s.id]||{s:s,a:0,b:0,n:0};if(r.n>=5)return;r.a+=x.s;r.b+=x.t;r.n++});
+ return Object.keys(o).map(function(k){var r=o[k];r.p=Math.round(r.a/r.b*100);return r}).sort(function(a,b){return a.p-b.p})}
+function lvl(p){return p<50?["#b42318","À retravailler en priorité"]:p<70?["#a15c00","À consolider"]:["#17794a","Bien maîtrisé"]}
+function weakCard(){var w=perSet().filter(function(r){return r.p<50})[0];if(!w)return "";
+ return "<div class='cd' style='border-left:5px solid #b42318'><b>🎯 Point faible : <span>"+esc(w.s.name)+"</span></b><p class='mu'><span>"+w.p+" %</span> <span>de réussite sur tes dernières séances.</span></p><button class='btn s' onclick='go(\"set\",\""+w.s.id+"\")'>Réviser ce chapitre</button></div>"}
+
+/* ---------- Mes examens : compte à rebours ---------- */
+function goalRem(g){var n=0,cnt=0;DB.sets.forEach(function(s){if(s.kind==="an")return;if(g.c&&s.cat!==g.c)return;s.questions.forEach(function(_,i){cnt++;if(srsBox(s.id,i)<3)n++})});return {n:n,t:cnt}}
+function goalsCard(){var G=(DB.goals||[]).filter(function(g){return dDiff(g.d)>=0}).sort(function(a,b){return a.d<b.d?-1:1});
+ if(!G.length)return "<button class='back' onclick='go(\"goals\")'>📅 Ajouter la date d’un examen</button>";
+ var h="<div class='cd' style='border-left:5px solid var(--ac)'>";
+ G.slice(0,3).forEach(function(g,k){var d=dDiff(g.d),r=goalRem(g),per=Math.ceil(r.n/Math.max(1,d));
+  h+=(k?"<hr style='border:0;border-top:1px solid var(--bd);margin:10px 0'>":"")+"<b>📅 <span>"+esc(g.n)+"</span> · <span>"+(d===0?"aujourd’hui":"J-"+d)+"</span></b>"+(g.c?" <span class='bdg' style='background:"+catCol(g.c)+"'>"+esc(g.c)+"</span>":"")
+  +"<p class='mu'>"+(r.t?(r.n?"<span>Pour être prêt(e) : environ</span> <b>"+per+"</b> <span>"+plur(per,"question")+" par jour</span> <span>("+r.n+" à maîtriser)</span>":"<span>Toutes tes questions sont maîtrisées. Continue à réviser !</span>"):"<span>Ajoute des séries de cette matière pour préparer cet examen.</span>")+"</p>"});
+ return h+"<button class='back' style='padding:4px 0' onclick='go(\"goals\")'>Gérer mes examens</button></div>"}
+function goalAdd(){var n=($("#gn").value||"").trim().slice(0,40),d=$("#gd").value,c=$("#gc2").value;if(!n||!/^\d{4}-\d{2}-\d{2}$/.test(d)){tmp.ge="Indique le nom et la date de l’examen.";R(true);return}
+ if(dDiff(d)<0){tmp.ge="Cette date est déjà passée.";R(true);return}
+ DB.goals=DB.goals||[];DB.goals.push({id:uid(),n:n,d:d,c:c});tmp.ge="";save();go("home")}
+function goalDel(id){DB.goals=(DB.goals||[]).filter(function(g){return g.id!==id});save();R(true)}
+
+/* ---------- Recherche ---------- */
+function nz(s){return String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase()}
+function findHtml(q){var k=nz(q).trim();if(k.length<2)return "<p class='mu'>Tape au moins 2 lettres : un mot du cours, d’une question ou d’une réponse.</p>";var R2=[];
+ DB.sets.forEach(function(s){s.questions.forEach(function(x,i){var hay=[x.q,x.t,x.s,x.e,Array.isArray(x.c)?x.c.join(" "):x.c].join(" ");if(nz(hay).indexOf(k)>=0)R2.push([s,x,i])})});
+ if(!R2.length)return "<p class='mu'>Aucune question ne contient ce mot.</p>";
+ var h="<p class='mu'><span>"+R2.length+"</span> <span>"+plur(R2.length,"résultat")+"</span>"+(R2.length>40?" <span>(40 premiers affichés)</span>":"")+"</p>";
+ R2.slice(0,40).forEach(function(r){var s=r[0],x=r[1],qcm=Array.isArray(x.c),an=qcm?esc(x.c[x.r])+(x.e?"<p class='mu'>"+esc(x.e)+"</p>":""):"<div style='white-space:pre-wrap'>"+rich(x.c)+"</div>";
+  h+="<div class='cd'>"+(s.cat?"<span class='bdg' style='background:"+catCol(s.cat)+"'>"+esc(s.cat)+"</span> ":"")+"<span class='mu'>"+esc(s.name)+(s.kind==="an"?" · Annale":"")+"</span><p style='white-space:pre-wrap'><b>"+esc((x.t&&!qcm?x.t+" – ":"")+x.q)+"</b></p><details><summary class='mu' style='cursor:pointer'>Voir la réponse</summary><div style='margin-top:6px'>"+an+"</div></details><div class='row'><button class='btn s' onclick='go(\""+(s.kind==="an"?"ast":"set")+"\",\""+s.id+"\")'>Ouvrir la série</button>"+(EDM()?"<button class='btn s' onclick='qForm(\""+s.id+"\","+r[2]+")'>✏️ Modifier</button>":"")+"</div></div>"});
+ return h}
+function findRun(v){tmp.fq=v;var e=document.getElementById("fr");if(e)e.innerHTML=findHtml(v)}
+
+/* ---------- Défi entre amis ---------- */
+function defiTxt(r){var s=r.s,n=myName()||"Un ami";return "⚔️ DÉFI ScoreUp : "+n+" a eu "+fmtG(r.g)+"/20 sur « "+s.name+" ». Fais mieux !\nPour relever le défi : ouvre ScoreUp ("+APPURL+"), touche « Importer des questions », colle tout ce message, puis touche « Vérifier ».\n\n"+txtOf(s)}
+function defi(b){var r=tmp.res;if(!r)return;var t=defiTxt(r);
+ if(navigator.share){navigator.share({text:t}).catch(function(e){if(!(e&&e.name==="AbortError"))copy(t,b)});return}
+ copy(t,b);suToast("Défi copié : colle-le dans WhatsApp 📋")}
+function defiRead(t){var m=t.match(/DÉFI ScoreUp\s*:\s*(.+?) a eu ([\d.,]+)\s*\/\s*20 sur « (.+?) »/);if(!m)return null;return {w:m[1].trim().slice(0,24),g:pn(m[2]),nm:m[3].trim().slice(0,80)}}
+function defiRes(s,g){if(!s.defi)return "";var d=s.defi,o=g>d.g?"🏆 Tu as gagné le défi !":g===d.g?"🤝 Égalité !":"😅 Perdu cette fois. Retente ta chance !";
+ return "<div class='cd' style='border-left:5px solid var(--ac)'><b>⚔️ <span>Défi de</span> <span>"+esc(d.w)+"</span> : <span>"+fmtG(d.g)+" / 20</span></b><p>"+o+"</p></div>"}
+
+/* ---------- Mode édition ---------- */
+function EDM(){return lsg("qcm_edit")==="1"}
+function edmT(){lss("qcm_edit",EDM()?"0":"1");R(true)}
+function edBtn(sid,qi){return EDM()?"<button class='back' style='padding:4px 0;display:block' onclick='event.stopPropagation();qForm(\""+sid+"\","+qi+")'>🛠️ Modifier toute la question</button>":""}
+/* ty : "q" (QCM) ou "x" (exercice) pour une nouvelle question */
+function qType(s,q){return s.kind==="an"?q.ty:s.kind==="ex"?"x":"q"}
+function qForm(sid,qi,ty){var s=gs(sid);if(!s)return;var nw=qi<0,q=nw?null:s.questions[qi];if(!nw&&!q)return;ty=nw?ty:qType(s,q);var an=s.kind==="an";
+ var h="<h3 style='margin-top:0'>"+(nw?"➕ Nouvelle question":"🛠️ Modifier la question")+"</h3><p class='mu'>"+esc(s.name)+"</p>";
+ if(ty==="q"){var C=nw?["","","",""]:q.c.slice();while(C.length<4)C.push("");if(C.length<6&&C[C.length-1])C.push("");
+  h+="<label for='fq'>Question</label><textarea id='fq' style='min-height:80px;font-family:inherit;font-size:15px'>"+esc(nw?"":q.q)+"</textarea><p class='mu'>Choix (laisse vide pour retirer un choix) et bonne réponse :</p>";
+  C.forEach(function(c,k){h+="<div style='display:flex;gap:8px;align-items:center'><label class='c' style='margin:0;flex:none'><input type='radio' name='fr' value='"+k+"'"+(!nw&&k===q.r?" checked":"")+"> <b>"+L[k]+"</b></label><input type='text' id='fc"+k+"' value='"+esc(c)+"' style='margin:4px 0'></div>"});
+  h+="<label for='fe'>Explication (facultatif)</label><textarea id='fe' style='min-height:70px;font-family:inherit;font-size:15px'>"+esc(nw?"":q.e||"")+"</textarea>"}
+ else{var last=nw?s.questions.filter(function(x){return qType(s,x)==="x"}).slice(-1)[0]:q;
+  h+="<label for='ft'>Titre de l’exercice</label><input type='text' id='ft' value='"+esc(last?last.t:"")+"'><label for='fs'>Énoncé et données</label><textarea id='fs' style='min-height:110px'>"+esc(last?last.s:"")+"</textarea><p class='mu'>Tableaux : une ligne par ligne du tableau, cellules séparées par le symbole |. Le titre et l’énoncé sont mis à jour pour toutes les questions de cet exercice.</p>"
+  +"<label for='fq'>Question</label><textarea id='fq' style='min-height:70px;font-family:inherit;font-size:15px'>"+esc(nw?"":q.q)+"</textarea><label for='fn'>Réponse chiffrée (facultatif, un seul nombre)</label><input type='text' id='fn' inputmode='decimal' value='"+esc(nw?"":q.n)+"'><label for='fk'>Corrigé</label><textarea id='fk' style='min-height:120px'>"+esc(nw?"":q.c)+"</textarea>"}
+ if(an)h+="<label for='fp'>Points au barème</label><input type='number' id='fp' min='0' step='0.25' value='"+(nw?(ty==="q"?1:2):q.p)+"'>";
+ h+="<p class='er' id='fer'></p><button class='btn' onclick='qfSave(\""+sid+"\","+qi+",\""+ty+"\")'>Enregistrer</button>";
+ if(!nw)h+="<button class='btn d' id='fdl' onclick='qDel(\""+sid+"\","+qi+",this)'>Supprimer cette question</button>";
+ suOpen(h);hSync()}
+function qfSave(sid,qi,ty){var s=gs(sid);if(!s)return;var nw=qi<0,q=nw?null:s.questions[qi],er=function(m){var e=document.getElementById("fer");if(e)e.textContent=(window.TLL&&TLL.tr)?TLL.tr(m):m},o;
+ var V2=function(id){var e=document.getElementById(id);return e?e.value:""};
+ if(ty==="q"){var C=[],rk=document.querySelector("input[name=fr]:checked"),r=-1,qq=V2("fq").trim();if(!qq)return er("La question est vide.");
+  for(var k=0;k<6;k++){var e=document.getElementById("fc"+k);if(!e)continue;var v=e.value.trim();if(v){if(rk&&+rk.value===k)r=C.length;C.push(v)}}
+  if(C.length<2)return er("Il faut au moins 2 choix.");if(r<0)return er("Choisis la bonne réponse (le rond devant un choix rempli).");
+  o={q:qq,c:C,r:r,e:V2("fe").trim()}}
+ else{var t=V2("ft").trim()||"Exercice",st=V2("fs").trim(),qq2=V2("fq").trim(),nn=V2("fn").trim(),cc=V2("fk").trim();if(!qq2)return er("La question est vide.");if(!cc)return er("Le corrigé est vide.");if(nn&&isNaN(pn(nn)))return er("La réponse chiffrée doit être un nombre.");
+  if(!nw){var ot=q.t,os=q.s;s.questions.forEach(function(x){if(x!==q&&qType(s,x)==="x"&&x.t===ot&&x.s===os){x.t=t;x.s=st}})}
+  o={t:t,s:st,q:qq2,n:nn===""?"":(pnAll(nn).length>1?nn.replace(/[\s\u00a0\u202f]/g,""):String(pn(nn))),c:cc}}
+ if(s.kind==="an"){o.ty=ty;var p=parseFloat(String(V2("fp")).replace(",","."));o.p=isFinite(p)&&p>=0?p:(ty==="q"?1:2)}
+ if(nw){s.questions.push(o)}else{Object.keys(o).forEach(function(k){q[k]=o[k]})}
+ save();suClose();suToast(nw?"Question ajoutée ✓":"Question enregistrée ✓");R(true)}
+function qDel(sid,qi,b){var s=gs(sid);if(!s)return;if(s.questions.length<2){var e=document.getElementById("fer");if(e)e.textContent="Une série doit garder au moins une question : supprime plutôt la série.";return}
+ if(!b.dataset.ok){b.dataset.ok=1;b.textContent="Confirmer la suppression";return}
+ s.questions.splice(qi,1);reKey(sid,qi);if(SESS&&SESS.setId===sid){SESS=null;saveS();if(view==="quiz")view="home"}save();suClose();suToast("Question supprimée");R(true)}
+function setRen(sid){var s=gs(sid),v=($("#ern").value||"").trim().slice(0,80);if(!s||!v)return;s.name=v;save();suToast("Nom enregistré ✓");R(true)}
+
+/* ---------- Annales : sujets d'examen (QCM + exercices) ----------
+   Format :
+   ANNALE: titre   DUREE: 120
+   Q:/A)…/R:/E:/P:   → QCM (P: points, 1 par défaut)
+   EX: titre, énoncé, puis Q:/N:/C:/P:   → exercice (2 points par défaut) */
+function parseAn(txt){var I=[],E=[],ti="",du=0,ex=null,it=null,last=null,m;
+ txt.replace(/\r/g,"").split("\n").forEach(function(raw){var t=raw.trim();if(!t)return;
+  if(m=t.match(/^ANNALE\s*:\s*(.*)$/i)){ti=m[1].trim();last=null;return}
+  if(m=t.match(/^DUR[ÉE]E\s*:\s*(\d+)/i)){du=+m[1];return}
+  if(/^(PARTIE\s+)?QCM\s*:?\s*$/i.test(t)){ex=null;it=null;last=null;return}
+  if(m=t.match(/^EX\s*\d*\s*:\s*(.*)$/i)){ex={t:m[1]||"Exercice",s:""};it=null;last="s";return}
+  if(m=t.match(/^Q\s*\d*\s*[:.]\s*(.*)$/i)){it=ex?{ty:"x",t:ex.t,s:ex.s,q:m[1],n:"",c:"",p:null}:{ty:"q",q:m[1],c:[],l:[],r:null,e:"",p:null};I.push(it);last="q";return}
+  if(m=t.match(/^P(?:oints?)?\s*:\s*([\d]+(?:[.,]\d+)?)\s*(pts?|points?)?\s*$/i)){if(it)it.p=parseFloat(m[1].replace(",","."));return}
+  if(it&&(m=t.match(/^([A-F])\s*[\).]\s*(.*)$/i))&&(it.ty==="q"||(!it.c&&!it.n&&last==="q"))){if(it.ty==="x"){var nq={ty:"q",q:it.q,c:[],l:[],r:null,e:"",p:null};I[I.length-1]=nq;it=nq;ex=null}it.l.push(m[1].toUpperCase());it.c.push(m[2]);last="c";return}
+  if(it&&it.ty==="q"){if(m=t.match(/^R(?:[ée]ponse)?\s*:\s*([A-F])/i)){it.r=m[1].toUpperCase();last="r";return}if(m=t.match(/^E(?:xplication)?\s*:\s*(.*)$/i)){it.e=m[1];last="e";return}}
+  if(it&&it.ty==="x"){if(m=t.match(/^N\s*:\s*(.*)$/i)){it.n=m[1].trim();last="n";return}if(m=t.match(/^C\s*:\s*(.*)$/i)){it.c=m[1];last="k";return}}
+  if(last==="s"&&ex){ex.s+=(ex.s?"\n":"")+t;return}
+  if(!it)return;
+  if(last==="q")it.q+=(it.ty==="x"?"\n":" ")+t;else if(last==="c")it.c[it.c.length-1]+=" "+t;else if(last==="e")it.e+=" "+t;else if(last==="k")it.c+="\n"+t});
+ var Q=[];I.forEach(function(b,i){var p="Question "+(i+1)+" : ";
+  if(!b.q.trim())return E.push(p+"l’énoncé est vide.");
+  if(b.ty==="q"){if(b.c.length<2)return E.push(p+"il faut au moins 2 choix (A, B…).");if(!b.r)return E.push(p+"la ligne « R: » est manquante.");var k=b.l.indexOf(b.r);if(k<0)return E.push(p+"la réponse "+b.r+" ne correspond à aucun choix.");
+   Q.push({ty:"q",q:b.q.trim(),c:b.c.map(function(x){return x.trim()}),r:k,e:b.e.trim(),p:b.p==null?1:b.p})}
+  else{if(!b.c.trim())return E.push(p+"la ligne « C: » (corrigé) est manquante.");if(b.n!==""&&isNaN(pn(b.n)))return E.push(p+"« N: » doit être un nombre.");
+   Q.push({ty:"x",t:b.t.trim(),s:b.s.trim(),q:b.q.trim(),n:b.n===""?"":(pnAll(b.n).length>1?b.n.replace(/[\s\u00a0\u202f]/g,""):String(pn(b.n))),c:b.c.trim(),p:b.p==null?2:b.p})}});
+ return {Q:Q,E:E,n:I.length,an:1,ti:ti,du:du}}
+function anInfo(s){var nq=0,nx=0,pt=0;s.questions.forEach(function(q){if(q.ty==="q")nq++;else nx++;pt+=q.p||0});return {nq:nq,nx:nx,pt:g20(pt)}}
+function anLine(s){var a=anInfo(s);return "<span>"+a.nq+" QCM</span> · <span>"+a.nx+" "+plur(a.nx,"question")+" d’exercice</span> · <span>"+(s.dur||120)+" min</span>"}
+function anLast(s){for(var i=0;i<DB.hist.length;i++){var x=DB.hist[i];if(x.m==="annale"&&(x.id===s.id||(!x.id&&x.n===s.name)))return x}return null}
+function startAn(id){var s=gs(id);if(!s)return;var mins=Math.max(1,Math.min(600,parseInt(($("#amn")||{}).value,10)||s.dur||120));start(id,"annale",s.questions.map(function(_,i){return i}),s.questions.length,mins,false)}
+function ansX(v){if(!SESS)return;SESS.ans[SESS.i]=v===""?null:{v:v};saveS()}
+var PROMPT_AN="Tu es un professeur d’université expert et rigoureux. Je te fournis un ancien sujet d’examen (photo, PDF ou texte). Transforme-le en annale pour l’application ScoreUp, avec un corrigé détaillé.\n\nRègles :\n- Recopie fidèlement le sujet : n’invente aucune donnée et ne change aucun chiffre. Si un passage est illisible, écris [illisible] au lieu de deviner.\n- QCM : une ligne Q: par question, puis les choix A) B) C) D), la lettre de la bonne réponse après R: et une courte explication après E:. Si le sujet ne donne pas la bonne réponse, trouve-la et vérifie-la deux fois.\n- Exercices : une ligne EX: avec le titre, puis l’énoncé et les données, puis chaque question avec Q:. Après chaque question : N: la réponse sous forme d’un seul nombre sans unité (supprime cette ligne si la réponse n’est pas un seul nombre), puis C: le corrigé détaillé. Fais chaque calcul pas à pas, puis refais-le une seconde fois pour vérifier.\n- Les questions de cours sans choix se traitent comme un exercice : EX: Questions de cours, puis Q: et C: pour chacune.\n- Tableaux (bilan, journal, comptes…) : écris-les en texte, une ligne par ligne du tableau, cellules séparées par le symbole |, la première ligne contenant les en-têtes.\n- Barème : après chaque question (QCM ou exercice), ajoute une ligne P: avec ses points selon le barème du sujet. Sans barème, mets P: 1 pour chaque QCM et répartis les points des exercices pour que le total fasse 20.\n- Durée : indique la durée de l’épreuve en minutes après DUREE: (120 si elle n’est pas indiquée).\n- Respecte exactement ce format :\nANNALE: matière – type d’épreuve – année\nDUREE: 120\nQ: question de QCM\nA) premier choix\nB) deuxième choix\nC) troisième choix\nD) quatrième choix\nR: B\nE: courte explication\nP: 1\nEX: titre de l’exercice\n(énoncé, données et tableaux écrits en texte)\nQ: première question de l’exercice\nN: 125000\nC: corrigé détaillé avec les calculs\nP: 3\n\nÉcris tout directement dans ta réponse, sans PDF, sans gras, sans balises markdown et sans autre texte.\n\nVoici le sujet :\n";
+var PROMPT_AN_EN="You are a rigorous, expert university lecturer. I'm giving you a past exam paper (photo, PDF or text). Turn it into a past paper for the ScoreUp app, with a detailed solution.\n\nRules:\n- Copy the paper faithfully: don't make up any data and don't change any figure. If a part is unreadable, write [unreadable] instead of guessing.\n- Multiple-choice questions: one Q: line per question, then the choices A) B) C) D), the letter of the correct answer after R: and a short explanation after E:. If the paper doesn't give the correct answer, find it and check it twice.\n- Exercises: one EX: line with the title, then the statement and data, then each question with Q:. After each question: N: the answer as a single number without unit (remove this line if the answer isn't a single number), then C: the detailed solution. Do each calculation step by step, then do it a second time to check.\n- Written course questions without choices are treated as an exercise: EX: Course questions, then Q: and C: for each one.\n- Tables (balance sheet, journal, accounts…): write them as text, one line per table row, cells separated by the | symbol, the first line containing the headers.\n- Marking scheme: after each question (multiple-choice or exercise), add a P: line with its points according to the paper's marking scheme. Without a marking scheme, put P: 1 for each multiple-choice question and share out the exercise points so that the total is 20.\n- Duration: give the length of the exam in minutes after DUREE: (120 if it isn't given).\n- Follow this format exactly:\nANNALE: subject – type of exam – year\nDUREE: 120\nQ: multiple-choice question\nA) first choice\nB) second choice\nC) third choice\nD) fourth choice\nR: B\nE: short explanation\nP: 1\nEX: title of the exercise\n(statement, data and tables written as text)\nQ: first question of the exercise\nN: 125000\nC: detailed solution with the calculations\nP: 3\n\nWrite everything directly in your reply, no PDF, no bold, no markdown tags and no other text.\n\nHere is the paper:\n";
+function prAn(){return TLL.lang()==="en"?PROMPT_AN_EN:PROMPT_AN}
+/* Correction de l'annale : QCM et réponses chiffrées notés tout seuls, le reste noté par l'étudiant */
+function anCorr(S,s){S.ph="corr";S.end=0;S.gr=S.order.map(function(qi,i){var q=s.questions[qi],a=S.ans[i];
+ if(q.ty==="q")return (a!==null&&a!==-1&&a===S.perm[i].indexOf(q.r))?1:0;
+ if(q.n!==""){if(a&&a.v!=null&&String(a.v).trim()!==""){var V=pnAll(a.v),E2=pnAll(q.n);if(V.some(function(x){return E2.some(function(y){return Math.abs(x-y)<=Math.max(0.01,Math.abs(y)*0.005)})}))return 1}return null}
+ return null});saveS()}
+function anGrade(i,v){if(!SESS||!SESS.gr)return;SESS.gr[i]=v;saveS();R(true)}
+function anFin(){var S=SESS;if(!S||!S.gr||S.gr.some(function(v){return v===null}))return;var s=gs(S.setId),e=0,t=0,ok=0,wr=[];
+ S.order.forEach(function(qi,i){var p=s.questions[qi].p||0;t+=p;e+=p*S.gr[i];ok+=S.gr[i];if(S.gr[i]<1)wr.push(qi)});
+ var g=t?g20(e/t*20):0;s.wrong=wr;DB.hist.unshift({n:s.name,m:"annale",s:g,t:20,g:g,d:Date.now(),c:s.cat||"",id:s.id});DB.hist=DB.hist.slice(0,100);bump();DB.days=DB.days||{};var dk=ds(new Date());DB.days[dk]=(DB.days[dk]||0)+1;addStat(s.cat||"Sans matière",ok,S.order.length);save();
+ tmp.res={S:S,s:s,sc:ok,g:g,an:{e:g20(e),t:g20(t)}};SESS=null;saveS();tmp.cf=0;view="res";R()}
+
 var V={
-home:function(){var st=streak(),f=(tmp.f>=0&&DB.cats[tmp.f])?DB.cats[tmp.f].n:null,h="<button class='back' style='float:right;margin-right:56px' onclick='theme()'>"+(curTh()==="dark"?"Mode clair":"Mode sombre")+"</button><h1>ScoreUp</h1>"+greet()+trialBanner()+bkBanner();
+home:function(){migr();var st=streak(),f=(tmp.f>=0&&DB.cats[tmp.f])?DB.cats[tmp.f].n:null,h="<button class='back' style='float:right;margin-right:56px' onclick='theme()'>"+(curTh()==="dark"?"Mode clair":"Mode sombre")+"</button><h1>ScoreUp</h1>"+greet()+trialBanner()+bkBanner();
  if(tmp.note){h+="<div class='cd g'>"+tmp.note+"</div>";tmp.note=null}
  if(!store)h+="<div class='w'>Ce navigateur ne permet pas de sauvegarder : tes séries disparaîtront quand tu fermeras la page.</div>";
  h+="<div class='cd'><b>"+(st.n?"🔥 "+st.n+" jour"+(st.n>1?"s":"")+" de suite":"Ta série de jours")+"</b><p class='mu'>"+(st.today?"Séance du jour faite. Bravo !":st.n?"Fais une séance aujourd’hui pour garder ta série.":"Fais une séance aujourd’hui pour la commencer.")+"</p></div>";
- h+=revoir();
+ h+=goalsCard()+revoir()+weakCard();
  if(IP)h+="<button class='btn s' onclick='inst()'>Installer ScoreUp sur l’écran d’accueil</button>";
  if(SESS){var s0=gs(SESS.setId);h+="<div class='cd'><b>"+MN[SESS.mode]+" en cours</b><p class='mu'>"+esc(s0.name)+" · question "+(SESS.i+1)+"/"+SESS.order.length+"</p><button class='btn' onclick='resume()'>Reprendre</button></div>"}
- h+="<button class='btn' onclick='tmp.d=null;tmp.imp=null;go(\"imp\")'>Importer des questions</button>";
+ h+="<button class='btn' onclick='tmp.d=null;tmp.imp=null;go(\"imp\")'>Importer des questions</button>";var nA=DB.sets.filter(function(s){return s.kind==="an"}).length;
+ h+="<div class='row'><button class='btn s' onclick='go(\"ann\")'>📝 Annales"+(nA?" ("+nA+")":"")+"</button><button class='btn s' onclick='tmp.fq=\"\";go(\"find\")'>🔍 Rechercher</button></div>";
  if(DB.cats.length)h+="<div class='chips'><button class='chip"+(f?"":" on")+"' onclick='tmp.f=-1;R(true)'>Toutes</button>"+DB.cats.map(function(k,i){return "<button class='chip"+(f===k.n?" on":"")+"' style='--c:"+k.c+";--cx:#fff' onclick='tmp.f="+i+";R(true)'>"+esc(k.n)+"</button>"}).join("")+"</div>";
  if(!DB.sets.length)h+="<div class='cd'><p>Aucune série pour l’instant. Importe tes questions, ou ouvre « Comment faire » pour les générer avec une IA à partir de ton cours.</p>"+(mySchool()?"<button class='btn s' onclick='ad(this)'>Ajouter les séries de mon école</button>":"<button class='btn s' onclick='tmp.ec=null;go(\"ecole\")'>🎓 Choisir mon école</button>")+"</div>";
- DB.sets.forEach(function(s){if(f&&s.cat!==f)return;h+="<div class='cd'>"+(s.cat?"<span class='bdg' style='background:"+catCol(s.cat)+"'>"+esc(s.cat)+"</span> ":"")+"<b>"+esc(s.name)+"</b><p class='mu'>"+(s.kind==="ex"?"Exercices · ":"")+s.questions.length+" question"+(s.questions.length>1?"s":"")+"</p>"+(DB.cats.length?"<select class='cs' onchange='setcat(\""+s.id+"\",this.value)'><option value=''>Sans matière</option>"+DB.cats.map(function(k){return "<option value=\""+esc(k.n)+"\""+(s.cat===k.n?" selected":"")+">"+esc(k.n)+"</option>"}).join("")+"</select>":"")+"<div class='row'><button class='btn' onclick='go(\"set\",\""+s.id+"\")'>Lancer</button><button class='btn s' onclick='go(\"exp\",\""+s.id+"\")'>Exporter</button></div><button class='btn d' onclick='del(\""+s.id+"\")'>"+(tmp.del===s.id?"Confirmer la suppression":"Supprimer")+"</button></div>"});
+ DB.sets.forEach(function(s){if(f&&s.cat!==f)return;if(s.kind==="an")return;h+="<div class='cd'>"+(s.cat?"<span class='bdg' style='background:"+catCol(s.cat)+"'>"+esc(s.cat)+"</span> ":"")+"<b>"+esc(s.name)+"</b><p class='mu'>"+(s.kind==="ex"?"Exercices · ":"")+s.questions.length+" question"+(s.questions.length>1?"s":"")+"</p>"+(DB.cats.length?"<select class='cs' onchange='setcat(\""+s.id+"\",this.value)'><option value=''>Sans matière</option>"+DB.cats.map(function(k){return "<option value=\""+esc(k.n)+"\""+(s.cat===k.n?" selected":"")+">"+esc(k.n)+"</option>"}).join("")+"</select>":"")+"<div class='row'><button class='btn' onclick='go(\"set\",\""+s.id+"\")'>Lancer</button><button class='btn s' onclick='go(\"exp\",\""+s.id+"\")'>Exporter</button>"+(EDM()?"<button class='btn s' onclick='go(\"edq\",\""+s.id+"\")'>🛠️ Modifier</button>":"")+"</div><button class='btn d' onclick='del(\""+s.id+"\")'>"+(tmp.del===s.id?"Confirmer la suppression":"Supprimer")+"</button></div>"});
  return h+(DB.sets.length?"<p class='mu'>Tes séries sont gardées dans ce navigateur seulement. Utilise « Sauvegarde » pour tout garder en lieu sûr.</p>":"")+"<button class='btn s' onclick='suInvite()'>🤝 Inviter un camarade</button>"+"<p class='mu' style='text-align:center'>☰ Statistiques, historique, réglages… : touche le menu en haut à droite.</p>"},
-imp:function(){var d=tmp.d||{t:"",nm:""},p=tmp.imp,h="<button class='back' onclick='go(\"home\")'>← Retour</button><h1>Importer</h1>"+aiBox()+"<p class='mu'>Exercices (TD) avec corrigé ? <button class='back' style='padding:0;font-size:14px' onclick='cp(\"e\",this)'>Copier le prompt Exercices</button></p><h3 class='aih'>📥 Colle le résultat</h3><label for='nm'>Nom de la série</label><input type='text' id='nm' value='"+esc(d.nm)+"' placeholder='Ex. Comptabilité – chapitre 2'><label for='ct'>Matière (facultatif)</label><input type='text' id='ct' list='cl' value='"+esc(d.ct||"")+"' placeholder='Ex. Comptabilité' autocomplete='off'><datalist id='cl'>"+DB.cats.map(function(k){return "<option value=\""+esc(k.n)+"\">"}).join("")+"</datalist><label for='ta'>Colle tes questions ici</label><textarea id='ta' placeholder='Q: …&#10;A) …&#10;B) …&#10;R: B'>"+esc(d.t)+"</textarea><label for='fi'>Ou ouvre un fichier .txt ou .pdf</label><input type='file' id='fi' accept='.txt,.pdf,text/plain,application/pdf' onchange='rf(this)'><div id='st' class='mu'></div><button class='btn s' onclick='an()'>Vérifier</button>";
+imp:function(){var d=tmp.d||{t:"",nm:""},p=tmp.imp,h="<button class='back' onclick='go(\"home\")'>← Retour</button><h1>Importer</h1>"+aiBox()+"<p class='mu'>Exercices (TD) avec corrigé ? <button class='back' style='padding:0;font-size:14px' onclick='cp(\"e\",this)'>Copier le prompt Exercices</button></p><p class='mu'>Ancien sujet d’examen ? <button class='back' style='padding:0;font-size:14px' onclick='copy(prAn(),this)'>Copier le prompt Annales</button></p><h3 class='aih'>📥 Colle le résultat</h3><label for='nm'>Nom de la série</label><input type='text' id='nm' value='"+esc(d.nm)+"' placeholder='Ex. Comptabilité – chapitre 2'><label for='ct'>Matière (facultatif)</label><input type='text' id='ct' list='cl' value='"+esc(d.ct||"")+"' placeholder='Ex. Comptabilité' autocomplete='off'><datalist id='cl'>"+DB.cats.map(function(k){return "<option value=\""+esc(k.n)+"\">"}).join("")+"</datalist><label for='ta'>Colle tes questions ici</label><textarea id='ta' placeholder='Q: …&#10;A) …&#10;B) …&#10;R: B'>"+esc(d.t)+"</textarea><label for='fi'>Ou ouvre un fichier .txt ou .pdf</label><input type='file' id='fi' accept='.txt,.pdf,text/plain,application/pdf' onchange='rf(this)'><div id='st' class='mu'></div><button class='btn s' onclick='an()'>Vérifier</button>";
  if(p){if(!p.n)h+="<div class='w'>"+(p.pdf?"Ce fichier est un PDF : l’appli ne lit que du texte. Demande à l’IA d’écrire les questions directement dans la conversation, puis copie-les et colle-les ici (ou enregistre-les dans un fichier .txt).":"Aucune question détectée. Chaque question doit commencer par « Q: ». Voir « Comment faire ».")+"</div>";
   else{h+="<div class='cd g'><b>"+p.Q.length+" question"+(p.Q.length>1?"s":"")+" valide"+(p.Q.length>1?"s":"")+"</b></div>";
    if(p.E.length)h+="<div class='cd b'><b>"+p.E.length+" à corriger</b>"+p.E.map(function(e){return "<p class='er'>"+esc(e)+"</p>"}).join("")+"</div>";
+   if(p.an&&p.Q.length){var ai=anInfo({questions:p.Q});h+="<div class='cd'><b>📝 Annale</b><p class='mu'><span>"+ai.nq+" QCM</span> · <span>"+ai.nx+" "+plur(ai.nx,"question")+" d’exercice</span> · <span>barème : "+String(ai.pt).replace(".",",")+" points</span> · <span>"+(p.du||120)+" min</span></p></div>"}
+   if(p.defi)h+="<div class='cd' style='border-left:5px solid var(--ac)'><b>⚔️ <span>Défi de</span> <span>"+esc(p.defi.w)+"</span></b><p class='mu'><span>Score à battre :</span> <b>"+fmtG(p.defi.g)+" / 20</b></p></div>";
    if(p.Q.length)h+="<button class='btn' onclick='sv()'>Enregistrer "+p.Q.length+" question"+(p.Q.length>1?"s":"")+"</button>"}}
  return h},
-set:function(){var s=gs(cur),n=s.questions.length,w=(s.wrong||[]).length;if(s.kind==="ex")return "<button class='back' onclick='go(\"home\")'>← Retour</button><h1>"+esc(s.name)+"</h1><p class='mu'>"+n+" questions d’exercice</p><h3>Mode</h3><label class='c'><input type='radio' name='m' value='libre' checked> Réviser les questions</label>"+(w?"<label class='c'><input type='radio' name='m' value='erreurs'> Mes "+w+" ratée"+(w>1?"s":"")+" de la dernière fois</label>":"")+"<label for='nq'>Nombre de questions</label><input type='number' id='nq' min='1' max='"+n+"' value='"+n+"'><label class='c'><input type='checkbox' id='sh'> Mélanger l’ordre</label><button class='btn' onclick='begin(\""+s.id+"\")'>Commencer</button>";
- return "<button class='back' onclick='go(\"home\")'>← Retour</button><h1>"+esc(s.name)+"</h1><p class='mu'>"+n+" questions</p><h3>Mode</h3><label class='c'><input type='radio' name='m' value='libre' checked> QCM libre : correction après chaque réponse</label><label class='c'><input type='radio' name='m' value='exam'> Examen chronométré : correction à la fin</label><label class='c'><input type='radio' name='m' value='flash'> Flashcards : touche la carte pour voir la réponse</label>"+(w?"<label class='c'><input type='radio' name='m' value='erreurs'> Mes "+w+" erreur"+(w>1?"s":"")+" de la dernière fois</label>":"")+"<label for='nq'>Nombre de questions</label><input type='number' id='nq' min='1' max='"+n+"' value='"+n+"'><label for='mn'>Durée en minutes (examen seulement)</label><input type='number' id='mn' min='1' value='"+Math.max(1,n)+"'><label for='qt'>Chrono par question, en secondes (QCM libre ; 0 = aucun)</label><input type='number' id='qt' min='0' max='300' value='0'><label class='c'><input type='checkbox' id='sh' checked> Mélanger les questions et les choix</label><button class='btn' onclick='begin(\""+s.id+"\")'>Commencer</button>"},
-quiz:function(){if(gs(SESS.setId).kind==="ex")return V.exq();if(SESS.mode==="flash")return V.flash();var S=SESS,s=gs(S.setId),i=S.i,q=s.questions[S.order[i]],pm=S.perm[i],a=S.ans[i],ex=S.mode==="exam",ci=pm.indexOf(q.r),n=S.order.length,un=S.ans.filter(function(x){return x===null}).length;
+set:function(){var s=gs(cur);if(!s)return V.home();if(s.kind==="an")return V.ast();var n=s.questions.length,w=(s.wrong||[]).length,du=srsDue(s).length,eb=EDM()?"<button class='btn s' onclick='go(\"edq\",\""+s.id+"\")'>🛠️ Examiner / modifier les questions</button>":"",dr=defiRes(s,-1).replace(/<p>.*?<\/p>/,"<p class='mu'>Score à battre. À toi de jouer !</p>");if(s.kind==="ex")return "<button class='back' onclick='go(\"home\")'>← Retour</button><h1>"+esc(s.name)+"</h1><p class='mu'>"+n+" questions d’exercice</p>"+dr+"<h3>Mode</h3><label class='c'><input type='radio' name='m' value='libre' checked> Réviser les questions</label>"+(du?"<label class='c'><input type='radio' name='m' value='srs'> Révision espacée : mes "+du+" "+(du>1?"questions":"question")+" du jour</label>":"")+(w?"<label class='c'><input type='radio' name='m' value='erreurs'> Mes "+w+" ratée"+(w>1?"s":"")+" de la dernière fois</label>":"")+"<label for='nq'>Nombre de questions</label><input type='number' id='nq' min='1' max='"+n+"' value='"+n+"'><label class='c'><input type='checkbox' id='sh'> Mélanger l’ordre</label><button class='btn' onclick='begin(\""+s.id+"\")'>Commencer</button>"+eb;
+ return "<button class='back' onclick='go(\"home\")'>← Retour</button><h1>"+esc(s.name)+"</h1><p class='mu'>"+n+" questions</p>"+dr+"<h3>Mode</h3><label class='c'><input type='radio' name='m' value='libre' checked> QCM libre : correction après chaque réponse</label><label class='c'><input type='radio' name='m' value='exam'> Examen chronométré : correction à la fin</label><label class='c'><input type='radio' name='m' value='flash'> Flashcards : touche la carte pour voir la réponse</label>"+(du?"<label class='c'><input type='radio' name='m' value='srs'> Révision espacée : mes "+du+" "+(du>1?"questions":"question")+" du jour</label>":"")+(w?"<label class='c'><input type='radio' name='m' value='erreurs'> Mes "+w+" erreur"+(w>1?"s":"")+" de la dernière fois</label>":"")+"<label for='nq'>Nombre de questions</label><input type='number' id='nq' min='1' max='"+n+"' value='"+n+"'><label for='mn'>Durée en minutes (examen seulement)</label><input type='number' id='mn' min='1' value='"+Math.max(1,n)+"'><label for='qt'>Chrono par question, en secondes (QCM libre ; 0 = aucun)</label><input type='number' id='qt' min='0' max='300' value='0'><label class='c'><input type='checkbox' id='neg'> Points négatifs en examen (−0,25 par mauvaise réponse)</label><label class='c'><input type='checkbox' id='sh' checked> Mélanger les questions et les choix</label><button class='btn' onclick='begin(\""+s.id+"\")'>Commencer</button>"+eb},
+quiz:function(){if(gs(SESS.setId).kind==="an")return V.anq();if(gs(SESS.setId).kind==="ex")return V.exq();if(SESS.mode==="flash")return V.flash();var S=SESS,s=gs(S.setId),i=S.i,q=s.questions[S.order[i]],pm=S.perm[i],a=S.ans[i],ex=S.mode==="exam",ci=pm.indexOf(q.r),n=S.order.length,un=S.ans.filter(function(x){return x===null}).length;
  var h="<div class='top'><span>"+MN[S.mode]+" · "+(i+1)+"/"+n+"</span>"+starBtn()+""+(S.end?"<b id='tm'></b>":"")+(S.qt&&a===null?"<b id='tq'></b>":"")+"</div><div class='bar'><i style='width:"+((i+1)/n*100)+"%'></i></div><h2>"+esc(q.q)+"</h2>";
  pm.forEach(function(k,p){var cl="opt";if(a===p)cl+=" sel";if(!ex&&a!==null){if(p===ci)cl=" opt ok";else if(p===a)cl="opt ko"}
   h+="<button class='"+cl+"' onclick='pick("+p+")'><b>"+L[p]+"</b><span>"+esc(q.c[k])+"</span></button>"});
- if(!ex&&a!==null)h+="<div class='cd'>"+(a===ci?"✅ Bonne réponse.":(a===-1?"⌛ Temps écoulé. ":"❌ Mauvaise réponse. ")+"La bonne réponse est "+L[ci]+".")+(q.e?"<p class='mu'>"+esc(q.e)+"</p>":"")+WN+"<button class='back' style='padding:4px 0' onclick='qEdit(\""+s.id+"\","+S.order[i]+")'>✏️ Corriger cette réponse</button></div>";
+ if(!ex&&a!==null)h+="<div class='cd'>"+(a===ci?"✅ Bonne réponse.":(a===-1?"⌛ Temps écoulé. ":"❌ Mauvaise réponse. ")+"La bonne réponse est "+L[ci]+".")+(q.e?"<p class='mu'>"+esc(q.e)+"</p>":"")+WN+"<button class='back' style='padding:4px 0' onclick='qEdit(\""+s.id+"\","+S.order[i]+")'>✏️ Corriger cette réponse</button>"+edBtn(s.id,S.order[i])+"</div>";
  h+="<div class='row'>";if(ex&&i>0)h+="<button class='btn s' onclick='mv(-1)'>← Précédent</button>";
  if(i<n-1){if(ex||a!==null)h+="<button class='btn' onclick='mv(1)'>Suivant →</button>"}else if(!ex&&a!==null)h+="<button class='btn' onclick='fin()'>Voir le résultat</button>";
  h+="</div>";
@@ -5196,22 +5708,23 @@ quiz:function(){if(gs(SESS.setId).kind==="ex")return V.exq();if(SESS.mode==="fla
  return h+"<button class='back' onclick='go(\"home\")'>Quitter et reprendre plus tard</button>"},
 flash:function(){var S=SESS,s=gs(S.setId),i=S.i,q=s.questions[S.order[i]],n=S.order.length,rv=tmp.rv===i;
  var h="<div class='top'><span>Flashcards · "+(i+1)+"/"+n+"</span>"+starBtn()+"</div><div class='bar'><i style='width:"+((i+1)/n*100)+"%'></i></div>";
- h+="<div class='cd fc' onclick='tmp.rv="+i+";R(true)'><h2 style='margin:0 0 12px'>"+esc(q.q)+"</h2>"+(rv?"<p><b>"+esc(q.c[q.r])+"</b></p>"+(q.e?"<p class='mu'>"+esc(q.e)+"</p>":"")+WN+"<button class='back' style='padding:4px 0' onclick='event.stopPropagation();qEdit(\""+s.id+"\","+S.order[i]+")'>✏️ Corriger cette réponse</button>":"<p class='mu'>Touche la carte pour voir la réponse</p>")+"</div>";
+ h+="<div class='cd fc' onclick='tmp.rv="+i+";R(true)'><h2 style='margin:0 0 12px'>"+esc(q.q)+"</h2>"+(rv?"<p><b>"+esc(q.c[q.r])+"</b></p>"+(q.e?"<p class='mu'>"+esc(q.e)+"</p>":"")+WN+"<button class='back' style='padding:4px 0' onclick='event.stopPropagation();qEdit(\""+s.id+"\","+S.order[i]+")'>✏️ Corriger cette réponse</button>"+edBtn(s.id,S.order[i]):"<p class='mu'>Touche la carte pour voir la réponse</p>")+"</div>";
  if(rv)h+="<div class='row'><button class='btn d' onclick='frate(0)'>À revoir</button><button class='btn' onclick='frate(1)'>Je savais</button></div>";
  return h+"<button class='back' onclick='go(\"home\")'>Quitter et reprendre plus tard</button>"},
 exq:function(){var S=SESS,s=gs(S.setId),i=S.i,q=s.questions[S.order[i]],a=S.ans[i],n=S.order.length,isn=q.n!=="";
  var h="<div class='top'><span>Exercices · "+(i+1)+"/"+n+"</span>"+starBtn()+"</div><div class='bar'><i style='width:"+((i+1)/n*100)+"%'></i></div><p class='mu'>"+esc(q.t)+"</p>"+(q.s?"<div class='cd' style='white-space:pre-wrap'>"+rich(q.s)+"</div>":"")+"<h2 style='white-space:pre-wrap'>"+rich(q.q)+"</h2>";
- if(a){h+="<div class='cd "+(a.ok?"g":"b")+"'><b>"+(a.ok?"✅ Réussi":"❌ Raté")+"</b>"+(a.v?"<p>Ta réponse : "+esc(a.v)+"</p>":"")+"<p style='white-space:pre-wrap'>"+rich(q.c)+"</p>"+WN+"</div>";h+=i<n-1?"<button class='btn' onclick='mv(1)'>Suivant →</button>":"<button class='btn' onclick='fin()'>Voir le résultat</button>"}
+ if(a){h+="<div class='cd "+(a.ok?"g":"b")+"'><b>"+(a.ok?"✅ Réussi":"❌ Raté")+"</b>"+(a.v?"<p>Ta réponse : "+esc(a.v)+"</p>":"")+"<p style='white-space:pre-wrap'>"+rich(q.c)+"</p>"+WN+edBtn(s.id,S.order[i])+"</div>";h+=i<n-1?"<button class='btn' onclick='mv(1)'>Suivant →</button>":"<button class='btn' onclick='fin()'>Voir le résultat</button>"}
  else if(tmp.sh===i){h+="<div class='cd' style='white-space:pre-wrap'>"+rich(q.c)+"</div>"+WN+"<p>Avais-tu juste ?</p><div class='row'><button class='btn' onclick='rate(1)'>✅ Réussi</button><button class='btn d' onclick='rate(0)'>❌ Raté</button></div>"}
  else{if(isn)h+="<label for='nv'>Ta réponse (un nombre)</label><input type='text' id='nv' inputmode='decimal'><button class='btn' onclick='chk()'>Vérifier</button>";
   h+="<button class='btn s' onclick='"+(isn?"rate(0)":"tmp.sh="+i+";R(true)")+"'>"+(isn?"Voir le corrigé (compte comme raté)":"Voir le corrigé")+"</button>"}
  return h+"<button class='back' onclick='go(\"home\")'>Quitter et reprendre plus tard</button>"},
-res:function(){var r=tmp.res;if(!r)return V.home();var S=r.S,s=r.s,t=S.order.length,pc=Math.round(r.sc/t*100);
- var h="<h1>Résultat</h1><div class='cd'><div class='big'>"+r.sc+" / "+t+"</div><p class='mu'>"+pc+" % · "+MN[S.mode]+" · "+esc(s.name)+"</p></div>";
+res:function(){var r=tmp.res;if(!r)return V.home();var S=r.S,s=r.s,t=S.order.length,pc=Math.round(r.sc/t*100),g=r.g!=null?r.g:g20(r.sc/t*20);
+ if(r.an)return "<h1>Résultat</h1><div class='cd'><p class='mu'>Ta note</p><div class='big'>"+fmtG(g)+" / 20</div><p class='mu'><span>"+String(r.an.e).replace(".",",")+" / "+String(r.an.t).replace(".",",")+" points</span> · <span>"+esc(s.name)+"</span></p></div>"+defiRes(s,g)+"<button class='btn' onclick='defi(this)'>⚔️ Défier un ami</button><button class='btn s' onclick='go(\"ann\")'>📝 Annales</button><button class='btn s' onclick='go(\"home\")'>Accueil</button>";
+ var h="<h1>Résultat</h1><div class='cd'><p class='mu'>Ta note</p><div class='big'>"+fmtG(g)+" / 20</div><p class='mu'><span>"+r.sc+" / "+t+"</span> <span>bonnes réponses</span> · <span>"+pc+" %</span> · <span>"+MN[S.mode]+"</span> · <span>"+esc(s.name)+"</span></p>"+(S.neg?"<p class='mu'><span>Points négatifs : −0,25 par mauvaise réponse</span> <span>("+(r.wa||0)+")</span></p>":"")+"</div>"+defiRes(s,g);
  if(s.wrong.length)h+="<button class='btn' onclick='start(\""+s.id+"\",\"erreurs\","+JSON.stringify(s.wrong)+","+s.wrong.length+",0,true)'>Refaire mes "+s.wrong.length+" erreur"+(s.wrong.length>1?"s":"")+"</button>";
- h+="<button class='btn s' onclick='go(\"home\")'>Accueil</button><h3>Correction</h3>"+WN+"";
- S.order.forEach(function(qi,i){var q=s.questions[qi],pm=S.perm[i],a=S.ans[i],ok=a===pm.indexOf(q.r);if(S.mode==="flash"){ok=!!(a&&a.ok);h+="<div class='cd "+(ok?"g":"b")+"'><b>"+(i+1)+". "+esc(q.q)+"</b><p>"+esc(q.c[q.r])+"</p>"+(q.e?"<p class='mu'>"+esc(q.e)+"</p>":"")+"</div>";return}if(s.kind==="ex"){ok=!!(a&&a.ok);h+="<div class='cd "+(ok?"g":"b")+"'><b>"+(i+1)+". "+esc(q.q)+"</b>"+(a&&a.v?"<p>Ta réponse : "+esc(a.v)+"</p>":"")+"<p style='white-space:pre-wrap'>"+rich(q.c)+"</p></div>";return}
-  h+="<div class='cd "+(ok?"g":"b")+"'><b>"+(i+1)+". "+esc(q.q)+"</b><p>Ta réponse : "+(a===null||a===-1?"aucune":esc(q.c[pm[a]]))+"</p>"+(ok?"":"<p>Bonne réponse : "+esc(q.c[q.r])+"</p>")+(q.e?"<p class='mu'>"+esc(q.e)+"</p>":"")+"<button class='back' style='padding:4px 0' onclick='qEdit(\""+s.id+"\","+qi+")'>✏️ Corriger cette réponse</button></div>"});
+ h+="<button class='btn s' onclick='defi(this)'>⚔️ Défier un ami</button><button class='btn s' onclick='go(\"home\")'>Accueil</button><h3>Correction</h3>"+WN+"";
+ S.order.forEach(function(qi,i){var q=s.questions[qi],pm=S.perm[i],a=S.ans[i],ok=a===pm.indexOf(q.r);if(S.mode==="flash"){ok=!!(a&&a.ok);h+="<div class='cd "+(ok?"g":"b")+"'><b>"+(i+1)+". "+esc(q.q)+"</b><p>"+esc(q.c[q.r])+"</p>"+(q.e?"<p class='mu'>"+esc(q.e)+"</p>":"")+"</div>";return}if(s.kind==="ex"){ok=!!(a&&a.ok);h+="<div class='cd "+(ok?"g":"b")+"'><b>"+(i+1)+". "+esc(q.q)+"</b>"+(a&&a.v?"<p>Ta réponse : "+esc(a.v)+"</p>":"")+"<p style='white-space:pre-wrap'>"+rich(q.c)+"</p>"+edBtn(s.id,qi)+"</div>";return}
+  h+="<div class='cd "+(ok?"g":"b")+"'><b>"+(i+1)+". "+esc(q.q)+"</b><p>Ta réponse : "+(a===null||a===-1?"aucune":esc(q.c[pm[a]]))+"</p>"+(ok?"":"<p>Bonne réponse : "+esc(q.c[q.r])+"</p>")+(q.e?"<p class='mu'>"+esc(q.e)+"</p>":"")+"<button class='back' style='padding:4px 0' onclick='qEdit(\""+s.id+"\","+qi+")'>✏️ Corriger cette réponse</button>"+edBtn(s.id,qi)+"</div>"});
  return h},
 info:function(){return "<button class='back' onclick='go(\"home\")'>← Retour</button><h1>Guide</h1><p class='mu'>Tout ce qu’il faut savoir pour bien utiliser l’appli.</p>"
 +"<div class='cd'><b>À quoi ça sert</b><p>L’appli est vide au départ : tu y mets tes propres questions ou exercices, elle te fait réviser et te note. Rien n’est envoyé sur Internet.</p></div>"
@@ -5222,8 +5735,8 @@ info:function(){return "<button class='back' onclick='go(\"home\")'>← Retour</
 +"<div class='cd'><b>Les modes</b><p>QCM libre : la correction s’affiche après chaque réponse. Examen : tu choisis la durée, la correction vient à la fin, tu peux changer de réponse, et il se termine tout seul quand le temps est écoulé. Erreurs : seulement les questions ratées la dernière fois. Exercices : tu fais l’exercice sur papier, tu affiches le corrigé et tu te notes.</p></div>"
 +"<div class='cd'><b>Exercices et réponses chiffrées</b><p>Quand la question attend un nombre, tape-le (virgule ou point) : l’appli accepte une petite marge d’arrondi. Les tableaux écrits avec le symbole | (une ligne par ligne du tableau) s’affichent en vrai tableau. Pour les graphiques, note-toi toi-même avec le corrigé.</p></div>"
 +"<div class='cd'><b>Reprendre plus tard</b><p>« Quitter et reprendre plus tard » garde ta progression : touche « Reprendre » sur l’accueil. Il n’y a qu’une session en cours à la fois : en lancer une nouvelle remplace l’ancienne. Dans un examen, le chrono continue même si tu quittes.</p></div>"
-+"<div class='cd'><b>Hors ligne et installation</b><p>Après une première ouverture avec Internet, ScoreUp s’enregistre sur ton appareil et peut s’ouvrir sans connexion. Seule la lecture d’un PDF demande Internet. Pour l’avoir comme une appli : sur Android, menu du navigateur puis « Installer l’application » ; sur iPhone, bouton Partager puis « Sur l’écran d’accueil ».</p></div><div class='cd'><b>Séries d’exemple</b><p>5 séries de révision (chapitre 1) sont fournies pour tester ScoreUp : comptabilité, marketing, droit, management et statistiques. Tu peux les supprimer, et ce bouton te les redonne.</p><button class='btn s' onclick='ad(this)'>Ajouter les séries d’exemple</button></div><div class='cd'><b>Nouveautés</b><p>Matières avec couleurs (à l’import, ou depuis la liste), statistiques globales et par matière, série de jours de révision, flashcards (touche la carte pour voir la réponse) et mode sombre ou clair en haut de l’accueil, favoris (étoile), sauvegarde complète et mode transport (boutons de navigation en bas).</p></div>"
-+"<div class='cd'><b>Mon école</b><p>Au premier lancement, choisis ton école (Management, Droit, Ingénieurs, Digital Campus ou Madiba Leadership Institute). Tu vois ses principales filières et tu peux importer 5 séries de démarrage de 20 questions, niveau L1. Tu peux changer d’école ou ajouter ses séries plus tard depuis « ⚙️ Réglages ».</p></div>"
++"<div class='cd'><b>Hors ligne et installation</b><p>Après une première ouverture avec Internet, ScoreUp s’enregistre sur ton appareil et peut s’ouvrir sans connexion. Seule la lecture d’un PDF demande Internet. Pour l’avoir comme une appli : sur Android, menu du navigateur puis « Installer l’application » ; sur iPhone, bouton Partager puis « Sur l’écran d’accueil ».</p></div><div class='cd'><b>Séries d’exemple</b><p>5 séries de révision (chapitre 1) sont fournies pour tester ScoreUp : comptabilité, marketing, droit, management et statistiques, ainsi que 5 exercices corrigés de comptabilité (chapitres 1 et 2). Tu peux les supprimer, et ce bouton te les redonne.</p><button class='btn s' onclick='ad(this)'>Ajouter les séries d’exemple</button></div><div class='cd'><b>Nouveautés</b><p>Matières avec couleurs (à l’import, ou depuis la liste), statistiques globales et par matière, série de jours de révision, flashcards (touche la carte pour voir la réponse) et mode sombre ou clair en haut de l’accueil, favoris (étoile), sauvegarde complète et mode transport (boutons de navigation en bas).</p></div>"
++"<div class='cd'><b>Note sur 20</b><p>Chaque séance donne une note sur 20, comme à l’examen. En mode Examen, tu peux activer les points négatifs : −0,25 par mauvaise réponse (une question sans réponse vaut 0).</p></div><div class='cd'><b>Révision espacée</b><p>Chaque question a sa propre date de retour. Ratée : elle revient le jour même. Juste : elle revient après 1 jour, puis 3, 7, 15 et 30 jours. Ouvre l’appli chaque jour et suis « 🔁 À revoir aujourd’hui ».</p></div><div class='cd'><b>Mes examens</b><p>Ajoute la date de tes partiels (menu ☰, « Mes examens ») : l’accueil affiche le compte à rebours et le nombre de questions à revoir par jour pour être prêt(e) à temps.</p></div><div class='cd'><b>Points faibles</b><p>Dans « Statistiques », tes séries sont classées de la plus faible à la plus solide, avec un bouton pour réviser directement le chapitre à retravailler.</p></div><div class='cd'><b>Annales</b><p>Entraîne-toi sur d’anciens sujets d’examen : QCM et exercices, chronométrés. Copie le prompt Annales, donne-le à une IA avec une photo ou un PDF du sujet, puis importe sa réponse. À la fin, QCM et réponses chiffrées sont notés tout seuls ; pour le reste, tu te notes avec le corrigé. Tu obtiens une note sur 20.</p></div><div class='cd'><b>Défier un ami</b><p>Après une séance, touche « ⚔️ Défier un ami » : ton ami reçoit la série et ton score par WhatsApp, l’importe dans ScoreUp et tente de faire mieux.</p></div><div class='cd'><b>Rechercher</b><p>Retrouve n’importe quelle question ou notion (par exemple « amortissement ») dans toutes tes séries.</p></div><div class='cd'><b>Mode édition</b><p>Dans « ⚙️ Réglages », active le mode édition pour corriger une question fausse, en ajouter ou en supprimer, sans supprimer toute la série.</p></div><div class='cd'><b>Mon école</b><p>Au premier lancement, choisis ton école (Management, Droit, Ingénieurs, Digital Campus ou Madiba Leadership Institute). Tu vois ses principales filières et tu peux importer 5 séries de démarrage de 20 questions, niveau L1. Tu peux changer d’école ou ajouter ses séries plus tard depuis « ⚙️ Réglages ».</p></div>"
 +"<div class='cd'><b>Import</b><p>L’appli vérifie le format et indique la ligne à corriger. Les doublons sont ignorés. Un PDF doit contenir du vrai texte : une photo ou un scan ne marche pas. Les questions et les choix sont mélangés si la case est cochée, donc la lettre de la bonne réponse change d’un essai à l’autre.</p></div>"
 +"<div class='cd'><b>Fiabilité</b><p>Une IA peut se tromper. Vérifie les réponses et les corrigés, surtout les calculs, avec ton cours ou ton prof avant de t’y fier ou de les partager. Demande aussi l’accord de ton prof avant de partager ses fiches.</p></div>"
 +"<div class='cd'><b>Réglages</b><p>Le bouton ☰ en haut à droite ouvre le menu : Accueil, Statistiques, Historique, Favoris, Sauvegarde, Réglages, aide, thème et mode transport, depuis n’importe quel écran. Le bouton retour du téléphone ramène à l’accueil. « ⚙️ Réglages » regroupe : ton école, ton prénom, la langue, le thème, le mode transport, l’installation de l’appli, ta licence et ton identifiant, tes données et le contact Thousand Labs.</p></div><div class='cd'><b>Bon à savoir</b><p>Supprimer une série demande deux touches, pour éviter les erreurs. L’historique garde tes 100 derniers résultats.</p></div>"},
@@ -5244,6 +5757,7 @@ reg:function(){var th=null;try{th=localStorage.getItem("qcm_th")}catch(e){}th=th
  var ms=mySchool();h+="<div class='cd'><b>🎓 Mon école</b><p>"+(ms?ms.ico+" "+esc(ms.nom):"Aucune école choisie")+"</p><button class='btn s' onclick='tmp.ec=null;go(\"ecole\",\"reg\")'>"+(ms?"Changer d’école":"Choisir mon école")+"</button>"+(ms?"<button class='btn s' onclick='ad(this)'>Ajouter les séries de mon école</button>":"")+"</div>";
  h+="<div class='cd'><b>🌍 Langue</b>"+TLL.switcher(true)+"</div>";
  h+="<div class='cd'><b>🎨 Apparence</b><div class='chips'>"+[["auto","📱 Automatique"],["light","☀️ Clair"],["dark","🌙 Sombre"]].map(function(x){return "<button class='chip"+(th===x[0]?" on":"")+"' onclick='rgTheme(\""+x[0]+"\")'>"+x[1]+"</button>"}).join("")+"</div><label class='c'><input type='checkbox' "+(TH?"checked":"")+" onchange='thumb()'> Mode transport : boutons de navigation en bas de l’écran pendant les quiz</label></div>";
+ h+="<div class='cd'><b>🛠️ Mode édition</b><p class='mu'>Une série contient une erreur ? Au lieu de la supprimer, active ce mode : un bouton « Modifier » apparaît sur chaque série et pendant les révisions, pour corriger, ajouter ou supprimer des questions.</p><label class='c'><input type='checkbox' "+(EDM()?"checked":"")+" onchange='edmT()'> Examiner et modifier les questions</label></div>";
  h+="<div class='cd'><b>📲 Installer l’application</b><div style='margin-top:8px'>"+TLI.html("ScoreUp","btn")+"</div></div>";
  h+="<div class='cd'><b>🔑 Licence</b><p>"+(ts==="act"?"✅ ScoreUp est activé sur cet appareil.":ts==="trial"?"🎁 Essai gratuit en cours : il reste "+leftTxt()+".":ts==="cheat"?"🔒 Appli verrouillée (heure de l’appareil reculée).":"⏰ Essai gratuit terminé.")+"</p><p class='mu'>Identifiant d’appareil</p><pre>"+id+"</pre><div class='row'><button class='btn s' onclick='copy(\""+id+"\",this)'>Copier</button><button class='btn s' onclick='suShowQR()'>🔳 QR</button></div>"+(ts==="act"?"":"<button class='btn' onclick='gate()'>Activer ScoreUp</button>")+"<a class='btn' style='background:#25d366;color:#fff;text-align:center;text-decoration:none;line-height:24px' href='https://wa.me/221711216581?text="+encodeURIComponent("Bonjour, j’ai une question sur ScoreUp. Mon identifiant d’appareil : "+id)+"' target='_blank' rel='noopener'>💬 Contacter Thousand Labs</a></div>";
  h+="<div class='cd'><b>💾 Mes données</b><p class='mu'>"+DB.sets.length+" série"+(DB.sets.length>1?"s":"")+" · "+DB.hist.length+" résultat"+(DB.hist.length>1?"s":"")+" dans l’historique · "+DB.fav.length+" favori"+(DB.fav.length>1?"s":"")+"</p><button class='btn s' onclick='go(\"bk\")'>Sauvegarder ou restaurer</button><button class='btn d' onclick='rgClear(\"h\")'>"+(tmp.rc==="h"?"Confirmer : effacer historique et statistiques":"Effacer l’historique et les statistiques")+"</button><p class='mu'>Tes séries sont gardées.</p></div>";
@@ -5253,7 +5767,7 @@ reg:function(){var th=null;try{th=localStorage.getItem("qcm_th")}catch(e){}th=th
  h+="<div class='cd b'><b>⚠️ Zone sensible</b><button class='btn d' onclick='rgClear(\"all\")'>"+(tmp.rc==="all"?"Confirmer : tout effacer":"Tout effacer (séries, historique, favoris)")+"</button><p class='mu'>L’activation et ton prénom sont conservés. Fais une sauvegarde avant.</p></div>";
  return h},
 fav:function(){var h="<button class='back' onclick='go(\"home\")'>← Retour</button><h1>Favoris ★</h1>",n=0;
- DB.fav.forEach(function(k){var p=k.split(":"),st=gs(p[0]),q=st&&st.questions[+p[1]];if(!q)return;n++;var ex=st.kind==="ex",an=ex?q.c:q.c[q.r],op=tmp.fv===k;
+ DB.fav.forEach(function(k){var p=k.split(":"),st=gs(p.slice(0,-1).join(":")),q=st&&st.questions[+p[p.length-1]];if(!q)return;n++;var ex=st.kind==="ex"||(st.kind==="an"&&q.ty==="x"),an=ex?q.c:q.c[q.r],op=tmp.fv===k;
   h+="<div class='cd'>"+(st.cat?"<span class='bdg' style='background:"+catCol(st.cat)+"'>"+esc(st.cat)+"</span> ":"")+"<span class='mu'>"+esc(st.name)+"</span><p><b style='white-space:pre-wrap'>"+esc(ex&&q.t?q.t+" – "+q.q:q.q)+"</b></p>"+(op?"<p style='white-space:pre-wrap'>"+esc(an)+"</p>"+(!ex&&q.e?"<p class='mu'>"+esc(q.e)+"</p>":"")+WN:"")+"<div class='row'><button class='btn s' onclick='"+(op?"tmp.fv=null":"tmp.fv=\""+k+"\"")+";R(true)'>"+(op?"Masquer":"Voir la réponse")+"</button><button class='btn d' onclick='unfav(\""+k+"\")'>Retirer</button></div></div>"});
  if(!n)h+="<p class='mu'>Aucune question en favori. Touche l’étoile ☆ pendant un quiz pour en ajouter.</p>";return h},
 bk:function(){var b=tmp.bk,h="<button class='back' onclick='go(\"home\")'>← Retour</button><h1>Sauvegarde</h1><p class='mu'>Garde une copie de tout (séries, historique, statistiques, matières, favoris), ou récupère-la sur un nouveau téléphone. Le code d’activation n’est pas inclus : un nouvel appareil a besoin de son propre code.</p>";
@@ -5265,14 +5779,70 @@ stats:function(){var S=DB.stats,h="<button class='back' onclick='go(\"home\")'>�
  h+="<div class='cd'><p class='mu'>Taux de réussite global</p><div class='big'>"+pc+" %</div><div class='bar'><i style='width:"+pc+"%'></i></div><p class='mu'>"+t.s+" bonnes réponses sur "+t.t+" · "+t.n+" séance"+(t.n>1?"s":"")+"</p></div>";
  h+="<div class='cd'><b>Série en cours : "+st.n+" jour"+(st.n>1?"s":"")+"</b><p class='mu'>Meilleure série : "+Math.max(DB.best||0,st.n)+" jour"+(Math.max(DB.best||0,st.n)>1?"s":"")+"</p></div>"+reg()+"<h3>Par matière</h3>";
  Object.keys(S.c).forEach(function(k){var x=S.c[k],p=Math.round(x.s/x.t*100),col=catCol(k);h+="<div class='cd'><span class='bdg' style='background:"+col+"'>"+esc(k)+"</span><b style='float:right'>"+p+" %</b><div class='bar'><i style='width:"+p+"%;background:"+col+"'></i></div><p class='mu'>"+x.n+" séance"+(x.n>1?"s":"")+" · "+x.s+"/"+x.t+" bonnes réponses</p></div>"});
+ var PS=perSet();if(PS.length){h+="<h3>🎯 Points faibles par chapitre</h3><p class='mu'>D’après tes 5 dernières séances sur chaque série, du plus faible au plus solide.</p>";
+  PS.forEach(function(r){var lv=lvl(r.p);h+="<div class='cd'>"+(r.s.cat?"<span class='bdg' style='background:"+catCol(r.s.cat)+"'>"+esc(r.s.cat)+"</span> ":"")+"<b>"+esc(r.s.name)+"</b><b style='float:right;color:"+lv[0]+"'>"+r.p+" %</b><div class='bar'><i style='width:"+r.p+"%;background:"+lv[0]+"'></i></div><p class='mu'><span style='color:"+lv[0]+";font-weight:600'>"+lv[1]+"</span> · <span>"+r.n+" "+plur(r.n,"séance")+"</span></p>"+(r.p<70?"<button class='btn s' onclick='go(\"set\",\""+r.s.id+"\")'>Réviser ce chapitre</button>":"")+"</div>"})}
+ var AH=DB.hist.filter(function(x){return x.m==="annale"});if(AH.length){h+="<h3>📝 Annales</h3>";AH.slice(0,10).forEach(function(x){h+="<div class='cd'><b>"+fmtG(x.g)+" / 20</b><p class='mu'>"+esc(x.n)+" · "+dt(x.d)+"</p></div>"})}
  return h},
 hist:function(){var h="<button class='back' onclick='go(\"home\")'>← Retour</button><h1>Historique</h1>";
  if(!DB.hist.length)return h+"<p class='mu'>Aucun résultat pour l’instant.</p>";
- DB.hist.forEach(function(x){h+="<div class='cd'><b>"+x.s+" / "+x.t+"</b> · "+Math.round(x.s/x.t*100)+" %<p class='mu'>"+esc(x.n)+" · "+MN[x.m]+" · "+dt(x.d)+"</p></div>"});
+ DB.hist.forEach(function(x){h+="<div class='cd'>"+(x.m==="annale"?"<b>"+fmtG(x.g)+" / 20</b>":(x.g!=null?"<b>"+fmtG(x.g)+" / 20</b> · ":"")+"<span>"+x.s+" / "+x.t+"</span> · <span>"+Math.round(x.s/x.t*100)+" %</span>")+"<p class='mu'>"+esc(x.n)+" · "+MN[x.m]+" · "+dt(x.d)+"</p></div>"});
  return h},
 exp:function(){var s=gs(cur);return "<button class='back' onclick='go(\"home\")'>← Retour</button><h1>Exporter</h1><p class='mu'>Copie ce texte et envoie-le à un ami : il l’importera dans son appli.</p><button class='btn' onclick='cp(\"s\",this)'>Copier la série</button><pre>"+esc(txtOf(s))+"</pre>"},
 help:function(){return "<button class='back' onclick='go(\"home\")'>← Retour</button><h1>Comment faire</h1><h3>1. Génère tes questions</h3><p>Choisis le type de QCM, copie le prompt, colle-le dans Claude, Gemini ou ChatGPT, puis ajoute ton cours à la fin.</p>"+aiBox().replace("<h3 class='aih'>🤖 Génère tes QCM avec une IA</h3>","")+"<details><summary class='mu'>Prompt classique (20 QCM sur le cours fourni)</summary><button class='btn s' onclick='cp(\"p\",this)'>Copier le prompt</button><pre>"+esc(PR("p"))+"</pre></details><h3>2. Relis les réponses</h3><p>Une IA peut se tromper. Vérifie les bonnes réponses avant de t’en servir : la qualité des questions dépend de ta source.</p><h3>3. Importe</h3><p>Copie le résultat de l’IA, puis colle-le dans « Importer des questions ». L’appli vérifie le format et indique la ligne à corriger si besoin.</p><p>Tu peux aussi importer un PDF qui contient du texte. Seule cette lecture du PDF demande une connexion Internet ; le reste de l’appli n’en a pas besoin.</p><h3>Exercices (TD)</h3><p>Pour t’entraîner sur des exercices avec corrigé : copie ce prompt, colle-le dans une IA avec l’énoncé écrit en texte (pas en photo), puis importe le résultat comme d’habitude. Compare toujours le corrigé avec celui de ton prof : une IA peut se tromper dans les calculs.</p><button class='btn s' onclick='cp(\"e\",this)'>Copier le prompt pour exercices</button><pre>"+esc(PR("e"))+"</pre><h3>Format attendu</h3><pre>"+(TLL.lang()==="en"?"Q: What is the capital of Senegal?\nA) Thiès\nB) Dakar\nC) Saint-Louis\nD) Kaolack\nR: B\nE: Dakar has been the capital since independence.":"Q: Quelle est la capitale du Sénégal ?\nA) Thiès\nB) Dakar\nC) Saint-Louis\nD) Kaolack\nR: B\nE: Dakar est la capitale depuis l’indépendance.")+"</pre><p class='mu'>La ligne E: est facultative. Les autres sont obligatoires.</p>"}
 };
+/* ---------- Nouveaux écrans ---------- */
+V.goals=function(){var h="<button class='back' onclick='go(\"home\")'>← Retour</button><h1>📅 Mes examens</h1><p class='mu'>Ajoute la date de tes partiels : l’accueil affiche le compte à rebours et le nombre de questions à revoir chaque jour pour être prêt(e) à temps.</p>";
+ var G=(DB.goals||[]).slice().sort(function(a,b){return a.d<b.d?-1:1});
+ G.forEach(function(g){var d=dDiff(g.d);h+="<div class='cd'><b>"+esc(g.n)+"</b>"+(g.c?" <span class='bdg' style='background:"+catCol(g.c)+"'>"+esc(g.c)+"</span>":"")+"<p class='mu'><span>"+dt(g.d+"T00:00:00")+"</span> · <span>"+(d<0?"passé":d===0?"aujourd’hui":"J-"+d)+"</span></p><button class='btn d' onclick='goalDel(\""+g.id+"\")'>Retirer</button></div>"});
+ h+="<div class='cd'><b>➕ Ajouter un examen</b><label for='gn'>Nom de l’examen</label><input type='text' id='gn' maxlength='40' placeholder='Ex. Partiel de comptabilité'><label for='gd'>Date</label><input type='date' id='gd' min='"+ds(new Date())+"'><label for='gc2'>Matière</label><select id='gc2'><option value=''>Toutes mes séries</option>"+DB.cats.map(function(k){return "<option value=\""+esc(k.n)+"\">"+esc(k.n)+"</option>"}).join("")+"</select><p class='er'>"+esc(tmp.ge||"")+"</p><button class='btn' onclick='goalAdd()'>Ajouter</button></div>";
+ return h+"<p class='mu'>Une question est considérée comme maîtrisée quand tu y as bien répondu au moins 3 fois de suite, à quelques jours d’intervalle (révision espacée).</p>"};
+V.find=function(){return "<button class='back' onclick='go(\"home\")'>← Retour</button><h1>🔍 Rechercher</h1><input type='text' id='fqi' value='"+esc(tmp.fq||"")+"' placeholder='Ex. amortissement, bilan, prudence…' oninput='findRun(this.value)' autocomplete='off'><div id='fr'>"+findHtml(tmp.fq||"")+"</div>"};
+V.edq=function(){var s=gs(cur);if(!s)return V.home();var back=s.kind==="an"?"ast":"set";
+ var h="<button class='back' onclick='go(\""+back+"\",\""+s.id+"\")'>← Retour</button><h1>🛠️ Modifier la série</h1><div class='cd'><label for='ern' style='margin-top:0'>Nom de la série</label><input type='text' id='ern' maxlength='80' value='"+esc(s.name)+"'><button class='btn s' onclick='setRen(\""+s.id+"\")'>Enregistrer le nom</button></div>";
+ h+="<p class='mu'><span>"+s.questions.length+"</span> <span>"+plur(s.questions.length,"question")+"</span>. Touche une question pour la modifier ou la supprimer.</p>";
+ var pv="";s.questions.forEach(function(q,i){var ty=qType(s,q),hd="";if(ty==="x"){var k=q.t+"\u0001"+q.s;if(k!==pv){hd="<h3>"+esc(q.t)+"</h3>";pv=k}}else pv="";
+  h+=hd+"<button class='cd ecb' style='display:block' onclick='qForm(\""+s.id+"\","+i+")'><span class='mu'>"+(i+1)+". "+(ty==="q"?"QCM":"Exercice")+(s.kind==="an"?" · "+String(q.p).replace(".",",")+" pt"+(q.p>1?"s":""):"")+"</span><span style='display:block;white-space:pre-wrap'><b>"+esc(q.q.length>220?q.q.slice(0,220)+"…":q.q)+"</b></span><span class='mu' style='display:block'>"+(ty==="q"?"✓ "+esc(q.c[q.r]):(q.n!==""?"N : "+esc(q.n):"Corrigé à comparer"))+"</span></button>"});
+ h+="<div class='row'>"+(s.kind!=="ex"?"<button class='btn s' onclick='qForm(\""+s.id+"\",-1,\"q\")'>➕ QCM</button>":"")+(s.kind!=="qcm"?"<button class='btn s' onclick='qForm(\""+s.id+"\",-1,\"x\")'>➕ Question d’exercice</button>":"")+"</div>";
+ return h};
+V.ann=function(){var A=DB.sets.filter(function(s){return s.kind==="an"});
+ var h="<button class='back' onclick='go(\"home\")'>← Retour</button><h1>📝 Annales</h1><p class='mu'>Entraîne-toi sur de vrais sujets d’examen des années passées : QCM et exercices, chronométrés, avec une note sur 20.</p>";
+ if(!A.length)h+="<div class='cd'><p>Aucune annale pour l’instant. Ajoute ton premier sujet en suivant les étapes ci-dessous.</p></div>";
+ A.forEach(function(s){var l=anLast(s);h+="<div class='cd'>"+(s.cat?"<span class='bdg' style='background:"+catCol(s.cat)+"'>"+esc(s.cat)+"</span> ":"")+"<b>"+esc(s.name)+"</b><p class='mu'>"+anLine(s)+"</p>"+(l?"<p class='mu'><span>Dernière note :</span> <b>"+fmtG(l.g)+" / 20</b></p>":"")
+  +"<div class='row'><button class='btn' onclick='go(\"ast\",\""+s.id+"\")'>Commencer</button><button class='btn s' onclick='go(\"exp\",\""+s.id+"\")'>Exporter</button></div>"+(EDM()?"<button class='btn s' onclick='go(\"edq\",\""+s.id+"\")'>🛠️ Modifier</button>":"")+"<button class='btn d' onclick='del(\""+s.id+"\")'>"+(tmp.del===s.id?"Confirmer la suppression":"Supprimer")+"</button></div>"});
+ h+="<h3>➕ Ajouter une annale</h3><ol class='aist'><li>Retrouve un ancien sujet d’examen : photo, PDF ou texte.</li><li>Copie le prompt ci-dessous, colle-le dans Claude, Gemini ou ChatGPT, puis joins le sujet (photo ou PDF acceptés).</li><li>Copie la réponse de l’IA, touche « Importer une annale » et colle-la.</li></ol>"
+  +"<button class='btn s' onclick='copy(prAn(),this)'>Copier le prompt Annales</button><button class='btn' onclick='tmp.d=null;tmp.imp=null;go(\"imp\")'>Importer une annale</button>"
+  +"<div class='wn'>⚠️ Les anciens sujets ont rarement un corrigé : c’est l’IA qui le rédige. Il peut contenir des erreurs, surtout dans les calculs. Vérifie-le avec ton cours ou ton prof.</div>"
+  +"<details><summary class='mu' style='cursor:pointer'>Voir le prompt</summary><pre>"+esc(prAn())+"</pre></details>";
+ return h};
+V.ast=function(){var s=gs(cur);if(!s)return V.ann();if(s.kind!=="an")return V.set();var a=anInfo(s),l=anLast(s);
+ var h="<button class='back' onclick='go(\"ann\")'>← Annales</button><h1>"+esc(s.name)+"</h1><p class='mu'>"+anLine(s)+"</p>"+defiRes(s,-1).replace(/<p>.*?<\/p>/,"<p class='mu'>Score à battre. À toi de jouer !</p>");
+ h+="<div class='cd'><b>Conditions d’examen</b><p class='mu'>Les questions arrivent dans l’ordre du sujet. Tu peux revenir en arrière et changer tes réponses. La correction et ta note sur 20 arrivent à la fin. Fais les exercices sur papier : tu te noteras avec le corrigé.</p><p class='mu'><span>Barème :</span> <span>"+String(a.pt).replace(".",",")+" points</span>, <span>ramené sur 20.</span></p></div>";
+ if(l)h+="<p class='mu'><span>Dernière note :</span> <b>"+fmtG(l.g)+" / 20</b></p>";
+ h+="<label for='amn'>Durée en minutes</label><input type='number' id='amn' min='1' max='600' value='"+(s.dur||120)+"'><button class='btn' onclick='startAn(\""+s.id+"\")'>Commencer l’annale</button>";
+ if(EDM())h+="<button class='btn s' onclick='go(\"edq\",\""+s.id+"\")'>🛠️ Examiner / modifier les questions</button>";
+ return h};
+V.anq=function(){var S=SESS,s=gs(S.setId),n=S.order.length;
+ if(S.ph==="corr"){var pend=S.gr.filter(function(v){return v===null}).length,pts=0,tot=0;S.order.forEach(function(qi,i){var p=s.questions[qi].p||0;tot+=p;if(S.gr[i]!==null)pts+=p*S.gr[i]});
+  var h="<h1>📝 Correction</h1><p class='mu'>"+esc(s.name)+"</p><div class='cd'><p>QCM et réponses chiffrées sont notés automatiquement. Pour les autres questions, compare ta copie avec le corrigé et note-toi honnêtement.</p>"+(pend?"<p><b><span>Encore</span> <span>"+pend+"</span> <span>"+plur(pend,"question")+" à noter.</span></b></p>":"<p><b>Tout est noté !</b></p>")+"</div>"+WN;
+  var pv="";S.order.forEach(function(qi,i){var q=s.questions[qi],a=S.ans[i],g=S.gr[i],ptl="<span class='mu'> · "+String(q.p).replace(".",",")+" pt"+(q.p>1?"s":"")+"</span>";
+   if(q.ty==="q"){var pm=S.perm[i],ok=g===1;h+="<div class='cd "+(ok?"g":"b")+"'><b>"+(i+1)+". "+esc(q.q)+"</b>"+ptl+"<p>Ta réponse : "+(a===null||a===-1?"aucune":esc(q.c[pm[a]]))+"</p>"+(ok?"":"<p>Bonne réponse : "+esc(q.c[q.r])+"</p>")+(q.e?"<p class='mu'>"+esc(q.e)+"</p>":"")+edBtn(s.id,qi)+"</div>";return}
+   var k=q.t+"\u0001"+q.s,hd="";if(k!==pv){hd="<h3>"+esc(q.t)+"</h3>"+(q.s?"<details class='cd'><summary class='mu' style='cursor:pointer'>Revoir l’énoncé</summary><div style='white-space:pre-wrap;margin-top:6px'>"+rich(q.s)+"</div></details>":"");pv=k}
+   var auto=q.n!==""&&g===1;
+   h+=hd+"<div class='cd"+(g===null?"":g===1?" g":g===0?" b":"")+"'><b style='white-space:pre-wrap'>"+(i+1)+". "+rich(q.q)+"</b>"+ptl+(a&&a.v?"<p>Ta réponse : "+esc(a.v)+"</p>":"")+(q.n!==""?"<p>Réponse attendue : <b>"+esc(q.n)+"</b></p>":"")+"<div style='white-space:pre-wrap'>"+rich(q.c)+"</div>";
+   if(auto)h+="<p><b>✅ Juste : noté automatiquement</b></p>";
+   else h+="<p class='mu'>Avais-tu juste ?</p><div class='chips'>"+[[1,"✅ Juste"],[0.5,"🟡 À moitié"],[0,"❌ Faux"]].map(function(x){return "<button class='chip"+(g===x[0]?" on":"")+"' onclick='anGrade("+i+","+x[0]+")'>"+x[1]+"</button>"}).join("")+"</div>";
+   h+=edBtn(s.id,qi)+"</div>"});
+  return h+(pend?"<div class='w'>"+(pend>1?"<span>Note les</span> <span>"+pend+"</span> <span>questions restantes pour voir ta note.</span>":"Note la dernière question pour voir ta note.")+"</div>":"<button class='btn' onclick='anFin()'>Voir ma note sur 20</button>")+"<button class='back' onclick='go(\"home\")'>Quitter et reprendre plus tard</button>"}
+ var i=S.i,q=s.questions[S.order[i]],a=S.ans[i],un=S.ans.filter(function(x,j){var y=s.questions[S.order[j]];return x===null&&(y.ty==="q"||y.n!=="")}).length;
+ var h="<div class='top'><span>Annale · "+(i+1)+"/"+n+"</span>"+starBtn()+(S.end?"<b id='tm'></b>":"")+"</div><div class='bar'><i style='width:"+((i+1)/n*100)+"%'></i></div>";
+ var ptl="<span class='mu'>"+String(q.p).replace(".",",")+" pt"+(q.p>1?"s":"")+"</span>";
+ if(q.ty==="q"){h+="<p class='mu'>QCM · "+ptl+"</p><h2>"+esc(q.q)+"</h2>";S.perm[i].forEach(function(k,p){h+="<button class='opt"+(a===p?" sel":"")+"' onclick='pick("+p+")'><b>"+L[p]+"</b><span>"+esc(q.c[k])+"</span></button>"})}
+ else{h+="<p class='mu'>"+esc(q.t)+" · "+ptl+"</p>"+(q.s?"<div class='cd' style='white-space:pre-wrap'>"+rich(q.s)+"</div>":"")+"<h2 style='white-space:pre-wrap'>"+rich(q.q)+"</h2>";
+  if(q.n!=="")h+="<label for='av'>Ta réponse (un nombre)</label><input type='text' id='av' inputmode='decimal' value='"+esc(a&&a.v||"")+"' oninput='ansX(this.value)'><p class='mu'>Tu peux la laisser vide : le corrigé s’affichera à la fin.</p>";
+  else h+="<label for='av'>Ton brouillon (facultatif)</label><textarea id='av' style='min-height:110px;font-family:inherit;font-size:15px' oninput='ansX(this.value)' placeholder='Fais l’exercice sur papier. Tu peux noter ici tes résultats clés.'>"+esc(a&&a.v||"")+"</textarea><p class='mu'>À la fin, tu compareras avec le corrigé et tu te noteras.</p>"}
+ h+="<div class='row'>"+(i>0?"<button class='btn s' onclick='mv(-1)'>← Précédent</button>":"")+(i<n-1?"<button class='btn' onclick='mv(1)'>Suivant →</button>":"")+"</div>";
+ if(tmp.cf)h+="<div class='w'>"+(un?"<span>"+un+"</span> <span>"+plur(un,"question")+" sans réponse.</span> ":"")+"Terminer l’annale et voir la correction ?</div><button class='btn' onclick='fin(true)'>Oui, terminer</button>";else h+="<button class='btn s' onclick='fin()'>Terminer l’annale</button>";
+ return h+"<button class='back' onclick='go(\"home\")'>Quitter et reprendre plus tard</button>"};
 var PUB={"kty":"EC","crv":"P-256","x":"U5H9ls12KVJppTDBauCZZ5M37TTcXAjJGtUqcrfg7rA","y":"ebHtUCvzAcDDlih6dLge5k85ZqBcKO2hPRG13gjoYm0"};var PUBS=[PUB];
   /* Codes déjà donnés avec l'ancienne clé (retirée) : seuls ces codes exacts restent valables. */
 const LEGACY_CODES=["3af0ab4058593744c1fadcc3a77ad6d4693ba85e9e2e2d30b86378bf7f2e02d2"];
@@ -5420,7 +5990,7 @@ function rgName(rm){var v=rm?"":(($("#rgn")||{}).value||"").replace(/\s+/g," ").
 function rgTheme(t){if(t==="auto"){document.documentElement.removeAttribute("data-theme");lsr("qcm_th")}else{document.documentElement.setAttribute("data-theme",t);lss("qcm_th",t)}R(true)}
 function rgClear(k){if(tmp.rc!==k){tmp.rc=k;R(true);return}tmp.rc=null;
  if(k==="h"){DB.hist=[];DB.stats=null;DB.days={};DB.streak=0;DB.best=0;DB.last=""}
- else{DB={sets:[],hist:[],cats:[],fav:[],seeded:true,days:{},stats:null,last:"",streak:0,best:0};SESS=null;saveS()}
+ else{DB={sets:[],hist:[],cats:[],fav:[],seeded:true,days:{},stats:null,last:"",streak:0,best:0,srs:{},goals:[],mg:1};SESS=null;saveS()}
  save();R(true)}
 function boot(){try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}var c=null;try{c=localStorage.getItem("qcm_act")}catch(e){}if(!c)return trialBoot();chkCode(c).then(function(ok){if(ok){activated();afterAccess()}else trialBoot()})}
 /* ---------- Thousand Labs : signature avec logo (écran d'activation + licence) ---------- */
