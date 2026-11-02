@@ -49,6 +49,12 @@ pre{white-space:pre-wrap;word-break:break-word;background:var(--cd);border:1px s
 .mnh{display:flex;align-items:center;justify-content:space-between;padding:0 4px 10px 10px;margin-bottom:6px;border-bottom:1px solid var(--bd)}.mnh b{font-size:19px}.mnh button{width:44px;height:44px;border:0;background:none;color:var(--tx);font-size:22px;cursor:pointer;border-radius:10px}
 .mni{display:flex;align-items:center;gap:14px;width:100%;min-height:48px;padding:10px 12px;margin:2px 0;border:0;border-radius:10px;background:none;color:var(--tx);font:500 16px system-ui,sans-serif;text-align:left;cursor:pointer}.mni:hover,.mni:focus-visible{background:var(--bg)}.mni.on{background:var(--bg);color:var(--ac);font-weight:700}
 .mni i{font-style:normal;width:24px;text-align:center;flex:none}.mns{height:1px;background:var(--bd);margin:8px 6px}
+.ic{width:1.15em;height:1.15em;vertical-align:-.2em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;margin-right:.4em;flex:none}
+.cd>b .ic,.cd>p>b .ic,h1 .ic,h3 .ic,.mni .ic,.tlb-t .ic{color:var(--ac)}.btn .ic{vertical-align:-.22em;color:inherit!important}
+.ic.ic-ok{color:var(--ok)!important}.ic.ic-ko{color:var(--ko)!important}.ic.ic-wa{color:#c98500!important}.ic.ic-fire{color:#e8590c!important}.ic.ic-wave{color:#1ba6e8!important}.ic.ic-om{color:#ff7900!important}
+.star .ic{width:24px;height:24px;margin:0;vertical-align:middle}.mni i .ic{width:20px;height:20px;margin:0;vertical-align:-4px}.mnb .ic{width:22px;height:22px;margin:0}
+.eci{display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:12px;background:var(--bg);color:var(--ac)}.eci .ic{width:24px;height:24px;margin:0}
+.cd{box-shadow:0 1px 2px rgba(16,26,61,.05)}
 </style></head><body><div id="app"></div>
 <script>
 /* =====================================================================
@@ -80,8 +86,10 @@ var TLL=(function(){
     for(k in src){var n=norm(k);if(!n)continue;
       if(/\{#?\}/.test(n)){var parts=n.split(/(\{#?\})/),rs='';
         for(var q=0;q<parts.length;q++)rs+=q%2?(parts[q]==='{#}'?'([\\d\\s.,/%+−-]+?)':'(.+?)'):escR(parts[q]);
-        P.push({re:new RegExp('^'+rs+'$','u'),out:src[k],w:n.replace(/\{#?\}/g,'').length})}
+        P.push({re:new RegExp('^'+rs+'$','u'),out:src[k],w:n.replace(/\{#?\}/g,'').length});
+        var n3=n.replace(/^[^\p{L}\p{N}«"({]+/u,'');if(n3&&n3!==n){var p3=n3.split(/(\{#?\})/),r3='';for(var q3=0;q3<p3.length;q3++)r3+=q3%2?(p3[q3]==='{#}'?'([\\d\\s.,/%+−-]+?)':'(.+?)'):escR(p3[q3]);P.push({re:new RegExp('^'+r3+'$','u'),out:String(src[k]).replace(/^[^\p{L}\p{N}“"({]+/u,''),w:n3.replace(/\{#?\}/g,'').length})}}
       else{D[n]=src[k];if(!window.TLL_NOSUB&&n.length>=4&&n.indexOf(' ')>0)keys.push(n)}}
+    for(k in src){var m2=norm(k),m3=m2.replace(/^[^\p{L}\p{N}«"({]+/u,'');if(m3&&m3!==m2&&!/\{#?\}/.test(m2)&&!D.hasOwnProperty(m3))D[m3]=String(src[k]).replace(/^[^\p{L}\p{N}“"({]+/u,'')}
     P.sort(function(a,b){return b.w-a.w});
     (window.TLL_SUBX||[]).forEach(function(k){k=norm(k);if(D.hasOwnProperty(k)&&keys.indexOf(k)<0)keys.push(k)});
     keys.sort(function(a,b){return b.length-a.length});
@@ -1088,6 +1096,100 @@ var TLL_NOSUB=1;
 TLL._init();
 </script>
 <script>
+/* =====================================================================
+   Icônes : les emojis de l'interface sont remplacés à l'affichage par des
+   icônes vectorielles au trait (style « Lucide »), plus sobres et plus pro.
+   Le texte du code garde les emojis : ce module les convertit au vol,
+   comme le module de langue le fait pour la traduction.
+   ===================================================================== */
+var ICO=(function(){
+  var P={
+    check:'<circle cx="12" cy="12" r="10"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/>',
+    x:'<circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/>',
+    half:'<circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor"/>',
+    alert:'<path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/>',
+    edit:'<path d="M12 20h9"/><path d="M16.4 3.6a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/>',
+    cap:'<path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/>',
+    file:'<path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>',
+    save:'<path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/>',
+    swords:'<path d="M14.5 17.5 3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2M14.5 6.5 18 3h3v3l-3.5 3.5M5 14l4 4M7 17l-3 3M3 19l2 2"/>',
+    menu:'<path d="M4 6h16M4 12h16M4 18h16"/>',
+    plus:'<path d="M12 5v14M5 12h14"/>',
+    globe:'<circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>',
+    book:'<path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2zM22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/>',
+    cal:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/>',
+    gear:'<path d="M12.2 2h-.4a2 2 0 0 0-2 2v.2a2 2 0 0 1-1 1.7l-.4.3a2 2 0 0 1-2 0l-.2-.1a2 2 0 0 0-2.7.7l-.2.4a2 2 0 0 0 .7 2.7l.2.1a2 2 0 0 1 1 1.7v.5a2 2 0 0 1-1 1.7l-.2.1a2 2 0 0 0-.7 2.7l.2.4a2 2 0 0 0 2.7.7l.2-.1a2 2 0 0 1 2 0l.4.3a2 2 0 0 1 1 1.7v.2a2 2 0 0 0 2 2h.4a2 2 0 0 0 2-2v-.2a2 2 0 0 1 1-1.7l.4-.3a2 2 0 0 1 2 0l.2.1a2 2 0 0 0 2.7-.7l.2-.4a2 2 0 0 0-.7-2.7l-.2-.1a2 2 0 0 1-1-1.7v-.5a2 2 0 0 1 1-1.7l.2-.1a2 2 0 0 0 .7-2.7l-.2-.4a2 2 0 0 0-2.7-.7l-.2.1a2 2 0 0 1-2 0l-.4-.3a2 2 0 0 1-1-1.7V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>',
+    users:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/>',
+    chat:'<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22z"/>',
+    clip:'<rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>',
+    spark:'<path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 15.5l.8 1.7 1.7.8-1.7.8-.8 1.7-.8-1.7-1.7-.8 1.7-.8z"/>',
+    search:'<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
+    sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/>',
+    moon:'<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/>',
+    target:'<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',
+    gift:'<rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5"/>',
+    cart:'<circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2 2h2l2.7 12.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L22 7H5.1"/>',
+    phone:'<rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/>',
+    laptop:'<path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.3 2.6a1 1 0 0 1-.9 1.4H3.6a1 1 0 0 1-.9-1.4L4 16"/>',
+    star:'<path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/>',
+    starf:'<path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z" fill="currentColor"/>',
+    chart:'<path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/>',
+    repeat:'<path d="M21 12a9 9 0 1 1-9-9c2.5 0 4.9 1 6.7 2.7L21 8"/><path d="M21 3v5h-5"/>',
+    timer:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M10 2h4"/>',
+    lock:'<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+    trophy:'<path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.7V17c0 .6-.5 1-1 1.2C7.9 18.8 7 20.2 7 22M14 14.7V17c0 .6.5 1 1 1.2 1.1.6 2 2 2 3.8M18 2H6v7a6 6 0 0 0 12 0z"/>',
+    flame:'<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.4-.5-2-1-3-1.1-2.1-.2-4 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.2.4-2.3 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>',
+    home:'<path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/>',
+    history:'<path d="M3 12a9 9 0 1 0 9-9 9.8 9.8 0 0 0-6.7 2.7L3 8"/><path d="M3 3v5h5M12 7v5l4 2"/>',
+    panel:'<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 15h18"/>',
+    down:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>',
+    up:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>',
+    contrast:'<circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12z" fill="currentColor"/>',
+    key:'<circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6M15.5 7.5l3 3L22 7l-3-3"/>',
+    qr:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3M21 14v.01M14 21h7v-4"/>',
+    scale:'<path d="M12 3v18M7 21h10M4 7h16M6 7l-3 7a3 3 0 0 0 6 0zM18 7l-3 7a3 3 0 0 0 6 0z"/>',
+    info:'<circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>',
+    wallet:'<path d="M19 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>',
+    cash:'<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/>',
+    camera:'<path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3"/>',
+    landmark:'<path d="M3 22h18M6 18v-7M10 18v-7M14 18v-7M18 18v-7M12 2l8 5H4z"/><path d="M4 18h16"/>',
+    nocam:'<path d="M2 2l20 20M7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16M9.5 4h5L17 7h3a2 2 0 0 1 2 2v7.3M14.1 14.1A3 3 0 1 1 9.9 9.9"/>'
+  };
+  /* emoji → [icône, couleur] ; null = emoji décoratif retiré */
+  var M={"✅":["check","ok"],"❌":["x","ko"],"🟡":["half","wa"],"⚠️":["alert","wa"],"⚠":["alert","wa"],"✏️":["edit"],"✏":["edit"],"🛠️":["edit"],"🛠":["edit"],
+    "🎓":["cap"],"📝":["file"],"💾":["save"],"⚔️":["swords"],"⚔":["swords"],"☰":["menu"],"➕":["plus"],"🌍":["globe"],"🌐":["globe"],
+    "📚":["book"],"📖":["book"],"📘":["book"],"📅":["cal"],"⚙️":["gear"],"⚙":["gear"],"🤝":["users"],"💬":["chat"],"📋":["clip"],"🤖":["spark"],
+    "🔍":["search"],"☀️":["sun"],"☀":["sun"],"🌙":["moon"],"🎯":["target"],"🎁":["gift"],"🛒":["cart"],"📲":["phone"],"📱":["phone"],"🍏":["phone"],
+    "💻":["laptop"],"☆":["star"],"★":["starf"],"⭐":["star"],"📊":["chart"],"🔁":["repeat"],"⏱️":["timer"],"⏱":["timer"],"⏰":["timer"],"⌛":["timer"],
+    "🔒":["lock"],"🏆":["trophy","wa"],"🔥":["flame","fire"],"🏠":["home"],"🕘":["history"],"👍":["panel"],"📥":["down"],"📤":["up"],"🎨":["contrast"],
+    "🔑":["key"],"🔳":["qr"],"⚖️":["scale"],"⚖":["scale"],"ℹ️":["info"],"ℹ":["info"],"🌊":["wallet","wave"],"🟠":["wallet","om"],"💵":["cash","ok"],
+    "📷":["camera"],"🏛️":["landmark"],"🏛":["landmark"],"📵":["nocam","ko"],
+    "🇫🇷":null,"🇬🇧":null,"👋":null,"💪":null,"🚀":null,"😅":null,"🆕":null};
+  function esc(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}
+  var K=Object.keys(M).sort(function(a,b){return b.length-a.length});
+  var RE=new RegExp('('+K.map(esc).join('|')+')\\uFE0F? ?','g');
+  function svg(d){return '<svg class="ic'+(d[1]?' ic-'+d[1]:'')+'" viewBox="0 0 24 24" aria-hidden="true">'+P[d[0]]+'</svg>'}
+  var SK={SCRIPT:1,STYLE:1,TEXTAREA:1,PRE:1,TITLE:1,OPTION:1};
+  function conv(t){var v=t.nodeValue,p=t.parentNode;if(!v||!p||p.nodeType!==1)return;RE.lastIndex=0;if(!RE.test(v))return;
+    for(var e=p;e&&e.nodeType===1;e=e.parentNode){if(SK[e.nodeName]||e.namespaceURI==='http://www.w3.org/2000/svg'||(e.hasAttribute&&e.hasAttribute('data-noic')))return}
+    var f=document.createDocumentFragment(),last=0,tmp=document.createElement('span');RE.lastIndex=0;
+    v.replace(RE,function(m,k,off){if(off>last)f.appendChild(document.createTextNode(v.slice(last,off)));var d=M[k];if(d){tmp.innerHTML=svg(d);f.appendChild(tmp.firstChild)}last=off+m.length;return m});
+    if(last<v.length)f.appendChild(document.createTextNode(v.slice(last)));
+    p.replaceChild(f,t)}
+  function walk(root){if(!root)return;if(root.nodeType===3){conv(root);return}if(root.nodeType!==1&&root.nodeType!==11)return;
+    var it=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),n,L=[];while((n=it.nextNode()))L.push(n);L.forEach(conv)}
+  function init(){walk(document.body);try{new MutationObserver(function(list){for(var i=0;i<list.length;i++){var m=list[i];
+      if(m.type==='childList')for(var j=0;j<m.addedNodes.length;j++)walk(m.addedNodes[j]);else if(m.type==='characterData')conv(m.target)}})
+    .observe(document.body,{childList:true,subtree:true,characterData:true})}catch(e){}}
+  /* Les fenêtres système (alert, confirm, prompt) ne savent pas afficher d'icône : on y retire les emojis */
+  function strip(s){return s==null?s:String(s).replace(RE,'')}
+  ['alert','confirm'].forEach(function(f){var o=window[f];if(o)window[f]=function(m){return o.call(window,strip(m))}});
+  var pr=window.prompt;if(pr)window.prompt=function(m,d){return pr.call(window,strip(m),d)};
+  if(document.body)init();else document.addEventListener('DOMContentLoaded',init);
+  return {svg:function(n,c){return svg([n,c])},strip:strip};
+})();
+</script>
+<script>
 
 /* =====================================================================
    Thousand Labs — section « Installer l'application » (commune à toutes les applis)
@@ -1227,7 +1329,7 @@ function clean(o){if(!o||o.app!=="ScoreUp"||!o.db||!Array.isArray(o.db.sets))ret
  var cats=(Array.isArray(d.cats)?d.cats:[]).filter(function(k){return k&&typeof k.n==="string"}).map(function(k){return {n:k.n,c:C.test(k.c||"")?k.c:"#4d5b72"}});
  var hist=(Array.isArray(d.hist)?d.hist:[]).filter(function(x){return x&&okN(x.s)&&okN(x.t)&&x.t>0}).map(function(x){var o={n:String(x.n||""),m:MN[x.m]?x.m:"libre",s:x.s,t:x.t,d:okN(x.d)?x.d:Date.now(),c:String(x.c||"")};if(okN(x.g))o.g=x.g;if(typeof x.id==="string")o.id=x.id;return o});
  var st=d.stats,ok=!!(st&&st.t&&okN(st.t.s)&&okN(st.t.t)&&st.t.t>0&&okN(st.t.n)&&st.c&&typeof st.c==="object");if(ok)Object.keys(st.c).forEach(function(k){var x=st.c[k];if(!(x&&okN(x.s)&&okN(x.t)&&x.t>0&&okN(x.n)))ok=false});
- return {sets:sets,hist:hist,cats:cats,stats:ok?st:null,last:/^\d{4}-\d{2}-\d{2}$/.test(d.last||"")?d.last:"",streak:okN(d.streak)?d.streak:0,best:okN(d.best)?d.best:0,fav:(Array.isArray(d.fav)?d.fav:[]).filter(function(k){return typeof k==="string"&&/^[a-z0-9-]+:\d+$/i.test(k)}),days:cdays(d.days),srs:(function(x){var o={};if(x&&typeof x==="object")Object.keys(x).forEach(function(k){var v=x[k];if(/^[a-z0-9-]+:\d+$/i.test(k)&&v&&okN(v.b)&&/^\d{4}-\d{2}-\d{2}$/.test(v.d||""))o[k]={b:Math.max(0,Math.min(5,v.b)),d:v.d}});return o})(d.srs),goals:(Array.isArray(d.goals)?d.goals:[]).filter(function(g){return g&&typeof g.n==="string"&&/^\d{4}-\d{2}-\d{2}$/.test(g.d||"")}).map(function(g){return {id:String(g.id||uid()),n:g.n.slice(0,40),d:g.d,c:typeof g.c==="string"?g.c:""}}),mg:1}}
+ return {sets:sets,hist:hist,cats:cats,stats:ok?st:null,last:/^\d{4}-\d{2}-\d{2}$/.test(d.last||"")?d.last:"",streak:okN(d.streak)?d.streak:0,best:okN(d.best)?d.best:0,fav:(Array.isArray(d.fav)?d.fav:[]).filter(function(k){return typeof k==="string"&&/^[a-z0-9-]+:\d+$/i.test(k)}),days:cdays(d.days),srs:(function(x){var o={};if(x&&typeof x==="object")Object.keys(x).forEach(function(k){var v=x[k];if(/^[a-z0-9-]+:\d+$/i.test(k)&&v&&okN(v.b)&&/^\d{4}-\d{2}-\d{2}$/.test(v.d||""))o[k]={b:Math.max(0,Math.min(5,v.b)),d:v.d}});return o})(d.srs),goals:(Array.isArray(d.goals)?d.goals:[]).filter(function(g){return g&&typeof g.n==="string"&&/^\d{4}-\d{2}-\d{2}$/.test(g.d||"")}).map(function(g){return {id:String(g.id||uid()),n:g.n.slice(0,40),d:g.d,c:typeof g.c==="string"?g.c:""}}),mg:2}}
 function bkJson(){return JSON.stringify({app:"ScoreUp",v:2,date:new Date().toISOString(),dev:devId(),db:DB},null,1)}
 function bkDl(){var u=URL.createObjectURL(new Blob([bkJson()],{type:"application/json"})),a=document.createElement("a");a.href=u;a.download="scoreup-sauvegarde-"+ds(new Date())+".json";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},4000)}
 /* Sauvegarde : menu de partage du téléphone (WhatsApp, Drive…) ; sinon téléchargement */
@@ -2039,7 +2141,7 @@ R: A
 E: Q1, la médiane et Q3 partagent la série ordonnée en quatre parts d’effectifs à peu près égaux.`},
 {id:"demo-compta-ex",name:"Comptabilité générale – Exercices (chap. 1 et 2)",cat:"Comptabilité",kind:"ex",txt:`EX: Exercice 1 – Analyse des flux (chapitre 1)
 Analyse les opérations suivantes. Les montants sont en milliers de francs.
-Rappel : la ressource est l’origine du flux (d’où vient la valeur) ; l’emploi est sa destination (l’utilisation qui en est faite).
+Pour chaque opération, indique la ressource (l’origine du flux) et l’emploi (sa destination), avec le numéro de compte SYSCOHADA.
 N° | Opération | Montant
 1 | Achat d’un terrain par chèque bancaire | 28 000
 2 | Achat de mobilier de bureau à crédit | 4 000
@@ -2052,29 +2154,29 @@ N° | Opération | Montant
 9 | Vente de produits finis payée par chèque | 2 800
 10 | Achat de marchandises au fournisseur Camara payé par chèque | 6 000
 11 | Vente au comptant de marchandises au client Obiang, payée en espèces | 1 500
-Q: Pour les opérations 1, 2 et 3, indique la ressource et l’emploi.
-C: Opération | Ressource (origine) | Emploi (destination) | Montant
-1 | Banque (le chèque fait sortir l’argent du compte) | Terrain | 28 000
-2 | Fournisseur (dette : on paiera plus tard) | Mobilier de bureau | 4 000
-3 | Caisse | Matériel de bureau (imprimante) | 1 400
-Astuce : demande-toi « d’où vient la valeur ? » (ressource) et « à quoi sert-elle ? » (emploi).
-Q: Pour les opérations 4 et 5, indique la ressource et l’emploi.
-C: Opération | Ressource (origine) | Emploi (destination) | Montant
-4 | Marchandises (vendues) | Client Diop (créance : il paiera plus tard) | 2 400
-5 | Fournisseur Raoul (dette) | Marchandises (achats) | 3 200
-Une vente à crédit crée une créance sur le client ; un achat à crédit crée une dette envers le fournisseur.
-Q: Pour les opérations 6, 7 et 8, indique la ressource et l’emploi.
-C: Opération | Ressource (origine) | Emploi (destination) | Montant
-6 | Banque | Intérêts (charges financières) | 6 500
-7 | Banque | Salaires (charges de personnel) | 4 240
-8 | Banque | Assurance (charge) | 1 120
-Ces trois opérations sont des charges : l’argent sort de la banque pour payer une dépense de fonctionnement.
-Q: Pour les opérations 9, 10 et 11, indique la ressource et l’emploi.
-C: Opération | Ressource (origine) | Emploi (destination) | Montant
-9 | Produits finis (vendus) | Banque | 2 800
-10 | Banque | Marchandises (achats) | 6 000
-11 | Marchandises (vendues) | Caisse | 1 500
-Comme dans l’exemple du cours (vente au client Fall), lors d’une vente, les biens vendus sont la ressource et l’encaissement est l’emploi.
+Q: Pour les opérations 1, 2 et 3, indique la ressource et l’emploi, avec les numéros de compte.
+C: Opération | Ressource | Emploi
+1 | Banque (521) | Terrains (22)
+2 | Fournisseurs d’investissements (481) | Mobilier de bureau (2444)
+3 | Caisse (571) | Matériel et mobilier de bureau (244)
+Astuce : demande-toi « d’où vient la valeur ? » (ressource) et « à quoi sert-elle ? » (emploi). Un achat d’immobilisation à crédit crée une dette envers un fournisseur d’investissements (481), pas envers un fournisseur ordinaire (401).
+Q: Pour les opérations 4 et 5, indique la ressource et l’emploi, avec les numéros de compte.
+C: Opération | Ressource | Emploi
+4 | Ventes de marchandises (701) | Clients (411)
+5 | Fournisseurs d’exploitation (401) | Achats de marchandises (601)
+Une vente à crédit crée une créance sur le client (411) ; un achat de marchandises à crédit crée une dette envers le fournisseur d’exploitation (401).
+Q: Pour les opérations 6, 7 et 8, indique la ressource et l’emploi, avec les numéros de compte.
+C: Opération | Ressource | Emploi
+6 | Banque (521) | Intérêts des emprunts (671)
+7 | Banque (521) | Personnel, rémunérations dues (422)
+8 | Banque (521) | Primes d’assurance (625)
+Dans les trois cas, l’argent sort de la banque : la banque est la ressource.
+Q: Pour les opérations 9, 10 et 11, indique la ressource et l’emploi, avec les numéros de compte.
+C: Opération | Ressource | Emploi
+9 | Ventes de produits finis (702) | Banque (521)
+10 | Banque (521) | Achats de marchandises (601)
+11 | Ventes de marchandises (701) | Caisse (571)
+Lors d’une vente, la ressource est la vente elle-même (compte 70…) et l’emploi est l’endroit où arrive l’argent ou la créance (banque, caisse ou client).
 Q: Quel est le montant total, en milliers de francs, des sommes sorties de la banque (opérations payées par chèque) ?
 N: 45860
 C: Les opérations payées par chèque sont la 1, la 6, la 7, la 8 et la 10.
@@ -2141,19 +2243,19 @@ Son apport au démarrage était de 1 000 000 F.
 Q: Quel est le montant total des ressources extérieures (dettes) dont M. Sène a disposé (en francs) ? Donne aussi leur appellation comptable.
 N: 800000
 C: Ressource extérieure | Appellation comptable | Montant
-Dette envers le banquier (3 ans) | Emprunts (dette financière) | 600 000
-Dette envers les fournisseurs | Fournisseurs (dette d’exploitation) | 200 000
+Dette envers le banquier (3 ans) | Emprunts (16) | 600 000
+Dette envers les fournisseurs | Fournisseurs (401) | 200 000
 Total | – | 800 000
 Q: Quel est le montant total des emplois (en francs) ? Donne l’appellation comptable de chaque emploi.
 N: 2050000
 C: Emploi | Appellation comptable | Montant
-Hangar | Bâtiments | 400 000
-Installations | Installations et agencements | 250 000
-Réfrigérateur | Matériel | 300 000
-Stock de marchandises | Marchandises | 700 000
-Créances sur les clients | Clients | 150 000
-Dépôt en banque | Banque | 150 000
-Encaisse | Caisse | 100 000
+Hangar | Bâtiments (23) | 400 000
+Installations | Installations et agencements (23) | 250 000
+Réfrigérateur | Matériel (24) | 300 000
+Stock de marchandises | Marchandises (31) | 700 000
+Créances sur les clients | Clients (411) | 150 000
+Dépôt en banque | Banque (521) | 150 000
+Encaisse | Caisse (571) | 100 000
 Total des emplois | – | 2 050 000
 Q: Quel est le montant des capitaux propres et ressources assimilées à la fin de la période (en francs) ?
 N: 1250000
@@ -2168,13 +2270,13 @@ Autre façon de le voir : capitaux propres – apport = 1 250 000 – 1 000 000 
 Q: Présente le bilan de M. Sène au 30 septembre de l’année N.
 C: Bilan au 30 septembre N
 Actif | Montant | Passif | Montant
-Bâtiments (hangar) | 400 000 | Capital | 1 000 000
-Installations et agencements | 250 000 | Résultat net (bénéfice) | 250 000
-Matériel (réfrigérateur) | 300 000 | Emprunts | 600 000
-Marchandises | 700 000 | Fournisseurs | 200 000
-Clients | 150 000 | – | –
-Banque | 150 000 | – | –
-Caisse | 100 000 | – | –
+Bâtiments – hangar (23) | 400 000 | Capital (10) | 1 000 000
+Installations et agencements (23) | 250 000 | Résultat net : bénéfice (131) | 250 000
+Matériel – réfrigérateur (24) | 300 000 | Emprunts (16) | 600 000
+Marchandises (31) | 700 000 | Fournisseurs (401) | 200 000
+Clients (411) | 150 000 | – | –
+Banque (521) | 150 000 | – | –
+Caisse (571) | 100 000 | – | –
 Total actif | 2 050 000 | Total passif | 2 050 000
 À l’actif : l’actif immobilisé (bâtiments, installations, matériel), l’actif circulant (marchandises, clients) puis la trésorerie-actif (banque, caisse). Au passif : les capitaux propres (capital et résultat), puis les dettes (emprunts, fournisseurs). Le bilan est équilibré : total actif = total passif.
 
@@ -2224,12 +2326,12 @@ Perte nette = (capital + dettes) – (biens + créances) = 2 050 000 – 1 800 0
 Vérification : situation nette 850 000 = capital 1 100 000 – perte 250 000.
 Q: Présente le bilan de fin d’exercice de Mlle Diallo.
 C: Actif | Montant | Passif | Montant
-Mobilier | 350 000 | Capital | 1 100 000
-Matériel informatique | 450 000 | Résultat net (perte) | – 250 000
-Marchandises | 600 000 | Emprunts | 500 000
-Clients | 120 000 | Fournisseurs | 380 000
-Banque | 230 000 | État | 70 000
-Caisse | 50 000 | – | –
+Mobilier (244) | 350 000 | Capital (10) | 1 100 000
+Matériel informatique (244) | 450 000 | Résultat net : perte (139) | – 250 000
+Marchandises (31) | 600 000 | Emprunts (16) | 500 000
+Clients (411) | 120 000 | Fournisseurs (401) | 380 000
+Banque (521) | 230 000 | État (44) | 70 000
+Caisse (571) | 50 000 | – | –
 Total actif | 1 800 000 | Total passif | 1 800 000
 La perte se place au passif, dans les capitaux propres, avec un signe moins : elle diminue les capitaux propres (1 100 000 – 250 000 = 850 000 F). Rappel du cours : bénéfice net et perte nette ne figurent jamais ensemble dans un même bilan.`}];
 var SCHOOL_SETS=[{id:"droit-personnes",school:"droit",name:"Droit civil – Les personnes",cat:"Droit civil",txt:`Q: Qu’est-ce que la personnalité juridique ?
@@ -5421,7 +5523,7 @@ var SCHOOLS=[
 {id:"droit",ico:"⚖️",nom:"École de Droit",court:"Droit privé, droit des affaires, fiscalité",desc:"Pour les étudiants en droit : bases du droit civil, du droit constitutionnel et administratif, organisation de la justice et économie.",fil:["Droit privé fondamental","Droit des affaires et fiscalité","Droit notarial et gestion du patrimoine","Droit maritime et activités portuaires","Droit de l’énergie et des mines","Passation des marchés publics"]},
 {id:"ingenieurs",ico:"💻",nom:"École d’Ingénieurs",court:"Informatique, réseaux, systèmes",desc:"Pour les étudiants en informatique : algorithmique, numération, architecture des ordinateurs, réseaux et mathématiques.",fil:["Informatique appliquée à la gestion (IAGE)","Génie logiciel","Réseaux et systèmes","Sécurité des systèmes d’information","Big data et actuariat","Management et technologies"]},
 {id:"digital",ico:"🌐",nom:"Digital Campus",court:"Web, design, marketing digital",desc:"Pour les étudiants des métiers du web et du multimédia : création de sites, design graphique et marketing digital.",fil:["Développement web et mobile","Webdesign et UX/UI","Marketing digital","Communication digitale","Création multimédia"]},
-{id:"madiba",ico:"🌍",nom:"Madiba Leadership Institute",court:"Science politique, relations internationales, communication",desc:"Pour les étudiants en science politique, relations internationales, communication et journalisme.",fil:["Science politique","Relations internationales","Gouvernance territoriale","Communication","Journalisme et métiers de l’information"]}];
+{id:"madiba",ico:"🏛️",nom:"Madiba Leadership Institute",court:"Science politique, relations internationales, communication",desc:"Pour les étudiants en science politique, relations internationales, communication et journalisme.",fil:["Science politique","Relations internationales","Gouvernance territoriale","Communication","Journalisme et métiers de l’information"]}];
 function school(id){return SCHOOLS.filter(function(s){return s.id===id})[0]||null}
 function mySchool(){return school(lsg("qcm_school"))}
 function schoolSets(id){return id==="management"?DEMO:SCHOOL_SETS.filter(function(s){return s.school===id})}
@@ -5540,7 +5642,7 @@ function srsUp(sid,qi,ok){DB.srs=DB.srs||{};var k=sKey(sid,qi),o=DB.srs[k]||{b:0
 function srsDue(s){var t=ds(new Date()),o=[];if(!s||s.kind==="an")return o;s.questions.forEach(function(_,i){var x=DB.srs&&DB.srs[sKey(s.id,i)];if(x&&x.d<=t)o.push(i)});return o}
 function srsBox(sid,qi){var x=DB.srs&&DB.srs[sKey(sid,qi)];return x?x.b||0:-1}
 /* Mise à jour unique : anciennes erreurs → révision espacée ; exercices de compta pour l'École de Management */
-function migr(){if((DB.mg||0)>=1)return;DB.mg=1;DB.srs=DB.srs||{};var t=ds(new Date());
+function migr(){if((DB.mg||0)>=2)return;if((DB.mg||0)===1){DB.mg=2;var ox=gs("demo-compta-ex");if(ox&&ox.demo){var pe=parseEx(DEMO.filter(function(d){return d.id==="demo-compta-ex"})[0].txt);if(pe.Q.length){ox.questions=pe.Q;ox.wrong=[];dropKeys(ox.id)}}save();return}DB.mg=2;DB.srs=DB.srs||{};var t=ds(new Date());
  DB.sets.forEach(function(s){(s.wrong||[]).forEach(function(i){if(s.questions[i]&&!DB.srs[sKey(s.id,i)])DB.srs[sKey(s.id,i)]={b:0,d:t}})});
  var ms=mySchool();if(ms&&ms.id==="management"&&gs("demo-compta")&&!gs("demo-compta-ex")){addSets(DEMO.filter(function(d){return d.id==="demo-compta-ex"}));tmp.note="🆕 Nouveau : 5 exercices corrigés de comptabilité (chapitres 1 et 2) ont été ajoutés à tes séries."}
  save()}
@@ -5990,7 +6092,7 @@ function rgName(rm){var v=rm?"":(($("#rgn")||{}).value||"").replace(/\s+/g," ").
 function rgTheme(t){if(t==="auto"){document.documentElement.removeAttribute("data-theme");lsr("qcm_th")}else{document.documentElement.setAttribute("data-theme",t);lss("qcm_th",t)}R(true)}
 function rgClear(k){if(tmp.rc!==k){tmp.rc=k;R(true);return}tmp.rc=null;
  if(k==="h"){DB.hist=[];DB.stats=null;DB.days={};DB.streak=0;DB.best=0;DB.last=""}
- else{DB={sets:[],hist:[],cats:[],fav:[],seeded:true,days:{},stats:null,last:"",streak:0,best:0,srs:{},goals:[],mg:1};SESS=null;saveS()}
+ else{DB={sets:[],hist:[],cats:[],fav:[],seeded:true,days:{},stats:null,last:"",streak:0,best:0,srs:{},goals:[],mg:2};SESS=null;saveS()}
  save();R(true)}
 function boot(){try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}var c=null;try{c=localStorage.getItem("qcm_act")}catch(e){}if(!c)return trialBoot();chkCode(c).then(function(ok){if(ok){activated();afterAccess()}else trialBoot()})}
 /* ---------- Thousand Labs : signature avec logo (écran d'activation + licence) ---------- */
@@ -6097,4 +6199,5 @@ function unlock(){var c=$("#gc").value.replace(/\s+/g,"").replace(/^SUCODE:/i,""
  $("#ge").textContent="Vérification…";chkCode(c).then(function(ok){if(ok){try{localStorage.setItem("qcm_act",c)}catch(e){}activated();afterAccess()}else $("#ge").textContent="Code invalide pour cet appareil. Vérifie que tu l’as copié en entier et qu’il correspond à l’identifiant affiché."})}
 if("serviceWorker" in navigator&&location.protocol.indexOf("http")===0)navigator.serviceWorker.register("sw.js").catch(function(){});
 load();seed();boot();
+(function(){var pv=TLL.onchange;TLL.onchange=function(l){if(pv)try{pv(l)}catch(e){}if(view==="reg"&&document.getElementById("rgn"))R(true)}})();
 </script></body></html>
