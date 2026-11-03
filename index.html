@@ -5685,7 +5685,7 @@ function findHtml(q){var k=nz(q).trim();if(k.length<2)return "<p class='mu'>Tape
 function findRun(v){tmp.fq=v;var e=document.getElementById("fr");if(e)e.innerHTML=findHtml(v)}
 
 /* ---------- Défi entre amis ---------- */
-function defiTxt(r){var s=r.s,n=myName()||"Un ami";return "⚔️ DÉFI ScoreUp : "+n+" a eu "+fmtG(r.g)+"/20 sur « "+s.name+" ». Fais mieux !\nPour relever le défi : ouvre ScoreUp ("+APPURL+"), touche « Importer des questions », colle tout ce message, puis touche « Vérifier ».\n\n"+txtOf(s)}
+function defiTxt(r){var s=r.s,n=myName()||"Un ami";return "DÉFI ScoreUp : "+n+" a eu "+fmtG(r.g)+"/20 sur « "+s.name+" ». Fais mieux !\nPour relever le défi : ouvre ScoreUp ("+APPURL+"), touche « Importer des questions », colle tout ce message, puis touche « Vérifier ».\n\n"+txtOf(s)}
 function defi(b){var r=tmp.res;if(!r)return;var t=defiTxt(r);
  if(navigator.share){navigator.share({text:t}).catch(function(e){if(!(e&&e.name==="AbortError"))copy(t,b)});return}
  copy(t,b);suToast("Défi copié : colle-le dans WhatsApp 📋")}
