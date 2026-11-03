@@ -6105,7 +6105,7 @@ function tlBrand(big){var s=big?40:28;return '<div class="tlbrand" style="displa
    TLBUY.html() → bloc à insérer dans l'écran d'activation.
    ===================================================================== */
 var TLBUY=(function(){
-  var C={app:'',dev:function(){return ''},plans:[],unit:0,pay:'221711216581',payFmt:'71 121 65 81',wa:'221711216581',lang:function(){return 'fr'},note:''};
+  var C={app:'',dev:function(){return ''},plans:[],unit:0,pay:'221711216581',payFmt:'71 121 65 81',wavePay:'https://pay.wave.com/m/M_sn_2435mflS4o9D/c/sn/',wa:'221711216581',lang:function(){return 'fr'},note:''};
   var S={p:0,q:1,m:'wave'};
   var EN={
     "🛒 Acheter {app}":"🛒 Buy {app}",
@@ -6117,6 +6117,10 @@ var TLBUY=(function(){
     "Envoie {total} au":"Send {total} to","Envoyez {total} au":"Send {total} to",
     "Espèces (en main propre)":"Cash (in person)",
     "Copier le numéro":"Copy number","Copié ✓":"Copied ✓",
+    "Payez {total} avec Wave":"Pay {total} with Wave","Paie {total} avec Wave":"Pay {total} with Wave",
+    "Payer avec Wave":"Pay with Wave",
+    "Le bouton ouvre Wave : vérifiez que le montant est bien {total}, validez, puis revenez ici.":"The button opens Wave: check that the amount is {total}, confirm, then come back here.",
+    "Le bouton ouvre Wave : vérifie que le montant est bien {total}, valide, puis reviens ici.":"The button opens Wave: check that the amount is {total}, confirm, then come back here.",
     "3. Envoie ta demande":"3. Send your request","3. Envoyez votre demande":"3. Send your request",
     "Numéro qui a payé":"Number that paid",
     "Ex. 77 123 45 67":"E.g. 77 123 45 67",
@@ -6150,7 +6154,8 @@ var TLBUY=(function(){
     if(C.note)h+='<p class="tlb-mu">'+esc(C.note)+'</p>';
     h+='<div class="tlb-tot"><span>'+T('Total à payer')+'</span><b>'+fmtF(p.price)+'</b></div>';
     h+='<p class="tlb-t">'+T(vous('2. Paie','2. Payez'))+'</p><div class="tlb-m">'+[['wave','🌊 Wave'],['om','🟠 Orange Money'],['cash','💵 '+T('Espèces (en main propre)')]].map(function(m){return '<button type="button" class="'+(S.m===m[0]?'on':'')+'" onclick="TLBUY.meth(\''+m[0]+'\')">'+m[1]+'</button>'}).join('')+'</div>';
-    if(S.m!=='cash')h+='<div class="tlb-pay">'+T(vous('Envoie {total} au','Envoyez {total} au'),{total:'<b>'+fmtF(p.price)+'</b>'})+'<div class="tlb-num">'+C.payFmt+'</div><button type="button" class="tlb-b2" onclick="TLBUY.cpy(this)">📋 '+T('Copier le numéro')+'</button></div>';
+    if(S.m==='wave'&&C.wavePay)h+='<div class="tlb-pay">'+T(vous('Paie {total} avec Wave','Payez {total} avec Wave'),{total:'<b>'+fmtF(p.price)+'</b>'})+'<a class="tlb-wv" href="'+esc(C.wavePay+(p.price>0?'?amount='+Math.round(p.price):''))+'" target="_blank" rel="noopener">🌊 '+T('Payer avec Wave')+'</a><p class="tlb-mu" style="margin:6px 0 0">'+T(vous('Le bouton ouvre Wave : vérifie que le montant est bien {total}, valide, puis reviens ici.','Le bouton ouvre Wave : vérifiez que le montant est bien {total}, validez, puis revenez ici.'),{total:fmtF(p.price)})+'</p></div>';
+    else if(S.m!=='cash')h+='<div class="tlb-pay">'+T(vous('Envoie {total} au','Envoyez {total} au'),{total:'<b>'+fmtF(p.price)+'</b>'})+'<div class="tlb-num">'+C.payFmt+'</div><button type="button" class="tlb-b2" onclick="TLBUY.cpy(this)">📋 '+T('Copier le numéro')+'</button></div>';
     h+='<p class="tlb-t">'+T(vous('3. Envoie ta demande','3. Envoyez votre demande'))+'</p>';
     if(S.m!=='cash')h+='<label class="tlb-l" for="tlb-ph">'+T('Numéro qui a payé')+'</label><input id="tlb-ph" class="tlb-in" type="tel" inputmode="tel" autocomplete="tel" placeholder="'+T('Ex. 77 123 45 67')+'">';
     if(p.n>1)h+='<p class="tlb-mu">'+T('Groupe : une seule personne paie pour tous et envoie les identifiants de chacun.')+'</p><label class="tlb-l" for="tlb-ids">'+T('Identifiants des autres personnes (un par ligne)')+'</label><textarea id="tlb-ids" class="tlb-in" rows="3" spellcheck="false" autocomplete="off"></textarea><p class="tlb-mu">'+T(vous('Facultatif : tu pourras aussi les envoyer plus tard.','Facultatif : vous pourrez aussi les envoyer plus tard.'))+'</p>';
@@ -6185,7 +6190,7 @@ var TLBUY=(function(){
    +'.tlb-tot{display:flex;justify-content:space-between;align-items:center;margin:10px 0 0;padding:10px 12px;border-radius:10px;background:rgba(128,128,128,.12)}.tlb-tot b{font-size:19px}'
    +'.tlb-m{display:flex;flex-wrap:wrap;gap:6px}.tlb-m button{flex:1 1 auto;min-height:40px;padding:8px 10px;border-radius:999px;border:1.5px solid rgba(128,128,128,.4);background:transparent;color:inherit;font:600 14px system-ui,sans-serif;cursor:pointer}.tlb-m button.on{border-color:#1a9e52;background:rgba(37,211,102,.16)}'
    +'.tlb-pay{margin:10px 0 0;padding:10px 12px;border-radius:10px;background:rgba(128,128,128,.12);text-align:center;font-size:14px}.tlb-num{font:700 24px/1.3 ui-monospace,Menlo,Consolas,monospace;letter-spacing:1px;margin:4px 0}'
-   +'.tlb-b2{border:1.5px solid rgba(128,128,128,.45);background:transparent;color:inherit;border-radius:999px;padding:6px 14px;font:600 13px system-ui,sans-serif;cursor:pointer}'
+   +'.tlb-wv{display:block;margin:8px auto 0;max-width:280px;padding:11px 16px;border-radius:999px;background:#1dc8ff;color:#06263a!important;text-decoration:none!important;font:700 15px system-ui,sans-serif;text-align:center}.tlb-wv .eic,.tlb-wv .ic{color:#06263a!important}.tlb-b2{border:1.5px solid rgba(128,128,128,.45);background:transparent;color:inherit;border-radius:999px;padding:6px 14px;font:600 13px system-ui,sans-serif;cursor:pointer}'
    +'.tlb-l{display:block;font-weight:600;font-size:14px;margin:8px 0 4px}.tlb-in{width:100%;box-sizing:border-box;padding:10px;border-radius:8px;border:1.5px solid rgba(128,128,128,.45);background:rgba(255,255,255,.04);color:inherit;font:16px system-ui,sans-serif}textarea.tlb-in{font:13px/1.4 ui-monospace,Menlo,Consolas,monospace}'
    +'.tlb-er{color:#d93025;font-size:14px;margin:6px 0 0;min-height:0}.tlb-er:empty{display:none}'
    +'.tlb-go{display:block;width:100%;min-height:48px;margin:10px 0 0;border:0;border-radius:10px;background:#25d366;color:#fff;font:700 16px system-ui,sans-serif;cursor:pointer}';
