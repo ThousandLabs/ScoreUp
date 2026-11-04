@@ -1,7 +1,7 @@
 /* ScoreUp — service worker : appli disponible hors ligne, mises à jour automatiques */
-const CACHE = 'scoreup-v4.4';
+const CACHE = 'scoreup-v4.5';
 const PREFIX = 'scoreup-v'; /* les applis Thousand Labs partagent le même domaine : on ne touche qu'à NOS caches */
-const ASSETS = ['./', './index.html', './manifest.webmanifest', './icon-192.png?v=tl2', './icon-512.png?v=tl2', './apple-touch-icon.png?v=tl2'];
+const ASSETS = ['./', './index.html', './manifest.webmanifest', './icon-192.png?v=tl3', './icon-512.png?v=tl3', './apple-touch-icon.png?v=tl3'];
 const OFFLINE = () => new Response(
         '<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><body style="font-family:sans-serif;padding:24px;text-align:center"><h2>Hors ligne</h2><p>Ouvrez l\'appli une fois avec une connexion pour l\'activer hors ligne, puis réessayez.</p></body>',
         { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
