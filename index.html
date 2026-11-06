@@ -228,6 +228,14 @@ var TLL=(function(){
 
 /* Dictionnaire français → anglais */
 var TLL_EN={
+"Ouvre le lien de l'appli dans": "Open the app's link in",
+", avec Internet. Brave, Opera et les autres navigateurs ne créent qu'un simple raccourci.": ", with Internet on. Brave, Opera and other browsers only create a simple shortcut.",
+"avec Internet. Brave, Opera et les autres navigateurs ne créent qu'un simple raccourci.": "with Internet on. Brave, Opera and other browsers only create a simple shortcut.",
+"Montre-lui le QR code de l'appli ou envoie-lui le lien sur WhatsApp.": "Show them the app's QR code or send them the link on WhatsApp.",
+"Ouvre le lien de l’appli dans": "Open the app's link in",
+", avec Internet. Brave, Opera et les autres navigateurs ne créent qu’un simple raccourci.": ", with Internet on. Brave, Opera and other browsers only create a simple shortcut.",
+"avec Internet. Brave, Opera et les autres navigateurs ne créent qu’un simple raccourci.": "with Internet on. Brave, Opera and other browsers only create a simple shortcut.",
+"Montre-lui le QR code de l’appli ou envoie-lui le lien sur WhatsApp.": "Show them the app's QR code or send them the link on WhatsApp.",
 "Si une réponse te semble fausse, touche « Signaler comme douteuse » : la question est mise de côté jusqu’à ce que tu l’aies vérifiée. Pour contrôler toute une série, ouvre-la et utilise « Vérifier la série avec une IA » : colle le prompt dans une autre IA avec ton cours, elle t’indique les questions fausses.": "If an answer looks wrong, tap “Flag as doubtful”: the question is set aside until you have checked it. To check a whole set, open it and use “Check the set with an AI”: paste the prompt into another AI with your course, and it tells you which questions are wrong.",
 "Pour aller plus vite : touche « Coller depuis le presse-papiers ». Si ScoreUp est installée sur Android, tu peux aussi sélectionner la réponse dans l’appli de l’IA, puis « Partager » → ScoreUp : la série arrive directement dans l’import.": "To go faster: tap “Paste from clipboard”. If ScoreUp is installed on Android, you can also select the reply in the AI app, then “Share” → ScoreUp: the set arrives directly in the import screen.",
 "Les boutons Gemini, ChatGPT et Claude ouvrent l’IA directement. Le bouton « Coller depuis le presse-papiers » colle et vérifie le texte en une touche. Sur Android, si ScoreUp est installée, « Partager » → ScoreUp depuis l’appli de l’IA envoie la série directement dans l’import (si ScoreUp n’apparaît pas dans la liste, désinstalle puis réinstalle l’appli une fois).": "The Gemini, ChatGPT and Claude buttons open the AI directly. The “Paste from clipboard” button pastes and checks the text in one tap. On Android, if ScoreUp is installed, “Share” → ScoreUp from the AI app sends the set straight to the import screen (if ScoreUp is not in the list, uninstall and reinstall the app once).",
@@ -1199,9 +1207,12 @@ var ICO=(function(){
   var SK={SCRIPT:1,STYLE:1,TEXTAREA:1,PRE:1,TITLE:1,OPTION:1};
   function conv(t){var v=t.nodeValue,p=t.parentNode;if(!v||!p||p.nodeType!==1)return;RE.lastIndex=0;if(!RE.test(v))return;
     for(var e=p;e&&e.nodeType===1;e=e.parentNode){if(SK[e.nodeName]||e.namespaceURI==='http://www.w3.org/2000/svg'||(e.hasAttribute&&e.hasAttribute('data-noic')))return}
+    /* En anglais : traduire la phrase entière AVANT de la couper autour des icônes (sinon les phrases avec une icône au milieu restaient en français) */
+    var en=false;try{if(window.TLL&&TLL.lang()==='en'){var tv=TLL.tr(v);if(tv!==v){v=tv;en=true;p.setAttribute('data-tlic','1')}}}catch(x){}
     var f=document.createDocumentFragment(),last=0,tmp=document.createElement('span');RE.lastIndex=0;
     v.replace(RE,function(m,k,off){if(off>last)f.appendChild(document.createTextNode(v.slice(last,off)));var d=M[k];if(d){tmp.innerHTML=svg(d);f.appendChild(tmp.firstChild)}last=off+m.length;return m});
     if(last<v.length)f.appendChild(document.createTextNode(v.slice(last)));
+    if(en)for(var c=f.firstChild;c;c=c.nextSibling)if(c.nodeType===3)c.__tl=c.nodeValue;
     p.replaceChild(f,t)}
   function walk(root){if(!root)return;if(root.nodeType===3){conv(root);return}if(root.nodeType!==1&&root.nodeType!==11)return;
     var it=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),n,L=[];while((n=it.nextNode()))L.push(n);L.forEach(conv)}
@@ -6251,5 +6262,5 @@ function unlock(){var c=$("#gc").value.replace(/\s+/g,"").replace(/^SUCODE:/i,""
  $("#ge").textContent="Vérification…";chkCode(c).then(function(ok){if(ok){try{localStorage.setItem("qcm_act",c)}catch(e){}activated();afterAccess()}else $("#ge").textContent="Code invalide pour cet appareil. Vérifie que tu l’as copié en entier et qu’il correspond à l’identifiant affiché."})}
 if("serviceWorker" in navigator&&location.protocol.indexOf("http")===0)navigator.serviceWorker.register("sw.js").catch(function(){});
 load();seed();boot();
-(function(){var pv=TLL.onchange;TLL.onchange=function(l){if(pv)try{pv(l)}catch(e){}if(view==="reg"&&document.getElementById("rgn"))R(true)}})();
+(function(){var pv=TLL.onchange;TLL.onchange=function(l){if(pv)try{pv(l)}catch(e){}if((view==="reg"&&document.getElementById("rgn"))||(l==="fr"&&document.querySelector("[data-tlic]")))R(true)}})();
 </script></body></html>
