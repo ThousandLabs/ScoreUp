@@ -72,6 +72,9 @@ pre{white-space:pre-wrap;word-break:break-word;background:var(--cd);border:1px s
 .cal{display:grid;grid-template-rows:repeat(7,1fr);grid-auto-flow:column;grid-auto-columns:1fr;gap:4px;margin:12px 0 8px}.cal i,.calg i{display:block;aspect-ratio:1;border-radius:3px;background:var(--bd)}
 .cal i.l1,.calg i.l1{background:#b8c6f5}.cal i.l2,.calg i.l2{background:#7d96e8}.cal i.l3,.calg i.l3{background:#4767d9}.cal i.l4,.calg i.l4{background:#2447c9}.cal i.fz,.calg i.fz{background:transparent;box-shadow:inset 0 0 0 2px var(--ok)}.cal i.fu{visibility:hidden}.cal i.td{outline:1.5px solid var(--tx);outline-offset:1px}
 .calg{display:flex;align-items:center;flex-wrap:wrap;gap:4px;font-size:12px;color:var(--mu)}.calg i{width:11px;height:11px}.calg em{font-style:normal;margin:0 6px 0 2px}
+.wks{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0 4px}.wks>div{background:var(--bg);border-radius:10px;padding:8px 10px}.wks b{display:block;font-size:20px;line-height:1.2}.wks span{font-size:13px;color:var(--mu)}
+.btn.ecl{background:#b87400;color:#fff}.btn.ecl .ic{color:#fff!important}
+button.bdi{font:inherit;color:inherit;cursor:pointer;width:100%}
 .mst{display:flex;align-items:center;gap:8px;margin-top:2px}.mst .bar{flex:1;margin:0}.mst>span{flex:none}
 .cft{position:fixed;inset:0;pointer-events:none;z-index:120;overflow:hidden}.cft i{position:absolute;top:-14px;width:8px;height:14px;border-radius:2px;opacity:0;animation:cft 2.6s ease-in forwards}
 @keyframes cft{0%{opacity:1;transform:translateY(0) rotate(0)}100%{opacity:0;transform:translateY(105vh) rotate(720deg)}}
@@ -1285,6 +1288,32 @@ var TLL_EN={
 "Réponds à 100 questions dans la même journée.": "Answer 100 questions in a single day.",
 "Créateur": "Creator",
 "Importe ta propre série de questions.": "Import your own set of questions.",
+"Aucune question à réviser pour l’instant.": "No questions to review yet.",
+"Révision éclair": "Quick review",
+"Révision éclair · 10 questions": "Quick review · 10 questions",
+"Mes favoris": "My favourites",
+"Bilan de la semaine dernière": "Last week's summary",
+"Ta semaine en cours": "Your current week",
+"de réussite": "success rate",
+"jours actifs": "active days",
+"note moyenne": "average grade",
+"En hausse :": "Up:",
+"En baisse :": "Down:",
+"de questions par rapport à la semaine d’avant.": "questions compared with the week before.",
+"Matière à travailler :": "Subject to work on:",
+"OK, vu": "OK, got it",
+"Nouveau badge débloqué !": "New badge unlocked!",
+"Nouveau badge sur ScoreUp": "New badge on ScoreUp",
+"Réviser mes favoris en QCM": "Review my favourites as a quiz",
+"Touche un badge débloqué pour le partager en image.": "Tap an unlocked badge to share it as an image.",
+"Partager ce badge": "Share this badge",
+"Encore plus récent : « Révision éclair » (10 questions mélangées de toutes tes séries), révision de tes favoris en QCM, partage d’un badge en image et bilan de la semaine.": "Even newer: “Quick review” (10 mixed questions from all your sets), reviewing your favourites as a quiz, sharing a badge as an image and a weekly summary.",
+"Révision éclair et favoris": "Quick review and favourites",
+"Sur l’accueil, « Révision éclair » lance 10 questions tirées de toutes tes séries, en commençant par celles à revoir aujourd’hui. Idéal pour remplir ton objectif du jour en quelques minutes. Dans « Favoris », « Réviser mes favoris en QCM » te fait repasser toutes les questions marquées d’une étoile.": "On the home screen, “Quick review” starts 10 questions taken from all your sets, starting with those due today. Ideal for reaching your daily goal in a few minutes. In “Favourites”, “Review my favourites as a quiz” takes you through all the questions you starred.",
+"Bilan de la semaine": "Weekly summary",
+"Chaque lundi, l’accueil affiche le bilan de ta semaine précédente : questions faites, taux de réussite, jours actifs, note moyenne, évolution par rapport à la semaine d’avant et matière à travailler. Touche « OK, vu » pour le ranger. La semaine en cours est dans « Statistiques ».": "Every Monday, the home screen shows a summary of your previous week: questions done, success rate, active days, average grade, change from the week before and the subject to work on. Tap “OK, got it” to put it away. The current week is in “Statistics”.",
+"Partager un badge": "Share a badge",
+"Dans « Mes badges », touche un badge débloqué : ScoreUp crée une image à envoyer sur WhatsApp ou en statut.": "In “My badges”, tap an unlocked badge: ScoreUp creates an image to send on WhatsApp or post as a status.",
 "{#} séances": "{} sessions"
 };
 var TLL_SUBX=[];
@@ -1473,8 +1502,8 @@ function save(){try{localStorage.setItem("qcm_db",JSON.stringify(DB))}catch(e){s
 function saveS(){try{if(SESS)localStorage.setItem("qcm_sess",JSON.stringify(SESS));else localStorage.removeItem("qcm_sess")}catch(e){store=false}}
 function load(){try{localStorage.setItem("qcm_t","1");localStorage.removeItem("qcm_t")}catch(e){store=false}
  var d=rd("qcm_db");if(d&&Array.isArray(d.sets))DB={sets:d.sets,hist:Array.isArray(d.hist)?d.hist:[],cats:Array.isArray(d.cats)?d.cats:[],stats:d.stats||null,last:d.last||"",streak:d.streak||0,best:d.best||0,fav:Array.isArray(d.fav)?d.fav:[],seeded:!!d.seeded,days:(d.days&&typeof d.days==="object"&&!Array.isArray(d.days))?d.days:{},srs:(d.srs&&typeof d.srs==="object")?d.srs:{},goals:Array.isArray(d.goals)?d.goals:[],mg:d.mg||0,gm:cgm(d.gm),nv46:d.nv46||0,nv50:d.nv50||0};if(!DB.stats)DB.hist.forEach(function(x){addStat(x.c||"Sans matière",x.s,x.t)});var th=null;try{th=localStorage.getItem("qcm_th")}catch(e){}if(th)document.documentElement.setAttribute("data-theme",th);try{TH=localStorage.getItem("qcm_tp")==="1"}catch(e){}document.body.className=TH?"thumb":"";
- var s=rd("qcm_sess");if(s&&s.order&&gs(s.setId))SESS=s}
-function gs(id){return DB.sets.filter(function(s){return s.id===id})[0]}
+ var s=rd("qcm_sess");if(s&&s.order&&(s.vs||gs(s.setId)))SESS=s}
+function gs(id){if(SESS&&SESS.vs&&SESS.vs.id===id)return SESS.vs;if(LASTV&&LASTV.id===id)return LASTV;return DB.sets.filter(function(s){return s.id===id})[0]}
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
 function dt(d){return new Date(d).toLocaleDateString("fr-FR")}
 function shuf(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
@@ -1529,7 +1558,7 @@ function catAdd(n){n=(n||"").trim().slice(0,30);if(!n)return "";for(var i=0;i<DB
 function setcat(id,v){gs(id).cat=v;save();R(true)}
 function frate(ok){SESS.ans[SESS.i]={ok:!!ok};cmb(!!ok);saveS();tmp.rv=null;if(SESS.i<SESS.order.length-1)mv(1);else fin();cmbT()}
 var WN="<div class='wn'>⚠️ Corrigé issu d’une IA ou de tes séries importées : il peut contenir des erreurs. Vérifie-le avec ton cours ou ton prof.</div>",TH=false;
-function fk(){return SESS.setId+":"+SESS.order[SESS.i]}
+function fk(){var r=realQ(SESS.setId,SESS.order[SESS.i]);return r[0]+":"+r[1]}
 function isFav(k){return DB.fav.indexOf(k)>=0}
 function tf(){var k=fk(),i=DB.fav.indexOf(k);if(i>=0)DB.fav.splice(i,1);else DB.fav.push(k);save();R(true)}
 function unfav(k){var i=DB.fav.indexOf(k);if(i>=0)DB.fav.splice(i,1);save();R(true)}
@@ -5836,7 +5865,7 @@ function begin(id){var s=gs(id),mode=document.querySelector("input[name=m]:check
  if(qt&&SESS&&(SESS.mode==="libre"||SESS.mode==="erreurs"||SESS.mode==="srs")){SESS.qt=qt;SESS.qs=Date.now();saveS();R(true)}}
 function start(id,mode,pool,n,mins,sh){var s=gs(id),ix=sh?shuf(pool):pool.slice();ix=ix.slice(0,n);
  SESS={setId:id,mode:mode,order:ix,perm:ix.map(function(i){var p=Array.isArray(s.questions[i].c)?s.questions[i].c.map(function(_,k){return k}):[];return sh?shuf(p):p}),ans:ix.map(function(){return null}),i:0,start:Date.now(),end:mins?Date.now()+mins*60000:0};
- saveS();view="quiz";tmp.cf=0;R()}
+ if(s.src)SESS.vs=s;saveS();view="quiz";tmp.cf=0;R()}
 function pick(p){var S=SESS;if(S.mode!=="exam"&&S.mode!=="annale"&&S.ans[S.i]!==null)return;S.ans[S.i]=p;
  if(S.mode!=="exam"&&S.mode!=="annale"){var s=gs(S.setId),q=s&&s.questions[S.order[S.i]];if(q&&Array.isArray(q.c))cmb(p===S.perm[S.i].indexOf(q.r))}
  saveS();R(true);cmbT()}
@@ -5845,10 +5874,10 @@ function resume(){if(SESS.end&&Date.now()>=SESS.end){fin(true);return}if(SESS.qt
 function fin(force){var S=SESS;if(!S)return;
  if(gs(S.setId).kind==="an"){if(S.ph==="corr")return;if(!force&&!tmp.cf){tmp.cf=1;R(true);return}anCorr(S,gs(S.setId));tmp.cf=0;view="quiz";R();return}
  if(S.mode==="exam"&&!force){var un=S.ans.filter(function(a){return a===null}).length;if(un&&!tmp.cf){tmp.cf=1;R(true);return}}
- var s=gs(S.setId),sc=0,wr=[],wa=0,pb=bestG(s.id);
- S.order.forEach(function(qi,i){var q=s.questions[qi],sf=s.kind==="ex"||S.mode==="flash",ok=sf?!!(S.ans[i]&&S.ans[i].ok):S.ans[i]===S.perm[i].indexOf(q.r);if(ok)sc++;else{wr.push(qi);if(!sf&&S.ans[i]!==null&&S.ans[i]!==-1)wa++}srsUp(s.id,qi,ok)});
+ var s=gs(S.setId),sc=0,wr=[],wa=0,pb=bestG(s.id),oks=[];
+ S.order.forEach(function(qi,i){var q=s.questions[qi],sf=s.kind==="ex"||S.mode==="flash",ok=sf?!!(S.ans[i]&&S.ans[i].ok):S.ans[i]===S.perm[i].indexOf(q.r);oks[i]=ok;if(ok)sc++;else{wr.push(qi);if(!sf&&S.ans[i]!==null&&S.ans[i]!==-1)wa++}var rq=realQ(s.id,qi);srsUp(rq[0],rq[1],ok)});
  var g=g20(Math.max(0,sc-(S.neg||0)*wa)/S.order.length*20);
- s.wrong=wr;DB.hist.unshift({n:s.name,m:S.mode,s:sc,t:S.order.length,d:Date.now(),c:s.cat||"",g:g,id:s.id});DB.hist=DB.hist.slice(0,100);bump();DB.days=DB.days||{};var dk=ds(new Date());DB.days[dk]=(DB.days[dk]||0)+1;addStat(s.cat||"Sans matière",sc,S.order.length);var gm=gmEnd({sc:sc,t:S.order.length,g:g,mode:S.mode,cbm:S.cbm||0,n:S.ans.filter(function(x){return x!==null}).length,dw:!!(s.defi&&g>s.defi.g)});save();
+ s.wrong=wr;if(s.src)LASTV=s;DB.hist.unshift({n:s.name,m:S.mode,s:sc,t:S.order.length,d:Date.now(),c:s.cat||"",g:g,id:s.src?undefined:s.id});DB.hist=DB.hist.slice(0,100);bump();DB.days=DB.days||{};var dk=ds(new Date());DB.days[dk]=(DB.days[dk]||0)+1;if(s.src){var cc={};S.order.forEach(function(qi,i){var r=s.src[qi],o=gs(r[0]),k=(o&&o.cat)||"Sans matière";cc[k]=cc[k]||[0,0];cc[k][1]++;if(oks[i])cc[k][0]++});DB.stats=DB.stats||{t:{s:0,t:0,n:0},c:{}};var T0=DB.stats.t;T0.s+=sc;T0.t+=S.order.length;T0.n++;Object.keys(cc).forEach(function(k){var C=DB.stats.c[k]=DB.stats.c[k]||{s:0,t:0,n:0};C.s+=cc[k][0];C.t+=cc[k][1];C.n++})}else addStat(s.cat||"Sans matière",sc,S.order.length);var gm=gmEnd({sc:sc,t:S.order.length,g:g,mode:S.mode,cbm:S.cbm||0,n:S.ans.filter(function(x){return x!==null}).length,dw:!!(s.defi&&g>s.defi.g)});save();
  tmp.res={S:S,s:s,sc:sc,g:g,wa:wa,rec:pb!==null&&g>pb,gm:gm};tmp.rf=0;SESS=null;saveS();tmp.cf=0;view="res";R()}
 function rich(t){var o="",tb=[];function fl(){if(!tb.length)return;o+="<div class='tw'><table>"+tb.map(function(r,i){var g=i?"td":"th";return "<tr>"+r.map(function(c){return "<"+g+">"+esc(c.trim())+"</"+g+">"}).join("")+"</tr>"}).join("")+"</table></div>";tb=[]}
  String(t).split("\n").forEach(function(l){if(l.indexOf("|")>=0){var c=l.replace(/^\s*\|/,"").replace(/\|\s*$/,"").split("|");if(c.length>=2){if(!c.every(function(x){return /^[\s:-]*$/.test(x)}))tb.push(c);return}}fl();o+=esc(l)+"\n"});fl();return o.replace(/\n$/,"")}
@@ -5864,7 +5893,7 @@ function cdays(x){var o={};if(x&&typeof x==="object"&&!Array.isArray(x))Object.k
    ===================================================================== */
 function dAgo(n){var d=new Date();d.setDate(d.getDate()-n);return ds(d)}
 function wkKey(){var d=new Date();d.setDate(d.getDate()-((d.getDay()+6)%7));return ds(d)}
-function cgm(x){x=x&&typeof x==="object"&&!Array.isArray(x)?x:{};var D=/^\d{4}-\d{2}-\d{2}$/,o={xp:okN(x.xp)&&x.xp>0?Math.floor(x.xp):0,gl:[10,20,30,50].indexOf(x.gl)>=0?x.gl:20,dq:{},bd:{},gd:okN(x.gd)&&x.gd>0?Math.floor(x.gd):0,cbm:okN(x.cbm)&&x.cbm>0?Math.floor(x.cbm):0,fzw:D.test(x.fzw||"")?x.fzw:"",fzd:(Array.isArray(x.fzd)?x.fzd:[]).filter(function(k){return typeof k==="string"&&D.test(k)}).slice(-60),i:x.i?1:0};
+function cgm(x){x=x&&typeof x==="object"&&!Array.isArray(x)?x:{};var D=/^\d{4}-\d{2}-\d{2}$/,o={xp:okN(x.xp)&&x.xp>0?Math.floor(x.xp):0,gl:[10,20,30,50].indexOf(x.gl)>=0?x.gl:20,dq:{},bd:{},gd:okN(x.gd)&&x.gd>0?Math.floor(x.gd):0,cbm:okN(x.cbm)&&x.cbm>0?Math.floor(x.cbm):0,fzw:D.test(x.fzw||"")?x.fzw:"",fzd:(Array.isArray(x.fzd)?x.fzd:[]).filter(function(k){return typeof k==="string"&&D.test(k)}).slice(-60),i:x.i?1:0,wkd:/^\d{4}-\d{2}-\d{2}$/.test(x.wkd||"")?x.wkd:""};
  if(x.dq&&typeof x.dq==="object")Object.keys(x.dq).forEach(function(k){if(D.test(k)&&okN(x.dq[k])&&x.dq[k]>0)o.dq[k]=Math.floor(x.dq[k])});
  if(x.bd&&typeof x.bd==="object")Object.keys(x.bd).forEach(function(k){if(/^[a-z0-9]{1,12}$/.test(k)&&D.test(x.bd[k]||""))o.bd[k]=x.bd[k]});return o}
 function GM(){if(!DB.gm||typeof DB.gm!=="object")DB.gm=cgm(DB.gm);return DB.gm}
@@ -5926,7 +5955,7 @@ function wnOnce(){var S=SESS;if(!S)return WN;if(S.wn==null){S.wn=S.i;saveS()}ret
 function dtTag(q){return q&&q.dt?"<p class='mu'>🚩 Signalée comme douteuse</p>":""}
 function moreBtn(sid,qi){return "<button class='mob' aria-label='Options de la question' title='Options de la question' onclick='event.stopPropagation();qMore(\""+sid+"\","+qi+")'>⋯</button>"}
 function moreRow(sid,qi){var q=(gs(sid)||{questions:[]}).questions[qi];return "<div class='vd' style='margin-top:6px'><span class='mu' style='flex:1'>"+(q&&q.dt?"🚩 Signalée comme douteuse":"")+"</span>"+moreBtn(sid,qi)+"</div>"}
-function qMore(sid,qi){var s=gs(sid),q=s&&s.questions[qi];if(!q)return;var x=s.kind==="ex"||(s.kind==="an"&&q.ty==="x");
+function qMore(sid,qi){var rq=realQ(sid,qi);sid=rq[0];qi=rq[1];var s=gs(sid),q=s&&s.questions[qi];if(!q)return;var x=s.kind==="ex"||(s.kind==="an"&&q.ty==="x");
  var h="<h3 style='margin-top:0'>Options de la question</h3>"+WN+(x?"":"<button class='btn s' onclick='suClose();qEdit(\""+sid+"\","+qi+")'>✏️ Corriger cette réponse</button>")+(EDM()?"<button class='btn s' onclick='suClose();qForm(\""+sid+"\","+qi+")'>🛠️ Modifier toute la question</button>":"")+"<button class='btn s' onclick='suClose();qFlag(\""+sid+"\","+qi+")'>🚩 "+(q.dt?"Signalée comme douteuse · retirer":"Signaler comme douteuse")+"</button>";
  suOpen(h);hSync()}
 
@@ -5967,7 +5996,7 @@ function resGm(r,g){var G=r.gm;if(!G)return "";var lv=lvInfo(GM().xp),h="<div cl
  if(G.cbm>=3)h+="<p>⚡ <span>Meilleur combo :</span> <span>"+G.cbm+"</span> <span>bonnes réponses d’affilée</span></p>";
  if(G.goal)h+="<p>🎯 <b>Objectif du jour atteint !</b> <span>+30 XP</span></p>";
  if(G.jk)h+="<p>🛡️ Ton joker de la semaine a protégé ta série de jours.</p>";
- G.nb.forEach(function(b){h+="<p>🏅 <span>Nouveau badge :</span> <b>"+b[1]+"</b><br><span class='mu'>"+b[2]+"</span></p>"});
+ G.nb.forEach(function(b){h+="<p>🏅 <span>Nouveau badge :</span> <b>"+b[1]+"</b><br><span class='mu'>"+b[2]+"</span><br><button class='tgl' style='padding-top:2px' onclick='shareBadge(\""+b[0]+"\")'>🖼️ Partager ce badge</button></p>"});
  return h+"</div>"}
 function cftOnce(r,g){var G=r.gm;if(r.cf||!(r.rec||g>=20||(G&&(G.lv||G.nb.length))))return "";r.cf=1;var C=["#2447c9","#17794a","#c98500","#e8590c","#7a3fc4","#1ba6e8"],h="<div class='cft' aria-hidden='true'>";
  for(var i=0;i<40;i++)h+="<i style='left:"+Math.round(Math.random()*100)+"%;background:"+C[i%C.length]+";animation-delay:"+(Math.random()*.7).toFixed(2)+"s;animation-duration:"+(2+Math.random()*1.4).toFixed(2)+"s'></i>";
@@ -5995,6 +6024,60 @@ function shareImg(btn){var r=tmp.res;if(!r)return;var T=function(x){try{return T
    var u=URL.createObjectURL(bl),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},4000);suToast("Image téléchargée ✓")},"image/png")};
  img.src="icon-512.png?v=tl3"}
 
+/* =====================================================================
+   v5.2 : révision éclair, révision des favoris, partage d'un badge,
+   bilan de la semaine.
+   Les séances « mélangées » utilisent une série virtuelle (SESS.vs) dont
+   chaque question renvoie à sa vraie place (src) : révision espacée,
+   favoris et corrections s'appliquent à la question d'origine.
+   ===================================================================== */
+var LASTV=null;
+function realQ(sid,qi){var s=gs(sid);if(s&&s.src&&s.src[qi])return s.src[qi];return [sid,qi]}
+function mixPool(){var L=[];DB.sets.forEach(function(s){if(s.kind!=="qcm")return;s.questions.forEach(function(q,i){if(!q.dt&&Array.isArray(q.c))L.push([s.id,i])})});return L}
+function startMix(id,name,L){var Q=[],src=[];L.forEach(function(r){var s=gs(r[0]),q=s&&s.questions[r[1]];if(!q||s.src||!Array.isArray(q.c)||s.kind==="ex"||(s.kind==="an"&&q.ty!=="q"))return;Q.push(q);src.push(r)});
+ if(!Q.length){suToast("Aucune question à réviser pour l’instant.");return}
+ LASTV={id:id,name:name,questions:Q,kind:"qcm",cat:"",wrong:[],src:src};start(id,"libre",Q.map(function(_,i){return i}),Q.length,0,true)}
+/* Révision éclair : 10 questions de toutes les séries, d'abord celles à revoir aujourd'hui */
+function eclair(){var P=mixPool(),t=ds(new Date()),due=[],rest=[];P.forEach(function(r){var x=DB.srs&&DB.srs[sKey(r[0],r[1])];if(x&&x.d<=t)due.push(r);else rest.push(r)});
+ startMix("mix-eclair","Révision éclair",shuf(due).concat(shuf(rest)).slice(0,10))}
+function favPool(){var L=[];DB.fav.forEach(function(k){var p=k.lastIndexOf(":"),sid=k.slice(0,p),qi=+k.slice(p+1),s=gs(sid),q=s&&s.questions[qi];if(q&&Array.isArray(q.c)&&s.kind!=="ex"&&!(s.kind==="an"&&q.ty!=="q"))L.push([sid,qi])});return L}
+function favQuiz(){startMix("mix-fav","Mes favoris",favPool().slice(0,60))}
+function eclairBtn(){if(SESS||mixPool().length<4)return "";return "<button class='btn ecl' onclick='eclair()'>⚡ Révision éclair · 10 questions</button>"}
+
+/* ---------- Bilan de la semaine ---------- */
+function monday(ofs){var d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7)-7*(ofs||0));return d}
+function wkStats(ofs){var a=monday(ofs).getTime(),b=a+7*864e5,o={n:0,q:0,ok:0,gs:0,gn:0,days:{},cat:{}};
+ DB.hist.forEach(function(x){if(!(x.d>=a&&x.d<b))return;o.n++;o.days[ds(new Date(x.d))]=1;if(okN(x.g)){o.gs+=x.g;o.gn++}if(x.m==="annale")return;o.q+=x.t;o.ok+=x.s;var c=x.c||"Sans matière",k=o.cat[c]=o.cat[c]||{s:0,t:0};k.s+=x.s;k.t+=x.t});
+ o.d=Object.keys(o.days).length;o.p=o.q?Math.round(o.ok/o.q*100):0;o.avg=o.gn?g20(o.gs/o.gn):null;
+ var W=Object.keys(o.cat).map(function(k){return {c:k,p:Math.round(o.cat[k].s/o.cat[k].t*100)}}).filter(function(x){return o.cat[x.c].t>=5}).sort(function(x,y){return x.p-y.p});o.weak=W.length&&(W.length>1||W[0].p<70)?W[0]:null;return o}
+function wkCard(ofs,home){var w=wkStats(ofs),pv=wkStats(ofs+1);if(!w.n)return "";
+ var ev=pv.q?Math.round((w.q-pv.q)/pv.q*100):null,h="<div class='cd' style='border-left:5px solid var(--ac)'><b>📊 "+(ofs?"Bilan de la semaine dernière":"Ta semaine en cours")+"</b>"
+ +"<div class='wks'><div><b>"+w.q+"</b><span>questions</span></div><div><b>"+w.p+" %</b><span>de réussite</span></div><div><b>"+w.d+" / 7</b><span>jours actifs</span></div><div><b>"+(w.avg===null?"–":fmtG(w.avg))+"</b><span>note moyenne</span></div></div>";
+ if(ev!==null)h+="<p class='mu'>"+(ev>=0?"<span>En hausse :</span> <b style='color:var(--ok)'>+"+ev+" %</b> <span>de questions par rapport à la semaine d’avant.</span>":"<span>En baisse :</span> <b style='color:var(--ko)'>"+ev+" %</b> <span>de questions par rapport à la semaine d’avant.</span>")+"</p>";
+ if(w.weak)h+="<p class='mu'>🎯 <span>Matière à travailler :</span> <b>"+esc(w.weak.c)+"</b> <span>("+w.weak.p+" %)</span></p>";
+ if(home)h+="<button class='back' style='padding:4px 0' onclick='GM().wkd=wkKey();save();R(true)'>OK, vu</button>";
+ return h+"</div>"}
+function wkHome(){var G=GM();if(G.wkd===wkKey())return "";return wkCard(1,true)}
+
+/* ---------- Partager un badge en image ---------- */
+function cvBase(){var W=1080,H=1350,c=document.createElement("canvas");c.width=W;c.height=H;var x=c.getContext("2d");if(!x)return null;var gr=x.createLinearGradient(0,0,W,H);gr.addColorStop(0,"#101a3d");gr.addColorStop(1,"#2447c9");x.fillStyle=gr;x.fillRect(0,0,W,H);x.textAlign="center";
+ return {c:c,x:x,W:W,H:H,F:"system-ui,-apple-system,'Segoe UI',Roboto,sans-serif",T:function(s0){try{return TLL.lang()==="en"?TLL.tr(s0):s0}catch(e){return s0}}}}
+function cvTx(o,s0,y,sz,w,col){o.x.font=(w||"600")+" "+sz+"px "+o.F;o.x.fillStyle=col||"#fff";o.x.fillText(s0,o.W/2,y)}
+function cvWrap(o,s0,y,sz,col,w){var x=o.x;x.font=(w||"500")+" "+sz+"px "+o.F;x.fillStyle=col||"#fff";var ws=String(s0).split(/\s+/),L=[],l="";ws.forEach(function(v){var t=l?l+" "+v:v;if(x.measureText(t).width>860&&l){L.push(l);l=v}else l=t});if(l)L.push(l);L.slice(0,3).forEach(function(li,k){x.fillText(li,o.W/2,y+k*sz*1.3)});return y+(Math.min(3,L.length)-1)*sz*1.3}
+function cvImg(src,cb){var i=new Image();i.onload=function(){cb(i)};i.onerror=function(){cb(null)};i.src=src}
+function cvFoot(o){cvTx(o,o.T("Révise avec ScoreUp"),o.H-118,40,"700");cvTx(o,APPURL.replace(/^https:\/\//,"").replace(/\/$/,""),o.H-66,30,"500","#b9c3e6")}
+function cvLogo(o,cb){cvImg("icon-512.png?v=tl3",function(i){var x=o.x;if(i){x.save();x.beginPath();if(x.roundRect)x.roundRect(o.W/2-60,80,120,120,28);else x.rect(o.W/2-60,80,120,120);x.clip();x.drawImage(i,o.W/2-60,80,120,120);x.restore()}cvTx(o,"ScoreUp",268,54,"700");cvTx(o,o.T("par Thousand Labs"),314,28,"500","#b9c3e6");cb()})}
+function cvShare(o,name,text){o.c.toBlob(function(bl){if(!bl)return;var f=null;try{f=new File([bl],name,{type:"image/png"})}catch(e){}
+ if(f&&navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],text:text}).catch(function(){});return}
+ var u=URL.createObjectURL(bl),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},4000);suToast("Image téléchargée ✓")},"image/png")}
+function shareBadge(id){var b=BDG.filter(function(z){return z[0]===id})[0],G=GM();if(!b||!G.bd[id])return;var o=cvBase();if(!o)return;
+ cvLogo(o,function(){var x=o.x,cx=o.W/2,cy=640;cvTx(o,o.T("Nouveau badge débloqué !"),420,40,"600","#ffd27a");
+  x.fillStyle="rgba(255,255,255,.1)";x.beginPath();x.arc(cx,cy,175,0,Math.PI*2);x.fill();x.lineWidth=10;x.strokeStyle="#ffd27a";x.beginPath();x.arc(cx,cy,175,0,Math.PI*2);x.stroke();
+  var m=String(ICO.svg(b[3])).match(/<svg[^>]*>([\s\S]*)<\/svg>/),sv='<svg xmlns="http://www.w3.org/2000/svg" width="220" height="220" viewBox="0 0 24 24" fill="none" stroke="#ffd27a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+(m?m[1]:"")+'</svg>';
+  cvImg("data:image/svg+xml;charset=utf-8,"+encodeURIComponent(sv),function(i){if(i)x.drawImage(i,cx-110,cy-110,220,220);
+   cvTx(o,o.T(b[1]),cy+280,64,"700");var y=cvWrap(o,o.T(b[2]),cy+350,36,"#dfe5fb");var lv=lvInfo(G.xp);
+   cvTx(o,o.T("Niveau")+" "+lv.n+" · "+o.T(lv.nm)+"   ·   "+BDG.filter(function(z){return G.bd[z[0]]}).length+" / "+BDG.length+" badges",y+80,32,"500","#b9c3e6");
+   cvFoot(o);cvShare(o,"scoreup-badge.png",o.T("Nouveau badge sur ScoreUp")+" : "+o.T(b[1])+" · "+APPURL)})})}
 /* =====================================================================
    Nouveautés v4 : note sur 20, révision espacée, compte à rebours,
    points faibles par chapitre, recherche, défi entre amis,
@@ -6152,7 +6235,7 @@ var V={
 home:function(){migr();gmInit();if(!DB.nv50){DB.nv50=1;DB.nv46=1;if(DB.sets.length&&!tmp.note)tmp.note="🆕 Nouveau : le bouton « Suivant » reste toujours visible, tu peux masquer les détails des corrigés et glisser pour passer à la question suivante. Et pour te motiver : points XP, niveaux, badges, objectif du jour et joker de série. Tout est expliqué dans le Guide.";save()}var st=streak(),f=(tmp.f>=0&&DB.cats[tmp.f])?DB.cats[tmp.f].n:null,h="<button class='back' style='float:right;margin-right:56px' onclick='theme()'>"+(curTh()==="dark"?"Mode clair":"Mode sombre")+"</button><h1>ScoreUp</h1>"+greet()+trialBanner()+bkBanner();
  if(tmp.note){h+="<div class='cd g'>"+tmp.note+"</div>";tmp.note=null}
  if(!store)h+="<div class='w'>Ce navigateur ne permet pas de sauvegarder : tes séries disparaîtront quand tu fermeras la page.</div>";
- h+=progCard();
+ h+=progCard()+wkHome()+eclairBtn();
  h+=goalsCard()+revoir()+weakCard();
  if(IP)h+="<button class='btn s' onclick='inst()'>Installer ScoreUp sur l’écran d’accueil</button>";
  if(SESS){var s0=gs(SESS.setId);h+="<div class='cd'><b>"+MN[SESS.mode]+" en cours</b><p class='mu'>"+esc(s0.name)+" · question "+(SESS.i+1)+"/"+SESS.order.length+"</p><button class='btn' onclick='resume()'>Reprendre</button></div>"}
@@ -6212,12 +6295,15 @@ info:function(){return "<button class='back' onclick='go(\"home\")'>← Retour</
 +"<div class='cd'><b>Les modes</b><p>QCM libre : la correction s’affiche après chaque réponse. Examen : tu choisis la durée, la correction vient à la fin, tu peux changer de réponse, et il se termine tout seul quand le temps est écoulé. Erreurs : seulement les questions ratées la dernière fois. Exercices : tu fais l’exercice sur papier, tu affiches le corrigé et tu te notes.</p></div>"
 +"<div class='cd'><b>Exercices et réponses chiffrées</b><p>Quand la question attend un nombre, tape-le (virgule ou point) : l’appli accepte une petite marge d’arrondi. Les tableaux écrits avec le symbole | (une ligne par ligne du tableau) s’affichent en vrai tableau. Pour les graphiques, note-toi toi-même avec le corrigé.</p></div>"
 +"<div class='cd'><b>Reprendre plus tard</b><p>« Quitter et reprendre plus tard » garde ta progression : touche « Reprendre » sur l’accueil. Il n’y a qu’une session en cours à la fois : en lancer une nouvelle remplace l’ancienne. Dans un examen, le chrono continue même si tu quittes.</p></div>"
-+"<div class='cd'><b>Hors ligne et installation</b><p>Après une première ouverture avec Internet, ScoreUp s’enregistre sur ton appareil et peut s’ouvrir sans connexion. Seule la lecture d’un PDF demande Internet. Pour l’avoir comme une appli : sur Android, menu du navigateur puis « Installer l’application » ; sur iPhone, bouton Partager puis « Sur l’écran d’accueil ».</p></div><div class='cd'><b>Séries d’exemple</b><p>5 séries de révision (chapitre 1) sont fournies pour tester ScoreUp : comptabilité, marketing, droit, management et statistiques, ainsi que 5 exercices corrigés de comptabilité (chapitres 1 et 2). Tu peux les supprimer, et ce bouton te les redonne.</p><button class='btn s' onclick='ad(this)'>Ajouter les séries d’exemple</button></div><div class='cd'><b>Nouveautés</b><p>Pendant les QCM, le bouton « Suivant » reste toujours visible en bas de l’écran, et « Masquer les détails » replie l’explication. Glisse vers la gauche pour passer à la question suivante. Les options d’une question (corriger, modifier, signaler) sont réunies dans le bouton ⋯. Pour te motiver : points XP, niveaux, badges, objectif du jour, joker de série, calendrier de révision, maîtrise de chaque série et image de résultat à partager.</p></div><div class='cd'><b>Aussi dans ScoreUp</b><p>Matières avec couleurs (à l’import, ou depuis la liste), statistiques globales et par matière, série de jours de révision, flashcards (touche la carte pour voir la réponse) et mode sombre ou clair en haut de l’accueil, favoris (étoile), sauvegarde complète et mode transport (boutons de navigation en bas).</p></div>"
++"<div class='cd'><b>Hors ligne et installation</b><p>Après une première ouverture avec Internet, ScoreUp s’enregistre sur ton appareil et peut s’ouvrir sans connexion. Seule la lecture d’un PDF demande Internet. Pour l’avoir comme une appli : sur Android, menu du navigateur puis « Installer l’application » ; sur iPhone, bouton Partager puis « Sur l’écran d’accueil ».</p></div><div class='cd'><b>Séries d’exemple</b><p>5 séries de révision (chapitre 1) sont fournies pour tester ScoreUp : comptabilité, marketing, droit, management et statistiques, ainsi que 5 exercices corrigés de comptabilité (chapitres 1 et 2). Tu peux les supprimer, et ce bouton te les redonne.</p><button class='btn s' onclick='ad(this)'>Ajouter les séries d’exemple</button></div><div class='cd'><b>Nouveautés</b><p>Pendant les QCM, le bouton « Suivant » reste toujours visible en bas de l’écran, et « Masquer les détails » replie l’explication. Glisse vers la gauche pour passer à la question suivante. Les options d’une question (corriger, modifier, signaler) sont réunies dans le bouton ⋯. Pour te motiver : points XP, niveaux, badges, objectif du jour, joker de série, calendrier de révision, maîtrise de chaque série et image de résultat à partager.</p><p>Encore plus récent : « Révision éclair » (10 questions mélangées de toutes tes séries), révision de tes favoris en QCM, partage d’un badge en image et bilan de la semaine.</p></div><div class='cd'><b>Aussi dans ScoreUp</b><p>Matières avec couleurs (à l’import, ou depuis la liste), statistiques globales et par matière, série de jours de révision, flashcards (touche la carte pour voir la réponse) et mode sombre ou clair en haut de l’accueil, favoris (étoile), sauvegarde complète et mode transport (boutons de navigation en bas).</p></div>"
 +"<div class='cd'><b>Pendant les QCM</b><p>Le bouton « Suivant » reste en bas de l’écran : plus besoin de descendre. Touche « Masquer les détails » pour replier l’explication et l’avertissement ; ton choix est gardé pour les prochaines séances. Tu peux aussi glisser vers la gauche pour passer à la question suivante, et vers la droite pour revenir en arrière en mode Examen. Le bouton ⋯ réunit « Corriger cette réponse », « Modifier toute la question » et « Signaler comme douteuse ». La barre du haut se colore : vert pour une bonne réponse, rouge pour une erreur.</p></div>"
 +"<div class='cd'><b>⌨️ Sur ordinateur</b><p>Réponds avec les touches A, B, C, D (ou 1, 2, 3, 4), puis Entrée ou la flèche droite pour passer à la suite. La flèche gauche revient en arrière en mode Examen.</p></div>"
 +"<div class='cd'><b>⚡ XP, niveaux et badges</b><p>Chaque bonne réponse rapporte 10 XP. Une séance d’au moins 5 questions rapporte 20 XP de plus, et un sans-faute (10 questions ou plus) 50 XP. Enchaîne les bonnes réponses pour faire un combo : à partir de 5 d’affilée, tu gagnes un bonus. Les XP font monter ton niveau, de Débutant à Légende. Les badges récompensent ta régularité et tes exploits : retrouve-les dans le menu ☰, « Mes badges ».</p></div>"
 +"<div class='cd'><b>🎯 Objectif du jour et joker</b><p>Choisis ton objectif dans les Réglages : 10, 20, 30 ou 50 questions par jour. L’anneau de l’accueil se remplit au fil de tes séances, et l’objectif atteint rapporte 30 XP. Le joker protège ta série de jours : si tu oublies un seul jour, ta série continue. Tu as un joker par semaine, utilisé automatiquement.</p></div>"
 +"<div class='cd'><b>🏆 Résultat et partage</b><p>Après chaque séance : ta note dans un anneau, ta mention, un message quand tu bats ton record sur la série, et un filtre « Mes erreurs » pour ne relire que les questions ratées. « Partager mon résultat » crée une image à envoyer sur WhatsApp ou en statut.</p></div>"
++"<div class='cd'><b>⚡ Révision éclair et favoris</b><p>Sur l’accueil, « Révision éclair » lance 10 questions tirées de toutes tes séries, en commençant par celles à revoir aujourd’hui. Idéal pour remplir ton objectif du jour en quelques minutes. Dans « Favoris », « Réviser mes favoris en QCM » te fait repasser toutes les questions marquées d’une étoile.</p></div>"
++"<div class='cd'><b>📊 Bilan de la semaine</b><p>Chaque lundi, l’accueil affiche le bilan de ta semaine précédente : questions faites, taux de réussite, jours actifs, note moyenne, évolution par rapport à la semaine d’avant et matière à travailler. Touche « OK, vu » pour le ranger. La semaine en cours est dans « Statistiques ».</p></div>"
++"<div class='cd'><b>🏅 Partager un badge</b><p>Dans « Mes badges », touche un badge débloqué : ScoreUp crée une image à envoyer sur WhatsApp ou en statut.</p></div>"
 +"<div class='cd'><b>📊 Maîtrise et calendrier</b><p>Sur l’accueil, chaque série affiche sa maîtrise : la part de ses questions réussies au moins 3 fois de suite en révision espacée. Dans « Statistiques », le calendrier montre tes jours de révision des 12 dernières semaines.</p></div>"
 +"<div class='cd'><b>Note sur 20</b><p>Chaque séance donne une note sur 20, comme à l’examen. En mode Examen, tu peux activer les points négatifs : −0,25 par mauvaise réponse (une question sans réponse vaut 0).</p></div><div class='cd'><b>Révision espacée</b><p>Chaque question a sa propre date de retour. Ratée : elle revient le jour même. Juste : elle revient après 1 jour, puis 3, 7, 15 et 30 jours. Ouvre l’appli chaque jour et suis « 🔁 À revoir aujourd’hui ».</p></div><div class='cd'><b>Mes examens</b><p>Ajoute la date de tes partiels (menu ☰, « Mes examens ») : l’accueil affiche le compte à rebours et le nombre de questions à revoir par jour pour être prêt(e) à temps.</p></div><div class='cd'><b>Points faibles</b><p>Dans « Statistiques », tes séries sont classées de la plus faible à la plus solide, avec un bouton pour réviser directement le chapitre à retravailler.</p></div><div class='cd'><b>Annales</b><p>Entraîne-toi sur d’anciens sujets d’examen : QCM et exercices, chronométrés. Copie le prompt Annales, donne-le à une IA avec une photo ou un PDF du sujet, puis importe sa réponse. À la fin, QCM et réponses chiffrées sont notés tout seuls ; pour le reste, tu te notes avec le corrigé. Tu obtiens une note sur 20.</p></div><div class='cd'><b>Défier un ami</b><p>Après une séance, touche « ⚔️ Défier un ami » : ton ami reçoit la série et ton score par WhatsApp, l’importe dans ScoreUp et tente de faire mieux.</p></div><div class='cd'><b>Rechercher</b><p>Retrouve n’importe quelle question ou notion (par exemple « amortissement ») dans toutes tes séries.</p></div><div class='cd'><b>Mode édition</b><p>Dans « ⚙️ Réglages », active le mode édition pour corriger une question fausse, en ajouter ou en supprimer, sans supprimer toute la série.</p></div><div class='cd'><b>Questions douteuses</b><p>Pendant la révision ou dans la correction, « Signaler comme douteuse » met une question de côté : elle ne sort plus dans tes séances. Sur la page de la série, retrouve la liste des questions signalées, puis touche « C’est vérifié » ou « Corriger ». Une question signalée pendant une séance compte encore dans la note de cette séance.</p></div><div class='cd'><b>Vérifier une série avec une IA</b><p>Ouvre une série, puis « Vérifier la série avec une IA ». Copie le prompt de vérification, colle-le dans une autre IA (de préférence pas celle qui a créé la série) et joins ton cours. Elle te renvoie les numéros des questions fausses avec une correction proposée : corrige-les ou signale-les dans ScoreUp.</p></div><div class='cd'><b>Mon école</b><p>Au premier lancement, choisis ton école (Management, Droit, Ingénieurs, Digital Campus ou Madiba Leadership Institute). Tu vois ses principales filières et tu peux importer 5 séries de démarrage de 20 questions, niveau L1. Tu peux changer d’école ou ajouter ses séries plus tard depuis « ⚙️ Réglages ».</p></div>"
 +"<div class='cd'><b>Import</b><p>L’appli vérifie le format et indique la ligne à corriger. Les doublons sont ignorés. Un PDF doit contenir du vrai texte : une photo ou un scan ne marche pas. Les questions et les choix sont mélangés si la case est cochée, donc la lettre de la bonne réponse change d’un essai à l’autre.</p><p>Les boutons Gemini, ChatGPT et Claude ouvrent l’IA directement. Le bouton « Coller depuis le presse-papiers » colle et vérifie le texte en une touche. Sur Android, si ScoreUp est installée, « Partager » → ScoreUp depuis l’appli de l’IA envoie la série directement dans l’import (si ScoreUp n’apparaît pas dans la liste, désinstalle puis réinstalle l’appli une fois).</p></div>"
@@ -6250,7 +6336,7 @@ reg:function(){var th=null;try{th=localStorage.getItem("qcm_th")}catch(e){}th=th
  h+="<div class='cd'><b>ℹ️ À propos</b>"+tlBrand(1)+"<p class='mu'>ScoreUp · Thousand Labs · WhatsApp 71 121 65 81</p><p class='mu'>Site officiel : <a href='https://thousandlabs.github.io/ScoreUp/' target='_blank' rel='noopener' style='color:var(--ac)'>thousandlabs.github.io/ScoreUp</a></p><p class='mu'>Stockage : "+(store?"✅ enregistré dans ce navigateur":"⚠️ indisponible (navigation privée ?)")+"</p></div>";
  h+="<div class='cd b'><b>⚠️ Zone sensible</b><button class='btn d' onclick='rgClear(\"all\")'>"+(tmp.rc==="all"?"Confirmer : tout effacer":"Tout effacer (séries, historique, favoris)")+"</button><p class='mu'>L’activation et ton prénom sont conservés. Fais une sauvegarde avant.</p></div>";
  return h},
-fav:function(){var h="<button class='back' onclick='go(\"home\")'>← Retour</button><h1>Favoris ★</h1>",n=0;
+fav:function(){var h="<button class='back' onclick='go(\"home\")'>← Retour</button><h1>Favoris ★</h1>",n=0,fp=favPool().length;if(fp)h+="<button class='btn' onclick='favQuiz()'><span>Réviser mes favoris en QCM</span> · <span>"+fp+"</span></button>";
  DB.fav.forEach(function(k){var p=k.split(":"),st=gs(p.slice(0,-1).join(":")),q=st&&st.questions[+p[p.length-1]];if(!q)return;n++;var ex=st.kind==="ex"||(st.kind==="an"&&q.ty==="x"),an=ex?q.c:q.c[q.r],op=tmp.fv===k;
   h+="<div class='cd'>"+(st.cat?"<span class='bdg' style='background:"+catCol(st.cat)+"'>"+esc(st.cat)+"</span> ":"")+"<span class='mu'>"+esc(st.name)+"</span><p><b style='white-space:pre-wrap'>"+esc(ex&&q.t?q.t+" – "+q.q:q.q)+"</b></p>"+(op?"<p style='white-space:pre-wrap'>"+esc(an)+"</p>"+(!ex&&q.e?"<p class='mu'>"+esc(q.e)+"</p>":"")+WN:"")+"<div class='row'><button class='btn s' onclick='"+(op?"tmp.fv=null":"tmp.fv=\""+k+"\"")+";R(true)'>"+(op?"Masquer":"Voir la réponse")+"</button><button class='btn d' onclick='unfav(\""+k+"\")'>Retirer</button></div></div>"});
  if(!n)h+="<p class='mu'>Aucune question en favori. Touche l’étoile ☆ pendant un quiz pour en ajouter.</p>";return h},
@@ -6261,7 +6347,7 @@ stats:function(){var S=DB.stats,h="<button class='back' onclick='go(\"home\")'>�
  if(!S||!S.t.n)return h+"<p class='mu'>Fais une première séance pour voir tes statistiques.</p>";
  var t=S.t,pc=Math.round(t.s/t.t*100);
  h+="<div class='cd'><p class='mu'>Taux de réussite global</p><div class='big'>"+pc+" %</div><div class='bar'><i style='width:"+pc+"%'></i></div><p class='mu'>"+t.s+" bonnes réponses sur "+t.t+" · "+t.n+" séance"+(t.n>1?"s":"")+"</p></div>";
- h+="<div class='cd'><b>Série en cours : "+st.n+" jour"+(st.n>1?"s":"")+"</b><p class='mu'>Meilleure série : "+Math.max(DB.best||0,st.n)+" jour"+(Math.max(DB.best||0,st.n)>1?"s":"")+"</p><p class='mu'>🛡️ <span>Joker de la semaine :</span> <span>"+(jokerOk()?"disponible":"déjà utilisé")+"</span></p></div>"+lvlCard()+reg()+"<h3>Par matière</h3>";
+ h+="<div class='cd'><b>Série en cours : "+st.n+" jour"+(st.n>1?"s":"")+"</b><p class='mu'>Meilleure série : "+Math.max(DB.best||0,st.n)+" jour"+(Math.max(DB.best||0,st.n)>1?"s":"")+"</p><p class='mu'>🛡️ <span>Joker de la semaine :</span> <span>"+(jokerOk()?"disponible":"déjà utilisé")+"</span></p></div>"+wkCard(0)+lvlCard()+reg()+"<h3>Par matière</h3>";
  Object.keys(S.c).forEach(function(k){var x=S.c[k],p=Math.round(x.s/x.t*100),col=catCol(k);h+="<div class='cd'><span class='bdg' style='background:"+col+"'>"+esc(k)+"</span><b style='float:right'>"+p+" %</b><div class='bar'><i style='width:"+p+"%;background:"+col+"'></i></div><p class='mu'>"+x.n+" séance"+(x.n>1?"s":"")+" · "+x.s+"/"+x.t+" bonnes réponses</p></div>"});
  var PS=perSet();if(PS.length){h+="<h3>🎯 Points faibles par chapitre</h3><p class='mu'>D’après tes 5 dernières séances sur chaque série, du plus faible au plus solide.</p>";
   PS.forEach(function(r){var lv=lvl(r.p);h+="<div class='cd'>"+(r.s.cat?"<span class='bdg' style='background:"+catCol(r.s.cat)+"'>"+esc(r.s.cat)+"</span> ":"")+"<b>"+esc(r.s.name)+"</b><b style='float:right;color:"+lv[0]+"'>"+r.p+" %</b><div class='bar'><i style='width:"+r.p+"%;background:"+lv[0]+"'></i></div><p class='mu'><span style='color:"+lv[0]+";font-weight:600'>"+lv[1]+"</span> · <span>"+r.n+" "+plur(r.n,"séance")+"</span></p>"+(r.p<70?"<button class='btn s' onclick='go(\"set\",\""+r.s.id+"\")'>Réviser ce chapitre</button>":"")+"</div>"})}
@@ -6329,8 +6415,8 @@ V.anq=function(){var S=SESS,s=gs(S.setId),n=S.order.length;
  return h+"<button class='back' onclick='go(\"home\")'>Quitter et reprendre plus tard</button>"};
 V.bdg=function(){var G=GM(),k=BDG.filter(function(b){return G.bd[b[0]]}).length;
  var h="<button class='back' onclick='go(\"home\")'>← Retour</button><h1>🏅 Mes badges</h1>"+lvlCard().replace(/<button class='back'[^]*?<\/button>/,"");
- h+="<p class='mu'><span>"+k+" / "+BDG.length+"</span> <span>badges débloqués</span></p><div class='bdgs'>";
- BDG.forEach(function(b){var on=G.bd[b[0]];h+="<div class='bdi"+(on?"":" off")+"'>"+ICO.svg(on?b[3]:"lock")+"<b>"+b[1]+"</b><span class='mu'>"+b[2]+"</span></div>"});
+ h+="<p class='mu'><span>"+k+" / "+BDG.length+"</span> <span>badges débloqués</span></p><p class='mu'>Touche un badge débloqué pour le partager en image.</p><div class='bdgs'>";
+ BDG.forEach(function(b){var on=G.bd[b[0]];h+=on?"<button class='bdi' onclick='shareBadge(\""+b[0]+"\")' title='Partager ce badge'>"+ICO.svg(b[3])+"<b>"+b[1]+"</b><span class='mu'>"+b[2]+"</span></button>":"<div class='bdi off'>"+ICO.svg("lock")+"<b>"+b[1]+"</b><span class='mu'>"+b[2]+"</span></div>"});
  h+="</div><div class='cd'><b>⚡ Comment gagner des XP</b><p class='mu'>+10 XP par bonne réponse · +20 XP par séance d’au moins 5 questions · +50 XP pour un sans-faute (10 questions ou plus) · bonus de combo à partir de 5 bonnes réponses d’affilée · +30 XP quand tu atteins ton objectif du jour.</p></div>";
  h+="<div class='cd'><b>Les niveaux</b><p class='mu'>"+LVN.map(function(x,i){return "<span>"+(i+1)+".</span> <span>"+x+"</span> <span>("+LVL[i]+" XP)</span>"}).join("<br>")+"</p></div>";
  return h};
