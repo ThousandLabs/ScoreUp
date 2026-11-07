@@ -55,6 +55,27 @@ pre{white-space:pre-wrap;word-break:break-word;background:var(--cd);border:1px s
 .star .ic{width:24px;height:24px;margin:0;vertical-align:middle}.mni i .ic{width:20px;height:20px;margin:0;vertical-align:-4px}.mnb .ic{width:22px;height:22px;margin:0}
 .eci{display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:12px;background:var(--bg);color:var(--ac)}.eci .ic{width:24px;height:24px;margin:0}
 .cd{box-shadow:0 1px 2px rgba(16,26,61,.05)}
+.nxb{position:sticky;bottom:0;z-index:6;background:var(--bg);margin:8px -16px 0;padding:8px 16px calc(8px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--bd);box-shadow:0 -6px 16px rgba(16,26,61,.07)}.nxb .btn{margin:0}
+.acts .nxb{position:static;margin:0;padding:0;border:0;box-shadow:none;background:none}
+.vd{display:flex;align-items:flex-start;gap:8px}.vd>b{flex:1;font-weight:600}
+.mob{flex:none;width:42px;height:34px;margin:-4px -4px 0 auto;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);font:700 18px/1 system-ui;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}.mob .ic{margin:0;width:20px;height:20px}
+.tgl{display:inline-flex;align-items:center;background:none;border:0;color:var(--ac);font:600 14px system-ui,sans-serif;cursor:pointer;padding:8px 0 0}
+.segb{display:flex;gap:2px;margin:8px 0 6px}.segb i{flex:1;height:6px;border-radius:3px;background:var(--bd)}.segb i.o{background:var(--ok)}.segb i.k{background:var(--ko)}.segb i.a{background:var(--ac)}.segb i.c{box-shadow:0 0 0 2px var(--bg),0 0 0 3.5px var(--ac)}
+.cmb{display:inline-flex;align-items:center;color:#c98500;font-weight:700}.cmb .ic{margin-right:2px}
+.pg{display:flex;gap:14px;align-items:center}.pg .rg{flex:none}
+.rg{position:relative;display:inline-block}.rg svg{display:block;transform:rotate(-90deg)}.rg>span{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;line-height:1.1}
+.lvr{display:flex;justify-content:space-between;gap:8px;font-size:14px;font-weight:600;margin-top:10px}.xpb i{background:#c98500!important}
+.rsc{display:flex;gap:16px;align-items:center}.rsc .rg{flex:none}
+.gmc{border-left:5px solid #c98500}.gmc p{margin:6px 0}
+.bdgs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 0}.bdi{background:var(--cd);border:1px solid var(--bd);border-radius:12px;padding:12px 6px;text-align:center;font-size:12.5px;line-height:1.3}.bdi b{display:block;font-size:13.5px;margin:6px 0 2px}.bdi .ic{width:30px;height:30px;margin:0;color:#c98500}.bdi.off{opacity:.55}.bdi.off .ic{color:var(--mu)}
+@media (max-width:360px){.bdgs{grid-template-columns:repeat(2,1fr)}}
+.cal{display:grid;grid-template-rows:repeat(7,1fr);grid-auto-flow:column;grid-auto-columns:1fr;gap:4px;margin:12px 0 8px}.cal i,.calg i{display:block;aspect-ratio:1;border-radius:3px;background:var(--bd)}
+.cal i.l1,.calg i.l1{background:#b8c6f5}.cal i.l2,.calg i.l2{background:#7d96e8}.cal i.l3,.calg i.l3{background:#4767d9}.cal i.l4,.calg i.l4{background:#2447c9}.cal i.fz,.calg i.fz{background:transparent;box-shadow:inset 0 0 0 2px var(--ok)}.cal i.fu{visibility:hidden}.cal i.td{outline:1.5px solid var(--tx);outline-offset:1px}
+.calg{display:flex;align-items:center;flex-wrap:wrap;gap:4px;font-size:12px;color:var(--mu)}.calg i{width:11px;height:11px}.calg em{font-style:normal;margin:0 6px 0 2px}
+.mst{display:flex;align-items:center;gap:8px;margin-top:2px}.mst .bar{flex:1;margin:0}.mst>span{flex:none}
+.cft{position:fixed;inset:0;pointer-events:none;z-index:120;overflow:hidden}.cft i{position:absolute;top:-14px;width:8px;height:14px;border-radius:2px;opacity:0;animation:cft 2.6s ease-in forwards}
+@keyframes cft{0%{opacity:1;transform:translateY(0) rotate(0)}100%{opacity:0;transform:translateY(105vh) rotate(720deg)}}
+@media (prefers-reduced-motion:reduce){.cft{display:none}}
 </style></head><body><div id="app"></div>
 <script>
 /* =====================================================================
@@ -1122,6 +1143,124 @@ var TLL_EN={
 "➕ Nouvelle question": "➕ New question",
 "Question ajoutée ✓": "Question added ✓",
 "{#} séance": "{} session",
+"Masquer les détails": "Hide details",
+"Afficher les détails": "Show details",
+"Signalée comme douteuse": "Flagged as doubtful",
+"Options de la question": "Question options",
+"Bonnes réponses d’affilée": "Correct answers in a row",
+"{#} bonnes réponses d’affilée !": "{} correct answers in a row!",
+"bonnes réponses d’affilée": "correct answers in a row",
+"Meilleur combo :": "Best combo:",
+"Mes badges": "My badges",
+"badges débloqués": "badges unlocked",
+"Niveau": "Level",
+"Débutant": "Beginner",
+"Curieux": "Curious",
+"Appliqué": "Diligent",
+"Assidu": "Committed",
+"Sérieux": "Serious",
+"Solide": "Solid",
+"Brillant": "Brilliant",
+"Expert": "Expert",
+"Major de promo": "Top of the class",
+"Légende": "Legend",
+"Objectif du jour :": "Daily goal:",
+"Objectif du jour atteint !": "Daily goal reached!",
+"Objectif du jour": "Daily goal",
+"questions": "questions",
+"Tu as manqué hier : ton joker protège ta série si tu révises aujourd’hui.": "You missed yesterday: your joker protects your streak if you revise today.",
+"Encore": "Only",
+"pour le niveau suivant.": "to the next level.",
+"Niveau maximum atteint. Bravo !": "Maximum level reached. Well done!",
+"Joker de la semaine :": "Joker of the week:",
+"disponible": "available",
+"déjà utilisé": "already used",
+"Maîtrise :": "Mastery:",
+"Très bien": "Very good",
+"Bien": "Good",
+"Assez bien": "Fairly good",
+"Passable": "Pass",
+"À retravailler": "Needs more work",
+"Niveau supérieur !": "Level up!",
+"Tu passes au niveau": "You reach level",
+"Nouveau record sur cette série !": "New record on this set!",
+"Ton joker de la semaine a protégé ta série de jours.": "Your joker of the week protected your day streak.",
+"Nouveau badge :": "New badge:",
+"Partager mon résultat": "Share my result",
+"Mes erreurs": "My mistakes",
+"Image téléchargée ✓": "Image downloaded ✓",
+"par Thousand Labs": "by Thousand Labs",
+"Annale": "Past exam",
+"bonnes réponses": "correct answers",
+"jours de suite": "days in a row",
+"jour de suite": "day in a row",
+"Révise avec ScoreUp": "Revise with ScoreUp",
+"Mon résultat sur ScoreUp": "My result on ScoreUp",
+"Calendrier de révision": "Revision calendar",
+"Tes 12 dernières semaines : une colonne par semaine, du lundi (en haut) au dimanche.": "Your last 12 weeks: one column per week, from Monday (top) to Sunday.",
+"Moins": "Less",
+"Plus": "More",
+"Joker": "Joker",
+"jour actif": "active day",
+"jours actifs": "active days",
+"séance": "session",
+"séances": "sessions",
+"Nombre de questions à faire chaque jour. L’accueil affiche ta progression, et l’objectif atteint rapporte 30 XP.": "Number of questions to do each day. The home screen shows your progress, and reaching the goal earns 30 XP.",
+"Vibrer à chaque réponse (bonne ou mauvaise)": "Vibrate on each answer (right or wrong)",
+"Premier pas": "First step",
+"Termine ta première séance.": "Finish your first session.",
+"Sur la lancée": "On a roll",
+"Révise 3 jours de suite.": "Revise 3 days in a row.",
+"Une semaine entière": "A whole week",
+"Révise 7 jours de suite.": "Revise 7 days in a row.",
+"Inarrêtable": "Unstoppable",
+"Révise 30 jours de suite.": "Revise 30 days in a row.",
+"Sans faute": "Flawless",
+"Fais 20/20 sur une séance d’au moins 10 questions.": "Score 20/20 in a session of at least 10 questions.",
+"Combo x10": "Combo x10",
+"Enchaîne 10 bonnes réponses d’affilée.": "Get 10 correct answers in a row.",
+"Centurion": "Centurion",
+"Atteins 100 bonnes réponses au total.": "Reach 100 correct answers in total.",
+"Machine à réviser": "Revision machine",
+"Atteins 500 bonnes réponses au total.": "Reach 500 correct answers in total.",
+"Encyclopédie": "Encyclopedia",
+"Atteins 1 000 bonnes réponses au total.": "Reach 1,000 correct answers in total.",
+"Conditions réelles": "Real conditions",
+"Termine un examen chronométré.": "Finish a timed exam.",
+"Annale réussie": "Past exam done",
+"Termine une annale.": "Finish a past exam.",
+"Champion": "Champion",
+"Gagne un défi lancé par un ami.": "Win a challenge sent by a friend.",
+"Régulier": "Consistent",
+"Atteins ton objectif du jour 7 fois.": "Reach your daily goal 7 times.",
+"Niveau 5": "Level 5",
+"Atteins le niveau 5.": "Reach level 5.",
+"Chapitre maîtrisé": "Chapter mastered",
+"Maîtrise 100 % d’une série d’au moins 10 questions.": "Master 100% of a set of at least 10 questions.",
+"Bibliothèque": "Library",
+"Aie au moins 5 séries.": "Have at least 5 sets.",
+"Couche-tard": "Night owl",
+"Termine une séance après 22 h.": "Finish a session after 10 pm.",
+"Lève-tôt": "Early bird",
+"Termine une séance avant 7 h.": "Finish a session before 7 am.",
+"Comment gagner des XP": "How to earn XP",
+"+10 XP par bonne réponse · +20 XP par séance d’au moins 5 questions · +50 XP pour un sans-faute (10 questions ou plus) · bonus de combo à partir de 5 bonnes réponses d’affilée · +30 XP quand tu atteins ton objectif du jour.": "+10 XP per correct answer · +20 XP per session of at least 5 questions · +50 XP for a flawless session (10 questions or more) · combo bonus from 5 correct answers in a row · +30 XP when you reach your daily goal.",
+"Les niveaux": "Levels",
+"🆕 Nouveau : le bouton « Suivant » reste toujours visible, tu peux masquer les détails des corrigés et glisser pour passer à la question suivante. Et pour te motiver : points XP, niveaux, badges, objectif du jour et joker de série. Tout est expliqué dans le Guide.": "🆕 New: the “Next” button now stays visible, you can hide the details of the solutions and swipe to go to the next question. And to keep you motivated: XP points, levels, badges, a daily goal and a streak joker. Everything is explained in the Guide.",
+"Pendant les QCM, le bouton « Suivant » reste toujours visible en bas de l’écran, et « Masquer les détails » replie l’explication. Glisse vers la gauche pour passer à la question suivante. Les options d’une question (corriger, modifier, signaler) sont réunies dans le bouton ⋯. Pour te motiver : points XP, niveaux, badges, objectif du jour, joker de série, calendrier de révision, maîtrise de chaque série et image de résultat à partager.": "During quizzes, the “Next” button always stays visible at the bottom of the screen, and “Hide details” folds the explanation away. Swipe left to go to the next question. A question's options (correct, edit, flag) are grouped in the ⋯ button. To keep you motivated: XP points, levels, badges, a daily goal, a streak joker, a revision calendar, mastery of each set and a result image to share.",
+"Aussi dans ScoreUp": "Also in ScoreUp",
+"Pendant les QCM": "During quizzes",
+"Le bouton « Suivant » reste en bas de l’écran : plus besoin de descendre. Touche « Masquer les détails » pour replier l’explication et l’avertissement ; ton choix est gardé pour les prochaines séances. Tu peux aussi glisser vers la gauche pour passer à la question suivante, et vers la droite pour revenir en arrière en mode Examen. Le bouton ⋯ réunit « Corriger cette réponse », « Modifier toute la question » et « Signaler comme douteuse ». La barre du haut se colore : vert pour une bonne réponse, rouge pour une erreur.": "The “Next” button stays at the bottom of the screen: no more scrolling down. Tap “Hide details” to fold away the explanation and the warning; your choice is kept for the next sessions. You can also swipe left to go to the next question, and right to go back in Exam mode. The ⋯ button groups “Correct this answer”, “Edit the whole question” and “Flag as doubtful”. The top bar fills with colour: green for a correct answer, red for a mistake.",
+"Sur ordinateur": "On a computer",
+"Réponds avec les touches A, B, C, D (ou 1, 2, 3, 4), puis Entrée ou la flèche droite pour passer à la suite. La flèche gauche revient en arrière en mode Examen.": "Answer with the A, B, C, D keys (or 1, 2, 3, 4), then Enter or the right arrow to move on. The left arrow goes back in Exam mode.",
+"XP, niveaux et badges": "XP, levels and badges",
+"Chaque bonne réponse rapporte 10 XP. Une séance d’au moins 5 questions rapporte 20 XP de plus, et un sans-faute (10 questions ou plus) 50 XP. Enchaîne les bonnes réponses pour faire un combo : à partir de 5 d’affilée, tu gagnes un bonus. Les XP font monter ton niveau, de Débutant à Légende. Les badges récompensent ta régularité et tes exploits : retrouve-les dans le menu ☰, « Mes badges ».": "Each correct answer earns 10 XP. A session of at least 5 questions earns 20 XP more, and a flawless session (10 questions or more) 50 XP. Chain correct answers to build a combo: from 5 in a row, you earn a bonus. XP raises your level, from Beginner to Legend. Badges reward your consistency and achievements: find them in the ☰ menu, “My badges”.",
+"Objectif du jour et joker": "Daily goal and joker",
+"Choisis ton objectif dans les Réglages : 10, 20, 30 ou 50 questions par jour. L’anneau de l’accueil se remplit au fil de tes séances, et l’objectif atteint rapporte 30 XP. Le joker protège ta série de jours : si tu oublies un seul jour, ta série continue. Tu as un joker par semaine, utilisé automatiquement.": "Choose your goal in Settings: 10, 20, 30 or 50 questions a day. The ring on the home screen fills up with your sessions, and reaching the goal earns 30 XP. The joker protects your day streak: if you forget a single day, your streak continues. You get one joker per week, used automatically.",
+"Résultat et partage": "Result and sharing",
+"Après chaque séance : ta note dans un anneau, ta mention, un message quand tu bats ton record sur la série, et un filtre « Mes erreurs » pour ne relire que les questions ratées. « Partager mon résultat » crée une image à envoyer sur WhatsApp ou en statut.": "After each session: your grade in a ring, your mention, a message when you beat your record on the set, and a “My mistakes” filter to review only the questions you missed. “Share my result” creates an image to send on WhatsApp or post as a status.",
+"Maîtrise et calendrier": "Mastery and calendar",
+"Sur l’accueil, chaque série affiche sa maîtrise : la part de ses questions réussies au moins 3 fois de suite en révision espacée. Dans « Statistiques », le calendrier montre tes jours de révision des 12 dernières semaines.": "On the home screen, each set shows its mastery: the share of its questions answered correctly at least 3 times in a row in spaced revision. In “Statistics”, the calendar shows your revision days over the last 12 weeks.",
 "{#} séances": "{} sessions"
 };
 var TLL_SUBX=[];
@@ -1187,6 +1326,16 @@ var ICO=(function(){
     camera:'<path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3"/>',
     landmark:'<path d="M3 22h18M6 18v-7M10 18v-7M14 18v-7M18 18v-7M12 2l8 5H4z"/><path d="M4 18h16"/>',
     flag:'<path d="M4 22V4M4 4h12l-2 4 2 4H4"/>',
+    zap:'<path d="M13 2 3 14h9l-1 8 10-12h-9z"/>',
+    medal:'<circle cx="12" cy="15" r="6"/><path d="M8.5 10.5 6 2h4l2 5 2-5h4l-2.5 8.5"/><path d="M12 12.8v4.4M10.5 14h1.5"/>',
+    shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>',
+    more:'<circle cx="5" cy="12" r="1.4" fill="currentColor"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/><circle cx="19" cy="12" r="1.4" fill="currentColor"/>',
+    eye:'<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+    eyeoff:'<path d="M2 2l20 20M10.6 5.1A10 10 0 0 1 12 5c6.5 0 10 7 10 7a17 17 0 0 1-2.2 3.2M6.6 6.6A17 17 0 0 0 2 12s3.5 7 10 7a9.7 9.7 0 0 0 5.4-1.6M9.9 9.9a3 3 0 0 0 4.2 4.2"/>',
+    image:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/>',
+    party:'<path d="M5.8 11.3 2 22l10.7-3.8"/><path d="M4 3h.01M22 8h.01M15 2h.01M22 20h.01"/><path d="m22 2-2.2.8a3 3 0 0 0-1.9 3.4c.2.8-.4 1.6-1.2 1.6h-.4"/><path d="M11 13 6.8 8.8a1 1 0 0 0-1.6.3L2 22"/><path d="m11 13 4.2 4.2a1 1 0 0 1-.3 1.6L2 22"/>',
+    kbd:'<rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/>',
+    vib:'<rect x="7" y="4" width="10" height="16" rx="2"/><path d="M3 8v8M21 8v8"/>',
     ext:'<path d="M14 3h7v7M21 3l-9 9M19 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/>',
     nocam:'<path d="M2 2l20 20M7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16M9.5 4h5L17 7h3a2 2 0 0 1 2 2v7.3M14.1 14.1A3 3 0 1 1 9.9 9.9"/>'
   };
@@ -1199,6 +1348,7 @@ var ICO=(function(){
     "🔒":["lock"],"🏆":["trophy","wa"],"🔥":["flame","fire"],"🏠":["home"],"🕘":["history"],"👍":["panel"],"📥":["down"],"📤":["up"],"🎨":["contrast"],
     "🔑":["key"],"🔳":["qr"],"⚖️":["scale"],"⚖":["scale"],"ℹ️":["info"],"ℹ":["info"],"🌊":["wallet","wave"],"🟠":["wallet","om"],"💵":["cash","ok"],
     "📷":["camera"],"🏛️":["landmark"],"🏛":["landmark"],"📵":["nocam","ko"],"🚩":["flag","wa"],"↗️":["ext"],"↗":["ext"],
+    "⚡":["zap","wa"],"🏅":["medal","wa"],"🛡️":["shield","ok"],"🛡":["shield","ok"],"⋯":["more"],"👁️":["eye"],"👁":["eye"],"🙈":["eyeoff"],"🖼️":["image"],"🖼":["image"],"🎉":["party","wa"],"⌨️":["kbd"],"⌨":["kbd"],"📳":["vib"],
     "🇫🇷":null,"🇬🇧":null,"👋":null,"💪":null,"🚀":null,"😅":null,"🆕":null};
   function esc(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}
   var K=Object.keys(M).sort(function(a,b){return b.length-a.length});
@@ -1298,7 +1448,7 @@ function rd(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return nu
 function save(){try{localStorage.setItem("qcm_db",JSON.stringify(DB))}catch(e){store=false}}
 function saveS(){try{if(SESS)localStorage.setItem("qcm_sess",JSON.stringify(SESS));else localStorage.removeItem("qcm_sess")}catch(e){store=false}}
 function load(){try{localStorage.setItem("qcm_t","1");localStorage.removeItem("qcm_t")}catch(e){store=false}
- var d=rd("qcm_db");if(d&&Array.isArray(d.sets))DB={sets:d.sets,hist:Array.isArray(d.hist)?d.hist:[],cats:Array.isArray(d.cats)?d.cats:[],stats:d.stats||null,last:d.last||"",streak:d.streak||0,best:d.best||0,fav:Array.isArray(d.fav)?d.fav:[],seeded:!!d.seeded,days:(d.days&&typeof d.days==="object"&&!Array.isArray(d.days))?d.days:{},srs:(d.srs&&typeof d.srs==="object")?d.srs:{},goals:Array.isArray(d.goals)?d.goals:[],mg:d.mg||0};if(!DB.stats)DB.hist.forEach(function(x){addStat(x.c||"Sans matière",x.s,x.t)});var th=null;try{th=localStorage.getItem("qcm_th")}catch(e){}if(th)document.documentElement.setAttribute("data-theme",th);try{TH=localStorage.getItem("qcm_tp")==="1"}catch(e){}document.body.className=TH?"thumb":"";
+ var d=rd("qcm_db");if(d&&Array.isArray(d.sets))DB={sets:d.sets,hist:Array.isArray(d.hist)?d.hist:[],cats:Array.isArray(d.cats)?d.cats:[],stats:d.stats||null,last:d.last||"",streak:d.streak||0,best:d.best||0,fav:Array.isArray(d.fav)?d.fav:[],seeded:!!d.seeded,days:(d.days&&typeof d.days==="object"&&!Array.isArray(d.days))?d.days:{},srs:(d.srs&&typeof d.srs==="object")?d.srs:{},goals:Array.isArray(d.goals)?d.goals:[],mg:d.mg||0,gm:cgm(d.gm),nv46:d.nv46||0,nv50:d.nv50||0};if(!DB.stats)DB.hist.forEach(function(x){addStat(x.c||"Sans matière",x.s,x.t)});var th=null;try{th=localStorage.getItem("qcm_th")}catch(e){}if(th)document.documentElement.setAttribute("data-theme",th);try{TH=localStorage.getItem("qcm_tp")==="1"}catch(e){}document.body.className=TH?"thumb":"";
  var s=rd("qcm_sess");if(s&&s.order&&gs(s.setId))SESS=s}
 function gs(id){return DB.sets.filter(function(s){return s.id===id})[0]}
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
@@ -1336,9 +1486,9 @@ function parseEx(txt){var X=[],Q=[],E=[],ex=null,it=null,last=null,m;
   e.it.forEach(function(x,k){var pp=p+"question "+(k+1)+" : ";if(!x.q.trim())return E.push(pp+"l’énoncé est vide.");if(!x.c.trim())return E.push(pp+"la ligne « C: » (corrigé) est manquante.");if(x.n!==""&&isNaN(pn(x.n)))return E.push(pp+"« N: » doit être un nombre.");
    Q.push({t:e.t.trim(),s:e.s.trim(),q:x.q.trim(),n:x.n===""?"":(pnAll(x.n).length>1?x.n.replace(/[\s\u00a0\u202f]/g,""):String(pn(x.n))),c:x.c.trim()})})});
  return {Q:Q,E:E,n:X.length,ex:1}}
-function rate(ok){SESS.ans[SESS.i]={ok:!!ok,v:""};tmp.sh=null;saveS();R(true)}
+function rate(ok){SESS.ans[SESS.i]={ok:!!ok,v:""};tmp.sh=null;cmb(!!ok);saveS();R(true);cmbT()}
 function chk(){var raw=$("#nv").value,q=gs(SESS.setId).questions[SESS.order[SESS.i]],v=pn(raw),e=pn(q.n),V=pnAll(raw),E=pnAll(q.n);if(isNaN(v)){$("#nv").value="";$("#nv").placeholder="Tape un nombre";return}
- SESS.ans[SESS.i]={ok:V.some(function(a){return E.some(function(b){return Math.abs(a-b)<=Math.max(0.01,Math.abs(b)*0.005)})}),v:raw};saveS();R(true)}
+ SESS.ans[SESS.i]={ok:V.some(function(a){return E.some(function(b){return Math.abs(a-b)<=Math.max(0.01,Math.abs(b)*0.005)})}),v:raw};cmb(SESS.ans[SESS.i].ok);saveS();R(true);cmbT()}
 var PAL=["#2447c9","#17794a","#b42318","#a15c00","#7a3fc4","#007a8a","#c2410c","#4d5b72"],IP=null;
 window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();IP=e});
 function inst(){if(IP){IP.prompt();IP=null;R(true)}}
@@ -1346,13 +1496,14 @@ function curTh(){var t=document.documentElement.getAttribute("data-theme");retur
 function theme(){var n=curTh()==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("qcm_th",n)}catch(e){}R(true)}
 function ds(d){return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2)}
 function yest(){var y=new Date();y.setDate(y.getDate()-1);return ds(y)}
-function streak(){var t=ds(new Date());return {n:(DB.last===t||DB.last===yest())?DB.streak||0:0,today:DB.last===t}}
-function bump(){var t=ds(new Date());if(DB.last===t)return;DB.streak=DB.last===yest()?(DB.streak||0)+1:1;DB.last=t;DB.best=Math.max(DB.best||0,DB.streak)}
+/* Joker : si un seul jour est manqué, la série continue (un joker par semaine, utilisé tout seul) */
+function streak(){var t=ds(new Date()),j=DB.last===dAgo(2)&&(DB.streak||0)>0&&jokerOk();return {n:(DB.last===t||DB.last===yest()||j)?DB.streak||0:0,today:DB.last===t,jk:j}}
+function bump(){var t=ds(new Date());if(DB.last===t)return;var G=GM();if(DB.last===yest())DB.streak=(DB.streak||0)+1;else if(DB.last===dAgo(2)&&(DB.streak||0)>0&&jokerOk()){G.fzw=wkKey();G.fzd.push(yest());G.fzd=G.fzd.slice(-60);DB.streak=(DB.streak||0)+1;tmp.jku=1}else DB.streak=1;DB.last=t;DB.best=Math.max(DB.best||0,DB.streak)}
 function addStat(cn,sc,t){DB.stats=DB.stats||{t:{s:0,t:0,n:0},c:{}};var T=DB.stats.t,C=DB.stats.c[cn]=DB.stats.c[cn]||{s:0,t:0,n:0};T.s+=sc;T.t+=t;T.n++;C.s+=sc;C.t+=t;C.n++}
 function catCol(n){for(var i=0;i<DB.cats.length;i++)if(DB.cats[i].n===n)return DB.cats[i].c;return "#4d5b72"}
 function catAdd(n){n=(n||"").trim().slice(0,30);if(!n)return "";for(var i=0;i<DB.cats.length;i++)if(DB.cats[i].n.toLowerCase()===n.toLowerCase())return DB.cats[i].n;DB.cats.push({n:n,c:PAL[DB.cats.length%PAL.length]});return n}
 function setcat(id,v){gs(id).cat=v;save();R(true)}
-function frate(ok){SESS.ans[SESS.i]={ok:!!ok};saveS();tmp.rv=null;if(SESS.i<SESS.order.length-1)mv(1);else fin()}
+function frate(ok){SESS.ans[SESS.i]={ok:!!ok};cmb(!!ok);saveS();tmp.rv=null;if(SESS.i<SESS.order.length-1)mv(1);else fin();cmbT()}
 var WN="<div class='wn'>⚠️ Corrigé issu d’une IA ou de tes séries importées : il peut contenir des erreurs. Vérifie-le avec ton cours ou ton prof.</div>",TH=false;
 function fk(){return SESS.setId+":"+SESS.order[SESS.i]}
 function isFav(k){return DB.fav.indexOf(k)>=0}
@@ -1367,7 +1518,7 @@ function clean(o){if(!o||o.app!=="ScoreUp"||!o.db||!Array.isArray(o.db.sets))ret
  var cats=(Array.isArray(d.cats)?d.cats:[]).filter(function(k){return k&&typeof k.n==="string"}).map(function(k){return {n:k.n,c:C.test(k.c||"")?k.c:"#4d5b72"}});
  var hist=(Array.isArray(d.hist)?d.hist:[]).filter(function(x){return x&&okN(x.s)&&okN(x.t)&&x.t>0}).map(function(x){var o={n:String(x.n||""),m:MN[x.m]?x.m:"libre",s:x.s,t:x.t,d:okN(x.d)?x.d:Date.now(),c:String(x.c||"")};if(okN(x.g))o.g=x.g;if(typeof x.id==="string")o.id=x.id;return o});
  var st=d.stats,ok=!!(st&&st.t&&okN(st.t.s)&&okN(st.t.t)&&st.t.t>0&&okN(st.t.n)&&st.c&&typeof st.c==="object");if(ok)Object.keys(st.c).forEach(function(k){var x=st.c[k];if(!(x&&okN(x.s)&&okN(x.t)&&x.t>0&&okN(x.n)))ok=false});
- return {sets:sets,hist:hist,cats:cats,stats:ok?st:null,last:/^\d{4}-\d{2}-\d{2}$/.test(d.last||"")?d.last:"",streak:okN(d.streak)?d.streak:0,best:okN(d.best)?d.best:0,fav:(Array.isArray(d.fav)?d.fav:[]).filter(function(k){return typeof k==="string"&&/^[a-z0-9-]+:\d+$/i.test(k)}),days:cdays(d.days),srs:(function(x){var o={};if(x&&typeof x==="object")Object.keys(x).forEach(function(k){var v=x[k];if(/^[a-z0-9-]+:\d+$/i.test(k)&&v&&okN(v.b)&&/^\d{4}-\d{2}-\d{2}$/.test(v.d||""))o[k]={b:Math.max(0,Math.min(5,v.b)),d:v.d}});return o})(d.srs),goals:(Array.isArray(d.goals)?d.goals:[]).filter(function(g){return g&&typeof g.n==="string"&&/^\d{4}-\d{2}-\d{2}$/.test(g.d||"")}).map(function(g){return {id:String(g.id||uid()),n:g.n.slice(0,40),d:g.d,c:typeof g.c==="string"?g.c:""}}),mg:2}}
+ return {sets:sets,hist:hist,cats:cats,stats:ok?st:null,last:/^\d{4}-\d{2}-\d{2}$/.test(d.last||"")?d.last:"",streak:okN(d.streak)?d.streak:0,best:okN(d.best)?d.best:0,fav:(Array.isArray(d.fav)?d.fav:[]).filter(function(k){return typeof k==="string"&&/^[a-z0-9-]+:\d+$/i.test(k)}),days:cdays(d.days),srs:(function(x){var o={};if(x&&typeof x==="object")Object.keys(x).forEach(function(k){var v=x[k];if(/^[a-z0-9-]+:\d+$/i.test(k)&&v&&okN(v.b)&&/^\d{4}-\d{2}-\d{2}$/.test(v.d||""))o[k]={b:Math.max(0,Math.min(5,v.b)),d:v.d}});return o})(d.srs),goals:(Array.isArray(d.goals)?d.goals:[]).filter(function(g){return g&&typeof g.n==="string"&&/^\d{4}-\d{2}-\d{2}$/.test(g.d||"")}).map(function(g){return {id:String(g.id||uid()),n:g.n.slice(0,40),d:g.d,c:typeof g.c==="string"?g.c:""}}),mg:2,gm:cgm(d.gm),nv46:1,nv50:1}}
 function bkJson(){return JSON.stringify({app:"ScoreUp",v:2,date:new Date().toISOString(),dev:devId(),db:DB},null,1)}
 function bkDl(){var u=URL.createObjectURL(new Blob([bkJson()],{type:"application/json"})),a=document.createElement("a");a.href=u;a.download="scoreup-sauvegarde-"+ds(new Date())+".json";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},4000)}
 /* Sauvegarde : menu de partage du téléphone (WhatsApp, Drive…) ; sinon téléchargement */
@@ -5592,7 +5743,7 @@ function qEdit(sid,qi){var s=gs(sid),q=s&&s.questions[qi];if(!q||s.kind==="ex")r
 function qSave(sid,qi){var s=gs(sid),q=s&&s.questions[qi],r=document.querySelector("input[name=qer]:checked"),e=document.getElementById("qee");if(!q||!r)return;q.r=+r.value;q.e=(e?e.value:"").trim();save();suClose();R(true)}
 
 /* Menu ☰ : accès rapide aux Statistiques, Réglages, etc. depuis n'importe quel écran (sauf pendant un quiz) */
-var MNI=[["home","🏠","Accueil"],["stats","📊","Statistiques"],["hist","🕘","Historique"],["fav","⭐","Favoris"],["ann","📝","Annales"],["goals","📅","Mes examens"],["find","🔍","Rechercher"],["bk","💾","Sauvegarde"],["reg","⚙️","Réglages"],0,["help","🤖","Comment faire"],["info","📘","Guide"]];
+var MNI=[["home","🏠","Accueil"],["stats","📊","Statistiques"],["bdg","🏅","Mes badges"],["hist","🕘","Historique"],["fav","⭐","Favoris"],["ann","📝","Annales"],["goals","📅","Mes examens"],["find","🔍","Rechercher"],["bk","💾","Sauvegarde"],["reg","⚙️","Réglages"],0,["help","🤖","Comment faire"],["info","📘","Guide"]];
 function mnBtn(){return (view==="quiz"||(view==="ecole"&&lsg("qcm_school")===null))?"":"<button class='mnb' aria-label='Ouvrir le menu' title='Menu' onclick='mnOpen()'>☰</button>"}
 function mnOpen(){if(document.getElementById("mnov"))return;var h="<nav role='dialog' aria-modal='true' aria-label='Menu'><div class='mnh'><b>ScoreUp</b><button aria-label='Fermer le menu' onclick='mnClose()'>✕</button></div>";
  MNI.forEach(function(m){h+=m?"<button class='mni"+(view===m[0]?" on":"")+"' onclick='mnGo(\""+m[0]+"\")'><i>"+m[1]+"</i><span>"+m[2]+"</span></button>":"<div class='mns'></div>"});
@@ -5615,7 +5766,7 @@ window.addEventListener("popstate",function(){if(HSKIP){HSKIP=false;return}
  if(view!=="home"){view="home";cur=null;tmp.cf=0;R()}});
 
 function tick(){if(!SESS)return;var e=document.getElementById("tm");if(e&&SESS.end){var r=SESS.end-Date.now();if(r<=0){fin(true);return}var s=Math.ceil(r/1000);e.textContent="⏱ "+Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
- var q=document.getElementById("tq");if(q&&SESS.qt&&SESS.qs&&view==="quiz"){var z=SESS.qt-Math.floor((Date.now()-SESS.qs)/1000);if(z<=0){if(SESS.ans[SESS.i]===null){SESS.ans[SESS.i]=-1;saveS();R(true)}return}q.textContent="⏱ "+z+" s"}}
+ var q=document.getElementById("tq");if(q&&SESS.qt&&SESS.qs&&view==="quiz"){var z=SESS.qt-Math.floor((Date.now()-SESS.qs)/1000);if(z<=0){if(SESS.ans[SESS.i]===null){SESS.ans[SESS.i]=-1;cmb(false);saveS();R(true)}return}q.textContent="⏱ "+z+" s"}}
 setInterval(tick,500);
 function copy(txt,btn){var ok=function(){btn.textContent="Copié ✓"};
  var fb=function(){var t=document.createElement("textarea");t.value=txt;document.body.appendChild(t);t.select();try{document.execCommand("copy");ok()}catch(e){btn.textContent="Sélectionne le texte et copie-le"}t.remove()};
@@ -5662,23 +5813,159 @@ function begin(id){var s=gs(id),mode=document.querySelector("input[name=m]:check
 function start(id,mode,pool,n,mins,sh){var s=gs(id),ix=sh?shuf(pool):pool.slice();ix=ix.slice(0,n);
  SESS={setId:id,mode:mode,order:ix,perm:ix.map(function(i){var p=Array.isArray(s.questions[i].c)?s.questions[i].c.map(function(_,k){return k}):[];return sh?shuf(p):p}),ans:ix.map(function(){return null}),i:0,start:Date.now(),end:mins?Date.now()+mins*60000:0};
  saveS();view="quiz";tmp.cf=0;R()}
-function pick(p){var S=SESS;if(S.mode!=="exam"&&S.mode!=="annale"&&S.ans[S.i]!==null)return;S.ans[S.i]=p;saveS();R(true)}
+function pick(p){var S=SESS;if(S.mode!=="exam"&&S.mode!=="annale"&&S.ans[S.i]!==null)return;S.ans[S.i]=p;
+ if(S.mode!=="exam"&&S.mode!=="annale"){var s=gs(S.setId),q=s&&s.questions[S.order[S.i]];if(q&&Array.isArray(q.c))cmb(p===S.perm[S.i].indexOf(q.r))}
+ saveS();R(true);cmbT()}
 function mv(d){SESS.qs=Date.now();SESS.i=Math.max(0,Math.min(SESS.order.length-1,SESS.i+d));saveS();tmp.cf=0;R()}
 function resume(){if(SESS.end&&Date.now()>=SESS.end){fin(true);return}if(SESS.qt&&SESS.ans[SESS.i]===null)SESS.qs=Date.now();view="quiz";R()}
 function fin(force){var S=SESS;if(!S)return;
  if(gs(S.setId).kind==="an"){if(S.ph==="corr")return;if(!force&&!tmp.cf){tmp.cf=1;R(true);return}anCorr(S,gs(S.setId));tmp.cf=0;view="quiz";R();return}
  if(S.mode==="exam"&&!force){var un=S.ans.filter(function(a){return a===null}).length;if(un&&!tmp.cf){tmp.cf=1;R(true);return}}
- var s=gs(S.setId),sc=0,wr=[],wa=0;
+ var s=gs(S.setId),sc=0,wr=[],wa=0,pb=bestG(s.id);
  S.order.forEach(function(qi,i){var q=s.questions[qi],sf=s.kind==="ex"||S.mode==="flash",ok=sf?!!(S.ans[i]&&S.ans[i].ok):S.ans[i]===S.perm[i].indexOf(q.r);if(ok)sc++;else{wr.push(qi);if(!sf&&S.ans[i]!==null&&S.ans[i]!==-1)wa++}srsUp(s.id,qi,ok)});
  var g=g20(Math.max(0,sc-(S.neg||0)*wa)/S.order.length*20);
- s.wrong=wr;DB.hist.unshift({n:s.name,m:S.mode,s:sc,t:S.order.length,d:Date.now(),c:s.cat||"",g:g,id:s.id});DB.hist=DB.hist.slice(0,100);bump();DB.days=DB.days||{};var dk=ds(new Date());DB.days[dk]=(DB.days[dk]||0)+1;addStat(s.cat||"Sans matière",sc,S.order.length);save();
- tmp.res={S:S,s:s,sc:sc,g:g,wa:wa};SESS=null;saveS();tmp.cf=0;view="res";R()}
+ s.wrong=wr;DB.hist.unshift({n:s.name,m:S.mode,s:sc,t:S.order.length,d:Date.now(),c:s.cat||"",g:g,id:s.id});DB.hist=DB.hist.slice(0,100);bump();DB.days=DB.days||{};var dk=ds(new Date());DB.days[dk]=(DB.days[dk]||0)+1;addStat(s.cat||"Sans matière",sc,S.order.length);var gm=gmEnd({sc:sc,t:S.order.length,g:g,mode:S.mode,cbm:S.cbm||0,n:S.ans.filter(function(x){return x!==null}).length,dw:!!(s.defi&&g>s.defi.g)});save();
+ tmp.res={S:S,s:s,sc:sc,g:g,wa:wa,rec:pb!==null&&g>pb,gm:gm};tmp.rf=0;SESS=null;saveS();tmp.cf=0;view="res";R()}
 function rich(t){var o="",tb=[];function fl(){if(!tb.length)return;o+="<div class='tw'><table>"+tb.map(function(r,i){var g=i?"td":"th";return "<tr>"+r.map(function(c){return "<"+g+">"+esc(c.trim())+"</"+g+">"}).join("")+"</tr>"}).join("")+"</table></div>";tb=[]}
  String(t).split("\n").forEach(function(l){if(l.indexOf("|")>=0){var c=l.replace(/^\s*\|/,"").replace(/\|\s*$/,"").split("|");if(c.length>=2){if(!c.every(function(x){return /^[\s:-]*$/.test(x)}))tb.push(c);return}}fl();o+=esc(l)+"\n"});fl();return o.replace(/\n$/,"")}
-function reg(){var D=DB.days||{},b="",n=0,a=0,mx=1,i,d,k,v,arr=[];for(i=29;i>=0;i--){d=new Date();d.setDate(d.getDate()-i);k=ds(d);v=D[k]||0;arr.push([k,v]);if(v>mx)mx=v;if(v){a++;n+=v}}
- arr.forEach(function(x){b+="<i class='"+(x[1]?"":"z")+"' style='height:"+(x[1]?Math.max(12,Math.round(x[1]/mx*100)):4)+"%' title='"+x[0]+" : "+x[1]+"'></i>"});
- return "<div class='cd'><b>Régularité · 30 derniers jours</b><div class='reg'>"+b+"</div><p class='mu'>"+a+" jour"+(a>1?"s":"")+" actif"+(a>1?"s":"")+" sur 30 · "+n+" séance"+(n>1?"s":"")+". Le suivi jour par jour commence à cette mise à jour.</p></div>"}
+function reg(){var D=DB.days||{},G=GM(),fz={},t=new Date();t.setHours(0,0,0,0);(G.fzd||[]).forEach(function(k){fz[k]=1});var st=new Date(t);st.setDate(st.getDate()-((t.getDay()+6)%7)-77);var c="",a=0,n=0,tk=ds(t);
+ for(var j=0;j<84;j++){var x=new Date(st);x.setDate(st.getDate()+j);var k=ds(x),v=D[k]||0,fu=x>t;if(!fu&&v){a++;n+=v}c+="<i class='"+(fu?"fu":v>=5?"l4":v>=3?"l3":v===2?"l2":v===1?"l1":fz[k]?"fz":"")+(k===tk?" td":"")+"' title='"+k+(v?" : "+v:"")+"'></i>"}
+ return "<div class='cd'><b>📅 Calendrier de révision</b><p class='mu'>Tes 12 dernières semaines : une colonne par semaine, du lundi (en haut) au dimanche.</p><div class='cal'>"+c+"</div><div class='calg'><span>Moins</span><i></i><i class='l1'></i><i class='l2'></i><i class='l3'></i><i class='l4'></i><span>Plus</span><em></em><i class='fz'></i><span>Joker</span></div><p class='mu'><span>"+a+"</span> <span>"+plur(a,"jour actif","jours actifs")+"</span> · <span>"+n+"</span> <span>"+plur(n,"séance")+"</span></p></div>"}
 function cdays(x){var o={};if(x&&typeof x==="object"&&!Array.isArray(x))Object.keys(x).forEach(function(k){if(/^\d{4}-\d{2}-\d{2}$/.test(k)&&okN(x[k])&&x[k]>0)o[k]=Math.floor(x[k])});return o}
+/* =====================================================================
+   v5 : confort pendant les QCM + motivation
+   Barre « Suivant » fixe, détails repliables, menu ⋯, glisser / clavier,
+   vibrations, combo, XP et niveaux, badges, objectif du jour, joker de série,
+   maîtrise par série, carte de résultat à partager.
+   ===================================================================== */
+function dAgo(n){var d=new Date();d.setDate(d.getDate()-n);return ds(d)}
+function wkKey(){var d=new Date();d.setDate(d.getDate()-((d.getDay()+6)%7));return ds(d)}
+function cgm(x){x=x&&typeof x==="object"&&!Array.isArray(x)?x:{};var D=/^\d{4}-\d{2}-\d{2}$/,o={xp:okN(x.xp)&&x.xp>0?Math.floor(x.xp):0,gl:[10,20,30,50].indexOf(x.gl)>=0?x.gl:20,dq:{},bd:{},gd:okN(x.gd)&&x.gd>0?Math.floor(x.gd):0,cbm:okN(x.cbm)&&x.cbm>0?Math.floor(x.cbm):0,fzw:D.test(x.fzw||"")?x.fzw:"",fzd:(Array.isArray(x.fzd)?x.fzd:[]).filter(function(k){return typeof k==="string"&&D.test(k)}).slice(-60),i:x.i?1:0};
+ if(x.dq&&typeof x.dq==="object")Object.keys(x.dq).forEach(function(k){if(D.test(k)&&okN(x.dq[k])&&x.dq[k]>0)o.dq[k]=Math.floor(x.dq[k])});
+ if(x.bd&&typeof x.bd==="object")Object.keys(x.bd).forEach(function(k){if(/^[a-z0-9]{1,12}$/.test(k)&&D.test(x.bd[k]||""))o.bd[k]=x.bd[k]});return o}
+function GM(){if(!DB.gm||typeof DB.gm!=="object")DB.gm=cgm(DB.gm);return DB.gm}
+function jokerOk(){return GM().fzw!==wkKey()}
+/* Première ouverture de la v5 : les anciens utilisateurs gardent le mérite de leurs bonnes réponses */
+function gmInit(){var G=GM();if(G.i)return;G.i=1;G.xp=Math.max(G.xp,((DB.stats&&DB.stats.t&&DB.stats.t.s)||0)*10);bdCheck(null);save()}
+
+/* ---------- Niveaux ---------- */
+var LVL=[0,100,300,700,1200,2000,3200,5000,7500,11000];
+var LVN=["Débutant","Curieux","Appliqué","Assidu","Sérieux","Solide","Brillant","Expert","Major de promo","Légende"];
+function lvInfo(xp){var i=0;while(i<LVL.length-1&&xp>=LVL[i+1])i++;var a=LVL[i],b=LVL[i+1];return {n:i+1,nm:LVN[i],a:a,b:b||null,p:b?Math.round((xp-a)/(b-a)*100):100}}
+function todayQ(){return GM().dq[ds(new Date())]||0}
+
+/* ---------- Badges : [id, nom, condition, icône] ---------- */
+var BDG=[["first","Premier pas","Termine ta première séance.","flag"],["s3","Sur la lancée","Révise 3 jours de suite.","flame"],["s7","Une semaine entière","Révise 7 jours de suite.","flame"],["s30","Inarrêtable","Révise 30 jours de suite.","flame"],
+ ["perfect","Sans faute","Fais 20/20 sur une séance d’au moins 10 questions.","trophy"],["c10","Combo x10","Enchaîne 10 bonnes réponses d’affilée.","zap"],["q100","Centurion","Atteins 100 bonnes réponses au total.","check"],["q500","Machine à réviser","Atteins 500 bonnes réponses au total.","check"],["q1000","Encyclopédie","Atteins 1 000 bonnes réponses au total.","book"],
+ ["exam","Conditions réelles","Termine un examen chronométré.","timer"],["annale","Annale réussie","Termine une annale.","file"],["defi","Champion","Gagne un défi lancé par un ami.","swords"],["goal7","Régulier","Atteins ton objectif du jour 7 fois.","target"],["lv5","Niveau 5","Atteins le niveau 5.","medal"],
+ ["master","Chapitre maîtrisé","Maîtrise 100 % d’une série d’au moins 10 questions.","cap"],["sets5","Bibliothèque","Aie au moins 5 séries.","book"],["night","Couche-tard","Termine une séance après 22 h.","moon"],["early","Lève-tôt","Termine une séance avant 7 h.","sun"]];
+function mastery(s){var n=s.questions.length,m=0;if(!n)return 0;s.questions.forEach(function(_,i){if(srsBox(s.id,i)>=3)m++});return Math.round(m/n*100)}
+function bdCheck(o){var G=GM(),st=DB.stats&&DB.stats.t,ok=st?st.s:0,best=Math.max(DB.best||0,DB.streak||0),h=new Date().getHours(),c={
+  first:DB.hist.length>0,s3:best>=3,s7:best>=7,s30:best>=30,perfect:!!(o&&o.t>=10&&o.sc>=o.t&&o.mode!=="flash"),c10:(G.cbm||0)>=10,q100:ok>=100,q500:ok>=500,q1000:ok>=1000,
+  exam:!!(o&&o.mode==="exam"),annale:!!(o&&o.mode==="annale"),defi:!!(o&&o.dw),goal7:(G.gd||0)>=7,lv5:lvInfo(G.xp).n>=5,
+  master:DB.sets.some(function(s){return s.kind!=="an"&&s.questions.length>=10&&mastery(s)===100}),sets5:DB.sets.length>=5,night:!!(o&&h>=22),early:!!(o&&h>=4&&h<7)},nb=[];
+ BDG.forEach(function(b){if(c[b[0]]&&!G.bd[b[0]]){G.bd[b[0]]=ds(new Date());nb.push(b)}});return nb}
+
+/* ---------- Fin de séance : XP, objectif du jour, badges ---------- */
+function gmEnd(o){var G=GM(),d=ds(new Date()),q0=G.dq[d]||0,lv0=lvInfo(G.xp).n,goal=false,
+  xp=Math.round(o.sc*10)+(o.t>=5?20:0)+(o.t>=10&&o.sc>=o.t&&o.mode!=="flash"?50:0)+((o.cbm||0)>=5?o.cbm*2:0);
+ G.dq[d]=q0+(o.n||0);var ks=Object.keys(G.dq).sort();while(ks.length>120)delete G.dq[ks.shift()];
+ if(q0<G.gl&&G.dq[d]>=G.gl){xp+=30;G.gd=(G.gd||0)+1;goal=true}
+ G.xp+=xp;G.cbm=Math.max(G.cbm||0,o.cbm||0);var lv=lvInfo(G.xp),jk=!!tmp.jku;tmp.jku=0;
+ return {xp:xp,lv:lv.n>lv0?lv:null,goal:goal,cbm:o.cbm||0,jk:jk,nb:bdCheck(o)}}
+function bestG(id,an){var b=null;DB.hist.forEach(function(x){if(x.id===id&&(an?x.m==="annale":x.m!=="annale")&&okN(x.g)&&(b===null||x.g>b))b=x.g});return b}
+function gmGoal(n){GM().gl=n;save();R(true)}
+
+/* ---------- Combo et vibrations ---------- */
+function vib(ok){if(lsg("qcm_vib")==="0")return;try{if(navigator.vibrate)navigator.vibrate(ok?25:[50,40,50])}catch(e){}}
+function vibT(){lss("qcm_vib",lsg("qcm_vib")==="0"?"1":"0");R(true)}
+function cmb(ok){var S=SESS;if(!S)return;S.cb=ok?(S.cb||0)+1:0;S.cbm=Math.max(S.cbm||0,S.cb);if(ok&&[5,10,15,20,30,50].indexOf(S.cb)>=0)tmp.cbt=S.cb;vib(ok)}
+function cmbT(){if(!tmp.cbt)return;var n=tmp.cbt;tmp.cbt=0;suToast("⚡ "+n+" bonnes réponses d’affilée !")}
+function cmbTag(){var S=SESS;return S&&S.cb>=3?"<span class='cmb' title='Bonnes réponses d’affilée'>⚡ "+S.cb+"</span>":""}
+
+/* ---------- Barre de progression colorée (vert = juste, rouge = erreur) ---------- */
+function pbar(){var S=SESS,s=gs(S.setId),n=S.order.length,i=S.i;if(n>40)return "<div class='bar'><i style='width:"+((i+1)/n*100)+"%'></i></div>";
+ var h="<div class='segb' aria-hidden='true'>";for(var j=0;j<n;j++){var a=S.ans[j],c="";
+  if(a!==null&&a!==undefined){if(S.mode==="exam"||S.mode==="annale")c="a";else if(typeof a==="object")c=a.ok?"o":"k";else{var q=s.questions[S.order[j]];c=(a!==-1&&Array.isArray(q.c)&&a===S.perm[j].indexOf(q.r))?"o":"k"}}
+  h+="<i class='"+c+(j===i?" c":"")+"'></i>"}return h+"</div>"}
+
+/* ---------- Corrigé : détails repliables, avertissement une fois par séance, menu ⋯ ---------- */
+function cmpOn(){return lsg("qcm_cmp")==="1"}
+function cmpT(){lss("qcm_cmp",cmpOn()?"0":"1");R(true)}
+function tglBtn(cmp){return "<button class='tgl' onclick='event.stopPropagation();cmpT()'>"+(cmp?"👁️ Afficher les détails":"🙈 Masquer les détails")+"</button>"}
+function wnOnce(){var S=SESS;if(!S)return WN;if(S.wn==null){S.wn=S.i;saveS()}return S.wn===S.i?WN:""}
+function dtTag(q){return q&&q.dt?"<p class='mu'>🚩 Signalée comme douteuse</p>":""}
+function moreBtn(sid,qi){return "<button class='mob' aria-label='Options de la question' title='Options de la question' onclick='event.stopPropagation();qMore(\""+sid+"\","+qi+")'>⋯</button>"}
+function moreRow(sid,qi){var q=(gs(sid)||{questions:[]}).questions[qi];return "<div class='vd' style='margin-top:6px'><span class='mu' style='flex:1'>"+(q&&q.dt?"🚩 Signalée comme douteuse":"")+"</span>"+moreBtn(sid,qi)+"</div>"}
+function qMore(sid,qi){var s=gs(sid),q=s&&s.questions[qi];if(!q)return;var x=s.kind==="ex"||(s.kind==="an"&&q.ty==="x");
+ var h="<h3 style='margin-top:0'>Options de la question</h3>"+WN+(x?"":"<button class='btn s' onclick='suClose();qEdit(\""+sid+"\","+qi+")'>✏️ Corriger cette réponse</button>")+(EDM()?"<button class='btn s' onclick='suClose();qForm(\""+sid+"\","+qi+")'>🛠️ Modifier toute la question</button>":"")+"<button class='btn s' onclick='suClose();qFlag(\""+sid+"\","+qi+")'>🚩 "+(q.dt?"Signalée comme douteuse · retirer":"Signaler comme douteuse")+"</button>";
+ suOpen(h);hSync()}
+
+/* ---------- Glisser (téléphone) et clavier (ordinateur) ---------- */
+var SWP=null;
+document.addEventListener("touchstart",function(e){SWP=null;if(view!=="quiz"||e.touches.length!==1)return;var t=e.target;if(t&&t.closest&&t.closest(".tw,input,textarea,select,.suov,.mnov"))return;SWP={x:e.touches[0].clientX,y:e.touches[0].clientY,t:Date.now()}},{passive:true});
+document.addEventListener("touchend",function(e){if(!SWP||view!=="quiz")return;var c=e.changedTouches[0],dx=c.clientX-SWP.x,dy=c.clientY-SWP.y,dt=Date.now()-SWP.t;SWP=null;
+ if(dt>800||Math.abs(dx)<70||Math.abs(dy)>Math.abs(dx)*0.6)return;var b=document.querySelector(dx<0?"#app [data-nx]":"#app [data-pv]");if(b)b.click()},{passive:true});
+document.addEventListener("keydown",function(e){if(view!=="quiz"||document.getElementById("suov")||document.getElementById("mnov"))return;if(e.ctrlKey||e.metaKey||e.altKey)return;
+ var t=e.target,tg=t&&t.tagName;if(tg==="INPUT"||tg==="TEXTAREA"||tg==="SELECT")return;var k=e.key||"",o=document.querySelectorAll("#app .opt"),i=k.length===1?"abcdef".indexOf(k.toLowerCase()):-1;if(i<0&&/^[1-6]$/.test(k))i=+k-1;
+ if(i>=0&&o[i]){e.preventDefault();o[i].click();return}
+ if((k==="Enter"&&tg!=="BUTTON")||k==="ArrowRight"){var b=document.querySelector("#app [data-nx]");if(b){e.preventDefault();b.click()}}
+ else if(k==="ArrowLeft"){var p=document.querySelector("#app [data-pv]");if(p){e.preventDefault();p.click()}}});
+
+/* ---------- Anneaux ---------- */
+function ring(p,sz,sw,col,inner){var r=(sz-sw)/2,c=2*Math.PI*r,f=Math.min(1,Math.max(0,p/100)),h=sz/2;
+ return "<div class='rg' style='width:"+sz+"px;height:"+sz+"px'><svg width='"+sz+"' height='"+sz+"' viewBox='0 0 "+sz+" "+sz+"' aria-hidden='true'><circle cx='"+h+"' cy='"+h+"' r='"+r+"' fill='none' stroke='var(--bd)' stroke-width='"+sw+"'/>"+(f>0?"<circle cx='"+h+"' cy='"+h+"' r='"+r+"' fill='none' stroke='"+col+"' stroke-width='"+sw+"' stroke-linecap='round' stroke-dasharray='"+(c*f).toFixed(1)+" "+c.toFixed(1)+"'/>":"")+"</svg><span>"+inner+"</span></div>"}
+function gCol(g){return g>=14?"var(--ok)":g>=10?"var(--ac)":"var(--ko)"}
+function mention(g){return g>=16?"Très bien":g>=14?"Bien":g>=12?"Assez bien":g>=10?"Passable":"À retravailler"}
+function ringG(g){return ring(g/20*100,112,10,gCol(g),"<b style='font:700 28px/1 Georgia,serif'>"+fmtG(g)+"</b><small class='mu' style='font-size:13px;margin-top:4px'>/ 20</small>")}
+function mentTag(g){return "<b style='display:block;font-size:21px;margin:2px 0 4px;color:"+gCol(g)+"'>"+mention(g)+"</b>"}
+
+/* ---------- Accueil : « Ma progression » ---------- */
+function progCard(){var G=GM(),st=streak(),lv=lvInfo(G.xp),q=todayQ(),gl=G.gl,ok=q>=gl,nb=BDG.filter(function(b){return G.bd[b[0]]}).length;
+ return "<div class='cd'><div class='pg'>"+ring(q/gl*100,78,8,ok?"var(--ok)":"var(--ac)","<b style='font-size:18px'>"+Math.min(q,999)+"</b><small class='mu' style='font-size:11px'>/ "+gl+"</small>")
+ +"<div style='flex:1;min-width:0'><b>"+(st.n?"🔥 "+st.n+" jour"+(st.n>1?"s":"")+" de suite":"Ta série de jours")+"</b><p class='mu'>"+(st.jk&&!st.today?"🛡️ Tu as manqué hier : ton joker protège ta série si tu révises aujourd’hui.":st.today?"Séance du jour faite. Bravo !":st.n?"Fais une séance aujourd’hui pour garder ta série.":"Fais une séance aujourd’hui pour la commencer.")+"</p>"
+ +"<p class='mu'>🎯 "+(ok?"<span>Objectif du jour atteint !</span>":"<span>Objectif du jour :</span> <span>"+q+" / "+gl+"</span> <span>questions</span>")+"</p></div></div>"
+ +"<div class='lvr'><span>⚡ <span>Niveau</span> <span>"+lv.n+"</span> · <span>"+lv.nm+"</span></span><span>"+G.xp+" XP</span></div><div class='bar xpb'><i style='width:"+lv.p+"%'></i></div>"
+ +"<button class='back' style='padding:6px 0 0' onclick='go(\"bdg\")'>🏅 <span>Mes badges</span> · <span>"+nb+" / "+BDG.length+"</span></button></div>"}
+function lvlCard(){var G=GM(),lv=lvInfo(G.xp);return "<div class='cd gmc'><div class='lvr' style='margin:0'><span>⚡ <span>Niveau</span> <span>"+lv.n+"</span> · <span>"+lv.nm+"</span></span><span>"+G.xp+" XP</span></div><div class='bar xpb'><i style='width:"+lv.p+"%'></i></div><p class='mu'>"+(lv.b?"<span>Encore</span> <span>"+(lv.b-G.xp)+" XP</span> <span>pour le niveau suivant.</span>":"<span>Niveau maximum atteint. Bravo !</span>")+"</p><button class='back' style='padding:2px 0' onclick='go(\"bdg\")'>🏅 Mes badges</button></div>"}
+function mstBar(s){if(s.kind==="an")return "";var n=s.questions.length,t=0;s.questions.forEach(function(_,i){if(srsBox(s.id,i)>=0)t++});if(!t||!n)return "";var p=mastery(s);
+ return "<div class='mst'><div class='bar'><i style='width:"+p+"%;background:var(--ok)'></i></div><span class='mu'><span>Maîtrise :</span> <span>"+p+" %</span></span></div>"}
+
+/* ---------- Résultat : XP gagnés, record, badges, confettis ---------- */
+function resGm(r,g){var G=r.gm;if(!G)return "";var lv=lvInfo(GM().xp),h="<div class='cd gmc'><div class='lvr' style='margin:0'><span>⚡ <span>+"+G.xp+" XP</span></span><span><span>Niveau</span> <span>"+lv.n+"</span> · <span>"+lv.nm+"</span></span></div><div class='bar xpb'><i style='width:"+lv.p+"%'></i></div>";
+ if(G.lv)h+="<p><b>🎉 <span>Niveau supérieur !</span> <span>Tu passes au niveau</span> <span>"+G.lv.n+"</span> : <span>"+G.lv.nm+"</span></b></p>";
+ if(r.rec)h+="<p><b>🏆 Nouveau record sur cette série !</b></p>";
+ if(G.cbm>=3)h+="<p>⚡ <span>Meilleur combo :</span> <span>"+G.cbm+"</span> <span>bonnes réponses d’affilée</span></p>";
+ if(G.goal)h+="<p>🎯 <b>Objectif du jour atteint !</b> <span>+30 XP</span></p>";
+ if(G.jk)h+="<p>🛡️ Ton joker de la semaine a protégé ta série de jours.</p>";
+ G.nb.forEach(function(b){h+="<p>🏅 <span>Nouveau badge :</span> <b>"+b[1]+"</b><br><span class='mu'>"+b[2]+"</span></p>"});
+ return h+"</div>"}
+function cftOnce(r,g){var G=r.gm;if(r.cf||!(r.rec||g>=20||(G&&(G.lv||G.nb.length))))return "";r.cf=1;var C=["#2447c9","#17794a","#c98500","#e8590c","#7a3fc4","#1ba6e8"],h="<div class='cft' aria-hidden='true'>";
+ for(var i=0;i<40;i++)h+="<i style='left:"+Math.round(Math.random()*100)+"%;background:"+C[i%C.length]+";animation-delay:"+(Math.random()*.7).toFixed(2)+"s;animation-duration:"+(2+Math.random()*1.4).toFixed(2)+"s'></i>";
+ return h+"</div>"}
+
+/* ---------- Image de résultat à partager (WhatsApp, statut…) ---------- */
+function shareImg(btn){var r=tmp.res;if(!r)return;var T=function(x){try{return TLL.lang()==="en"?TLL.tr(x):x}catch(e){return x}},W=1080,H=1350,c=document.createElement("canvas");c.width=W;c.height=H;var x=c.getContext("2d");if(!x)return;
+ var F="system-ui,-apple-system,'Segoe UI',Roboto,sans-serif",g=r.g,t=r.S.order.length,col=g>=14?"#74d6a0":g>=10?"#aebfff":"#f4a29a",gr=x.createLinearGradient(0,0,W,H);
+ gr.addColorStop(0,"#101a3d");gr.addColorStop(1,"#2447c9");x.fillStyle=gr;x.fillRect(0,0,W,H);x.textAlign="center";x.textBaseline="alphabetic";
+ function tx(s0,y,sz,w,c2){x.font=(w||"600")+" "+sz+"px "+F;x.fillStyle=c2||"#fff";x.fillText(s0,W/2,y)}
+ function wrap(s0,y,sz){x.font="600 "+sz+"px "+F;var ws=String(s0).split(/\s+/),L=[],l="";ws.forEach(function(w){var tt=l?l+" "+w:w;if(x.measureText(tt).width>880&&l){L.push(l);l=w}else l=tt});if(l)L.push(l);if(L.length>2){L=L.slice(0,2);L[1]+="…"}x.fillStyle="#fff";L.forEach(function(li,k){x.fillText(li,W/2,y+k*sz*1.25)});return y+(L.length-1)*sz*1.25}
+ var img=new Image();img.onload=img.onerror=function(){
+  if(img.naturalWidth){x.save();x.beginPath();if(x.roundRect)x.roundRect(W/2-60,80,120,120,28);else x.rect(W/2-60,80,120,120);x.clip();x.drawImage(img,W/2-60,80,120,120);x.restore()}
+  tx("ScoreUp",268,54,"700");tx(T("par Thousand Labs"),314,28,"500","#b9c3e6");
+  var y=wrap(r.s.name,410,42),cx=W/2,cy=y+250,R2=180;
+  x.lineWidth=26;x.lineCap="round";x.strokeStyle="rgba(255,255,255,.16)";x.beginPath();x.arc(cx,cy,R2,0,Math.PI*2);x.stroke();
+  if(g>0){x.strokeStyle=col;x.beginPath();x.arc(cx,cy,R2,-Math.PI/2,-Math.PI/2+Math.PI*2*Math.min(1,g/20));x.stroke()}
+  x.font="700 118px Georgia,serif";x.fillStyle="#fff";x.fillText(fmtG(g),cx,cy+28);x.font="500 40px "+F;x.fillStyle="#b9c3e6";x.fillText("/ 20",cx,cy+90);
+  var y2=cy+R2+100;tx(T(mention(g)),y2,56,"700",col);
+  tx(r.an?T("Annale"):(r.sc+" / "+t+" "+T("bonnes réponses")+" · "+Math.round(r.sc/t*100)+" %"),y2+72,36,"500","#dfe5fb");
+  var lv=lvInfo(GM().xp),st=streak();tx(T("Niveau")+" "+lv.n+" · "+T(lv.nm)+(st.n?"   ·   "+st.n+" "+T(st.n>1?"jours de suite":"jour de suite"):""),y2+132,34,"500","#dfe5fb");
+  tx(T("Révise avec ScoreUp"),H-118,40,"700");tx(APPURL.replace(/^https:\/\//,"").replace(/\/$/,""),H-66,30,"500","#b9c3e6");
+  c.toBlob(function(bl){if(!bl)return;var name="scoreup-resultat.png",f=null;try{f=new File([bl],name,{type:"image/png"})}catch(e){}
+   if(f&&navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],text:T("Mon résultat sur ScoreUp")+" : "+fmtG(g)+"/20 · "+APPURL}).catch(function(){});return}
+   var u=URL.createObjectURL(bl),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},4000);suToast("Image téléchargée ✓")},"image/png")};
+ img.src="icon-512.png?v=tl3"}
+
 /* =====================================================================
    Nouveautés v4 : note sur 20, révision espacée, compte à rebours,
    points faibles par chapitre, recherche, défi entre amis,
@@ -5829,14 +6116,14 @@ function anCorr(S,s){S.ph="corr";S.end=0;S.gr=S.order.map(function(qi,i){var q=s
 function anGrade(i,v){if(!SESS||!SESS.gr)return;SESS.gr[i]=v;saveS();R(true)}
 function anFin(){var S=SESS;if(!S||!S.gr||S.gr.some(function(v){return v===null}))return;var s=gs(S.setId),e=0,t=0,ok=0,wr=[];
  S.order.forEach(function(qi,i){var p=s.questions[qi].p||0;t+=p;e+=p*S.gr[i];ok+=S.gr[i];if(S.gr[i]<1)wr.push(qi)});
- var g=t?g20(e/t*20):0;s.wrong=wr;DB.hist.unshift({n:s.name,m:"annale",s:g,t:20,g:g,d:Date.now(),c:s.cat||"",id:s.id});DB.hist=DB.hist.slice(0,100);bump();DB.days=DB.days||{};var dk=ds(new Date());DB.days[dk]=(DB.days[dk]||0)+1;addStat(s.cat||"Sans matière",ok,S.order.length);save();
- tmp.res={S:S,s:s,sc:ok,g:g,an:{e:g20(e),t:g20(t)}};SESS=null;saveS();tmp.cf=0;view="res";R()}
+ var g=t?g20(e/t*20):0,pb=bestG(s.id,1);s.wrong=wr;DB.hist.unshift({n:s.name,m:"annale",s:g,t:20,g:g,d:Date.now(),c:s.cat||"",id:s.id});DB.hist=DB.hist.slice(0,100);bump();DB.days=DB.days||{};var dk=ds(new Date());DB.days[dk]=(DB.days[dk]||0)+1;addStat(s.cat||"Sans matière",ok,S.order.length);var gm=gmEnd({sc:ok,t:S.order.length,g:g,mode:"annale",cbm:0,n:S.order.length,dw:!!(s.defi&&g>s.defi.g)});save();
+ tmp.res={S:S,s:s,sc:ok,g:g,an:{e:g20(e),t:g20(t)},rec:pb!==null&&g>pb,gm:gm};SESS=null;saveS();tmp.cf=0;view="res";R()}
 
 var V={
-home:function(){migr();if(!DB.nv46){DB.nv46=1;if(DB.sets.length&&!tmp.note)tmp.note="🆕 Nouveau : boutons directs vers Gemini, ChatGPT et Claude, collage en une touche, questions douteuses et vérification d’une série par une autre IA. Tout est expliqué dans le Guide.";save()}var st=streak(),f=(tmp.f>=0&&DB.cats[tmp.f])?DB.cats[tmp.f].n:null,h="<button class='back' style='float:right;margin-right:56px' onclick='theme()'>"+(curTh()==="dark"?"Mode clair":"Mode sombre")+"</button><h1>ScoreUp</h1>"+greet()+trialBanner()+bkBanner();
+home:function(){migr();gmInit();if(!DB.nv50){DB.nv50=1;DB.nv46=1;if(DB.sets.length&&!tmp.note)tmp.note="🆕 Nouveau : le bouton « Suivant » reste toujours visible, tu peux masquer les détails des corrigés et glisser pour passer à la question suivante. Et pour te motiver : points XP, niveaux, badges, objectif du jour et joker de série. Tout est expliqué dans le Guide.";save()}var st=streak(),f=(tmp.f>=0&&DB.cats[tmp.f])?DB.cats[tmp.f].n:null,h="<button class='back' style='float:right;margin-right:56px' onclick='theme()'>"+(curTh()==="dark"?"Mode clair":"Mode sombre")+"</button><h1>ScoreUp</h1>"+greet()+trialBanner()+bkBanner();
  if(tmp.note){h+="<div class='cd g'>"+tmp.note+"</div>";tmp.note=null}
  if(!store)h+="<div class='w'>Ce navigateur ne permet pas de sauvegarder : tes séries disparaîtront quand tu fermeras la page.</div>";
- h+="<div class='cd'><b>"+(st.n?"🔥 "+st.n+" jour"+(st.n>1?"s":"")+" de suite":"Ta série de jours")+"</b><p class='mu'>"+(st.today?"Séance du jour faite. Bravo !":st.n?"Fais une séance aujourd’hui pour garder ta série.":"Fais une séance aujourd’hui pour la commencer.")+"</p></div>";
+ h+=progCard();
  h+=goalsCard()+revoir()+weakCard();
  if(IP)h+="<button class='btn s' onclick='inst()'>Installer ScoreUp sur l’écran d’accueil</button>";
  if(SESS){var s0=gs(SESS.setId);h+="<div class='cd'><b>"+MN[SESS.mode]+" en cours</b><p class='mu'>"+esc(s0.name)+" · question "+(SESS.i+1)+"/"+SESS.order.length+"</p><button class='btn' onclick='resume()'>Reprendre</button></div>"}
@@ -5844,7 +6131,7 @@ home:function(){migr();if(!DB.nv46){DB.nv46=1;if(DB.sets.length&&!tmp.note)tmp.n
  h+="<div class='row'><button class='btn s' onclick='go(\"ann\")'>📝 Annales"+(nA?" ("+nA+")":"")+"</button><button class='btn s' onclick='tmp.fq=\"\";go(\"find\")'>🔍 Rechercher</button></div>";
  if(DB.cats.length)h+="<div class='chips'><button class='chip"+(f?"":" on")+"' onclick='tmp.f=-1;R(true)'>Toutes</button>"+DB.cats.map(function(k,i){return "<button class='chip"+(f===k.n?" on":"")+"' style='--c:"+k.c+";--cx:#fff' onclick='tmp.f="+i+";R(true)'>"+esc(k.n)+"</button>"}).join("")+"</div>";
  if(!DB.sets.length)h+="<div class='cd'><p>Aucune série pour l’instant. Importe tes questions, ou ouvre « Comment faire » pour les générer avec une IA à partir de ton cours.</p>"+(mySchool()?"<button class='btn s' onclick='ad(this)'>Ajouter les séries de mon école</button>":"<button class='btn s' onclick='tmp.ec=null;go(\"ecole\")'>🎓 Choisir mon école</button>")+"</div>";
- DB.sets.forEach(function(s){if(f&&s.cat!==f)return;if(s.kind==="an")return;h+="<div class='cd'>"+(s.cat?"<span class='bdg' style='background:"+catCol(s.cat)+"'>"+esc(s.cat)+"</span> ":"")+"<b>"+esc(s.name)+"</b><p class='mu'>"+(s.kind==="ex"?"Exercices · ":"")+s.questions.length+" question"+(s.questions.length>1?"s":"")+"</p>"+(DB.cats.length?"<select class='cs' onchange='setcat(\""+s.id+"\",this.value)'><option value=''>Sans matière</option>"+DB.cats.map(function(k){return "<option value=\""+esc(k.n)+"\""+(s.cat===k.n?" selected":"")+">"+esc(k.n)+"</option>"}).join("")+"</select>":"")+"<div class='row'><button class='btn' onclick='go(\"set\",\""+s.id+"\")'>Lancer</button><button class='btn s' onclick='go(\"exp\",\""+s.id+"\")'>Exporter</button>"+(EDM()?"<button class='btn s' onclick='go(\"edq\",\""+s.id+"\")'>🛠️ Modifier</button>":"")+"</div><button class='btn d' onclick='del(\""+s.id+"\")'>"+(tmp.del===s.id?"Confirmer la suppression":"Supprimer")+"</button></div>"});
+ DB.sets.forEach(function(s){if(f&&s.cat!==f)return;if(s.kind==="an")return;h+="<div class='cd'>"+(s.cat?"<span class='bdg' style='background:"+catCol(s.cat)+"'>"+esc(s.cat)+"</span> ":"")+"<b>"+esc(s.name)+"</b><p class='mu'>"+(s.kind==="ex"?"Exercices · ":"")+s.questions.length+" question"+(s.questions.length>1?"s":"")+"</p>"+mstBar(s)+(DB.cats.length?"<select class='cs' onchange='setcat(\""+s.id+"\",this.value)'><option value=''>Sans matière</option>"+DB.cats.map(function(k){return "<option value=\""+esc(k.n)+"\""+(s.cat===k.n?" selected":"")+">"+esc(k.n)+"</option>"}).join("")+"</select>":"")+"<div class='row'><button class='btn' onclick='go(\"set\",\""+s.id+"\")'>Lancer</button><button class='btn s' onclick='go(\"exp\",\""+s.id+"\")'>Exporter</button>"+(EDM()?"<button class='btn s' onclick='go(\"edq\",\""+s.id+"\")'>🛠️ Modifier</button>":"")+"</div><button class='btn d' onclick='del(\""+s.id+"\")'>"+(tmp.del===s.id?"Confirmer la suppression":"Supprimer")+"</button></div>"});
  return h+(DB.sets.length?"<p class='mu'>Tes séries sont gardées dans ce navigateur seulement. Utilise « Sauvegarde » pour tout garder en lieu sûr.</p>":"")+"<button class='btn s' onclick='suInvite()'>🤝 Inviter un camarade</button>"+"<p class='mu' style='text-align:center'>☰ Statistiques, historique, réglages… : touche le menu en haut à droite.</p>"},
 imp:function(){var d=tmp.d||{t:"",nm:""},p=tmp.imp,h="<button class='back' onclick='go(\"home\")'>← Retour</button><h1>Importer</h1>"+(tmp.shr?"<div class='cd g'><b>Texte reçu par partage : vérifie-le puis enregistre.</b></div>":"")+(tmp.shr?"":aiBox()+"<p class='mu'>Exercices (TD) avec corrigé ? <button class='back' style='padding:0;font-size:14px' onclick='cp(\"e\",this)'>Copier le prompt Exercices</button></p><p class='mu'>Ancien sujet d’examen ? <button class='back' style='padding:0;font-size:14px' onclick='copy(prAn(),this)'>Copier le prompt Annales</button></p>")+"<h3 class='aih'>📥 Colle le résultat</h3><label for='nm'>Nom de la série</label><input type='text' id='nm' value='"+esc(d.nm)+"' placeholder='Ex. Comptabilité – chapitre 2'><label for='ct'>Matière (facultatif)</label><input type='text' id='ct' list='cl' value='"+esc(d.ct||"")+"' placeholder='Ex. Comptabilité' autocomplete='off'><datalist id='cl'>"+DB.cats.map(function(k){return "<option value=\""+esc(k.n)+"\">"}).join("")+"</datalist><label for='ta'>Colle tes questions ici</label><textarea id='ta' placeholder='Q: …&#10;A) …&#10;B) …&#10;R: B'>"+esc(d.t)+"</textarea><button class='btn s' onclick='pasteCb(this)'>📋 <span>Coller depuis le presse-papiers</span></button><p class='mu'>Astuce : si ScoreUp est installée, sélectionne la réponse dans l’appli de l’IA, puis « Partager » → ScoreUp. La série arrive directement ici.</p><label for='fi'>Ou ouvre un fichier .txt ou .pdf</label><input type='file' id='fi' accept='.txt,.pdf,text/plain,application/pdf' onchange='rf(this)'><div id='st' class='mu'></div><button class='btn s' onclick='an()'>Vérifier</button>";
  if(p){if(!p.n)h+="<div class='w'>"+(p.pdf?"Ce fichier est un PDF : l’appli ne lit que du texte. Demande à l’IA d’écrire les questions directement dans la conversation, puis copie-les et colle-les ici (ou enregistre-les dans un fichier .txt).":"Aucune question détectée. Chaque question doit commencer par « Q: ». Voir « Comment faire ».")+"</div>";
@@ -5857,35 +6144,36 @@ imp:function(){var d=tmp.d||{t:"",nm:""},p=tmp.imp,h="<button class='back' oncli
 set:function(){var s=gs(cur);if(!s)return V.home();if(s.kind==="an")return V.ast();var n=s.questions.length,w=(s.wrong||[]).length,du=srsDue(s).length,eb=dtBox(s)+vfBox(s)+(EDM()?"<button class='btn s' onclick='go(\"edq\",\""+s.id+"\")'>🛠️ Examiner / modifier les questions</button>":""),dr=defiRes(s,-1).replace(/<p>.*?<\/p>/,"<p class='mu'>Score à battre. À toi de jouer !</p>");if(s.kind==="ex")return "<button class='back' onclick='go(\"home\")'>← Retour</button><h1>"+esc(s.name)+"</h1><p class='mu'>"+n+" questions d’exercice</p>"+dr+"<h3>Mode</h3><label class='c'><input type='radio' name='m' value='libre' checked> Réviser les questions</label>"+(du?"<label class='c'><input type='radio' name='m' value='srs'> Révision espacée : mes "+du+" "+(du>1?"questions":"question")+" du jour</label>":"")+(w?"<label class='c'><input type='radio' name='m' value='erreurs'> Mes "+w+" ratée"+(w>1?"s":"")+" de la dernière fois</label>":"")+"<label for='nq'>Nombre de questions</label><input type='number' id='nq' min='1' max='"+n+"' value='"+n+"'><label class='c'><input type='checkbox' id='sh'> Mélanger l’ordre</label><button class='btn' onclick='begin(\""+s.id+"\")'>Commencer</button>"+eb;
  return "<button class='back' onclick='go(\"home\")'>← Retour</button><h1>"+esc(s.name)+"</h1><p class='mu'>"+n+" questions</p>"+dr+"<h3>Mode</h3><label class='c'><input type='radio' name='m' value='libre' checked> QCM libre : correction après chaque réponse</label><label class='c'><input type='radio' name='m' value='exam'> Examen chronométré : correction à la fin</label><label class='c'><input type='radio' name='m' value='flash'> Flashcards : touche la carte pour voir la réponse</label>"+(du?"<label class='c'><input type='radio' name='m' value='srs'> Révision espacée : mes "+du+" "+(du>1?"questions":"question")+" du jour</label>":"")+(w?"<label class='c'><input type='radio' name='m' value='erreurs'> Mes "+w+" erreur"+(w>1?"s":"")+" de la dernière fois</label>":"")+"<label for='nq'>Nombre de questions</label><input type='number' id='nq' min='1' max='"+n+"' value='"+n+"'><label for='mn'>Durée en minutes (examen seulement)</label><input type='number' id='mn' min='1' value='"+Math.max(1,n)+"'><label for='qt'>Chrono par question, en secondes (QCM libre ; 0 = aucun)</label><input type='number' id='qt' min='0' max='300' value='0'><label class='c'><input type='checkbox' id='neg'> Points négatifs en examen (−0,25 par mauvaise réponse)</label><label class='c'><input type='checkbox' id='sh' checked> Mélanger les questions et les choix</label><button class='btn' onclick='begin(\""+s.id+"\")'>Commencer</button>"+eb},
 quiz:function(){if(gs(SESS.setId).kind==="an")return V.anq();if(gs(SESS.setId).kind==="ex")return V.exq();if(SESS.mode==="flash")return V.flash();var S=SESS,s=gs(S.setId),i=S.i,q=s.questions[S.order[i]],pm=S.perm[i],a=S.ans[i],ex=S.mode==="exam",ci=pm.indexOf(q.r),n=S.order.length,un=S.ans.filter(function(x){return x===null}).length;
- var h="<div class='top'><span>"+MN[S.mode]+" · "+(i+1)+"/"+n+"</span>"+starBtn()+""+(S.end?"<b id='tm'></b>":"")+(S.qt&&a===null?"<b id='tq'></b>":"")+"</div><div class='bar'><i style='width:"+((i+1)/n*100)+"%'></i></div><h2>"+esc(q.q)+"</h2>";
+ var h="<div class='top'><span>"+MN[S.mode]+" · "+(i+1)+"/"+n+"</span>"+cmbTag()+starBtn()+""+(S.end?"<b id='tm'></b>":"")+(S.qt&&a===null?"<b id='tq'></b>":"")+"</div>"+pbar()+"<h2>"+esc(q.q)+"</h2>";
  pm.forEach(function(k,p){var cl="opt";if(a===p)cl+=" sel";if(!ex&&a!==null){if(p===ci)cl=" opt ok";else if(p===a)cl="opt ko"}
   h+="<button class='"+cl+"' onclick='pick("+p+")'><b>"+L[p]+"</b><span>"+esc(q.c[k])+"</span></button>"});
- if(!ex&&a!==null)h+="<div class='cd'>"+(a===ci?"✅ Bonne réponse.":(a===-1?"⌛ Temps écoulé. ":"❌ Mauvaise réponse. ")+"La bonne réponse est "+L[ci]+".")+(q.e?"<p class='mu'>"+esc(q.e)+"</p>":"")+WN+"<button class='back' style='padding:4px 0' onclick='qEdit(\""+s.id+"\","+S.order[i]+")'>✏️ Corriger cette réponse</button>"+edBtn(s.id,S.order[i])+flagBtn(s.id,S.order[i])+"</div>";
- h+="<div class='row'>";if(ex&&i>0)h+="<button class='btn s' onclick='mv(-1)'>← Précédent</button>";
- if(i<n-1){if(ex||a!==null)h+="<button class='btn' onclick='mv(1)'>Suivant →</button>"}else if(!ex&&a!==null)h+="<button class='btn' onclick='fin()'>Voir le résultat</button>";
- h+="</div>";
+ if(!ex&&a!==null){var cmp=cmpOn();h+="<div class='cd "+(a===ci?"g":"b")+"'><div class='vd'><b>"+(a===ci?"✅ Bonne réponse.":(a===-1?"⌛ Temps écoulé. ":"❌ Mauvaise réponse. ")+"La bonne réponse est "+L[ci]+".")+"</b>"+moreBtn(s.id,S.order[i])+"</div>"+dtTag(q)+(cmp?"":(q.e?"<p class='mu'>"+esc(q.e)+"</p>":"")+wnOnce())+(q.e?tglBtn(cmp):"")+"</div>"}
+ var nx="";if(ex&&i>0)nx+="<button class='btn s' data-pv onclick='mv(-1)'>← Précédent</button>";
+ if(i<n-1){if(ex||a!==null)nx+="<button class='btn' data-nx onclick='mv(1)'>Suivant →</button>"}else if(!ex&&a!==null)nx+="<button class='btn' data-nx onclick='fin()'>Voir le résultat</button>";
+ h+=nx?"<div class='row nxb'>"+nx+"</div>":"";
  if(ex){if(tmp.cf)h+="<div class='w'>"+un+" question"+(un>1?"s":"")+" sans réponse. Terminer quand même ?</div><button class='btn' onclick='fin(true)'>Oui, terminer</button>";else h+="<button class='btn s' onclick='fin()'>Terminer l’examen</button>"}
  return h+"<button class='back' onclick='go(\"home\")'>Quitter et reprendre plus tard</button>"},
 flash:function(){var S=SESS,s=gs(S.setId),i=S.i,q=s.questions[S.order[i]],n=S.order.length,rv=tmp.rv===i;
- var h="<div class='top'><span>Flashcards · "+(i+1)+"/"+n+"</span>"+starBtn()+"</div><div class='bar'><i style='width:"+((i+1)/n*100)+"%'></i></div>";
- h+="<div class='cd fc' onclick='tmp.rv="+i+";R(true)'><h2 style='margin:0 0 12px'>"+esc(q.q)+"</h2>"+(rv?"<p><b>"+esc(q.c[q.r])+"</b></p>"+(q.e?"<p class='mu'>"+esc(q.e)+"</p>":"")+WN+"<button class='back' style='padding:4px 0' onclick='event.stopPropagation();qEdit(\""+s.id+"\","+S.order[i]+")'>✏️ Corriger cette réponse</button>"+edBtn(s.id,S.order[i])+flagBtn(s.id,S.order[i]):"<p class='mu'>Touche la carte pour voir la réponse</p>")+"</div>";
- if(rv)h+="<div class='row'><button class='btn d' onclick='frate(0)'>À revoir</button><button class='btn' onclick='frate(1)'>Je savais</button></div>";
+ var h="<div class='top'><span>Flashcards · "+(i+1)+"/"+n+"</span>"+cmbTag()+starBtn()+"</div>"+pbar();
+ h+="<div class='cd fc' onclick='tmp.rv="+i+";R(true)'><h2 style='margin:0 0 12px'>"+esc(q.q)+"</h2>"+(rv?"<p><b>"+esc(q.c[q.r])+"</b></p>"+(q.e?"<p class='mu'>"+esc(q.e)+"</p>":"")+wnOnce()+"<div class='vd' style='margin-top:8px'><span class='mu' style='flex:1'>"+(q.dt?"🚩 Signalée comme douteuse":"")+"</span>"+moreBtn(s.id,S.order[i])+"</div>":"<p class='mu'>Touche la carte pour voir la réponse</p>")+"</div>";
+ if(rv)h+="<div class='row nxb'><button class='btn d' onclick='frate(0)'>À revoir</button><button class='btn' onclick='frate(1)'>Je savais</button></div>";
  return h+"<button class='back' onclick='go(\"home\")'>Quitter et reprendre plus tard</button>"},
 exq:function(){var S=SESS,s=gs(S.setId),i=S.i,q=s.questions[S.order[i]],a=S.ans[i],n=S.order.length,isn=q.n!=="";
- var h="<div class='top'><span>Exercices · "+(i+1)+"/"+n+"</span>"+starBtn()+"</div><div class='bar'><i style='width:"+((i+1)/n*100)+"%'></i></div><p class='mu'>"+esc(q.t)+"</p>"+(q.s?"<div class='cd' style='white-space:pre-wrap'>"+rich(q.s)+"</div>":"")+"<h2 style='white-space:pre-wrap'>"+rich(q.q)+"</h2>";
- if(a){h+="<div class='cd "+(a.ok?"g":"b")+"'><b>"+(a.ok?"✅ Réussi":"❌ Raté")+"</b>"+(a.v?"<p>Ta réponse : "+esc(a.v)+"</p>":"")+"<p style='white-space:pre-wrap'>"+rich(q.c)+"</p>"+WN+edBtn(s.id,S.order[i])+flagBtn(s.id,S.order[i])+"</div>";h+=i<n-1?"<button class='btn' onclick='mv(1)'>Suivant →</button>":"<button class='btn' onclick='fin()'>Voir le résultat</button>"}
- else if(tmp.sh===i){h+="<div class='cd' style='white-space:pre-wrap'>"+rich(q.c)+"</div>"+WN+"<p>Avais-tu juste ?</p><div class='row'><button class='btn' onclick='rate(1)'>✅ Réussi</button><button class='btn d' onclick='rate(0)'>❌ Raté</button></div>"}
+ var h="<div class='top'><span>Exercices · "+(i+1)+"/"+n+"</span>"+cmbTag()+starBtn()+"</div>"+pbar()+"<p class='mu'>"+esc(q.t)+"</p>"+(q.s?"<div class='cd' style='white-space:pre-wrap'>"+rich(q.s)+"</div>":"")+"<h2 style='white-space:pre-wrap'>"+rich(q.q)+"</h2>";
+ if(a){var cmp=cmpOn();h+="<div class='cd "+(a.ok?"g":"b")+"'><div class='vd'><b>"+(a.ok?"✅ Réussi":"❌ Raté")+"</b>"+moreBtn(s.id,S.order[i])+"</div>"+dtTag(q)+(a.v?"<p>Ta réponse : "+esc(a.v)+"</p>":"")+(cmp?"":"<p style='white-space:pre-wrap'>"+rich(q.c)+"</p>"+wnOnce())+tglBtn(cmp)+"</div>";h+="<div class='row nxb'>"+(i<n-1?"<button class='btn' data-nx onclick='mv(1)'>Suivant →</button>":"<button class='btn' data-nx onclick='fin()'>Voir le résultat</button>")+"</div>"}
+ else if(tmp.sh===i){h+="<div class='cd' style='white-space:pre-wrap'>"+rich(q.c)+"</div>"+wnOnce()+"<p>Avais-tu juste ?</p><div class='row nxb'><button class='btn' onclick='rate(1)'>✅ Réussi</button><button class='btn d' onclick='rate(0)'>❌ Raté</button></div>"}
  else{if(isn)h+="<label for='nv'>Ta réponse (un nombre)</label><input type='text' id='nv' inputmode='decimal'><button class='btn' onclick='chk()'>Vérifier</button>";
   h+="<button class='btn s' onclick='"+(isn?"rate(0)":"tmp.sh="+i+";R(true)")+"'>"+(isn?"Voir le corrigé (compte comme raté)":"Voir le corrigé")+"</button>"}
  return h+"<button class='back' onclick='go(\"home\")'>Quitter et reprendre plus tard</button>"},
 res:function(){var r=tmp.res;if(!r)return V.home();var S=r.S,s=r.s,t=S.order.length,pc=Math.round(r.sc/t*100),g=r.g!=null?r.g:g20(r.sc/t*20);
- if(r.an)return "<h1>Résultat</h1><div class='cd'><p class='mu'>Ta note</p><div class='big'>"+fmtG(g)+" / 20</div><p class='mu'><span>"+String(r.an.e).replace(".",",")+" / "+String(r.an.t).replace(".",",")+" points</span> · <span>"+esc(s.name)+"</span></p></div>"+defiRes(s,g)+"<button class='btn' onclick='defi(this)'>⚔️ Défier un ami</button><button class='btn s' onclick='go(\"ann\")'>📝 Annales</button><button class='btn s' onclick='go(\"home\")'>Accueil</button>";
- var h="<h1>Résultat</h1><div class='cd'><p class='mu'>Ta note</p><div class='big'>"+fmtG(g)+" / 20</div><p class='mu'><span>"+r.sc+" / "+t+"</span> <span>bonnes réponses</span> · <span>"+pc+" %</span> · <span>"+MN[S.mode]+"</span> · <span>"+esc(s.name)+"</span></p>"+(S.neg?"<p class='mu'><span>Points négatifs : −0,25 par mauvaise réponse</span> <span>("+(r.wa||0)+")</span></p>":"")+"</div>"+defiRes(s,g);
+ if(r.an)return "<h1>Résultat</h1><div class='cd rsc'>"+ringG(g)+"<div style='min-width:0'><p class='mu'>Ta note</p>"+mentTag(g)+"<p class='mu'><span>"+String(r.an.e).replace(".",",")+" / "+String(r.an.t).replace(".",",")+" points</span> · <span>"+esc(s.name)+"</span></p></div></div>"+resGm(r,g)+defiRes(s,g)+"<button class='btn' onclick='shareImg(this)'>🖼️ Partager mon résultat</button><button class='btn s' onclick='defi(this)'>⚔️ Défier un ami</button><button class='btn s' onclick='go(\"ann\")'>📝 Annales</button><button class='btn s' onclick='go(\"home\")'>Accueil</button>"+cftOnce(r,g);
+ var h="<h1>Résultat</h1><div class='cd rsc'>"+ringG(g)+"<div style='min-width:0'><p class='mu'>Ta note</p>"+mentTag(g)+"<p class='mu'><span>"+r.sc+" / "+t+"</span> <span>bonnes réponses</span> · <span>"+pc+" %</span> · <span>"+MN[S.mode]+"</span> · <span>"+esc(s.name)+"</span></p>"+(S.neg?"<p class='mu'><span>Points négatifs : −0,25 par mauvaise réponse</span> <span>("+(r.wa||0)+")</span></p>":"")+"</div></div>"+resGm(r,g)+defiRes(s,g);
  if(s.wrong.length)h+="<button class='btn' onclick='start(\""+s.id+"\",\"erreurs\","+JSON.stringify(s.wrong)+","+s.wrong.length+",0,true)'>Refaire mes "+s.wrong.length+" erreur"+(s.wrong.length>1?"s":"")+"</button>";
- h+="<button class='btn s' onclick='defi(this)'>⚔️ Défier un ami</button><button class='btn s' onclick='go(\"home\")'>Accueil</button><h3>Correction</h3>"+WN+"";
- S.order.forEach(function(qi,i){var q=s.questions[qi],pm=S.perm[i],a=S.ans[i],ok=a===pm.indexOf(q.r);if(S.mode==="flash"){ok=!!(a&&a.ok);h+="<div class='cd "+(ok?"g":"b")+"'><b>"+(i+1)+". "+esc(q.q)+"</b><p>"+esc(q.c[q.r])+"</p>"+(q.e?"<p class='mu'>"+esc(q.e)+"</p>":"")+"</div>";return}if(s.kind==="ex"){ok=!!(a&&a.ok);h+="<div class='cd "+(ok?"g":"b")+"'><b>"+(i+1)+". "+esc(q.q)+"</b>"+(a&&a.v?"<p>Ta réponse : "+esc(a.v)+"</p>":"")+"<p style='white-space:pre-wrap'>"+rich(q.c)+"</p>"+edBtn(s.id,qi)+flagBtn(s.id,qi)+"</div>";return}
-  h+="<div class='cd "+(ok?"g":"b")+"'><b>"+(i+1)+". "+esc(q.q)+"</b><p>Ta réponse : "+(a===null||a===-1?"aucune":esc(q.c[pm[a]]))+"</p>"+(ok?"":"<p>Bonne réponse : "+esc(q.c[q.r])+"</p>")+(q.e?"<p class='mu'>"+esc(q.e)+"</p>":"")+"<button class='back' style='padding:4px 0' onclick='qEdit(\""+s.id+"\","+qi+")'>✏️ Corriger cette réponse</button>"+edBtn(s.id,qi)+flagBtn(s.id,qi)+"</div>"});
- return h},
+ h+="<button class='btn s' onclick='shareImg(this)'>🖼️ Partager mon résultat</button><button class='btn s' onclick='defi(this)'>⚔️ Défier un ami</button><button class='btn s' onclick='go(\"home\")'>Accueil</button><h3>Correction</h3>"+WN+"";
+ var nw=s.wrong.length;if(nw&&nw<t)h+="<div class='chips'><button class='chip"+(tmp.rf?"":" on")+"' onclick='tmp.rf=0;R(true)'><span>Toutes</span> · <span>"+t+"</span></button><button class='chip"+(tmp.rf?" on":"")+"' onclick='tmp.rf=1;R(true)'><span>Mes erreurs</span> · <span>"+nw+"</span></button></div>";
+ S.order.forEach(function(qi,i){var q=s.questions[qi],pm=S.perm[i],a=S.ans[i],ok=a===pm.indexOf(q.r);if(tmp.rf&&(S.mode==="flash"||s.kind==="ex"?!!(a&&a.ok):ok))return;if(S.mode==="flash"){ok=!!(a&&a.ok);h+="<div class='cd "+(ok?"g":"b")+"'><b>"+(i+1)+". "+esc(q.q)+"</b><p>"+esc(q.c[q.r])+"</p>"+(q.e?"<p class='mu'>"+esc(q.e)+"</p>":"")+"</div>";return}if(s.kind==="ex"){ok=!!(a&&a.ok);h+="<div class='cd "+(ok?"g":"b")+"'><b>"+(i+1)+". "+esc(q.q)+"</b>"+(a&&a.v?"<p>Ta réponse : "+esc(a.v)+"</p>":"")+"<p style='white-space:pre-wrap'>"+rich(q.c)+"</p>"+moreRow(s.id,qi)+"</div>";return}
+  h+="<div class='cd "+(ok?"g":"b")+"'><b>"+(i+1)+". "+esc(q.q)+"</b><p>Ta réponse : "+(a===null||a===-1?"aucune":esc(q.c[pm[a]]))+"</p>"+(ok?"":"<p>Bonne réponse : "+esc(q.c[q.r])+"</p>")+(q.e?"<p class='mu'>"+esc(q.e)+"</p>":"")+moreRow(s.id,qi)+"</div>"});
+ return h+cftOnce(r,g)},
 info:function(){return "<button class='back' onclick='go(\"home\")'>← Retour</button><h1>Guide</h1><p class='mu'>Tout ce qu’il faut savoir pour bien utiliser l’appli.</p>"
 +"<div class='cd'><b>À quoi ça sert</b><p>L’appli est vide au départ : tu y mets tes propres questions ou exercices, elle te fait réviser et te note. Rien n’est envoyé sur Internet.</p></div>"
 +"<div class='cd'><b>Pour démarrer</b><p>1. Ouvre « Comment faire » et copie le prompt. 2. Colle-le dans une IA avec ton cours. 3. Importe le résultat (texte collé ou PDF). 4. Touche « Lancer ».</p></div>"
@@ -5895,7 +6183,13 @@ info:function(){return "<button class='back' onclick='go(\"home\")'>← Retour</
 +"<div class='cd'><b>Les modes</b><p>QCM libre : la correction s’affiche après chaque réponse. Examen : tu choisis la durée, la correction vient à la fin, tu peux changer de réponse, et il se termine tout seul quand le temps est écoulé. Erreurs : seulement les questions ratées la dernière fois. Exercices : tu fais l’exercice sur papier, tu affiches le corrigé et tu te notes.</p></div>"
 +"<div class='cd'><b>Exercices et réponses chiffrées</b><p>Quand la question attend un nombre, tape-le (virgule ou point) : l’appli accepte une petite marge d’arrondi. Les tableaux écrits avec le symbole | (une ligne par ligne du tableau) s’affichent en vrai tableau. Pour les graphiques, note-toi toi-même avec le corrigé.</p></div>"
 +"<div class='cd'><b>Reprendre plus tard</b><p>« Quitter et reprendre plus tard » garde ta progression : touche « Reprendre » sur l’accueil. Il n’y a qu’une session en cours à la fois : en lancer une nouvelle remplace l’ancienne. Dans un examen, le chrono continue même si tu quittes.</p></div>"
-+"<div class='cd'><b>Hors ligne et installation</b><p>Après une première ouverture avec Internet, ScoreUp s’enregistre sur ton appareil et peut s’ouvrir sans connexion. Seule la lecture d’un PDF demande Internet. Pour l’avoir comme une appli : sur Android, menu du navigateur puis « Installer l’application » ; sur iPhone, bouton Partager puis « Sur l’écran d’accueil ».</p></div><div class='cd'><b>Séries d’exemple</b><p>5 séries de révision (chapitre 1) sont fournies pour tester ScoreUp : comptabilité, marketing, droit, management et statistiques, ainsi que 5 exercices corrigés de comptabilité (chapitres 1 et 2). Tu peux les supprimer, et ce bouton te les redonne.</p><button class='btn s' onclick='ad(this)'>Ajouter les séries d’exemple</button></div><div class='cd'><b>Nouveautés</b><p>Matières avec couleurs (à l’import, ou depuis la liste), statistiques globales et par matière, série de jours de révision, flashcards (touche la carte pour voir la réponse) et mode sombre ou clair en haut de l’accueil, favoris (étoile), sauvegarde complète et mode transport (boutons de navigation en bas).</p></div>"
++"<div class='cd'><b>Hors ligne et installation</b><p>Après une première ouverture avec Internet, ScoreUp s’enregistre sur ton appareil et peut s’ouvrir sans connexion. Seule la lecture d’un PDF demande Internet. Pour l’avoir comme une appli : sur Android, menu du navigateur puis « Installer l’application » ; sur iPhone, bouton Partager puis « Sur l’écran d’accueil ».</p></div><div class='cd'><b>Séries d’exemple</b><p>5 séries de révision (chapitre 1) sont fournies pour tester ScoreUp : comptabilité, marketing, droit, management et statistiques, ainsi que 5 exercices corrigés de comptabilité (chapitres 1 et 2). Tu peux les supprimer, et ce bouton te les redonne.</p><button class='btn s' onclick='ad(this)'>Ajouter les séries d’exemple</button></div><div class='cd'><b>Nouveautés</b><p>Pendant les QCM, le bouton « Suivant » reste toujours visible en bas de l’écran, et « Masquer les détails » replie l’explication. Glisse vers la gauche pour passer à la question suivante. Les options d’une question (corriger, modifier, signaler) sont réunies dans le bouton ⋯. Pour te motiver : points XP, niveaux, badges, objectif du jour, joker de série, calendrier de révision, maîtrise de chaque série et image de résultat à partager.</p></div><div class='cd'><b>Aussi dans ScoreUp</b><p>Matières avec couleurs (à l’import, ou depuis la liste), statistiques globales et par matière, série de jours de révision, flashcards (touche la carte pour voir la réponse) et mode sombre ou clair en haut de l’accueil, favoris (étoile), sauvegarde complète et mode transport (boutons de navigation en bas).</p></div>"
++"<div class='cd'><b>Pendant les QCM</b><p>Le bouton « Suivant » reste en bas de l’écran : plus besoin de descendre. Touche « Masquer les détails » pour replier l’explication et l’avertissement ; ton choix est gardé pour les prochaines séances. Tu peux aussi glisser vers la gauche pour passer à la question suivante, et vers la droite pour revenir en arrière en mode Examen. Le bouton ⋯ réunit « Corriger cette réponse », « Modifier toute la question » et « Signaler comme douteuse ». La barre du haut se colore : vert pour une bonne réponse, rouge pour une erreur.</p></div>"
++"<div class='cd'><b>⌨️ Sur ordinateur</b><p>Réponds avec les touches A, B, C, D (ou 1, 2, 3, 4), puis Entrée ou la flèche droite pour passer à la suite. La flèche gauche revient en arrière en mode Examen.</p></div>"
++"<div class='cd'><b>⚡ XP, niveaux et badges</b><p>Chaque bonne réponse rapporte 10 XP. Une séance d’au moins 5 questions rapporte 20 XP de plus, et un sans-faute (10 questions ou plus) 50 XP. Enchaîne les bonnes réponses pour faire un combo : à partir de 5 d’affilée, tu gagnes un bonus. Les XP font monter ton niveau, de Débutant à Légende. Les badges récompensent ta régularité et tes exploits : retrouve-les dans le menu ☰, « Mes badges ».</p></div>"
++"<div class='cd'><b>🎯 Objectif du jour et joker</b><p>Choisis ton objectif dans les Réglages : 10, 20, 30 ou 50 questions par jour. L’anneau de l’accueil se remplit au fil de tes séances, et l’objectif atteint rapporte 30 XP. Le joker protège ta série de jours : si tu oublies un seul jour, ta série continue. Tu as un joker par semaine, utilisé automatiquement.</p></div>"
++"<div class='cd'><b>🏆 Résultat et partage</b><p>Après chaque séance : ta note dans un anneau, ta mention, un message quand tu bats ton record sur la série, et un filtre « Mes erreurs » pour ne relire que les questions ratées. « Partager mon résultat » crée une image à envoyer sur WhatsApp ou en statut.</p></div>"
++"<div class='cd'><b>📊 Maîtrise et calendrier</b><p>Sur l’accueil, chaque série affiche sa maîtrise : la part de ses questions réussies au moins 3 fois de suite en révision espacée. Dans « Statistiques », le calendrier montre tes jours de révision des 12 dernières semaines.</p></div>"
 +"<div class='cd'><b>Note sur 20</b><p>Chaque séance donne une note sur 20, comme à l’examen. En mode Examen, tu peux activer les points négatifs : −0,25 par mauvaise réponse (une question sans réponse vaut 0).</p></div><div class='cd'><b>Révision espacée</b><p>Chaque question a sa propre date de retour. Ratée : elle revient le jour même. Juste : elle revient après 1 jour, puis 3, 7, 15 et 30 jours. Ouvre l’appli chaque jour et suis « 🔁 À revoir aujourd’hui ».</p></div><div class='cd'><b>Mes examens</b><p>Ajoute la date de tes partiels (menu ☰, « Mes examens ») : l’accueil affiche le compte à rebours et le nombre de questions à revoir par jour pour être prêt(e) à temps.</p></div><div class='cd'><b>Points faibles</b><p>Dans « Statistiques », tes séries sont classées de la plus faible à la plus solide, avec un bouton pour réviser directement le chapitre à retravailler.</p></div><div class='cd'><b>Annales</b><p>Entraîne-toi sur d’anciens sujets d’examen : QCM et exercices, chronométrés. Copie le prompt Annales, donne-le à une IA avec une photo ou un PDF du sujet, puis importe sa réponse. À la fin, QCM et réponses chiffrées sont notés tout seuls ; pour le reste, tu te notes avec le corrigé. Tu obtiens une note sur 20.</p></div><div class='cd'><b>Défier un ami</b><p>Après une séance, touche « ⚔️ Défier un ami » : ton ami reçoit la série et ton score par WhatsApp, l’importe dans ScoreUp et tente de faire mieux.</p></div><div class='cd'><b>Rechercher</b><p>Retrouve n’importe quelle question ou notion (par exemple « amortissement ») dans toutes tes séries.</p></div><div class='cd'><b>Mode édition</b><p>Dans « ⚙️ Réglages », active le mode édition pour corriger une question fausse, en ajouter ou en supprimer, sans supprimer toute la série.</p></div><div class='cd'><b>Questions douteuses</b><p>Pendant la révision ou dans la correction, « Signaler comme douteuse » met une question de côté : elle ne sort plus dans tes séances. Sur la page de la série, retrouve la liste des questions signalées, puis touche « C’est vérifié » ou « Corriger ». Une question signalée pendant une séance compte encore dans la note de cette séance.</p></div><div class='cd'><b>Vérifier une série avec une IA</b><p>Ouvre une série, puis « Vérifier la série avec une IA ». Copie le prompt de vérification, colle-le dans une autre IA (de préférence pas celle qui a créé la série) et joins ton cours. Elle te renvoie les numéros des questions fausses avec une correction proposée : corrige-les ou signale-les dans ScoreUp.</p></div><div class='cd'><b>Mon école</b><p>Au premier lancement, choisis ton école (Management, Droit, Ingénieurs, Digital Campus ou Madiba Leadership Institute). Tu vois ses principales filières et tu peux importer 5 séries de démarrage de 20 questions, niveau L1. Tu peux changer d’école ou ajouter ses séries plus tard depuis « ⚙️ Réglages ».</p></div>"
 +"<div class='cd'><b>Import</b><p>L’appli vérifie le format et indique la ligne à corriger. Les doublons sont ignorés. Un PDF doit contenir du vrai texte : une photo ou un scan ne marche pas. Les questions et les choix sont mélangés si la case est cochée, donc la lettre de la bonne réponse change d’un essai à l’autre.</p><p>Les boutons Gemini, ChatGPT et Claude ouvrent l’IA directement. Le bouton « Coller depuis le presse-papiers » colle et vérifie le texte en une touche. Sur Android, si ScoreUp est installée, « Partager » → ScoreUp depuis l’appli de l’IA envoie la série directement dans l’import (si ScoreUp n’apparaît pas dans la liste, désinstalle puis réinstalle l’appli une fois).</p></div>"
 +"<div class='cd'><b>Fiabilité</b><p>Une IA peut se tromper. Vérifie les réponses et les corrigés, surtout les calculs, avec ton cours ou ton prof avant de t’y fier ou de les partager. Demande aussi l’accord de ton prof avant de partager ses fiches.</p><p>Pour t’aider : « Signaler comme douteuse » et « Vérifier la série avec une IA » (voir plus bas).</p></div>"
@@ -5917,6 +6211,7 @@ reg:function(){var th=null;try{th=localStorage.getItem("qcm_th")}catch(e){}th=th
  var ms=mySchool();h+="<div class='cd'><b>🎓 Mon école</b><p>"+(ms?ms.ico+" "+esc(ms.nom):"Aucune école choisie")+"</p><button class='btn s' onclick='tmp.ec=null;go(\"ecole\",\"reg\")'>"+(ms?"Changer d’école":"Choisir mon école")+"</button>"+(ms?"<button class='btn s' onclick='ad(this)'>Ajouter les séries de mon école</button>":"")+"</div>";
  h+="<div class='cd'><b>🌍 Langue</b>"+TLL.switcher(true)+"</div>";
  h+="<div class='cd'><b>🎨 Apparence</b><div class='chips'>"+[["auto","📱 Automatique"],["light","☀️ Clair"],["dark","🌙 Sombre"]].map(function(x){return "<button class='chip"+(th===x[0]?" on":"")+"' onclick='rgTheme(\""+x[0]+"\")'>"+x[1]+"</button>"}).join("")+"</div><label class='c'><input type='checkbox' "+(TH?"checked":"")+" onchange='thumb()'> Mode transport : boutons de navigation en bas de l’écran pendant les quiz</label></div>";
+ h+="<div class='cd'><b>🎯 Objectif du jour</b><p class='mu'>Nombre de questions à faire chaque jour. L’accueil affiche ta progression, et l’objectif atteint rapporte 30 XP.</p><div class='chips'>"+[10,20,30,50].map(function(x){return "<button class='chip"+(GM().gl===x?" on":"")+"' onclick='gmGoal("+x+")'>"+x+"</button>"}).join("")+"</div><label class='c'><input type='checkbox' "+(lsg("qcm_vib")==="0"?"":"checked")+" onchange='vibT()'> Vibrer à chaque réponse (bonne ou mauvaise)</label></div>";
  h+="<div class='cd'><b>🛠️ Mode édition</b><p class='mu'>Une série contient une erreur ? Au lieu de la supprimer, active ce mode : un bouton « Modifier » apparaît sur chaque série et pendant les révisions, pour corriger, ajouter ou supprimer des questions.</p><label class='c'><input type='checkbox' "+(EDM()?"checked":"")+" onchange='edmT()'> Examiner et modifier les questions</label></div>";
  h+="<div class='cd'><b>📲 Installer l’application</b><div style='margin-top:8px'>"+TLI.html("ScoreUp","btn")+"</div></div>";
  h+="<div class='cd'><b>🔑 Licence</b><p>"+(ts==="act"?"✅ ScoreUp est activé sur cet appareil.":ts==="trial"?"🎁 Essai gratuit en cours : il reste "+leftTxt()+".":ts==="cheat"?"🔒 Appli verrouillée (heure de l’appareil reculée).":"⏰ Essai gratuit terminé.")+"</p><p class='mu'>Identifiant d’appareil</p><pre>"+id+"</pre><div class='row'><button class='btn s' onclick='copy(\""+id+"\",this)'>Copier</button><button class='btn s' onclick='suShowQR()'>🔳 QR</button></div>"+(ts==="act"?"":"<button class='btn' onclick='gate()'>Activer ScoreUp</button>")+"<a class='btn' style='background:#25d366;color:#fff;text-align:center;text-decoration:none;line-height:24px' href='https://wa.me/221711216581?text="+encodeURIComponent("Bonjour, j’ai une question sur ScoreUp. Mon identifiant d’appareil : "+id)+"' target='_blank' rel='noopener'>💬 Contacter Thousand Labs</a></div>";
@@ -5937,7 +6232,7 @@ stats:function(){var S=DB.stats,h="<button class='back' onclick='go(\"home\")'>�
  if(!S||!S.t.n)return h+"<p class='mu'>Fais une première séance pour voir tes statistiques.</p>";
  var t=S.t,pc=Math.round(t.s/t.t*100);
  h+="<div class='cd'><p class='mu'>Taux de réussite global</p><div class='big'>"+pc+" %</div><div class='bar'><i style='width:"+pc+"%'></i></div><p class='mu'>"+t.s+" bonnes réponses sur "+t.t+" · "+t.n+" séance"+(t.n>1?"s":"")+"</p></div>";
- h+="<div class='cd'><b>Série en cours : "+st.n+" jour"+(st.n>1?"s":"")+"</b><p class='mu'>Meilleure série : "+Math.max(DB.best||0,st.n)+" jour"+(Math.max(DB.best||0,st.n)>1?"s":"")+"</p></div>"+reg()+"<h3>Par matière</h3>";
+ h+="<div class='cd'><b>Série en cours : "+st.n+" jour"+(st.n>1?"s":"")+"</b><p class='mu'>Meilleure série : "+Math.max(DB.best||0,st.n)+" jour"+(Math.max(DB.best||0,st.n)>1?"s":"")+"</p><p class='mu'>🛡️ <span>Joker de la semaine :</span> <span>"+(jokerOk()?"disponible":"déjà utilisé")+"</span></p></div>"+lvlCard()+reg()+"<h3>Par matière</h3>";
  Object.keys(S.c).forEach(function(k){var x=S.c[k],p=Math.round(x.s/x.t*100),col=catCol(k);h+="<div class='cd'><span class='bdg' style='background:"+col+"'>"+esc(k)+"</span><b style='float:right'>"+p+" %</b><div class='bar'><i style='width:"+p+"%;background:"+col+"'></i></div><p class='mu'>"+x.n+" séance"+(x.n>1?"s":"")+" · "+x.s+"/"+x.t+" bonnes réponses</p></div>"});
  var PS=perSet();if(PS.length){h+="<h3>🎯 Points faibles par chapitre</h3><p class='mu'>D’après tes 5 dernières séances sur chaque série, du plus faible au plus solide.</p>";
   PS.forEach(function(r){var lv=lvl(r.p);h+="<div class='cd'>"+(r.s.cat?"<span class='bdg' style='background:"+catCol(r.s.cat)+"'>"+esc(r.s.cat)+"</span> ":"")+"<b>"+esc(r.s.name)+"</b><b style='float:right;color:"+lv[0]+"'>"+r.p+" %</b><div class='bar'><i style='width:"+r.p+"%;background:"+lv[0]+"'></i></div><p class='mu'><span style='color:"+lv[0]+";font-weight:600'>"+lv[1]+"</span> · <span>"+r.n+" "+plur(r.n,"séance")+"</span></p>"+(r.p<70?"<button class='btn s' onclick='go(\"set\",\""+r.s.id+"\")'>Réviser ce chapitre</button>":"")+"</div>"})}
@@ -5994,15 +6289,22 @@ V.anq=function(){var S=SESS,s=gs(S.setId),n=S.order.length;
    h+=edBtn(s.id,qi)+"</div>"});
   return h+(pend?"<div class='w'>"+(pend>1?"<span>Note les</span> <span>"+pend+"</span> <span>questions restantes pour voir ta note.</span>":"Note la dernière question pour voir ta note.")+"</div>":"<button class='btn' onclick='anFin()'>Voir ma note sur 20</button>")+"<button class='back' onclick='go(\"home\")'>Quitter et reprendre plus tard</button>"}
  var i=S.i,q=s.questions[S.order[i]],a=S.ans[i],un=S.ans.filter(function(x,j){var y=s.questions[S.order[j]];return x===null&&(y.ty==="q"||y.n!=="")}).length;
- var h="<div class='top'><span>Annale · "+(i+1)+"/"+n+"</span>"+starBtn()+(S.end?"<b id='tm'></b>":"")+"</div><div class='bar'><i style='width:"+((i+1)/n*100)+"%'></i></div>";
+ var h="<div class='top'><span>Annale · "+(i+1)+"/"+n+"</span>"+starBtn()+(S.end?"<b id='tm'></b>":"")+"</div>"+pbar();
  var ptl="<span class='mu'>"+String(q.p).replace(".",",")+" pt"+(q.p>1?"s":"")+"</span>";
  if(q.ty==="q"){h+="<p class='mu'>QCM · "+ptl+"</p><h2>"+esc(q.q)+"</h2>";S.perm[i].forEach(function(k,p){h+="<button class='opt"+(a===p?" sel":"")+"' onclick='pick("+p+")'><b>"+L[p]+"</b><span>"+esc(q.c[k])+"</span></button>"})}
  else{h+="<p class='mu'>"+esc(q.t)+" · "+ptl+"</p>"+(q.s?"<div class='cd' style='white-space:pre-wrap'>"+rich(q.s)+"</div>":"")+"<h2 style='white-space:pre-wrap'>"+rich(q.q)+"</h2>";
   if(q.n!=="")h+="<label for='av'>Ta réponse (un nombre)</label><input type='text' id='av' inputmode='decimal' value='"+esc(a&&a.v||"")+"' oninput='ansX(this.value)'><p class='mu'>Tu peux la laisser vide : le corrigé s’affichera à la fin.</p>";
   else h+="<label for='av'>Ton brouillon (facultatif)</label><textarea id='av' style='min-height:110px;font-family:inherit;font-size:15px' oninput='ansX(this.value)' placeholder='Fais l’exercice sur papier. Tu peux noter ici tes résultats clés.'>"+esc(a&&a.v||"")+"</textarea><p class='mu'>À la fin, tu compareras avec le corrigé et tu te noteras.</p>"}
- h+="<div class='row'>"+(i>0?"<button class='btn s' onclick='mv(-1)'>← Précédent</button>":"")+(i<n-1?"<button class='btn' onclick='mv(1)'>Suivant →</button>":"")+"</div>";
+ var nx=(i>0?"<button class='btn s' data-pv onclick='mv(-1)'>← Précédent</button>":"")+(i<n-1?"<button class='btn' data-nx onclick='mv(1)'>Suivant →</button>":"");h+=nx?"<div class='row nxb'>"+nx+"</div>":"";
  if(tmp.cf)h+="<div class='w'>"+(un?"<span>"+un+"</span> <span>"+plur(un,"question")+" sans réponse.</span> ":"")+"Terminer l’annale et voir la correction ?</div><button class='btn' onclick='fin(true)'>Oui, terminer</button>";else h+="<button class='btn s' onclick='fin()'>Terminer l’annale</button>";
  return h+"<button class='back' onclick='go(\"home\")'>Quitter et reprendre plus tard</button>"};
+V.bdg=function(){var G=GM(),k=BDG.filter(function(b){return G.bd[b[0]]}).length;
+ var h="<button class='back' onclick='go(\"home\")'>← Retour</button><h1>🏅 Mes badges</h1>"+lvlCard().replace(/<button class='back'[^]*?<\/button>/,"");
+ h+="<p class='mu'><span>"+k+" / "+BDG.length+"</span> <span>badges débloqués</span></p><div class='bdgs'>";
+ BDG.forEach(function(b){var on=G.bd[b[0]];h+="<div class='bdi"+(on?"":" off")+"'>"+ICO.svg(on?b[3]:"lock")+"<b>"+b[1]+"</b><span class='mu'>"+b[2]+"</span></div>"});
+ h+="</div><div class='cd'><b>⚡ Comment gagner des XP</b><p class='mu'>+10 XP par bonne réponse · +20 XP par séance d’au moins 5 questions · +50 XP pour un sans-faute (10 questions ou plus) · bonus de combo à partir de 5 bonnes réponses d’affilée · +30 XP quand tu atteins ton objectif du jour.</p></div>";
+ h+="<div class='cd'><b>Les niveaux</b><p class='mu'>"+LVN.map(function(x,i){return "<span>"+(i+1)+".</span> <span>"+x+"</span> <span>("+LVL[i]+" XP)</span>"}).join("<br>")+"</p></div>";
+ return h};
 var PUB={"kty":"EC","crv":"P-256","x":"U5H9ls12KVJppTDBauCZZ5M37TTcXAjJGtUqcrfg7rA","y":"ebHtUCvzAcDDlih6dLge5k85ZqBcKO2hPRG13gjoYm0"};var PUBS=[PUB];
   /* Codes déjà donnés avec l'ancienne clé (retirée) : seuls ces codes exacts restent valables. */
 const LEGACY_CODES=["3af0ab4058593744c1fadcc3a77ad6d4693ba85e9e2e2d30b86378bf7f2e02d2"];
@@ -6149,8 +6451,8 @@ document.addEventListener("visibilitychange",function(){if(!document.hidden&&!AC
 function rgName(rm){var v=rm?"":(($("#rgn")||{}).value||"").replace(/\s+/g," ").trim().slice(0,24);if(v)lss("qcm_name",v);else lsr("qcm_name");lss("qcm_hello","1");R(true)}
 function rgTheme(t){if(t==="auto"){document.documentElement.removeAttribute("data-theme");lsr("qcm_th")}else{document.documentElement.setAttribute("data-theme",t);lss("qcm_th",t)}R(true)}
 function rgClear(k){if(tmp.rc!==k){tmp.rc=k;R(true);return}tmp.rc=null;
- if(k==="h"){DB.hist=[];DB.stats=null;DB.days={};DB.streak=0;DB.best=0;DB.last=""}
- else{DB={sets:[],hist:[],cats:[],fav:[],seeded:true,days:{},stats:null,last:"",streak:0,best:0,srs:{},goals:[],mg:2};SESS=null;saveS()}
+ if(k==="h"){DB.hist=[];DB.stats=null;DB.days={};DB.streak=0;DB.best=0;DB.last="";DB.gm=cgm({gl:GM().gl,i:1})}
+ else{DB={sets:[],hist:[],cats:[],fav:[],seeded:true,days:{},stats:null,last:"",streak:0,best:0,srs:{},goals:[],mg:2,gm:cgm({gl:GM().gl,i:1}),nv46:1,nv50:1};SESS=null;saveS()}
  save();R(true)}
 function boot(){try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}var c=null;try{c=localStorage.getItem("qcm_act")}catch(e){}if(!c)return trialBoot();chkCode(c).then(function(ok){if(ok){activated();afterAccess()}else trialBoot()})}
 /* ---------- Thousand Labs : signature avec logo (écran d'activation + licence) ---------- */

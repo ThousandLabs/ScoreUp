@@ -8,7 +8,7 @@ module.exports = [
   tagline: 'Révise mieux. Progresse plus vite.',
   desc: 'L’appli de révision avec QCM, examens chronométrés, flashcards et exercices corrigés. Fonctionne hors ligne, sur ton téléphone, en français ou en anglais.',
   pills: ['Élèves', 'Étudiants', 'Préparation d’examens', 'Profs & formateurs'],
-  news: ['Import en une touche', 'Questions douteuses', 'Vérification par une 2e IA', 'Achat Wave / Orange Money dans l’appli'],
+  news: ['Bouton « Suivant » toujours visible', 'XP, niveaux et badges', 'Objectif du jour et joker', 'Résultat à partager en image'],
   features: [
     { i: 'check', t: 'QCM interactifs', d: 'Réponds, vois tout de suite si c’est juste, avec l’explication de la bonne réponse.' },
     { i: 'timer', t: 'Mode examen chronométré', d: 'Mets-toi en conditions réelles et découvre ta note à la fin.' },
@@ -17,7 +17,7 @@ module.exports = [
     { i: 'repeat', t: 'À revoir aujourd’hui', d: 'Tes erreurs de la dernière séance t’attendent sur l’accueil : un toucher pour les revoir.' },
     { i: 'pencil', t: 'Corrigés sous contrôle', n: 1, d: 'Signale une question douteuse, fais vérifier la série par une 2e IA, corrige la réponse en 2 secondes.' },
     { i: 'book', t: 'Exercices corrigés (TD)', d: 'Entraîne-toi sur des exercices avec leur corrigé détaillé.' },
-    { i: 'cards', t: 'Flashcards & régularité', d: 'Touche la carte pour voir la réponse, et garde ta série de jours de révision.' },
+    { i: 'cards', t: 'Motivation au quotidien', n: 1, d: 'XP, niveaux, badges, combo, objectif du jour et joker pour garder ta série de jours. Flashcards incluses.' },
     { i: 'menu', t: 'Tout à portée de main', d: 'Le menu ☰ ouvre statistiques, historique, favoris, sauvegarde et réglages depuis n’importe quel écran.' },
     { i: 'share', t: 'Partage entre amis', d: 'Exporte une série de questions et envoie-la à un camarade.' }
   ],
