@@ -1261,6 +1261,30 @@ var TLL_EN={
 "Après chaque séance : ta note dans un anneau, ta mention, un message quand tu bats ton record sur la série, et un filtre « Mes erreurs » pour ne relire que les questions ratées. « Partager mon résultat » crée une image à envoyer sur WhatsApp ou en statut.": "After each session: your grade in a ring, your mention, a message when you beat your record on the set, and a “My mistakes” filter to review only the questions you missed. “Share my result” creates an image to send on WhatsApp or post as a status.",
 "Maîtrise et calendrier": "Mastery and calendar",
 "Sur l’accueil, chaque série affiche sa maîtrise : la part de ses questions réussies au moins 3 fois de suite en révision espacée. Dans « Statistiques », le calendrier montre tes jours de révision des 12 dernières semaines.": "On the home screen, each set shows its mastery: the share of its questions answered correctly at least 3 times in a row in spaced revision. In “Statistics”, the calendar shows your revision days over the last 12 weeks.",
+"Deux semaines": "Two weeks",
+"Révise 14 jours de suite.": "Revise 14 days in a row.",
+"Discipline de fer": "Iron discipline",
+"Révise 60 jours de suite.": "Revise 60 days in a row.",
+"Combo x20": "Combo x20",
+"Enchaîne 20 bonnes réponses d’affilée.": "Get 20 correct answers in a row.",
+"Puits de science": "Fountain of knowledge",
+"Atteins 2 500 bonnes réponses au total.": "Reach 2,500 correct answers in total.",
+"Cinquantaine": "Half-century",
+"Termine 50 séances.": "Finish 50 sessions.",
+"Acharné": "Relentless",
+"Termine 200 séances.": "Finish 200 sessions.",
+"Major": "Top scorer",
+"Obtiens au moins 18/20 à un examen chronométré.": "Score at least 18/20 in a timed exam.",
+"Ultra régulier": "Ultra consistent",
+"Atteins ton objectif du jour 30 fois.": "Reach your daily goal 30 times.",
+"Au sommet": "At the top",
+"Atteins le niveau 10.": "Reach level 10.",
+"Maître des chapitres": "Chapter master",
+"Maîtrise 100 % de 5 séries d’au moins 10 questions.": "Master 100% of 5 sets of at least 10 questions.",
+"Marathon": "Marathon",
+"Réponds à 100 questions dans la même journée.": "Answer 100 questions in a single day.",
+"Créateur": "Creator",
+"Importe ta propre série de questions.": "Import your own set of questions.",
 "{#} séances": "{} sessions"
 };
 var TLL_SUBX=[];
@@ -5849,7 +5873,7 @@ function jokerOk(){return GM().fzw!==wkKey()}
 function gmInit(){var G=GM();if(G.i)return;G.i=1;G.xp=Math.max(G.xp,((DB.stats&&DB.stats.t&&DB.stats.t.s)||0)*10);bdCheck(null);save()}
 
 /* ---------- Niveaux ---------- */
-var LVL=[0,100,300,700,1200,2000,3200,5000,7500,11000];
+var LVL=[0,500,1500,3500,6000,10000,16000,25000,37500,55000];
 var LVN=["Débutant","Curieux","Appliqué","Assidu","Sérieux","Solide","Brillant","Expert","Major de promo","Légende"];
 function lvInfo(xp){var i=0;while(i<LVL.length-1&&xp>=LVL[i+1])i++;var a=LVL[i],b=LVL[i+1];return {n:i+1,nm:LVN[i],a:a,b:b||null,p:b?Math.round((xp-a)/(b-a)*100):100}}
 function todayQ(){return GM().dq[ds(new Date())]||0}
@@ -5858,12 +5882,17 @@ function todayQ(){return GM().dq[ds(new Date())]||0}
 var BDG=[["first","Premier pas","Termine ta première séance.","flag"],["s3","Sur la lancée","Révise 3 jours de suite.","flame"],["s7","Une semaine entière","Révise 7 jours de suite.","flame"],["s30","Inarrêtable","Révise 30 jours de suite.","flame"],
  ["perfect","Sans faute","Fais 20/20 sur une séance d’au moins 10 questions.","trophy"],["c10","Combo x10","Enchaîne 10 bonnes réponses d’affilée.","zap"],["q100","Centurion","Atteins 100 bonnes réponses au total.","check"],["q500","Machine à réviser","Atteins 500 bonnes réponses au total.","check"],["q1000","Encyclopédie","Atteins 1 000 bonnes réponses au total.","book"],
  ["exam","Conditions réelles","Termine un examen chronométré.","timer"],["annale","Annale réussie","Termine une annale.","file"],["defi","Champion","Gagne un défi lancé par un ami.","swords"],["goal7","Régulier","Atteins ton objectif du jour 7 fois.","target"],["lv5","Niveau 5","Atteins le niveau 5.","medal"],
- ["master","Chapitre maîtrisé","Maîtrise 100 % d’une série d’au moins 10 questions.","cap"],["sets5","Bibliothèque","Aie au moins 5 séries.","book"],["night","Couche-tard","Termine une séance après 22 h.","moon"],["early","Lève-tôt","Termine une séance avant 7 h.","sun"]];
+ ["master","Chapitre maîtrisé","Maîtrise 100 % d’une série d’au moins 10 questions.","cap"],["sets5","Bibliothèque","Aie au moins 5 séries.","book"],["night","Couche-tard","Termine une séance après 22 h.","moon"],["early","Lève-tôt","Termine une séance avant 7 h.","sun"],
+ ["s14","Deux semaines","Révise 14 jours de suite.","flame"],["s60","Discipline de fer","Révise 60 jours de suite.","flame"],["c20","Combo x20","Enchaîne 20 bonnes réponses d’affilée.","zap"],["q2500","Puits de science","Atteins 2 500 bonnes réponses au total.","book"],
+ ["n50","Cinquantaine","Termine 50 séances.","repeat"],["n200","Acharné","Termine 200 séances.","repeat"],["exam18","Major","Obtiens au moins 18/20 à un examen chronométré.","trophy"],["goal30","Ultra régulier","Atteins ton objectif du jour 30 fois.","target"],
+ ["lv10","Au sommet","Atteins le niveau 10.","medal"],["master5","Maître des chapitres","Maîtrise 100 % de 5 séries d’au moins 10 questions.","cap"],["day100","Marathon","Réponds à 100 questions dans la même journée.","chart"],["creator","Créateur","Importe ta propre série de questions.","spark"]];
 function mastery(s){var n=s.questions.length,m=0;if(!n)return 0;s.questions.forEach(function(_,i){if(srsBox(s.id,i)>=3)m++});return Math.round(m/n*100)}
 function bdCheck(o){var G=GM(),st=DB.stats&&DB.stats.t,ok=st?st.s:0,best=Math.max(DB.best||0,DB.streak||0),h=new Date().getHours(),c={
   first:DB.hist.length>0,s3:best>=3,s7:best>=7,s30:best>=30,perfect:!!(o&&o.t>=10&&o.sc>=o.t&&o.mode!=="flash"),c10:(G.cbm||0)>=10,q100:ok>=100,q500:ok>=500,q1000:ok>=1000,
   exam:!!(o&&o.mode==="exam"),annale:!!(o&&o.mode==="annale"),defi:!!(o&&o.dw),goal7:(G.gd||0)>=7,lv5:lvInfo(G.xp).n>=5,
-  master:DB.sets.some(function(s){return s.kind!=="an"&&s.questions.length>=10&&mastery(s)===100}),sets5:DB.sets.length>=5,night:!!(o&&h>=22),early:!!(o&&h>=4&&h<7)},nb=[];
+  master:DB.sets.some(function(s){return s.kind!=="an"&&s.questions.length>=10&&mastery(s)===100}),sets5:DB.sets.length>=5,night:!!(o&&h>=22),early:!!(o&&h>=4&&h<7),
+  s14:best>=14,s60:best>=60,c20:(G.cbm||0)>=20,q2500:ok>=2500,n50:!!(st&&st.n>=50),n200:!!(st&&st.n>=200),exam18:!!(o&&o.mode==="exam"&&o.g>=18),goal30:(G.gd||0)>=30,lv10:lvInfo(G.xp).n>=10,
+  master5:DB.sets.filter(function(s){return s.kind!=="an"&&s.questions.length>=10&&mastery(s)===100}).length>=5,day100:(G.dq[ds(new Date())]||0)>=100,creator:DB.sets.some(function(s){return !s.demo&&s.kind!=="an"})},nb=[];
  BDG.forEach(function(b){if(c[b[0]]&&!G.bd[b[0]]){G.bd[b[0]]=ds(new Date());nb.push(b)}});return nb}
 
 /* ---------- Fin de séance : XP, objectif du jour, badges ---------- */
