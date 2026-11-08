@@ -8,7 +8,7 @@ module.exports = [
   tagline: 'Révise mieux. Progresse plus vite.',
   desc: 'L’appli de révision avec QCM, examens chronométrés, flashcards et exercices corrigés. Fonctionne hors ligne, sur ton téléphone, en français ou en anglais.',
   pills: ['Élèves', 'Étudiants', 'Préparation d’examens', 'Profs & formateurs'],
-  news: ['Bouton « Suivant » toujours visible', 'XP, niveaux et 30 badges', 'Révision éclair', 'Bilan de la semaine'],
+  news: ['Copies de secours automatiques', 'XP, niveaux et 30 badges', 'Révision éclair', 'Bilan de la semaine'],
   features: [
     { i: 'check', t: 'QCM interactifs', d: 'Réponds, vois tout de suite si c’est juste, avec l’explication de la bonne réponse.' },
     { i: 'timer', t: 'Mode examen chronométré', d: 'Mets-toi en conditions réelles et découvre ta note à la fin.' },
@@ -47,7 +47,7 @@ module.exports = [
   tagline: 'Maîtrisez votre argent, jour après jour.',
   desc: 'Gestion financière personnelle et suivi de petits projets commerciaux. 100 % hors ligne, 100 % privé, sans inscription. En français ou en anglais.',
   pills: ['Étudiants', 'Jeunes actifs', 'Petits projets commerciaux', 'Familles'],
-  news: ['Nouvel accueil', 'Essai gratuit 48 h', 'Achat Wave / Orange Money dans l’appli', 'Interface en anglais'],
+  news: ['Nouveau prix : 5 000 F', 'Copies de secours automatiques', 'Essai gratuit 48 h', 'Interface en anglais'],
   features: [
     { i: 'wallet', t: 'Entrées & projets', d: 'Revenus, multi-projets commerciaux et convertisseur de devises intégré.' },
     { i: 'list', t: 'Journal des dépenses', d: 'Chaque dépense notée en temps réel, avec sorties fixes et enveloppes par poste.' },
@@ -68,7 +68,7 @@ module.exports = [
   ],
   chips: [['phone', 'Android & iPhone'], ['wifioff', 'Hors ligne'], ['lock', 'Sans compte ni abonnement'], ['globe', 'Français · English'], ['qr', 'Activation QR']],
   trialStep: 'Touchez « Essayer gratuitement 48 h » : toutes les fonctions pendant 48 heures, sans code.',
-  priceTitle: 'Tarif', price: '10 000 F', priceSub: 'Une seule fois, sans abonnement. Le code est lié à votre téléphone (10 000 F par appareil).',
+  priceTitle: 'Tarif', price: '5 000 F', priceSub: 'Une seule fois, sans abonnement. Le code est lié à votre téléphone (5 000 F par appareil).',
   perks: ['Toutes les fonctions, sans limite', 'Interface en français ou en anglais', 'Mises à jour incluses', 'Sauvegarde et restauration par fichier', 'Guide d’utilisation intégré'],
   faq: [
     ['Puis-je essayer avant de payer ?', 'Oui : 48 heures d’essai complet, sans code. Vos données sont gardées ensuite.'],
@@ -124,26 +124,26 @@ module.exports = [
   tagline: 'Comprenez enfin votre électricité. Payez moins.',
   desc: 'Le carnet de bord de votre compteur Woyofal : vos appareils, vos recharges, les tranches Senelec et votre vraie consommation, expliqués simplement. 100 % hors ligne, 100 % privé, sans inscription.',
   pills: ['Familles', 'Étudiants & colocations', 'Boutiques & commerçants', 'Propriétaires'],
-  news: ['Nouvel accueil', 'Essai gratuit 48 h', 'Scanner d’étiquette', 'Conseil de recharge'],
+  news: ['Journal du jour', 'Profil de la semaine', 'Prévision du crédit jour par jour', 'Rapport du mois'],
   features: [
     { i: 'chart', t: 'Tranches enfin expliquées', d: 'La grille officielle Senelec intégrée : où vous en êtes dans le mois et le prix réel de votre prochain kWh.' },
-    { i: 'plug', t: 'Qui consomme quoi ?', d: 'Décrivez vos appareils en une phrase (« 2 télés Samsung 43 pouces, 1 clim 1,5 CV ») : coût par jour et par mois.' },
-    { i: 'calc', t: 'Conseil de recharge', n: 1, d: 'Quand recharger et combien, selon votre vraie consommation, pour payer vos kWh au meilleur prix.' },
-    { i: 'ticket', t: 'Vérificateur de ticket', d: 'Comparez les kWh reçus à la grille et voyez où est parti l’argent : énergie, taxes, redevance.' },
-    { i: 'search', t: 'Mode détective', d: 'Comptez les clignotements du compteur : l’appli mesure la puissance réelle et trouve l’appareil suspect.' },
-    { i: 'moon', t: 'Chasse à la veille', d: 'Décodeur, télé, chargeurs : ce qu’ils coûtent éteints, par mois et par an.' },
-    { i: 'users', t: 'Plusieurs compteurs & partage', d: 'Maison, boutique, chambre louée. Répartition de la facture entre colocataires sur WhatsApp.' },
-    { i: 'bell', t: 'Rappels utiles', d: '« Il vous reste 3 jours », « attendez le 1er pour recharger », « hier vous avez consommé 40 % de plus ».' }
+    { i: 'plug', t: 'Qui consomme quoi ?', d: 'Décrivez vos appareils en une phrase ou scannez leur étiquette : coût de chacun par jour et par mois.' },
+    { i: 'pencil', t: 'Journal du jour', n: 1, d: 'Quelqu’un en plus, invités, coupure, machine à laver ×3, clim 6 h : notez ce qui change, voyez ce que ça coûte.' },
+    { i: 'calendar', t: 'Profil de la semaine', n: 1, d: 'La vraie consommation de chaque jour (lundi, mardi…) chez vous, et l’effet mesuré de vos jours spéciaux.' },
+    { i: 'calc', t: 'Conseil de recharge & prévision', d: 'Quand recharger et combien, avec un crédit décompté jour par jour selon votre semaine réelle.' },
+    { i: 'search', t: 'Ticket & mode détective', d: 'Vérifiez les kWh reçus contre la grille, mesurez la puissance réelle d’un appareil suspect.' },
+    { i: 'moon', t: 'Veille & simulateur d’achat', d: 'Ce que coûtent les appareils éteints, et ce qu’un nouvel appareil ajoutera à votre facture.' },
+    { i: 'receipt', t: 'Compteurs, partage & rapport', d: 'Maison, boutique, colocation : facture partagée et rapport du mois à envoyer sur WhatsApp ou en PDF.' }
   ],
-  callout: '<b>« Avant 6 kWh par jour, aujourd’hui 15 : pourquoi ? »</b> Power Log compare ce que vos appareils devraient consommer à ce que dit vraiment le compteur, et vous dit où chercher : clim, vieux frigo, veille, fuite… ou simplement une grosse recharge achetée au mauvais moment du mois.',
+  callout: '<b>« Avant 6 kWh par jour, aujourd’hui 15 : pourquoi ? »</b> Power Log compare vos appareils à ce que dit vraiment le compteur et vous dit où chercher : clim, vieux frigo, veille… ou un week-end avec plus de monde.',
   steps3Title: 'Votre électricité en 3 réflexes',
   steps3: [
-    { t: 'Notez votre solde', d: '10 secondes, tous les 1 à 3 jours : l’appli calcule votre consommation réelle et vos jours restants.' },
-    { t: 'Rechargez au bon moment', d: 'L’appli vous dit combien recharger pour rester au tarif le plus bas, et quand attendre le 1er.' },
-    { t: 'Coupez ce qui coûte', d: 'Chaque appareil affiché en kWh et en francs : « une nuit de clim = 800 F ».' }
+    { t: 'Notez votre solde chaque soir', d: '10 secondes, à la même heure : votre vraie consommation, jour par jour.' },
+    { t: 'Notez vos jours spéciaux', d: 'Personne en plus, invités, coupure : l’appli mesure leur effet et ajuste la prévision.' },
+    { t: 'Rechargez au bon moment', d: 'Le bon montant au bon jour, au tarif le plus bas, sans tomber à zéro.' }
   ],
   chips: [['phone', 'Android & iPhone'], ['wifioff', 'Hors ligne'], ['lock', 'Sans compte ni abonnement'], ['globe', 'Français · English · Wolof'], ['qr', 'Activation QR']],
-  extra: `<div class="extra"><div class="tx"><b class="t"><span class="new">Nouveau</span> Scannez l’étiquette de vos appareils</b><p>Touchez « Scanner l’étiquette » : la caméra s’ouvre dans l’appli. Visez la plaque signalétique : Power Log <b>lit la puissance, la marque et le modèle</b> et les remplit pour vous.</p><p>Un modèle déjà enregistré retrouve sa puissance tout seul. Hors ligne après la 1re utilisation ; la photo reste sur votre téléphone.</p></div><div><div class="lab">MODEL: KF-1500<br>220-240V~ 50Hz <i>1500W</i></div><div class="res"><span>Puissance (W)</span><span>1 500 W ✓</span></div></div></div>`,
+  extra: `<div class="extra"><div class="tx"><b class="t"><span class="new">Nouveau</span> Votre semaine, jour par jour</b><p>Chez vous, le samedi ne ressemble pas au mardi. En 2 à 3 semaines de relevés, Power Log calcule ce que consomme chaque jour et ce que coûtent vos jours spéciaux (« personne en plus : +75 % »).</p><p>Un jour chargé arrive ? Notez-le à l’avance : la prévision dit si le crédit tiendra.</p></div><div><div style="font-size:8.5pt;font-weight:600;margin-bottom:2mm">Ma semaine normale (kWh) <span style="color:#c2410c">■</span> <span style="font-weight:400">jours spéciaux</span></div><div style="display:flex;align-items:flex-end;gap:2.2mm;height:24mm">${[['Lun',52,0],['Mar',48,0],['Mer',50,0],['Jeu',55,0],['Ven',60,0],['Sam',78,1],['Dim',70,1]].map(([d,h,sp])=>`<div style="flex:1;text-align:center"><div style="height:${h*0.28}mm;background:${sp?'#c2410c':'#fbd5b5'};border-radius:1mm 1mm 0 0"></div><div style="font-size:7pt;margin-top:1mm">${d}</div></div>`).join('')}</div><div class="res" style="margin-top:2mm"><span>Crédit épuisé vers</span><span>jeudi 19</span></div></div></div>`,
   trialStep: 'Touchez « Essayer gratuitement 48 h » : toutes les fonctions pendant 48 heures, sans code.',
   priceTitle: 'Tarif', price: '5 000 F', priceSub: 'Une seule fois, sans abonnement. Le code est lié à votre téléphone (5 000 F par appareil).',
   perks: ['Toutes les fonctions, sans limite', 'Plusieurs compteurs (maison, boutique…)', 'Mises à jour incluses', 'Sauvegarde et restauration par fichier', 'Grille tarifaire modifiable si la Senelec change ses prix'],

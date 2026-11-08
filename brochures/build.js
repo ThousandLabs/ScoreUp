@@ -146,7 +146,7 @@ h3{display:flex;align-items:center;gap:2.4mm;font:800 11pt Inter;margin:5mm 0 2.
   <h3>Questions fréquentes</h3><div class="fqg">${faq}</div>
   <div class="cmd"><div class="qw">${qrSvg(wa, 78)}</div><div><b class="t">Commande & activation</b>
    <ol class="ol"><li>${T('Sur l’écran « Activer », choisis ta formule.', 'Sur l’écran « Activer », choisissez votre formule.')}</li>
-   <li>${T('Paie par Wave ou Orange Money au numéro ci-dessous (ou en espèces, en main propre).', 'Payez par Wave ou Orange Money au numéro ci-dessous (ou en espèces, en main propre).')}</li>
+   <li>${T('Paie par Wave avec le bouton « Payer avec Wave » de l’appli, ou par Orange Money au numéro ci-dessous (ou en espèces, en main propre).', 'Payez par Wave avec le bouton « Payer avec Wave » de l’appli, ou par Orange Money au numéro ci-dessous (ou en espèces, en main propre).')}</li>
    <li>${T('Indique le numéro qui a payé et touche « J’ai payé » : ta demande part sur WhatsApp.', 'Indiquez le numéro qui a payé et touchez « J’ai payé » : votre demande part sur WhatsApp.')}</li></ol>
    <div class="tel">71 121 65 81</div><p>${T('Ton code arrive dès que le paiement est vérifié. Groupe : une seule personne paie et envoie les identifiants de tous. Le QR code ouvre la conversation WhatsApp.', 'Votre code arrive dès que le paiement est vérifié. Groupe : une seule personne paie et envoie les codes appareil de tous. Le QR code ouvre la conversation WhatsApp.')}</p></div></div>
   <div class="tr"><div class="tb">48 h<small>GRATUIT</small></div><div><b class="t">Essai gratuit de 48 h, sans payer</b><p>${a.trialText}</p></div></div>

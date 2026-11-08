@@ -252,6 +252,22 @@ var TLL=(function(){
 
 /* Dictionnaire français → anglais */
 var TLL_EN={
+"Copies automatiques": "Automatic copies",
+"Voir les copies automatiques": "See automatic copies",
+"Restaurer cette copie": "Restore this copy",
+"Confirmer : remplacer mes données": "Confirm: replace my data",
+"Copie du jour": "Daily copy",
+"Avant restauration": "Before restore",
+"Avant import": "Before import",
+"Avant effacement": "Before erase",
+"Aucune copie automatique pour l’instant.": "No automatic copy yet.",
+"Copie introuvable.": "Copy not found.",
+"Copie restaurée ✓": "Copy restored ✓",
+"⚠️ mémoire pleine": "⚠️ storage full",
+"Données récupérées automatiquement depuis la copie de secours ✓": "Data recovered automatically from the backup copy ✓",
+"À chaque modification, ScoreUp garde seul une copie sur ce téléphone, sans Internet : une par jour sur les 14 derniers jours, et une avant chaque restauration ou effacement. Si tes données disparaissent, elles sont récupérées automatiquement à l’ouverture.": "With every change, ScoreUp keeps a copy on this phone by itself, without Internet: one per day for the last 14 days, and one before each restore or erase. If your data disappears, it is recovered automatically when the app opens.",
+"Ces copies restent sur ce téléphone : si tu perds le téléphone ou effaces toutes les données du site, seul le fichier exporté te protège.": "These copies stay on this phone: if you lose the phone or erase all the site data, only the exported file protects you.",
+"Mémoire du navigateur pleine (elle est partagée avec les autres applis Thousand Labs) : tes dernières modifications ne sont pas enregistrées. Exporte une sauvegarde, puis supprime des séries que tu n’utilises plus.": "Browser storage is full (it is shared with the other Thousand Labs apps): your latest changes were not saved. Export a backup, then delete sets you no longer use.",
 "Ouvre le lien de l'appli dans": "Open the app's link in",
 ", avec Internet. Brave, Opera et les autres navigateurs ne créent qu'un simple raccourci.": ", with Internet on. Brave, Opera and other browsers only create a simple shortcut.",
 "avec Internet. Brave, Opera et les autres navigateurs ne créent qu'un simple raccourci.": "with Internet on. Brave, Opera and other browsers only create a simple shortcut.",
@@ -537,8 +553,8 @@ var TLL_EN={
 ". Tu pourras ajouter ses séries depuis les Réglages.": ". You can add its sets later from Settings.",
 "Tu pourras ajouter ses séries depuis les Réglages.": "You can add its sets later from Settings.",
 "Sélectionne le texte et copie-le": "Select the text and copy it",
-"Lecture du PDF… (connexion Internet requise)": "Reading the PDF… (Internet connection required)",
-"Impossible de lire ce PDF. Vérifie ta connexion et que le PDF contient du vrai texte (pas une photo ni un scan). Tu peux aussi copier-coller le texte.": "Unable to read this PDF. Check your connection and that the PDF contains real text (not a photo or scan). You can also copy and paste the text.",
+"Lecture du PDF…": "Reading the PDF…",
+"Impossible de lire ce PDF. Vérifie qu’il contient du vrai texte (pas une photo ni un scan). Tu peux aussi copier-coller le texte.": "Unable to read this PDF. Check that it contains real text (not a photo or scan). You can also copy and paste the text.",
 "Série du {}": "Set of {}",
 "Régularité · 30 derniers jours": "Consistency · last 30 days",
 "{} jours sur 30 · {} séances": "{} days out of 30 · {} sessions",
@@ -701,8 +717,8 @@ var TLL_EN={
 "Ajouter les séries d’exemple": "Add the sample sets",
 "Ajouter les séries d'exemple": "Add the sample sets",
 "Nouveautés": "What's new",
-"Matières avec couleurs (à l’import, ou depuis la liste), statistiques globales et par matière, série de jours de révision, flashcards (touche la carte pour voir la réponse) et mode sombre ou clair en haut de l’accueil, favoris (étoile), sauvegarde complète et mode transport (boutons de navigation en bas).": "Colour-coded subjects (when importing, or from the list), overall and per-subject statistics, revision day streak, flashcards (tap the card to see the answer) and dark or light mode at the top of the home screen, favourites (star), full backup and transport mode (navigation buttons at the bottom).",
-"Matières avec couleurs (à l'import, ou depuis la liste), statistiques globales et par matière, série de jours de révision, flashcards (touche la carte pour voir la réponse) et mode sombre ou clair en haut de l'accueil, favoris (étoile), sauvegarde complète et mode transport (boutons de navigation en bas).": "Colour-coded subjects (when importing, or from the list), overall and per-subject statistics, revision day streak, flashcards (tap the card to see the answer) and dark or light mode at the top of the home screen, favourites (star), full backup and transport mode (navigation buttons at the bottom).",
+"Matières avec couleurs (à l’import, ou depuis la liste), statistiques globales et par matière, série de jours de révision, flashcards (touche la carte pour voir la réponse) et mode sombre ou clair en haut de l’accueil, favoris (étoile), sauvegarde complète avec copies automatiques de secours sur le téléphone (14 jours) et mode transport (boutons de navigation en bas).": "Colour-coded subjects (when importing, or from the list), overall and per-subject statistics, revision day streak, flashcards (tap the card to see the answer) and dark or light mode at the top of the home screen, favourites (star), full backup with automatic safety copies on the phone (14 days) and transport mode (navigation buttons at the bottom).",
+"Matières avec couleurs (à l'import, ou depuis la liste), statistiques globales et par matière, série de jours de révision, flashcards (touche la carte pour voir la réponse) et mode sombre ou clair en haut de l'accueil, favoris (étoile), sauvegarde complète avec copies automatiques de secours sur le téléphone (14 jours) et mode transport (boutons de navigation en bas).": "Colour-coded subjects (when importing, or from the list), overall and per-subject statistics, revision day streak, flashcards (tap the card to see the answer) and dark or light mode at the top of the home screen, favourites (star), full backup with automatic safety copies on the phone (14 days) and transport mode (navigation buttons at the bottom).",
 "Mon école": "My school",
 "Au premier lancement, choisis ton école (Management, Droit, Ingénieurs, Digital Campus ou Madiba Leadership Institute). Tu vois ses principales filières et tu peux importer 5 séries de démarrage de 20 questions, niveau L1. Tu peux changer d’école ou ajouter ses séries plus tard depuis « ⚙️ Réglages ».": "On first launch, choose your school (Management, Law, Engineering, Digital Campus or Madiba Leadership Institute). You see its main programmes and can import 5 starter sets of 20 questions, Year 1 level. You can change school or add its sets later from “⚙️ Settings”.",
 "Au premier lancement, choisis ton école (Management, Droit, Ingénieurs, Digital Campus ou Madiba Leadership Institute). Tu vois ses principales filières et tu peux importer 5 séries de démarrage de 20 questions, niveau L1. Tu peux changer d'école ou ajouter ses séries plus tard depuis « ⚙️ Réglages ».": "On first launch, choose your school (Management, Law, Engineering, Digital Campus or Madiba Leadership Institute). You see its main programmes and can import 5 starter sets of 20 questions, Year 1 level. You can change school or add its sets later from “⚙️ Settings”.",
@@ -1498,7 +1514,63 @@ function aiBox(){return "<h3 class='aih'>🤖 Génère tes QCM avec une IA</h3><
 function PR(k){var en=TLL.lang()==="en";return k==="e"?(en?PROMPT2_EN:PROMPT2):(en?PROMPT_EN:PROMPT)}
 var PROMPT2="Tu es un professeur d’université expert et rigoureux. À partir de l’exercice ci-dessous, écris l’exercice et son corrigé détaillé.\n\nRègles :\n- Utilise uniquement les données de l’énoncé et les méthodes du cours. N’invente aucune donnée. Si une donnée manque ou est illisible, écris-le dans le corrigé au lieu de la deviner.\n- Calculs : fais chaque calcul pas à pas, puis refais-le une seconde fois (autre méthode ou vérification). N’écris la ligne N: que si les deux résultats sont identiques. En cas de doute, supprime la ligne N: et explique dans C:.\n- Tableaux : recopie chaque tableau de l’énoncé en texte, une ligne par ligne du tableau, avec les cellules séparées par le symbole |, la première ligne contenant les en-têtes. Exemple :\nNombre de divorces | 0 | 1 | 2\nEffectif | 5 | 3 | 25\nVérifie que tu as recopié chaque chiffre exactement, et que les totaux correspondent à l’énoncé.\n- Respecte exactement ce format :\nEX: titre de l’exercice\n(énoncé, données et tableaux écrits en texte)\nQ: première question\nN: la réponse sous forme d’un seul nombre, sans unité (ligne à supprimer si la réponse n’est pas un seul nombre)\nC: corrigé détaillé avec les calculs\nQ: question suivante (même structure)\n\nÉcris tout directement dans ta réponse, sans PDF, sans gras, sans balises markdown et sans autre texte.\n\nVoici l’exercice :\n";
 function rd(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}}
-function save(){try{localStorage.setItem("qcm_db",JSON.stringify(DB))}catch(e){store=false}}
+function save(){try{localStorage.setItem("qcm_db",JSON.stringify(DB));if(FULL){FULL=false}}catch(e){if(tlQuota(e)){if(!FULL)suToast(FULLMSG);FULL=true}else store=false}if(window.SNAP)SNAP.soon()}
+var FULL=false,FULLMSG="Mémoire du navigateur pleine (elle est partagée avec les autres applis Thousand Labs) : tes dernières modifications ne sont pas enregistrées. Exporte une sauvegarde, puis supprime des séries que tu n’utilises plus.";
+/* =====================================================================
+   Copies de secours automatiques (même principe que Power Log)
+   • À chaque modification, une copie est gardée sur ce téléphone, dans la base
+     interne du navigateur (IndexedDB), sans Internet ni serveur : une par jour,
+     sur les 14 derniers jours, plus les 5 dernières copies « avant » une
+     restauration, un import ou un effacement.
+   • Au démarrage, si les données principales ont disparu ou sont illisibles,
+     l'appli les récupère seule depuis la dernière copie.
+   • La base interne a beaucoup plus de place que le stockage principal : les
+     copies continuent même quand celui-ci est plein.
+   ===================================================================== */
+function TLSNAP(cfg){
+  var ST='snaps',DAYS=cfg.days||14,PRE=cfg.pre||5,timer=0,last='',ready=false,pending=false;
+  function open(){return new Promise(function(res,rej){try{var r=indexedDB.open(cfg.db,1);r.onupgradeneeded=function(){try{r.result.createObjectStore(ST)}catch(e){}};r.onsuccess=function(){res(r.result)};r.onerror=function(){rej(r.error)}}catch(e){rej(e)}})}
+  function tx(mode,fn){return open().then(function(db){return new Promise(function(res,rej){var out,x=db.transaction(ST,mode),st=x.objectStore(ST);try{out=fn(st)}catch(e){db.close();return rej(e)}
+    x.oncomplete=function(){db.close();res(out&&('result' in out)?out.result:out)};x.onerror=x.onabort=function(){db.close();rej(x.error)}})})}
+  function get(k){return tx('readonly',function(st){return st.get(k)}).catch(function(){return null})}
+  function keys(){return tx('readonly',function(st){return st.getAllKeys()}).catch(function(){return []})}
+  function grab(){var m={};cfg.keys().forEach(function(k){try{var v=localStorage.getItem(k);if(v!=null)m[k]=v}catch(e){}});return m}
+  function cnt(m){try{return +cfg.count(m)||0}catch(e){return 0}}
+  function day(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
+  function starts(p){return function(k){return String(k).indexOf(p)===0}}
+  function write(){clearTimeout(timer);timer=0;pending=false;var m=grab(),json=JSON.stringify(m);if(json===last)return Promise.resolve();last=json;
+    var n=cnt(m),rec={t:Date.now(),data:m,n:n},dk='day:'+day();
+    return keys().then(function(old){old=old.filter(starts('day:')).sort();var all=old.slice();if(n>0&&all.indexOf(dk)<0)all.push(dk);all.sort();var keep=all.slice(-DAYS);
+      return tx('readwrite',function(st){st.put(rec,'latest');if(n>0)st.put(rec,dk);old.forEach(function(k){if(keep.indexOf(k)<0)st.delete(k)})})}).catch(function(){})}
+  var api={
+    /* à appeler après chaque enregistrement */
+    soon:function(){pending=true;if(!ready)return;clearTimeout(timer);timer=setTimeout(write,1500)},
+    flush:function(){if(ready&&pending)write()},
+    /* copie « avant » une opération qui remplace ou efface les données (appel synchrone : la copie est prise tout de suite) */
+    keep:function(kind){var m=grab(),n=cnt(m);if(!n)return Promise.resolve();
+      return keys().then(function(old){old=old.filter(starts('pre:')).sort();return tx('readwrite',function(st){st.put({t:Date.now(),data:m,n:n,kind:kind},'pre:'+Date.now());old.slice(0,Math.max(0,old.length-PRE+1)).forEach(function(k){st.delete(k)})})}).catch(function(){})},
+    list:function(){return keys().then(function(ks){return Promise.all(ks.filter(function(k){return k!=='latest'}).map(function(k){return get(k).then(function(r){return r&&r.data?{key:String(k),t:r.t,n:r.n||0,kind:starts('pre:')(k)?(r.kind||'restore'):'day'}:null})}))})
+      .then(function(L){return L.filter(Boolean).sort(function(a,b){return b.t-a.t})})},
+    /* remplace les données actuelles par une copie (les actuelles sont gardées dans « Avant restauration ») */
+    restore:function(k){return get(k).then(function(r){if(!r||!r.data)return 'none';api.keep('restore');
+      try{cfg.keys().forEach(function(x){if(!(x in r.data))localStorage.removeItem(x)});Object.keys(r.data).forEach(function(x){localStorage.setItem(x,r.data[x])})}catch(e){return 'full'}
+      last=JSON.stringify(grab());return 'ok'})},
+    /* au démarrage : données principales absentes ou illisibles → reprise de la dernière copie. Renvoie true si des données ont été récupérées. */
+    heal:function(){var raw=null;try{raw=localStorage.getItem(cfg.main())}catch(e){ready=true;return Promise.resolve(false)}
+      if(raw){try{JSON.parse(raw);last=JSON.stringify(grab());ready=true;if(pending)api.soon();return Promise.resolve(false)}catch(e){}}
+      return get('latest').then(function(r){if(r&&r.data&&r.n>0)return r;return api.list().then(function(L){return L[0]?get(L[0].key):null})})
+        .then(function(r){var ok=false;if(r&&r.data&&r.n>0){ok=true;Object.keys(r.data).forEach(function(x){try{localStorage.setItem(x,r.data[x])}catch(e){ok=false}})}
+          last=JSON.stringify(grab());ready=true;if(pending)api.soon();return ok})}
+  };
+  document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')api.flush()});
+  window.addEventListener('pagehide',function(){api.flush()});
+  return api;
+}
+/* Le stockage principal est-il plein ? (sinon : bloqué, par exemple en navigation privée) */
+function tlQuota(e){return !!e&&(e.name==='QuotaExceededError'||e.name==='NS_ERROR_DOM_QUOTA_REACHED'||e.code===22||e.code===1014)}
+var SNAP=TLSNAP({db:"scoreup-secours",keys:function(){return ["qcm_db","qcm_hello","qcm_name","qcm_school"]},main:function(){return "qcm_db"},count:function(m){try{var d=JSON.parse(m.qcm_db||"{}");return (d.sets||[]).filter(function(x){return !x.demo}).length+(d.hist||[]).length}catch(e){return 0}}});
+function snapUI(){tmp.sn="…";R(true);SNAP.list().then(function(L){tmp.sn=L;R(true)})}
+function snapRes(k){if(tmp.snc!==k){tmp.snc=k;R(true);return}tmp.snc=null;SNAP.restore(k).then(function(r){if(r==="full")return suToast(FULLMSG);if(r!=="ok")return suToast("Copie introuvable.");load();SESS=null;saveS();tmp={};suToast("Copie restaurée ✓");go("home")})}
 function saveS(){try{if(SESS)localStorage.setItem("qcm_sess",JSON.stringify(SESS));else localStorage.removeItem("qcm_sess")}catch(e){store=false}}
 function load(){try{localStorage.setItem("qcm_t","1");localStorage.removeItem("qcm_t")}catch(e){store=false}
  var d=rd("qcm_db");if(d&&Array.isArray(d.sets))DB={sets:d.sets,hist:Array.isArray(d.hist)?d.hist:[],cats:Array.isArray(d.cats)?d.cats:[],stats:d.stats||null,last:d.last||"",streak:d.streak||0,best:d.best||0,fav:Array.isArray(d.fav)?d.fav:[],seeded:!!d.seeded,days:(d.days&&typeof d.days==="object"&&!Array.isArray(d.days))?d.days:{},srs:(d.srs&&typeof d.srs==="object")?d.srs:{},goals:Array.isArray(d.goals)?d.goals:[],mg:d.mg||0,gm:cgm(d.gm),nv46:d.nv46||0,nv50:d.nv50||0};if(!DB.stats)DB.hist.forEach(function(x){addStat(x.c||"Sans matière",x.s,x.t)});var th=null;try{th=localStorage.getItem("qcm_th")}catch(e){}if(th)document.documentElement.setAttribute("data-theme",th);try{TH=localStorage.getItem("qcm_tp")==="1"}catch(e){}document.body.className=TH?"thumb":"";
@@ -1584,7 +1656,7 @@ function bkBanner(){var lb=0;try{lb=+localStorage.getItem("qcm_bk_at")||0}catch(
  return "<div class='cd' style='border-left:5px solid #a15c00'><b>💾 "+(lb?"Ta dernière sauvegarde date de plus de 7 jours":"Tu n’as encore fait aucune sauvegarde")+"</b><p class='mu'>Tes séries, ton historique et tes statistiques sont uniquement sur ce téléphone. Envoie-toi une copie (WhatsApp, Drive…) pour ne rien perdre.</p><button class='btn' onclick='bkx()'>💾 Sauvegarder maintenant</button></div>"}
 function bkc(b){copy(bkJson(),b)}
 function bkf(i){var f=i.files[0];if(!f)return;var r=new FileReader();r.onload=function(){$("#bt").value=String(r.result)};r.readAsText(f)}
-function bkr(ok){if(ok&&tmp.bk){DB=tmp.bk;if(!DB.stats)DB.hist.forEach(function(x){addStat(x.c||"Sans matière",x.s,x.t)});SESS=null;saveS();save();tmp={};go("home");return}
+function bkr(ok){if(ok&&tmp.bk){SNAP.keep("import");DB=tmp.bk;if(!DB.stats)DB.hist.forEach(function(x){addStat(x.c||"Sans matière",x.s,x.t)});SESS=null;saveS();save();tmp={};go("home");return}
  var t=$("#bt").value,o=null;tmp.bt=t;tmp.bk=null;try{o=JSON.parse(t)}catch(e){}var c=clean(o);if(c&&!ACT&&!(o&&o.dev===devId())){tmp.be="Pendant l’essai gratuit, tu ne peux restaurer qu’une sauvegarde faite sur ce téléphone. Active ScoreUp pour récupérer une sauvegarde d’un autre appareil.";c=null;tmp.bk=null;R(true);return}if(c){tmp.be="";tmp.bk=c}else tmp.be="Sauvegarde invalide : choisis le fichier exporté par ScoreUp, ou colle son contenu en entier.";R(true)}
 var DEMO=[{id:"demo-compta",name:"Comptabilité générale – Chapitre 1",cat:"Comptabilité",txt:`Q: Quel principe impose d’enregistrer chaque opération au débit d’un compte et au crédit d’un autre, pour le même montant ?
 A) La prudence
@@ -5851,7 +5923,7 @@ function anT(t,nm,ct){tmp.d={t:t,nm:nm||"",ct:ct||""};tmp.imp=/^\s*ANNALE\s*:/im
 function loadPdf(){return new Promise(function(res,rej){if(window.pdfjsLib)return res();var s=document.createElement("script");s.src="lib/pdf.js";s.onload=function(){window.pdfjsLib?res():rej()};s.onerror=rej;document.head.appendChild(s)})}
 function pdfText(buf){return loadPdf().then(function(){pdfjsLib.GlobalWorkerOptions.workerSrc="lib/pdf.worker.js";return pdfjsLib.getDocument({data:buf}).promise}).then(function(doc){var out="",p=Promise.resolve();for(var n=1;n<=doc.numPages;n++)(function(n){p=p.then(function(){return doc.getPage(n)}).then(function(pg){return pg.getTextContent()}).then(function(tc){var y=null,line="";tc.items.forEach(function(it){var ny=it.transform[5];if(y!==null&&Math.abs(ny-y)>2&&line){out+=line.trim()+"\n";line=""}y=ny;line+=it.str;if(it.hasEOL){out+=line.trim()+"\n";line=""}});if(line)out+=line.trim()+"\n"})})(n);return p.then(function(){if(!out.trim())throw 0;return out})})}
 function rf(i){var f=i.files[0];if(!f)return;var nm=$("#nm"),st=$("#st");if(!nm.value)nm.value=f.name.replace(/\.[^.]+$/,"");
- if(/\.pdf$/i.test(f.name)||f.type==="application/pdf"){st.textContent="Lecture du PDF… (connexion Internet requise)";var r=new FileReader();r.onload=function(){pdfText(r.result).then(function(t){$("#ta").value=t;an()},function(){st.textContent="Impossible de lire ce PDF. Vérifie ta connexion et que le PDF contient du vrai texte (pas une photo ni un scan). Tu peux aussi copier-coller le texte."})};r.readAsArrayBuffer(f);return}
+ if(/\.pdf$/i.test(f.name)||f.type==="application/pdf"){st.textContent="Lecture du PDF…";var r=new FileReader();r.onload=function(){pdfText(r.result).then(function(t){$("#ta").value=t;an()},function(){st.textContent="Impossible de lire ce PDF. Vérifie qu’il contient du vrai texte (pas une photo ni un scan). Tu peux aussi copier-coller le texte."})};r.readAsArrayBuffer(f);return}
  var r2=new FileReader();r2.onload=function(){$("#ta").value=String(r2.result);st.textContent=""};r2.readAsText(f)}
 function sv(){var I=tmp.imp,nm=tmp.d.nm||(I.an?"Annale du ":"Série du ")+dt(Date.now()),o={id:uid(),name:nm,questions:I.Q,kind:I.an?"an":I.ex?"ex":"qcm",cat:catAdd(tmp.d.ct),wrong:[]};if(I.an)o.dur=I.du||120;if(I.defi)o.defi={w:I.defi.w,g:I.defi.g};DB.sets.unshift(o);save();tmp={};go(o.kind==="an"?"ann":"home")}
 function del(id){if(tmp.del!==id){tmp.del=id;R(true);return}DB.sets=DB.sets.filter(function(s){return s.id!==id});dropKeys(id);if(SESS&&SESS.setId===id){SESS=null;saveS()}tmp.del=null;save();R(true)}
@@ -6234,7 +6306,7 @@ function anFin(){var S=SESS;if(!S||!S.gr||S.gr.some(function(v){return v===null}
 var V={
 home:function(){migr();gmInit();if(!DB.nv50){DB.nv50=1;DB.nv46=1;if(DB.sets.length&&!tmp.note)tmp.note="🆕 Nouveau : le bouton « Suivant » reste toujours visible, tu peux masquer les détails des corrigés et glisser pour passer à la question suivante. Et pour te motiver : points XP, niveaux, badges, objectif du jour et joker de série. Tout est expliqué dans le Guide.";save()}var st=streak(),f=(tmp.f>=0&&DB.cats[tmp.f])?DB.cats[tmp.f].n:null,h="<button class='back' style='float:right;margin-right:56px' onclick='theme()'>"+(curTh()==="dark"?"Mode clair":"Mode sombre")+"</button><h1>ScoreUp</h1>"+greet()+trialBanner()+bkBanner();
  if(tmp.note){h+="<div class='cd g'>"+tmp.note+"</div>";tmp.note=null}
- if(!store)h+="<div class='w'>Ce navigateur ne permet pas de sauvegarder : tes séries disparaîtront quand tu fermeras la page.</div>";
+ if(!store)h+="<div class='w'>Ce navigateur ne permet pas de sauvegarder : tes séries disparaîtront quand tu fermeras la page.</div>";else if(FULL)h+="<div class='w'>"+FULLMSG+"</div>";
  h+=progCard()+wkHome()+eclairBtn();
  h+=goalsCard()+revoir()+weakCard();
  if(IP)h+="<button class='btn s' onclick='inst()'>Installer ScoreUp sur l’écran d’accueil</button>";
@@ -6295,7 +6367,7 @@ info:function(){return "<button class='back' onclick='go(\"home\")'>← Retour</
 +"<div class='cd'><b>Les modes</b><p>QCM libre : la correction s’affiche après chaque réponse. Examen : tu choisis la durée, la correction vient à la fin, tu peux changer de réponse, et il se termine tout seul quand le temps est écoulé. Erreurs : seulement les questions ratées la dernière fois. Exercices : tu fais l’exercice sur papier, tu affiches le corrigé et tu te notes.</p></div>"
 +"<div class='cd'><b>Exercices et réponses chiffrées</b><p>Quand la question attend un nombre, tape-le (virgule ou point) : l’appli accepte une petite marge d’arrondi. Les tableaux écrits avec le symbole | (une ligne par ligne du tableau) s’affichent en vrai tableau. Pour les graphiques, note-toi toi-même avec le corrigé.</p></div>"
 +"<div class='cd'><b>Reprendre plus tard</b><p>« Quitter et reprendre plus tard » garde ta progression : touche « Reprendre » sur l’accueil. Il n’y a qu’une session en cours à la fois : en lancer une nouvelle remplace l’ancienne. Dans un examen, le chrono continue même si tu quittes.</p></div>"
-+"<div class='cd'><b>Hors ligne et installation</b><p>Après une première ouverture avec Internet, ScoreUp s’enregistre sur ton appareil et peut s’ouvrir sans connexion. Seule la lecture d’un PDF demande Internet. Pour l’avoir comme une appli : sur Android, menu du navigateur puis « Installer l’application » ; sur iPhone, bouton Partager puis « Sur l’écran d’accueil ».</p></div><div class='cd'><b>Séries d’exemple</b><p>5 séries de révision (chapitre 1) sont fournies pour tester ScoreUp : comptabilité, marketing, droit, management et statistiques, ainsi que 5 exercices corrigés de comptabilité (chapitres 1 et 2). Tu peux les supprimer, et ce bouton te les redonne.</p><button class='btn s' onclick='ad(this)'>Ajouter les séries d’exemple</button></div><div class='cd'><b>Nouveautés</b><p>Pendant les QCM, le bouton « Suivant » reste toujours visible en bas de l’écran, et « Masquer les détails » replie l’explication. Glisse vers la gauche pour passer à la question suivante. Les options d’une question (corriger, modifier, signaler) sont réunies dans le bouton ⋯. Pour te motiver : points XP, niveaux, badges, objectif du jour, joker de série, calendrier de révision, maîtrise de chaque série et image de résultat à partager.</p><p>Encore plus récent : « Révision éclair » (10 questions mélangées de toutes tes séries), révision de tes favoris en QCM, partage d’un badge en image et bilan de la semaine.</p></div><div class='cd'><b>Aussi dans ScoreUp</b><p>Matières avec couleurs (à l’import, ou depuis la liste), statistiques globales et par matière, série de jours de révision, flashcards (touche la carte pour voir la réponse) et mode sombre ou clair en haut de l’accueil, favoris (étoile), sauvegarde complète et mode transport (boutons de navigation en bas).</p></div>"
++"<div class='cd'><b>Hors ligne et installation</b><p>Après une première ouverture avec Internet, ScoreUp s’enregistre sur ton appareil et peut s’ouvrir sans connexion. Seule la lecture d’un PDF demande Internet. Pour l’avoir comme une appli : sur Android, menu du navigateur puis « Installer l’application » ; sur iPhone, bouton Partager puis « Sur l’écran d’accueil ».</p></div><div class='cd'><b>Séries d’exemple</b><p>5 séries de révision (chapitre 1) sont fournies pour tester ScoreUp : comptabilité, marketing, droit, management et statistiques, ainsi que 5 exercices corrigés de comptabilité (chapitres 1 et 2). Tu peux les supprimer, et ce bouton te les redonne.</p><button class='btn s' onclick='ad(this)'>Ajouter les séries d’exemple</button></div><div class='cd'><b>Nouveautés</b><p>Pendant les QCM, le bouton « Suivant » reste toujours visible en bas de l’écran, et « Masquer les détails » replie l’explication. Glisse vers la gauche pour passer à la question suivante. Les options d’une question (corriger, modifier, signaler) sont réunies dans le bouton ⋯. Pour te motiver : points XP, niveaux, badges, objectif du jour, joker de série, calendrier de révision, maîtrise de chaque série et image de résultat à partager.</p><p>Encore plus récent : « Révision éclair » (10 questions mélangées de toutes tes séries), révision de tes favoris en QCM, partage d’un badge en image et bilan de la semaine.</p></div><div class='cd'><b>Aussi dans ScoreUp</b><p>Matières avec couleurs (à l’import, ou depuis la liste), statistiques globales et par matière, série de jours de révision, flashcards (touche la carte pour voir la réponse) et mode sombre ou clair en haut de l’accueil, favoris (étoile), sauvegarde complète avec copies automatiques de secours sur le téléphone (14 jours) et mode transport (boutons de navigation en bas).</p></div>"
 +"<div class='cd'><b>Pendant les QCM</b><p>Le bouton « Suivant » reste en bas de l’écran : plus besoin de descendre. Touche « Masquer les détails » pour replier l’explication et l’avertissement ; ton choix est gardé pour les prochaines séances. Tu peux aussi glisser vers la gauche pour passer à la question suivante, et vers la droite pour revenir en arrière en mode Examen. Le bouton ⋯ réunit « Corriger cette réponse », « Modifier toute la question » et « Signaler comme douteuse ». La barre du haut se colore : vert pour une bonne réponse, rouge pour une erreur.</p></div>"
 +"<div class='cd'><b>⌨️ Sur ordinateur</b><p>Réponds avec les touches A, B, C, D (ou 1, 2, 3, 4), puis Entrée ou la flèche droite pour passer à la suite. La flèche gauche revient en arrière en mode Examen.</p></div>"
 +"<div class='cd'><b>⚡ XP, niveaux et badges</b><p>Chaque bonne réponse rapporte 10 XP. Une séance d’au moins 5 questions rapporte 20 XP de plus, et un sans-faute (10 questions ou plus) 50 XP. Enchaîne les bonnes réponses pour faire un combo : à partir de 5 d’affilée, tu gagnes un bonus. Les XP font monter ton niveau, de Débutant à Légende. Les badges récompensent ta régularité et tes exploits : retrouve-les dans le menu ☰, « Mes badges ».</p></div>"
@@ -6333,7 +6405,7 @@ reg:function(){var th=null;try{th=localStorage.getItem("qcm_th")}catch(e){}th=th
  h+="<div class='cd'><b>💾 Mes données</b><p class='mu'>"+DB.sets.length+" série"+(DB.sets.length>1?"s":"")+" · "+DB.hist.length+" résultat"+(DB.hist.length>1?"s":"")+" dans l’historique · "+DB.fav.length+" favori"+(DB.fav.length>1?"s":"")+"</p><button class='btn s' onclick='go(\"bk\")'>Sauvegarder ou restaurer</button><button class='btn d' onclick='rgClear(\"h\")'>"+(tmp.rc==="h"?"Confirmer : effacer historique et statistiques":"Effacer l’historique et les statistiques")+"</button><p class='mu'>Tes séries sont gardées.</p></div>";
  h+="<div class='cd'><b>🤝 Inviter un camarade</b><p class='mu'>Montre-lui le QR code de l’appli ou envoie-lui le lien sur WhatsApp.</p><button class='btn s' onclick='suInvite()'>Inviter</button></div>";
  h+="<div class='cd'><b>📚 Aide</b><div class='row'><button class='btn s' onclick='go(\"info\")'>Guide</button><button class='btn s' onclick='go(\"help\")'>Comment faire</button></div></div>";
- h+="<div class='cd'><b>ℹ️ À propos</b>"+tlBrand(1)+"<p class='mu'>ScoreUp · Thousand Labs · WhatsApp 71 121 65 81</p><p class='mu'>Site officiel : <a href='https://thousandlabs.github.io/ScoreUp/' target='_blank' rel='noopener' style='color:var(--ac)'>thousandlabs.github.io/ScoreUp</a></p><p class='mu'>Stockage : "+(store?"✅ enregistré dans ce navigateur":"⚠️ indisponible (navigation privée ?)")+"</p></div>";
+ h+="<div class='cd'><b>ℹ️ À propos</b>"+tlBrand(1)+"<p class='mu'>ScoreUp · Thousand Labs · WhatsApp 71 121 65 81</p><p class='mu'>Site officiel : <a href='https://thousandlabs.github.io/ScoreUp/' target='_blank' rel='noopener' style='color:var(--ac)'>thousandlabs.github.io/ScoreUp</a></p><p class='mu'>Stockage : "+(!store?"⚠️ indisponible (navigation privée ?)":FULL?"⚠️ mémoire pleine":"✅ enregistré dans ce navigateur")+"</p></div>";
  h+="<div class='cd b'><b>⚠️ Zone sensible</b><button class='btn d' onclick='rgClear(\"all\")'>"+(tmp.rc==="all"?"Confirmer : tout effacer":"Tout effacer (séries, historique, favoris)")+"</button><p class='mu'>L’activation et ton prénom sont conservés. Fais une sauvegarde avant.</p></div>";
  return h},
 fav:function(){var h="<button class='back' onclick='go(\"home\")'>← Retour</button><h1>Favoris ★</h1>",n=0,fp=favPool().length;if(fp)h+="<button class='btn' onclick='favQuiz()'><span>Réviser mes favoris en QCM</span> · <span>"+fp+"</span></button>";
@@ -6342,7 +6414,13 @@ fav:function(){var h="<button class='back' onclick='go(\"home\")'>← Retour</bu
  if(!n)h+="<p class='mu'>Aucune question en favori. Touche l’étoile ☆ pendant un quiz pour en ajouter.</p>";return h},
 bk:function(){var b=tmp.bk,h="<button class='back' onclick='go(\"home\")'>← Retour</button><h1>Sauvegarde</h1><p class='mu'>Garde une copie de tout (séries, historique, statistiques, matières, favoris), ou récupère-la sur un nouveau téléphone. Le code d’activation n’est pas inclus : un nouvel appareil a besoin de son propre code.</p>";
  h+="<div class='cd'><b>Exporter</b><button class='btn' onclick='bkx()'>Exporter toutes mes données (Backup)</button><button class='btn s' onclick='bkc(this)'>Copier la sauvegarde</button><p class='mu'>Si le téléchargement ne démarre pas, utilise « Copier la sauvegarde » et colle-la dans un message ou un fichier.</p></div>";
- h+="<div class='cd'><b>Restaurer</b><p class='mu'>Choisis ton fichier de sauvegarde, ou colle son contenu.</p><input type='file' id='bf' accept='.json,application/json' onchange='bkf(this)'><textarea id='bt' placeholder='Contenu de la sauvegarde…'>"+esc(tmp.bt||"")+"</textarea>"+(b?"<div class='w'>La sauvegarde contient "+b.sets.length+" série"+(b.sets.length>1?"s":"")+". Elle remplacera toutes les données actuelles de cet appareil. Confirmer ?</div><button class='btn' onclick='bkr(1)'>Oui, tout restaurer</button>":"<button class='btn s' onclick='bkr(0)'>Restaurer mes données</button>")+"<p class='er'>"+esc(tmp.be||"")+"</p></div>";return h},
+ h+="<div class='cd'><b>Restaurer</b><p class='mu'>Choisis ton fichier de sauvegarde, ou colle son contenu.</p><input type='file' id='bf' accept='.json,application/json' onchange='bkf(this)'><textarea id='bt' placeholder='Contenu de la sauvegarde…'>"+esc(tmp.bt||"")+"</textarea>"+(b?"<div class='w'>La sauvegarde contient "+b.sets.length+" série"+(b.sets.length>1?"s":"")+". Elle remplacera toutes les données actuelles de cet appareil. Confirmer ?</div><button class='btn' onclick='bkr(1)'>Oui, tout restaurer</button>":"<button class='btn s' onclick='bkr(0)'>Restaurer mes données</button>")+"<p class='er'>"+esc(tmp.be||"")+"</p></div>";
+ h+="<div class='cd'><b>Copies automatiques</b><p class='mu'>À chaque modification, ScoreUp garde seul une copie sur ce téléphone, sans Internet : une par jour sur les 14 derniers jours, et une avant chaque restauration ou effacement. Si tes données disparaissent, elles sont récupérées automatiquement à l’ouverture.</p>";
+ if(!tmp.sn)h+="<button class='btn s' onclick='snapUI()'>Voir les copies automatiques</button>";
+ else if(tmp.sn==="…")h+="<p class='mu'>Chargement…</p>";
+ else if(!tmp.sn.length)h+="<p class='mu'>Aucune copie automatique pour l’instant.</p>";
+ else{var KN={day:"Copie du jour",restore:"Avant restauration",import:"Avant import",wipe:"Avant effacement"};tmp.sn.forEach(function(x){var d=new Date(x.t);h+="<div class='cd' style='margin:8px 0'><b>"+esc(d.toLocaleDateString(TLL.lang()==="en"?"en-GB":"fr-FR",{weekday:"short",day:"numeric",month:"short"})+" · "+d.toLocaleTimeString(TLL.lang()==="en"?"en-GB":"fr-FR",{hour:"2-digit",minute:"2-digit"}))+"</b><p class='mu'>"+(KN[x.kind]||KN.day)+" · "+x.n+" élément"+(x.n>1?"s":"")+"</p><button class='btn s' onclick='snapRes(\""+esc(x.key)+"\")'>"+(tmp.snc===x.key?"Confirmer : remplacer mes données":"Restaurer cette copie")+"</button></div>"})}
+ h+="<p class='mu'>Ces copies restent sur ce téléphone : si tu perds le téléphone ou effaces toutes les données du site, seul le fichier exporté te protège.</p></div>";return h},
 stats:function(){var S=DB.stats,h="<button class='back' onclick='go(\"home\")'>← Retour</button><h1>Statistiques</h1>",st=streak();
  if(!S||!S.t.n)return h+"<p class='mu'>Fais une première séance pour voir tes statistiques.</p>";
  var t=S.t,pc=Math.round(t.s/t.t*100);
@@ -6565,7 +6643,7 @@ document.addEventListener("visibilitychange",function(){if(!document.hidden&&!AC
 
 function rgName(rm){var v=rm?"":(($("#rgn")||{}).value||"").replace(/\s+/g," ").trim().slice(0,24);if(v)lss("qcm_name",v);else lsr("qcm_name");lss("qcm_hello","1");R(true)}
 function rgTheme(t){if(t==="auto"){document.documentElement.removeAttribute("data-theme");lsr("qcm_th")}else{document.documentElement.setAttribute("data-theme",t);lss("qcm_th",t)}R(true)}
-function rgClear(k){if(tmp.rc!==k){tmp.rc=k;R(true);return}tmp.rc=null;
+function rgClear(k){if(tmp.rc!==k){tmp.rc=k;R(true);return}tmp.rc=null;SNAP.keep("wipe");
  if(k==="h"){DB.hist=[];DB.stats=null;DB.days={};DB.streak=0;DB.best=0;DB.last="";DB.gm=cgm({gl:GM().gl,i:1})}
  else{DB={sets:[],hist:[],cats:[],fav:[],seeded:true,days:{},stats:null,last:"",streak:0,best:0,srs:{},goals:[],mg:2,gm:cgm({gl:GM().gl,i:1}),nv46:1,nv50:1};SESS=null;saveS()}
  save();R(true)}
@@ -6678,6 +6756,6 @@ function unlock(){var c=$("#gc").value.replace(/\s+/g,"").replace(/^SUCODE:/i,""
  if(!(window.crypto&&crypto.subtle)){$("#ge").textContent="Ouvre l’appli depuis son lien https pour pouvoir l’activer.";return}
  $("#ge").textContent="Vérification…";chkCode(c).then(function(ok){if(ok){try{localStorage.setItem("qcm_act",c)}catch(e){}activated();afterAccess()}else $("#ge").textContent="Code invalide pour cet appareil. Vérifie que tu l’as copié en entier et qu’il correspond à l’identifiant affiché."})}
 if("serviceWorker" in navigator&&location.protocol.indexOf("http")===0)navigator.serviceWorker.register("sw.js").catch(function(){});
-load();seed();boot();
+Promise.race([SNAP.heal(),new Promise(function(r){setTimeout(function(){r(false)},2000)})]).then(function(h){load();seed();boot();if(h)setTimeout(function(){suToast("Données récupérées automatiquement depuis la copie de secours ✓")},600)});
 (function(){var pv=TLL.onchange;TLL.onchange=function(l){if(pv)try{pv(l)}catch(e){}if((view==="reg"&&document.getElementById("rgn"))||(l==="fr"&&document.querySelector("[data-tlic]")))R(true)}})();
 </script></body></html>
