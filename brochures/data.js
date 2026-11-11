@@ -36,7 +36,7 @@ module.exports = [
     ['Puis-je essayer avant de payer ?', 'Oui : 48 heures d’essai complet dès la première ouverture, sans code.'],
     [WAQ, 'Wave, Orange Money ou espèces, directement depuis l’écran d’activation. Ton code arrive sur WhatsApp.'],
     ['Faut-il Internet ?', 'Seulement pour la première ouverture et la lecture d’un PDF. Le reste marche hors ligne.'],
-    ['Et si je change de téléphone ?', 'Exporte ta sauvegarde, demande un nouveau code, puis restaure-la.']
+    ['Et si je change de téléphone ?', 'Exporte ta sauvegarde, puis Réglages › « Transférer ma licence » : tu reçois le code du nouveau téléphone sans repayer.']
   ],
   trialText: 'Tout est débloqué dès la première ouverture, sans code. Une seule fois par téléphone. À la fin, active l’appli avec ton code : tes séries et tes résultats sont conservés.',
   foot2: 'Données 100 % sur ton téléphone · aucune inscription'
@@ -74,7 +74,7 @@ module.exports = [
     ['Puis-je essayer avant de payer ?', 'Oui : 48 heures d’essai complet, sans code. Vos données sont gardées ensuite.'],
     [WAQ, 'Wave, Orange Money ou espèces, directement depuis l’écran d’activation. Le code arrive sur WhatsApp.'],
     ['Mes données sont-elles envoyées quelque part ?', 'Non. Tout reste sur votre téléphone, sans compte ni inscription.'],
-    ['Et si je change de téléphone ?', 'Exportez votre sauvegarde, demandez un nouveau code, puis importez-la.']
+    ['Et si je change de téléphone ?', 'Exportez votre sauvegarde, puis Réglages › « Transférer ma licence » : vous recevez le code du nouveau téléphone sans repayer.']
   ],
   trialText: 'Sur l’écran d’activation, touchez « Essayer gratuitement 48 h » : toutes les fonctions de Budget Flow pendant 48 h, sans code. Une seule fois par téléphone. À la fin, activez l’appli avec votre code : vos données sont conservées.',
   foot2: 'Données 100 % sur votre téléphone · aucune inscription'
@@ -113,7 +113,7 @@ module.exports = [
     ['Comment sont partagés les gains ?', 'Le responsable choisit la règle : vendeur + caisse commune, ou % fixes. Il peut changer quand il veut.'],
     [WAQ, 'Wave, Orange Money ou espèces, depuis l’écran d’activation. Une seule personne peut payer pour toute l’équipe.'],
     ['Faut-il Internet pour la synchro ?', 'Un peu de réseau pour la synchro automatique. Sans Internet : WhatsApp, fichier ou QR code.'],
-    ['Et si je change de téléphone ?', 'Téléchargez votre sauvegarde, demandez un nouveau code, puis restaurez-la.']
+    ['Et si je change de téléphone ?', 'Téléchargez votre sauvegarde, puis Réglages › « Transférer ma licence » : vous recevez le code du nouveau téléphone sans repayer.']
   ],
   trialText: 'Sur l’écran d’activation, touchez « Essayer gratuitement 48 h » : toutes les fonctions de Nexus Track pendant 48 h, sans code. Une seule fois par téléphone. À la fin, activez l’appli avec votre code : vos données sont conservées.',
   foot2: 'Données chiffrées · aucune inscription'
@@ -151,7 +151,7 @@ module.exports = [
     ['Faut-il Internet ?', 'Seulement pour la première ouverture. Ensuite tout fonctionne hors ligne.'],
     [WAQ, 'Wave, Orange Money ou espèces, directement depuis l’écran d’activation. Le code arrive sur WhatsApp.'],
     ['Les tarifs sont-ils officiels ?', 'Oui : grille Senelec en vigueur (CRSE, 1er janvier 2026), modifiable dans les réglages.'],
-    ['Et si je change de téléphone ?', 'Exportez votre sauvegarde, demandez un nouveau code, puis importez-la.']
+    ['Et si je change de téléphone ?', 'Exportez votre sauvegarde, puis Réglages › « Transférer ma licence » : vous recevez le code du nouveau téléphone sans repayer.']
   ],
   trialText: 'Sur l’écran d’activation, touchez « Essayer gratuitement 48 h » : toutes les fonctions de Power Log pendant 48 h, sans code. Une seule fois par téléphone. À la fin, activez l’appli avec votre code : vos données sont conservées.',
   foot2: 'Données 100 % sur votre téléphone · aucune inscription'
