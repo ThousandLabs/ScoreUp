@@ -8,18 +8,18 @@ module.exports = [
   tagline: 'Révise mieux. Progresse plus vite.',
   desc: 'L’appli de révision avec QCM, examens chronométrés, flashcards et exercices corrigés. Fonctionne hors ligne, sur ton téléphone, en français ou en anglais.',
   pills: ['Élèves', 'Étudiants', 'Préparation d’examens', 'Profs & formateurs'],
-  news: ['Graphiques dans les corrigés', 'Diagrammes circulaires', 'Copies de secours automatiques', 'Révision éclair'],
+  news: ['Outils de révision au choix', 'Écritures au journal', 'Lecture à voix haute', 'Démarrage plus rapide'],
   features: [
     { i: 'check', t: 'QCM interactifs', d: 'Réponds, vois tout de suite si c’est juste, avec l’explication de la bonne réponse.' },
     { i: 'timer', t: 'Mode examen chronométré', d: 'Mets-toi en conditions réelles et découvre ta note à la fin.' },
     { i: 'school', t: 'Les séries de ton école', d: 'Choisis ton école (Management, Droit, Ingénieurs, Digital Campus, Madiba) : 5 séries de 20 QCM niveau L1, prêtes à réviser.' },
-    { i: 'sparkle', t: 'Tes cours en questions', n: 1, d: 'Prompt fourni, accès direct à Gemini, ChatGPT ou Claude, puis collage ou partage vers ScoreUp en une touche.' },
-    { i: 'repeat', t: 'Révision éclair', n: 1, d: '10 questions de toutes tes séries en un toucher, en commençant par tes erreurs à revoir aujourd’hui.' },
-    { i: 'pencil', t: 'Corrigés sous contrôle', n: 1, d: 'Signale une question douteuse, fais vérifier la série par une 2e IA, corrige la réponse en 2 secondes.' },
-    { i: 'book', t: 'Exercices et annales corrigés', n: 1, d: 'Corrigé détaillé, avec courbes cumulatives, histogrammes et diagrammes circulaires dessinés tout seuls.' },
-    { i: 'cards', t: 'Motivation au quotidien', n: 1, d: 'XP, niveaux, badges, combo, objectif du jour et joker pour garder ta série de jours. Flashcards incluses.' },
-    { i: 'menu', t: 'Tout à portée de main', d: 'Le menu ☰ ouvre statistiques, historique, favoris, sauvegarde et réglages depuis n’importe quel écran.' },
-    { i: 'share', t: 'Partage entre amis', d: 'Exporte une série de questions et envoie-la à un camarade.' }
+    { i: 'sparkle', t: 'Tes cours en questions', d: 'Prompt fourni, accès direct à Gemini, ChatGPT ou Claude, puis collage ou partage vers ScoreUp en une touche.' },
+    { i: 'repeat', t: 'Révision éclair', d: '10 questions de toutes tes séries en un toucher, en commençant par tes erreurs à revoir aujourd’hui.' },
+    { i: 'pencil', t: 'Corrigés sous contrôle', d: 'Signale une question douteuse, fais vérifier la série par une 2e IA, corrige la réponse en 2 secondes.' },
+    { i: 'book', t: 'Exercices et annales corrigés', d: 'Corrigé détaillé, avec courbes cumulatives, histogrammes et diagrammes circulaires dessinés tout seuls.' },
+    { i: 'cards', t: 'Motivation au quotidien', d: 'XP, niveaux, badges, combo, objectif du jour et joker pour garder ta série de jours. Flashcards incluses.' },
+    { i: 'target', t: 'Outils de révision au choix', n: 1, d: 'Lecture à voix haute, minuteur de sessions, « j’ai deviné », réponse d’abord, temps par question, fiche d’erreurs en PDF. Chacun s’active ou se désactive.' },
+    { i: 'receipt', t: 'Écritures au journal', n: 1, d: 'Exercices de comptabilité en 3 niveaux (débutant à avancé), avec rappel de cours et correction calculée par l’appli.' }
   ],
   steps3Title: 'Réviser avec ScoreUp, en 3 étapes',
   steps3: [
