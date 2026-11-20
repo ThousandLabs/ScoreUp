@@ -8,7 +8,7 @@ module.exports = [
   tagline: 'Révise mieux. Progresse plus vite.',
   desc: 'L’appli de révision avec QCM, examens chronométrés, flashcards et exercices corrigés. Fonctionne hors ligne, sur ton téléphone, en français ou en anglais.',
   pills: ['Élèves', 'Étudiants', 'Préparation d’examens', 'Profs & formateurs'],
-  news: ['Outils de révision au choix', 'Écritures au journal', 'Lecture à voix haute', 'Démarrage plus rapide'],
+  news: ['Offre Examens : 2 000 F pour 1 mois', 'Outils de révision au choix', 'Écritures au journal', 'Lecture à voix haute'],
   features: [
     { i: 'check', t: 'QCM interactifs', d: 'Réponds, vois tout de suite si c’est juste, avec l’explication de la bonne réponse.' },
     { i: 'timer', t: 'Mode examen chronométré', d: 'Mets-toi en conditions réelles et découvre ta note à la fin.' },
@@ -29,14 +29,14 @@ module.exports = [
   ],
   chips: [['phone', 'Android & iPhone'], ['wifioff', 'Hors ligne'], ['lock', 'Sans compte ni abonnement'], ['globe', 'Français · English'], ['qr', 'Activation QR']],
   trialStep: 'Tout est gratuit pendant 48 heures dès la première ouverture, sans code.',
-  priceTitle: 'Tarifs — paiement unique',
-  plans: [['1 personne', '5 000 F'], ['2 personnes', '9 000 F'], ['5 personnes', '21 000 F']],
-  priceNote: '48 h d’essai gratuit avant de payer. Un code par téléphone. Une IA peut se tromper : vérifie toujours les corrigés générés avec ton cours.',
+  priceTitle: 'Tarifs — sans abonnement',
+  plans: [['Offre Examens · 1 mois (1 personne)', '2 000 F'], ['À vie · 1 personne', '5 000 F'], ['À vie · 2 personnes', '9 000 F'], ['À vie · 5 personnes', '21 000 F']],
+  priceNote: '48 h d’essai gratuit avant de payer. Passage de l’offre Examens à l’offre à vie : 3 000 F. Un code par téléphone. Une IA peut se tromper : vérifie toujours les corrigés générés avec ton cours.',
   faq: [
     ['Puis-je essayer avant de payer ?', 'Oui : 48 heures d’essai complet dès la première ouverture, sans code.'],
     [WAQ, 'Wave, Orange Money ou espèces, directement depuis l’écran d’activation. Ton code arrive sur WhatsApp.'],
     ['Faut-il Internet ?', 'Seulement pour la première ouverture et la lecture d’un PDF. Le reste marche hors ligne.'],
-    ['Et si je change de téléphone ?', 'Exporte ta sauvegarde, puis Réglages › « Transférer ma licence » : tu reçois le code du nouveau téléphone sans repayer.']
+    ['Et si je change de téléphone ?', 'Avec l’offre à vie : exporte ta sauvegarde, puis Réglages › « Transférer ma licence » : tu reçois le code du nouveau téléphone sans repayer.']
   ],
   trialText: 'Tout est débloqué dès la première ouverture, sans code. Une seule fois par téléphone. À la fin, active l’appli avec ton code : tes séries et tes résultats sont conservés.',
   foot2: 'Données 100 % sur ton téléphone · aucune inscription'
